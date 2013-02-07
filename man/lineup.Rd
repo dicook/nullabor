@@ -1,0 +1,53 @@
+\name{lineup}
+\alias{lineup}
+\title{The line-up protocol.}
+\usage{
+  lineup(method, true = NULL, n = 20, pos = sample(n, 1),
+    samples = NULL)
+}
+\arguments{
+  \item{method}{method for generating null data sets}
+
+  \item{true}{true data set. If \code{NULL},
+  \code{\link{find_plot_data}} will attempt to extract it
+  from the current ggplot2 plot.}
+
+  \item{n}{total number of samples to generate (including
+  true data)}
+
+  \item{pos}{position of true data.  Leave missing to pick
+  position at random.  Encryped position will be printed on
+  the command line, \code{\link{decrypt}} to understand.}
+
+  \item{samples}{samples generated under the null
+  hypothesis. Only specify this if you don't want lineup to
+  generate the data for you.}
+}
+\description{
+  In this protocol the plot of the real data is embedded
+  amongst a field of plots of data generated to be
+  consistent with some null hypothesis. If the observe can
+  pick the real data as different from the others, this
+  lends weight to the statistical significance of the
+  structure in the plot. The protocol is described in Buja,
+  Cook, Hofmann, Lawrence, Lee, Swayne, Wickham (2009)
+  Statistical inference for exploratory data analysis and
+  model diagnostics, Phil. Trans. R. Soc. A, 367,
+  4361-4383.
+}
+\details{
+  Generate n - 1 null datasets and randomly position the
+  true data.  If you pick the real data as being noticeably
+  different, then you have formally established that it is
+  different to with p-value 1/n.
+}
+\examples{
+if (require("ggplot2")) {
+qplot(mpg, wt, data = mtcars) \%+\%
+  lineup(null_permute("mpg"), mtcars) +
+  facet_wrap(~ .sample)
+qplot(mpg, .sample, data = lineup(null_permute("cyl"), mtcars),
+  colour = factor(cyl))
+}
+}
+

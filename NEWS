@@ -1,0 +1,4 @@
+Version 0.2
+------------------------------------------------------------------------------
+
+* example and namespace fixes to be compatible with ggplot2 0.9.

@@ -1,0 +1,15 @@
+\name{resid_boot}
+\alias{resid_boot}
+\title{Bootstrap residuals.}
+\usage{
+  resid_boot(model, data)
+}
+\arguments{
+  \item{model}{to extract residuals from}
+
+  \item{data}{used to fit model}
+}
+\description{
+  For use with \code{\link{null_lm}}
+}
+
