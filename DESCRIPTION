@@ -21,3 +21,4 @@ Collate:
     'method-model.r'
     'method-permute.r'
     'protocols.r'
+    'distmet.r'
