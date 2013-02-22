@@ -1,5 +1,6 @@
 
-# This function calculates the distance between densities
+#' Calculates the distance between densities
+#'
 
 wbdist_fun = function(z1, z2) {
 	sqrt(sum((z1 - z2)^2)/(sum(z1^2) * sum(z2^2)))
@@ -11,8 +12,11 @@ res = MASS::kde2d(dat[, 1], dat[, 2], n = nbins, lims = c(range(dat[, 1]), range
 res$z
 }
 
-# This function calculates the mean distance between the null datasets given 
-# the number of samples and the null generating mechanism
+#' Calculates the mean distance between the null datasets 
+#' @param dat observed data set using
+#' @param no.samp number of samples
+#' @param method null generating mechanism
+#'
 
 mean_met <- function(dat, no.samp, method){
 	z1 = dens_z(dat)
@@ -24,9 +28,12 @@ mean_met <- function(dat, no.samp, method){
   mean(dat1[,2])
 }
 
-# Given the number of replicates, the null generating mechanism and the number 
-# of samples in each replicate, this function calculates the mean distance for
-# the different number of samples
+#' Calculates the mean distance for all replicates
+#' @param dat observed data set using
+#' @param repl the number of replicates
+#' @param no.samp number of samples
+#' @param method null generating mechanism
+#'
 
 all_sample = function(dat, repl, no.samp, method) {
 	mean.WBdist_all <- NULL	
@@ -45,8 +52,12 @@ return(mean.WBdist_all)
 
 
 
-# This function calculates the mean distance of the number of samples for each 
-# plot in the lineup. Here the input should be the lineup data.
+#' Calculates the mean distance for each plot in the lineup.
+#' @param dat lineup data
+#' @param no.samp number of samples
+#' @param method null generating mechanism
+#'
+
 
 mean.samp <- function(dat, no.samp, method){
 	dat1 <- NULL
@@ -56,9 +67,20 @@ for (i in 1:length(unique(dat$.sample))){
 return(dat1)
 }
 
-# Given the lineup data, null generating mechanism and the position of the true 
-# data, this function calculates the distance measures and also provides a
-# distribution of the distance measures. 
+
+#' Calculates the distance measures
+#' @param dat lineup data
+#' @param method method for generating null data sets
+#' @param pos position of the observed data in the lineup
+#' @param meas.distr LOGICAL; if TRUE, returns the distn of the distance measures, by default FALSE
+#' @param plot LOGICAL; if TRUE and if meas.distr is TRUE, returns density plot showing the distn of 
+#' the measures
+#' @param repl the number of replicates
+#' @param no.samp number of samples
+#'
+#' @author Niladri Roy Chowdhury \email{niladrir@iastate.edu}
+#'
+
 
 distmet <- function(dat, method, pos, meas.distr = FALSE, plot = FALSE, repl = 10000, no.samp = 10 ){
 	if(missing(method)){
