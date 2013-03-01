@@ -13,6 +13,8 @@ res$z
 }
 
 #' Calculates the mean distance between the null datasets 
+#'
+#' @export
 #' @param dat observed data set using
 #' @param no.samp number of samples
 #' @param method null generating mechanism
@@ -29,6 +31,8 @@ mean_met <- function(dat, no.samp, method){
 }
 
 #' Calculates the mean distance for all replicates
+#'
+#' @export
 #' @param dat observed data set using
 #' @param repl the number of replicates
 #' @param no.samp number of samples
@@ -53,6 +57,8 @@ return(mean.WBdist_all)
 
 
 #' Calculates the mean distance for each plot in the lineup.
+#'
+#' @export
 #' @param dat lineup data
 #' @param no.samp number of samples
 #' @param method null generating mechanism
@@ -69,6 +75,8 @@ return(dat1)
 
 
 #' Calculates the distance measures
+#'
+#' @export
 #' @param dat lineup data
 #' @param method method for generating null data sets
 #' @param pos position of the observed data in the lineup
