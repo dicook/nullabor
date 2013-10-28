@@ -7,6 +7,7 @@ Maintainer: Hadley Wickham <h.wickham@gmail.com>
 License: GPL
 Imports:
     MASS,
+    reshape,
     ggplot2,
     plyr
 Suggests:
@@ -22,3 +23,5 @@ Collate:
     'method-permute.r'
     'protocols.r'
     'distmet.r'
+    'distances.r'
+    'opt_diff.r'

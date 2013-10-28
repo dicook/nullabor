@@ -2,30 +2,32 @@
 \alias{distmet}
 \title{Calculates the distance measures}
 \usage{
-  distmet(dat, method, pos, meas.distr = FALSE,
-    plot = FALSE, repl = 10000, no.samp = 10)
+  distmet(lineup.dat, met, method, pos, m = 20,
+    dist.arg = NULL, plot = TRUE)
 }
 \arguments{
-  \item{dat}{lineup data}
+  \item{lineup.dat}{lineup data}
+
+  \item{met}{distance metric needed to calculate the
+  distance}
 
   \item{method}{method for generating null data sets}
 
   \item{pos}{position of the observed data in the lineup}
 
-  \item{meas.distr}{LOGICAL; if TRUE, returns the distn of
-  the distance measures, by default FALSE}
+  \item{m}{the number of plots in the lineup; m = 20 by
+  default}
 
-  \item{plot}{LOGICAL; if TRUE and if meas.distr is TRUE,
-  returns density plot showing the distn of the measures}
+  \item{dist.arg}{a vector of inputs for the distance
+  metric met; NULL by default}
 
-  \item{repl}{the number of replicates}
-
-  \item{no.samp}{number of samples}
+  \item{plot}{LOGICAL; if TRUE, returns density plot
+  showing the distn of the measures; TRUE by default}
 }
 \description{
   Calculates the distance measures
 }
 \author{
-  Niladri Roy Chowdhury \email{niladrir
+  Niladri Roy Chowdhury
 }
 
