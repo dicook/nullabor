@@ -86,7 +86,7 @@ return(dat1)
 #' @param repl the number of replicates
 #' @param no.samp number of samples
 #'
-#' @author Niladri Roy Chowdhury \email{niladrir@iastate.edu}
+#' @author Niladri Roy Chowdhury 
 #'
 
 
