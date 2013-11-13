@@ -2,7 +2,7 @@
 \alias{resid_boot}
 \title{Bootstrap residuals.}
 \usage{
-  resid_boot(model, data)
+resid_boot(model, data)
 }
 \arguments{
   \item{model}{to extract residuals from}
@@ -12,4 +12,3 @@
 \description{
   For use with \code{\link{null_lm}}
 }
-

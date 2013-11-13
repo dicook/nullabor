@@ -2,7 +2,7 @@
 \alias{mean_met}
 \title{Calculates the mean distance between the null datasets}
 \usage{
-  mean_met(dat, no.samp, method)
+mean_met(dat, no.samp, method)
 }
 \arguments{
   \item{dat}{observed data set using}
@@ -14,4 +14,3 @@
 \description{
   Calculates the mean distance between the null datasets
 }
-

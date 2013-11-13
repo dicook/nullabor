@@ -2,7 +2,7 @@
 \alias{null_dist}
 \title{Generate null data with a specific distribution.}
 \usage{
-  null_dist(var, dist, params = NULL)
+null_dist(var, dist, params = NULL)
 }
 \arguments{
   \item{var}{variable name}
@@ -24,4 +24,3 @@
 \description{
   Null hypothesis: variable has specified distribution
 }
-

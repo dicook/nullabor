@@ -5,7 +5,7 @@ and the null plots in a lineup. also calculates the mean distance of the
 null plots among themselves and finds the difference between the mean
 distance of the true plot and the maximum mean distance of the null plots}
 \usage{
-  calc_diff(lineup.dat, X.bin, Y.bin, pos, m = 20)
+calc_diff(lineup.dat, X.bin, Y.bin, pos, m = 20)
 }
 \arguments{
   \item{lineup.dat}{lineup data to get the lineup}
@@ -31,4 +31,3 @@ distance of the true plot and the maximum mean distance of the null plots}
   distance of the true plot and the maximum mean distance
   of the null plots
 }
-
