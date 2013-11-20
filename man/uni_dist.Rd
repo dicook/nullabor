@@ -2,7 +2,7 @@
 \alias{uni_dist}
 \title{Distance for univariate data}
 \usage{
-uni_dist(X, PX)
+  uni_dist(X, PX)
 }
 \arguments{
   \item{X}{a data.frame where the first column is only
@@ -17,3 +17,7 @@ uni_dist(X, PX)
 \description{
   distance is calculated based on the first four moments
 }
+\examples{
+uni_dist(rnorm(100), rpois(100, 2))
+}
+

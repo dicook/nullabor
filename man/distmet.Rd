@@ -2,7 +2,8 @@
 \alias{distmet}
 \title{Calculates the distance measures}
 \usage{
-distmet(lineup.dat, met, method, pos, m = 20, dist.arg = NULL, plot = TRUE)
+  distmet(lineup.dat, met, method, pos, dist.arg = NULL,
+    m = 20)
 }
 \arguments{
   \item{lineup.dat}{lineup data}
@@ -26,6 +27,12 @@ distmet(lineup.dat, met, method, pos, m = 20, dist.arg = NULL, plot = TRUE)
 \description{
   Calculates the distance measures
 }
-\author{
-  Niladri Roy Chowdhury
+\examples{
+lineup.dat <- subset(lineup(null_permute('mpg'), mtcars, pos = 10), select =
+c(mpg, wt, .sample))
+dat <- distmet(lineup.dat, reg_dist, null_permute('mpg'), pos = 10) ## using regression
+based distance
+dat <- distmet(lineup.dat, bin_dist, null_permute('mpg'), pos = 10, dist.arg = c(lineup =
+TRUE, X.bin = 5, Y.bin = 5)) ## using binned distance
 }
+

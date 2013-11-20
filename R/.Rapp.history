@@ -1,0 +1,1036 @@
+X <- data.frame(x = rnorm(100, 10))#
+#
+lineup.dat <- lineup(null_dist("x", dist = "t"), true = X, pos = pos)#
+#
+qplot(x, geom = "histogram", data = lineup.dat) + facet_wrap(~ .sample)#
+#
+ptm1 <- proc.time()#
+distmet(lineup.dat, "uni_dist", null_dist("x", dist = "t"), pos = pos)#
+proc.time() - ptm1
+dists <- c(beta = "beta", cauchy = "cauchy", "chi-squared" = "chisq", #
+  exponential = "exp", f = "f", gamma = "gamma", geometric = "geom",#
+  "log-normal" = "lnorm", "lognormal" = "lnorm", logistic = "logis", #
+  "negative binomial" = "nbinom", normal = "norm", poisson = "pois", #
+  t = "t", weibull = "weibull")
+dist <- "t"
+dist <- match.arg(dist, names(dists))
+dist
+generator <- match.fun(paste("r", dists[dist], sep = ""))
+generator
+ptm1 <- proc.time()#
+distmet(lineup.dat, "uni_dist", null_dist("x", dist = "t"), pos = pos)#
+proc.time() - ptm1
+X <- data.frame(x = rnorm(100, 10))#
+#
+lineup.dat <- lineup(null_dist("x", dist = "t"), true = X, pos = pos)
+X <- data.frame(x = rnorm(100, 10))#
+#
+lineup.dat <- lineup(null_dist("x", dist = "cauchy"), true = X, pos = pos)#
+#
+qplot(x, geom = "histogram", data = lineup.dat) + facet_wrap(~ .sample)
+warnings()
+X <- data.frame(x = rnorm(100, 10))#
+#
+lineup.dat <- lineup(null_dist("x", dist = "gamma"), true = X, pos = pos)#
+#
+qplot(x, geom = "histogram", data = lineup.dat) + facet_wrap(~ .sample)
+pos
+X <- data.frame(x = rnorm(100, 10))#
+#
+m <- 20#
+pos <- sample(m, 1)#
+#
+lineup.dat <- lineup(null_dist("x", dist = "beta"), true = X, pos = pos)#
+#
+qplot(x, geom = "histogram", data = lineup.dat) + facet_wrap(~ .sample)
+X <- data.frame(x = rnorm(100, 10))#
+#
+m <- 20#
+pos <- sample(m, 1)#
+#
+lineup.dat <- lineup(null_dist("x", dist = "pois"), true = X, pos = pos)
+warnins()
+warnings()
+X <- data.frame(x = rnorm(100, 10))#
+#
+m <- 20#
+pos <- sample(m, 1)#
+#
+lineup.dat <- lineup(null_dist("x", dist = "pois", params = 10), true = X, pos = pos)
+warnings()
+qplot(x, geom = "histogram", data = lineup.dat) + facet_wrap(~ .sample)
+ptm1 <- proc.time()#
+distmet(lineup.dat, "uni_dist", null_dist("x", dist = "t"), pos = pos)#
+proc.time() - ptm1
+ptm1 <- proc.time()#
+distmet(lineup.dat, "uni_dist", null_dist("x", dist = "pois", params = 10), pos = pos)#
+proc.time() - ptm1
+X <- data.frame(x = rnorm(100, 10))#
+#
+m <- 20#
+pos <- sample(m, 1)#
+#
+lineup.dat <- lineup(null_dist("x", dist = "gamma"), true = X, pos = pos)#
+#
+qplot(x, geom = "histogram", data = lineup.dat) + facet_wrap(~ .sample)#
+#
+ptm1 <- proc.time()#
+distmet(lineup.dat, "uni_dist", null_dist("x", dist = "gamma"), pos = pos)#
+proc.time() - ptm1
+append(A, B)
+A <- list(a = 6, b = 4)#
+B <- list(c = 3, d = 6)#
+append(A, B)
+A <- list(a = 6, b = 4)#
+B <- list(c = 3, d = 6)#
+C <- append(A, B)
+C
+is.list(C)
+distmet <- function(lineup.dat, met, method, pos, m = 20, dist.arg = NULL){#
+	func <- match.fun(met)#
+	d <- sapply(1:m, function(x){#
+		sapply(1:m, function(y){#
+			if(is.null(dist.arg)){#
+				dis <- do.call(func, append(list(lineup.dat[lineup.dat$.sample ==#
+				 x, ],lineup.dat[lineup.dat$.sample == y, ]), dist.arg))#
+			}else{#
+			dis <- do.call(func, applist(lineup.dat[lineup.dat$.sample == x, ],#
+			 lineup.dat[lineup.dat$.sample == y, ], dist.arg))#
+			 }#
+		})#
+	})#
+	require(reshape)#
+	d.m <- melt(d)#
+	names(d.m) <- c("pos.2", "plotno", "b")#
+	d <- subset(d.m, plotno != pos.2 & pos.2 != pos)#
+	require(plyr)#
+	dist.mean <- ddply(d, .(plotno), summarize, mean.dist = mean(b), len = 	#
+	length(b))#
+	diff <- with(dist.mean, mean.dist[len == (m - 1)] - max(mean.dist[len == (m - 2)]))#
+	closest <- dist.mean[order(dist.mean$mean.dist, decreasing = TRUE), ]$plotno[2:6]#
+	obs.dat <- lineup.dat[lineup.dat$.sample == pos, ]#
+	all.samp <- ldply(1:1000, function(k){#
+		null <- method(obs.dat) # method#
+		Dist <- ldply(1:(m - 2), function(l){#
+			null.dat <- method(null) # method#
+			if(is.null(dist.arg)){#
+				do.call(func, list(null, null.dat))#
+			}else{#
+		    do.call(func, append(list(null, null.dat), dist.arg))  # dist.met#
+		    }#
+		})#
+		mean(Dist$V1)#
+	})#
+	 dev.new()#
+	 require(ggplot2)#
+	 p <- qplot(all.samp$V1, geom="density", fill=I("grey80"), colour=I("grey80"), #
+	 xlab="Permutation distribution", ylab="") + geom_segment(aes(x=dist.mean#
+	 $mean.dist[dist.mean$len == (m - 2)], xend = dist.mean$mean.dist[dist.mean#
+	 $len == (m - 2)], y=rep(0.01*min(density(all.samp$V1)$y), (m - 1)), #
+	 yend=rep(0.05*max(density(all.samp$V1)$y), (m - 1))), #
+	 size=1, alpha = I(0.7)) + geom_segment(aes(x = dist.mean$mean.dist[dist.mean#
+	 $len == (m - 1)], xend = dist.mean$mean.dist[dist.mean$len == (m - 1)], y= 0.01*min(density(all.samp$V1)$y), yend #
+	 = 0.1*max(density(all.samp$V1)$y)), colour="darkorange", size=1) + #
+	 geom_text(data = dist.mean, y = - 0.03*max(density(all.samp$V1)$y), size = #
+	 2.5, aes(x = mean.dist, label = plotno)) + ylim(c(- 0.04*max(density(all.samp#
+	 $V1)$y), max(density(all.samp$V1)$y) + 0.1))#
+	return(list(dist.mean = dist.mean[,c("plotno", dist = "mean.dist")], all.val = all.samp, diff = diff, closest = closest, p))#
+}
+x <- rnorm(100)#
+y <- NULL#
+for(i in 1:100){#
+	y[i] <- rnorm(1, 2 + 0.9*x[i], sqrt(1 - 0.9^2))#
+}#
+#
+cor(x,y)#
+corr <- cor(x,y)#
+X <- data.frame(X1 = x, X2 = y)#
+qplot(X1, X2, data = X, size = I(5), xlab = "X", ylab = "Y")#
+#
+m <- 20#
+pos <- sample(m, 1)#
+#
+lineup.dat <- lineup(null_permute("X1"), true = X, pos = pos)#
+qplot(X1, X2, data = lineup.dat, size = I(2.5), alpha = I(0.6), xlab = "X", ylab = "Y") + facet_wrap(~.sample)#
+#
+pt <- proc.time()#
+distmet(lineup.dat, reg_dist, null_permute("X1"),pos = pos)#
+proc.time() - pt#
+#
+bin.d <- bin_diff(lineup.dat, 2, 10, 2, 10, pos)#
+p <- bin.d[which.max(bin.d$Diff), "p"]#
+q <- bin.d[which.max(bin.d$Diff), "q"]#
+#
+pt <- proc.time()#
+dist <- distmet(lineup.dat, bin_dist, null_permute("X1"),pos = pos, dist.arg = c(X.bin = p, Y.bin = q))#
+sum(dist$all.val$V1 > max(dist$dist.mean$mean.dist))/1000#
+proc.time() - pt
+distmet <- function(lineup.dat, met, method, pos, m = 20, dist.arg = NULL){#
+	func <- match.fun(met)#
+	d <- sapply(1:m, function(x){#
+		sapply(1:m, function(y){#
+			if(is.null(dist.arg)){#
+				dis <- do.call(func, list(lineup.dat[lineup.dat$.sample ==#
+				 x, ],lineup.dat[lineup.dat$.sample == y, ]))#
+			}else{#
+			dis <- do.call(func, append(list(lineup.dat[lineup.dat$.sample == #
+			x, ], lineup.dat[lineup.dat$.sample == y, ], dist.arg)))#
+			 }#
+		})#
+	})#
+	require(reshape)#
+	d.m <- melt(d)#
+	names(d.m) <- c("pos.2", "plotno", "b")#
+	d <- subset(d.m, plotno != pos.2 & pos.2 != pos)#
+	require(plyr)#
+	dist.mean <- ddply(d, .(plotno), summarize, mean.dist = mean(b), len = 	#
+	length(b))#
+	diff <- with(dist.mean, mean.dist[len == (m - 1)] - max(mean.dist[len == (m - 2)]))#
+	closest <- dist.mean[order(dist.mean$mean.dist, decreasing = TRUE), ]$plotno[2:6]#
+	obs.dat <- lineup.dat[lineup.dat$.sample == pos, ]#
+	all.samp <- ldply(1:1000, function(k){#
+		null <- method(obs.dat) # method#
+		Dist <- ldply(1:(m - 2), function(l){#
+			null.dat <- method(null) # method#
+			if(is.null(dist.arg)){#
+				do.call(func, list(null, null.dat))#
+			}else{#
+		    do.call(func, append(list(null, null.dat), dist.arg))  # dist.met#
+		    }#
+		})#
+		mean(Dist$V1)#
+	})#
+	 dev.new()#
+	 require(ggplot2)#
+	 p <- qplot(all.samp$V1, geom="density", fill=I("grey80"), colour=I("grey80"), #
+	 xlab="Permutation distribution", ylab="") + geom_segment(aes(x=dist.mean#
+	 $mean.dist[dist.mean$len == (m - 2)], xend = dist.mean$mean.dist[dist.mean#
+	 $len == (m - 2)], y=rep(0.01*min(density(all.samp$V1)$y), (m - 1)), #
+	 yend=rep(0.05*max(density(all.samp$V1)$y), (m - 1))), #
+	 size=1, alpha = I(0.7)) + geom_segment(aes(x = dist.mean$mean.dist[dist.mean#
+	 $len == (m - 1)], xend = dist.mean$mean.dist[dist.mean$len == (m - 1)], y= 0.01*min(density(all.samp$V1)$y), yend #
+	 = 0.1*max(density(all.samp$V1)$y)), colour="darkorange", size=1) + #
+	 geom_text(data = dist.mean, y = - 0.03*max(density(all.samp$V1)$y), size = #
+	 2.5, aes(x = mean.dist, label = plotno)) + ylim(c(- 0.04*max(density(all.samp#
+	 $V1)$y), max(density(all.samp$V1)$y) + 0.1))#
+	return(list(dist.mean = dist.mean[,c("plotno", dist = "mean.dist")], all.val = all.samp, diff = diff, closest = closest, p))#
+}
+x <- rnorm(100)#
+y <- NULL#
+for(i in 1:100){#
+	y[i] <- rnorm(1, 2 + 0.9*x[i], sqrt(1 - 0.9^2))#
+}#
+#
+cor(x,y)#
+corr <- cor(x,y)#
+X <- data.frame(X1 = x, X2 = y)#
+qplot(X1, X2, data = X, size = I(5), xlab = "X", ylab = "Y")#
+#
+m <- 20#
+pos <- sample(m, 1)#
+#
+lineup.dat <- lineup(null_permute("X1"), true = X, pos = pos)#
+qplot(X1, X2, data = lineup.dat, size = I(2.5), alpha = I(0.6), xlab = "X", ylab = "Y") + facet_wrap(~.sample)
+pt <- proc.time()#
+dist <- distmet(lineup.dat, bin_dist, null_permute("X1"),pos = pos, dist.arg = c(X.bin = p, Y.bin = q))#
+sum(dist$all.val$V1 > max(dist$dist.mean$mean.dist))/1000#
+proc.time() - pt
+A <- list(a = 6, b = 4)#
+B <- c(c = 3, d = 6)#
+append(A, B)
+distmet <- function(lineup.dat, met, method, pos, m = 20, dist.arg = NULL){#
+	func <- match.fun(met)#
+	d <- sapply(1:m, function(x){#
+		sapply(1:m, function(y){#
+			if(is.null(dist.arg)){#
+				dis <- do.call(func, list(lineup.dat[lineup.dat$.sample ==#
+				 x, ],lineup.dat[lineup.dat$.sample == y, ]))#
+			}else{#
+			dis <- do.call(func, append(list(lineup.dat[lineup.dat$.sample == #
+			x, ], lineup.dat[lineup.dat$.sample == y, ]), dist.arg)))#
+			 }#
+		})#
+	})#
+	require(reshape)#
+	d.m <- melt(d)#
+	names(d.m) <- c("pos.2", "plotno", "b")#
+	d <- subset(d.m, plotno != pos.2 & pos.2 != pos)#
+	require(plyr)#
+	dist.mean <- ddply(d, .(plotno), summarize, mean.dist = mean(b), len = 	#
+	length(b))#
+	diff <- with(dist.mean, mean.dist[len == (m - 1)] - max(mean.dist[len == (m - 2)]))#
+	closest <- dist.mean[order(dist.mean$mean.dist, decreasing = TRUE), ]$plotno[2:6]#
+	obs.dat <- lineup.dat[lineup.dat$.sample == pos, ]#
+	all.samp <- ldply(1:1000, function(k){#
+		null <- method(obs.dat) # method#
+		Dist <- ldply(1:(m - 2), function(l){#
+			null.dat <- method(null) # method#
+			if(is.null(dist.arg)){#
+				do.call(func, list(null, null.dat))#
+			}else{#
+		    do.call(func, append(list(null, null.dat), dist.arg))  # dist.met#
+		    }#
+		})#
+		mean(Dist$V1)#
+	})#
+	 dev.new()#
+	 require(ggplot2)#
+	 p <- qplot(all.samp$V1, geom="density", fill=I("grey80"), colour=I("grey80"), #
+	 xlab="Permutation distribution", ylab="") + geom_segment(aes(x=dist.mean#
+	 $mean.dist[dist.mean$len == (m - 2)], xend = dist.mean$mean.dist[dist.mean#
+	 $len == (m - 2)], y=rep(0.01*min(density(all.samp$V1)$y), (m - 1)), #
+	 yend=rep(0.05*max(density(all.samp$V1)$y), (m - 1))), #
+	 size=1, alpha = I(0.7)) + geom_segment(aes(x = dist.mean$mean.dist[dist.mean#
+	 $len == (m - 1)], xend = dist.mean$mean.dist[dist.mean$len == (m - 1)], y= 0.01*min(density(all.samp$V1)$y), yend #
+	 = 0.1*max(density(all.samp$V1)$y)), colour="darkorange", size=1) + #
+	 geom_text(data = dist.mean, y = - 0.03*max(density(all.samp$V1)$y), size = #
+	 2.5, aes(x = mean.dist, label = plotno)) + ylim(c(- 0.04*max(density(all.samp#
+	 $V1)$y), max(density(all.samp$V1)$y) + 0.1))#
+	return(list(dist.mean = dist.mean[,c("plotno", dist = "mean.dist")], all.val = all.samp, diff = diff, closest = closest, p))#
+}
+distmet <- function(lineup.dat, met, method, pos, m = 20, dist.arg = NULL){#
+	func <- match.fun(met)#
+	d <- sapply(1:m, function(x){#
+		sapply(1:m, function(y){#
+			if(is.null(dist.arg)){#
+				dis <- do.call(func, list(lineup.dat[lineup.dat$.sample ==#
+				 x, ],lineup.dat[lineup.dat$.sample == y, ]))#
+			}else{#
+			dis <- do.call(func, append(list(lineup.dat[lineup.dat$.sample == #
+			x, ], lineup.dat[lineup.dat$.sample == y, ]), dist.arg))#
+			 }#
+		})#
+	})#
+	require(reshape)#
+	d.m <- melt(d)#
+	names(d.m) <- c("pos.2", "plotno", "b")#
+	d <- subset(d.m, plotno != pos.2 & pos.2 != pos)#
+	require(plyr)#
+	dist.mean <- ddply(d, .(plotno), summarize, mean.dist = mean(b), len = 	#
+	length(b))#
+	diff <- with(dist.mean, mean.dist[len == (m - 1)] - max(mean.dist[len == (m - 2)]))#
+	closest <- dist.mean[order(dist.mean$mean.dist, decreasing = TRUE), ]$plotno[2:6]#
+	obs.dat <- lineup.dat[lineup.dat$.sample == pos, ]#
+	all.samp <- ldply(1:1000, function(k){#
+		null <- method(obs.dat) # method#
+		Dist <- ldply(1:(m - 2), function(l){#
+			null.dat <- method(null) # method#
+			if(is.null(dist.arg)){#
+				do.call(func, list(null, null.dat))#
+			}else{#
+		    do.call(func, append(list(null, null.dat), dist.arg))  # dist.met#
+		    }#
+		})#
+		mean(Dist$V1)#
+	})#
+	 dev.new()#
+	 require(ggplot2)#
+	 p <- qplot(all.samp$V1, geom="density", fill=I("grey80"), colour=I("grey80"), #
+	 xlab="Permutation distribution", ylab="") + geom_segment(aes(x=dist.mean#
+	 $mean.dist[dist.mean$len == (m - 2)], xend = dist.mean$mean.dist[dist.mean#
+	 $len == (m - 2)], y=rep(0.01*min(density(all.samp$V1)$y), (m - 1)), #
+	 yend=rep(0.05*max(density(all.samp$V1)$y), (m - 1))), #
+	 size=1, alpha = I(0.7)) + geom_segment(aes(x = dist.mean$mean.dist[dist.mean#
+	 $len == (m - 1)], xend = dist.mean$mean.dist[dist.mean$len == (m - 1)], y= 0.01*min(density(all.samp$V1)$y), yend #
+	 = 0.1*max(density(all.samp$V1)$y)), colour="darkorange", size=1) + #
+	 geom_text(data = dist.mean, y = - 0.03*max(density(all.samp$V1)$y), size = #
+	 2.5, aes(x = mean.dist, label = plotno)) + ylim(c(- 0.04*max(density(all.samp#
+	 $V1)$y), max(density(all.samp$V1)$y) + 0.1))#
+	return(list(dist.mean = dist.mean[,c("plotno", dist = "mean.dist")], all.val = all.samp, diff = diff, closest = closest, p))#
+}
+x <- rnorm(100)#
+y <- NULL#
+for(i in 1:100){#
+	y[i] <- rnorm(1, 2 + 0.9*x[i], sqrt(1 - 0.9^2))#
+}#
+#
+cor(x,y)#
+corr <- cor(x,y)#
+X <- data.frame(X1 = x, X2 = y)#
+qplot(X1, X2, data = X, size = I(5), xlab = "X", ylab = "Y")#
+#
+m <- 20#
+pos <- sample(m, 1)#
+#
+lineup.dat <- lineup(null_permute("X1"), true = X, pos = pos)#
+qplot(X1, X2, data = lineup.dat, size = I(2.5), alpha = I(0.6), xlab = "X", ylab = "Y") + facet_wrap(~.sample)
+dist <- distmet(lineup.dat, bin_dist, null_permute("X1"),pos = pos, dist.arg = c(X.bin = p, Y.bin = q))
+x <- 1
+y <- 2
+met <- bin_dist
+func <- match.fun(met)
+dist.arg <- c(X.bin = 3, Y.bin = 3)
+dis <- do.call(func, append(list(lineup.dat[lineup.dat$.sample == #
+			x, ], lineup.dat[lineup.dat$.sample == y, ]), dist.arg))
+list(lineup.dat[lineup.dat$.sample == #
+			x, ], lineup.dat[lineup.dat$.sample == y, ])
+dist.arg
+append(list(lineup.dat[lineup.dat$.sample == #
+			x, ], lineup.dat[lineup.dat$.sample == y, ]), dist.arg)
+list(lineup.dat[lineup.dat$.sample == #
+			x, ], lineup.dat[lineup.dat$.sample == y, ], X.bin, Y.bin)
+unname(dist.arg)
+append(list(lineup.dat[lineup.dat$.sample == #
+			x, ], lineup.dat[lineup.dat$.sample == y, ]), unname(dist.arg))
+distmet <- function(lineup.dat, met, method, pos, m = 20, dist.arg = NULL){#
+	func <- match.fun(met)#
+	d <- sapply(1:m, function(x){#
+		sapply(1:m, function(y){#
+			if(is.null(dist.arg)){#
+				dis <- do.call(func, list(lineup.dat[lineup.dat$.sample ==#
+				 x, ],lineup.dat[lineup.dat$.sample == y, ]))#
+			}else{#
+			dis <- do.call(func, append(list(lineup.dat[lineup.dat$.sample == #
+			x, ], lineup.dat[lineup.dat$.sample == y, ]), unname(dist.arg)))#
+			 }#
+		})#
+	})#
+	require(reshape)#
+	d.m <- melt(d)#
+	names(d.m) <- c("pos.2", "plotno", "b")#
+	d <- subset(d.m, plotno != pos.2 & pos.2 != pos)#
+	require(plyr)#
+	dist.mean <- ddply(d, .(plotno), summarize, mean.dist = mean(b), len = 	#
+	length(b))#
+	diff <- with(dist.mean, mean.dist[len == (m - 1)] - max(mean.dist[len == (m - 2)]))#
+	closest <- dist.mean[order(dist.mean$mean.dist, decreasing = TRUE), ]$plotno[2:6]#
+	obs.dat <- lineup.dat[lineup.dat$.sample == pos, ]#
+	all.samp <- ldply(1:1000, function(k){#
+		null <- method(obs.dat) # method#
+		Dist <- ldply(1:(m - 2), function(l){#
+			null.dat <- method(null) # method#
+			if(is.null(dist.arg)){#
+				do.call(func, list(null, null.dat))#
+			}else{#
+		    do.call(func, append(list(null, null.dat), unname(dist.arg)))  # dist.met#
+		    }#
+		})#
+		mean(Dist$V1)#
+	})#
+	 dev.new()#
+	 require(ggplot2)#
+	 p <- qplot(all.samp$V1, geom="density", fill=I("grey80"), colour=I("grey80"), #
+	 xlab="Permutation distribution", ylab="") + geom_segment(aes(x=dist.mean#
+	 $mean.dist[dist.mean$len == (m - 2)], xend = dist.mean$mean.dist[dist.mean#
+	 $len == (m - 2)], y=rep(0.01*min(density(all.samp$V1)$y), (m - 1)), #
+	 yend=rep(0.05*max(density(all.samp$V1)$y), (m - 1))), #
+	 size=1, alpha = I(0.7)) + geom_segment(aes(x = dist.mean$mean.dist[dist.mean#
+	 $len == (m - 1)], xend = dist.mean$mean.dist[dist.mean$len == (m - 1)], y= 0.01*min(density(all.samp$V1)$y), yend #
+	 = 0.1*max(density(all.samp$V1)$y)), colour="darkorange", size=1) + #
+	 geom_text(data = dist.mean, y = - 0.03*max(density(all.samp$V1)$y), size = #
+	 2.5, aes(x = mean.dist, label = plotno)) + ylim(c(- 0.04*max(density(all.samp#
+	 $V1)$y), max(density(all.samp$V1)$y) + 0.1))#
+	return(list(dist.mean = dist.mean[,c("plotno", dist = "mean.dist")], all.val = all.samp, diff = diff, closest = closest, p))#
+}
+dist <- distmet(lineup.dat, bin_dist, null_permute("X1"),pos = pos, dist.arg = c(X.bin = p, Y.bin = q))
+dist
+distmet <- function(lineup.dat, met, method, pos, m = 20, dist.arg = NULL, plot = TRUE){#
+	func <- match.fun(met)#
+	d <- sapply(1:m, function(x){#
+		sapply(1:m, function(y){#
+			if(is.null(dist.arg)){#
+				dis <- do.call(func, list(lineup.dat[lineup.dat$.sample ==#
+				 x, ],lineup.dat[lineup.dat$.sample == y, ]))#
+			}else{#
+			dis <- do.call(func, append(list(lineup.dat[lineup.dat$.sample == #
+			x, ], lineup.dat[lineup.dat$.sample == y, ]), unname(dist.arg)))#
+			 }#
+		})#
+	})#
+	require(reshape)#
+	d.m <- melt(d)#
+	names(d.m) <- c("pos.2", "plotno", "b")#
+	d <- subset(d.m, plotno != pos.2 & pos.2 != pos)#
+	require(plyr)#
+	dist.mean <- ddply(d, .(plotno), summarize, mean.dist = mean(b), len = 	#
+	length(b))#
+	diff <- with(dist.mean, mean.dist[len == (m - 1)] - max(mean.dist[len == (m - 2)]))#
+	closest <- dist.mean[order(dist.mean$mean.dist, decreasing = TRUE), ]$plotno[2:6]#
+	obs.dat <- lineup.dat[lineup.dat$.sample == pos, ]#
+	all.samp <- ldply(1:1000, function(k){#
+		null <- method(obs.dat) # method#
+		Dist <- ldply(1:(m - 2), function(l){#
+			null.dat <- method(null) # method#
+			if(is.null(dist.arg)){#
+				do.call(func, list(null, null.dat))#
+			}else{#
+		    do.call(func, append(list(null, null.dat), unname(dist.arg)))  # dist.met#
+		    }#
+		})#
+		mean(Dist$V1)#
+	})#
+	if(plot){#
+	 dev.new()#
+	 require(ggplot2)#
+	 p <- qplot(all.samp$V1, geom="density", fill=I("grey80"), colour=I("grey80"), #
+	 xlab="Permutation distribution", ylab="") + geom_segment(aes(x=dist.mean#
+	 $mean.dist[dist.mean$len == (m - 2)], xend = dist.mean$mean.dist[dist.mean#
+	 $len == (m - 2)], y=rep(0.01*min(density(all.samp$V1)$y), (m - 1)), #
+	 yend=rep(0.05*max(density(all.samp$V1)$y), (m - 1))), #
+	 size=1, alpha = I(0.7)) + geom_segment(aes(x = dist.mean$mean.dist[dist.mean#
+	 $len == (m - 1)], xend = dist.mean$mean.dist[dist.mean$len == (m - 1)], y= 0.01*min(density(all.samp$V1)$y), yend #
+	 = 0.1*max(density(all.samp$V1)$y)), colour="darkorange", size=1) + #
+	 geom_text(data = dist.mean, y = - 0.03*max(density(all.samp$V1)$y), size = #
+	 2.5, aes(x = mean.dist, label = plotno)) + ylim(c(- 0.04*max(density(all.samp#
+	 $V1)$y), max(density(all.samp$V1)$y) + 0.1))#
+	return(list(dist.mean = dist.mean[,c("plotno", dist = "mean.dist")], diff = diff, closest = closest, p))#
+	}else{#
+		return(list(dist.mean = dist.mean[,c("plotno", dist = "mean.dist")], all.val = all.samp, diff = diff, closest = closest))#
+}
+}
+distmet <- function(lineup.dat, met, method, pos, m = 20, dist.arg = NULL, plot = TRUE){#
+	func <- match.fun(met)#
+	d <- sapply(1:m, function(x){#
+		sapply(1:m, function(y){#
+			if(is.null(dist.arg)){#
+				dis <- do.call(func, list(lineup.dat[lineup.dat$.sample ==#
+				 x, ],lineup.dat[lineup.dat$.sample == y, ]))#
+			}else{#
+			dis <- do.call(func, append(list(lineup.dat[lineup.dat$.sample == #
+			x, ], lineup.dat[lineup.dat$.sample == y, ]), unname(dist.arg)))#
+			 }#
+		})#
+	})#
+	require(reshape)#
+	d.m <- melt(d)#
+	names(d.m) <- c("pos.2", "plotno", "b")#
+	d <- subset(d.m, plotno != pos.2 & pos.2 != pos)#
+	require(plyr)#
+	dist.mean <- ddply(d, .(plotno), summarize, mean.dist = mean(b), len = 	#
+	length(b))#
+	diff <- with(dist.mean, mean.dist[len == (m - 1)] - max(mean.dist[len == (m - 2)]))#
+	closest <- dist.mean[order(dist.mean$mean.dist, decreasing = TRUE), ]$plotno[2:6]#
+	obs.dat <- lineup.dat[lineup.dat$.sample == pos, ]#
+	all.samp <- ldply(1:1000, function(k){#
+		null <- method(obs.dat) # method#
+		Dist <- ldply(1:(m - 2), function(l){#
+			null.dat <- method(null) # method#
+			if(is.null(dist.arg)){#
+				do.call(func, list(null, null.dat))#
+			}else{#
+		    do.call(func, append(list(null, null.dat), unname(dist.arg)))  # dist.met#
+		    }#
+		})#
+		mean(Dist$V1)#
+	})#
+	if(plot){#
+	 dev.new()#
+	 require(ggplot2)#
+	 p <- qplot(all.samp$V1, geom="density", fill=I("grey80"), colour=I("grey80"), #
+	 xlab="Permutation distribution", ylab="") + geom_segment(aes(x=dist.mean#
+	 $mean.dist[dist.mean$len == (m - 2)], xend = dist.mean$mean.dist[dist.mean#
+	 $len == (m - 2)], y=rep(0.01*min(density(all.samp$V1)$y), (m - 1)), #
+	 yend=rep(0.05*max(density(all.samp$V1)$y), (m - 1))), #
+	 size=1, alpha = I(0.7)) + geom_segment(aes(x = dist.mean$mean.dist[dist.mean#
+	 $len == (m - 1)], xend = dist.mean$mean.dist[dist.mean$len == (m - 1)], y= 0.01*min(density(all.samp$V1)$y), yend #
+	 = 0.1*max(density(all.samp$V1)$y)), colour="darkorange", size=1) + #
+	 geom_text(data = dist.mean, y = - 0.03*max(density(all.samp$V1)$y), size = #
+	 2.5, aes(x = mean.dist, label = plotno)) + ylim(c(- 0.04*max(density(all.samp#
+	 $V1)$y), max(density(all.samp$V1)$y) + 0.1))#
+	return(list(dist.mean = dist.mean[,c("plotno", dist = "mean.dist")], diff = diff, closest = closest, p))#
+	}else{#
+		return(list(dist.mean = dist.mean[,c("plotno", dist = "mean.dist")], all.val = all.samp, diff = diff, closest = closest))#
+		}#
+}
+distmet(lineup.dat, bin_dist, null_dist("y", dist = "norm"),pos = pos, dist.arg = c(X.bin = p, Y.bin = q), plot = FALSE)
+dist <- distmet(lineup.dat, bin_dist, null_permute("X1"),pos = pos, dist.arg = c(X.bin = p, Y.bin = q), plot = FALSE)
+dist
+calc_diff <- function(lineup.dat, m = 20, X.bin, Y.bin, pos){#
+	d <- sapply(1:m, function(i){#
+			X <- lineup.dat[lineup.dat$.sample == i, ]#
+		sapply(1:m, function(j){#
+			PX <- lineup.dat[lineup.dat$.sample == j, ]#
+			dis <- bin_dist(X, PX, X.bin, Y.bin)#
+		})#
+	})#
+	require(reshape)#
+	d.m <- melt(d)#
+	names(d.m) <- c("pos.2", "plotno", "bin")#
+	dat.bin <- subset(d.m, plotno != pos.2 & pos.2 != pos)#
+	require(plyr)#
+	dat.bin.mean <- ddply(dat.bin, .(plotno), summarize, bin.m = mean(bin), len = length(bin))#
+ with(dat.bin.mean, bin.m[len == 19] - max(bin.m[len != 19]))#
+}#
+bin_diff <- function(lineup.dat, m = 20, xlow, xhigh, ylow, yhigh, pos, plot = FALSE){#
+		d <- sapply(xlow:xhigh, function(X.bin){#
+		sapply(ylow:yhigh, function(Y.bin){#
+		calc_diff(lineup.dat, X.bin, Y.bin, pos)#
+		})#
+	})#
+	d.m <- melt(d)#
+	names(d.m) <- c("q", "p", "Diff")#
+	d.m$p <- d.m$p + xlow - 1#
+	d.m$q <- d.m$q + ylow - 1#
+	d.m <- data.frame(p = d.m$p, q = d.m$q, Diff = d.m$Diff)#
+	if(plot){#
+		require(ggplot2)#
+		p <- ggplot(d.m, aes(x = factor(p), y = factor(q))) + geom_tile(aes(fill#
+		 	=   Diff)) + scale_fill_gradient(high ="blue", low ="white") + #
+		 	xlab("p") + ylab("q")#
+		return(list(dat = d.m, p = p))#
+	}else{#
+	return(dat = d.m)#
+	}#
+}
+x <- rnorm(100)#
+y <- NULL#
+for(i in 1:100){#
+	y[i] <- rnorm(1, 2 + 0.9*x[i], sqrt(1 - 0.9^2))#
+}#
+#
+cor(x,y)#
+corr <- cor(x,y)#
+X <- data.frame(X1 = x, X2 = y)#
+qplot(X1, X2, data = X, size = I(5), xlab = "X", ylab = "Y")#
+#
+m <- 20#
+pos <- sample(m, 1)#
+#
+lineup.dat <- lineup(null_permute("X1"), true = X, pos = pos)#
+qplot(X1, X2, data = lineup.dat, size = I(2.5), alpha = I(0.6), xlab = "X", ylab = "Y") + facet_wrap(~.sample)
+bin.d <- bin_diff(lineup.dat,m = 20,  2, 10, 2, 10, pos)
+calc_diff <- function(lineup.dat, X.bin, Y.bin, pos, m = 20){#
+	d <- sapply(1:m, function(i){#
+			X <- lineup.dat[lineup.dat$.sample == i, ]#
+		sapply(1:m, function(j){#
+			PX <- lineup.dat[lineup.dat$.sample == j, ]#
+			dis <- bin_dist(X, PX, X.bin, Y.bin)#
+		})#
+	})#
+	require(reshape)#
+	d.m <- melt(d)#
+	names(d.m) <- c("pos.2", "plotno", "bin")#
+	dat.bin <- subset(d.m, plotno != pos.2 & pos.2 != pos)#
+	require(plyr)#
+	dat.bin.mean <- ddply(dat.bin, .(plotno), summarize, bin.m = mean(bin), len = length(bin))#
+ with(dat.bin.mean, bin.m[len == 19] - max(bin.m[len != 19]))#
+}
+calc_diff(lineup.dat, 3, 3, pos)
+bin_diff <- function(lineup.dat, xlow, xhigh, ylow, yhigh, pos, plot = FALSE,  m = 20){#
+		d <- sapply(xlow:xhigh, function(X.bin){#
+		sapply(ylow:yhigh, function(Y.bin){#
+		calc_diff(lineup.dat, X.bin, Y.bin, pos)#
+		})#
+	})#
+	d.m <- melt(d)#
+	names(d.m) <- c("q", "p", "Diff")#
+	d.m$p <- d.m$p + xlow - 1#
+	d.m$q <- d.m$q + ylow - 1#
+	d.m <- data.frame(p = d.m$p, q = d.m$q, Diff = d.m$Diff)#
+	if(plot){#
+		require(ggplot2)#
+		p <- ggplot(d.m, aes(x = factor(p), y = factor(q))) + geom_tile(aes(fill#
+		 	=   Diff)) + scale_fill_gradient(high ="blue", low ="white") + #
+		 	xlab("p") + ylab("q")#
+		return(list(dat = d.m, p = p))#
+	}else{#
+	return(dat = d.m)#
+	}#
+}
+bin_diff(lineup.dat, 2, 4, 2, 4, pos)
+bin_diff(lineup.dat, 2, 4, 2, 4, pos, plot = TRUE)
+Binned Distance#
+#
+bin_dist <- function(X,PX, X.bin = 5, Y.bin = 5) {#
+	if(!is.numeric(X[,1])){#
+	X[,1] <- as.numeric(X[,1])#
+	nij <- as.numeric(table(cut(X[,1], breaks=seq(min(X[,1]), max(X[,1]),length.out = length(unique(X[,1])) + 1), include.lowest = TRUE),cut(X[,2], breaks=seq(min(lineup.dat[,2]), max(lineup.dat[,2]),length.out = Y.bin + 1), include.lowest = TRUE)))#
+	}else#
+		nij <- as.numeric(table(cut(X[,1], breaks=seq(min(lineup.dat[,1]), max(lineup.dat[,1]),length.out = X.bin + 1), include.lowest = TRUE),cut(X[,2], breaks=seq(min(lineup.dat[,2]), max(lineup.dat[,2]),length.out = Y.bin + 1), include.lowest = TRUE)))#
+	if(!is.numeric(PX[,1])){#
+	PX[,1] <- as.numeric(PX[,1])#
+	mij <- as.numeric(table(cut(PX[,1], breaks=seq(min(X[,1]), max(X[,1]),length.out = length(unique(X[,1])) + 1), include.lowest = TRUE),cut(PX[,2], breaks=seq(min(lineup.dat[,2]), max(lineup.dat[,2]),length.out = Y.bin + 1), include.lowest = TRUE)))#
+	}else#
+	mij <- as.numeric(table(cut(PX[,1], breaks=seq(min(lineup.dat[,1]), max(lineup.dat[,1]),length.out = X.bin + 1), include.lowest = TRUE),cut(PX[,2], breaks=seq(min(lineup.dat[,2]), max(lineup.dat[,2]),length.out = Y.bin + 1), include.lowest = TRUE)))#
+	sqrt(sum((nij-mij)^2))#
+}
+library(nullabor)#
+library(ggplot2)#
+library(plyr)#
+library(reshape)#
+#
+calc_diff <- function(lineup.dat, X.bin, Y.bin, pos, m = 20){#
+	d <- sapply(1:m, function(i){#
+			X <- lineup.dat[lineup.dat$.sample == i, ]#
+		sapply(1:m, function(j){#
+			PX <- lineup.dat[lineup.dat$.sample == j, ]#
+			dis <- bin_dist(X, PX, X.bin, Y.bin)#
+		})#
+	})#
+	require(reshape)#
+	d.m <- melt(d)#
+	names(d.m) <- c("pos.2", "plotno", "bin")#
+	dat.bin <- subset(d.m, plotno != pos.2 & pos.2 != pos)#
+	require(plyr)#
+	dat.bin.mean <- ddply(dat.bin, .(plotno), summarize, bin.m = mean(bin), len = length(bin))#
+ with(dat.bin.mean, bin.m[len == (m - 1)] - max(bin.m[len != (m - 1)]))#
+}
+x <- rnorm(100)#
+y <- NULL#
+for(i in 1:100){#
+	y[i] <- rnorm(1, 2 + 0.9*x[i], sqrt(1 - 0.9^2))#
+}#
+#
+cor(x,y)#
+corr <- cor(x,y)#
+X <- data.frame(X1 = x, X2 = y)#
+qplot(X1, X2, data = X, size = I(5), xlab = "X", ylab = "Y")#
+#
+m <- 20#
+pos <- sample(m, 1)#
+#
+lineup.dat <- lineup(null_permute("X1"), true = X, pos = pos)#
+qplot(X1, X2, data = lineup.dat, size = I(2.5), alpha = I(0.6), xlab = "X", ylab = "Y") + facet_wrap(~.sample)
+calc_diff(lineup.dat, 2, 2, pos)
+154 + 98 + 48
+154 + 94 + 33
+94 + 307 + 99
+33 + 72 + 95
+98 + 307 + 72
+48 + 99 + 95
+242 + 200 - 95
+0.095/0.2
+0.242*0.2
+0.95*0.8
+0.76/0.78
+0.75*.9
+0.75*0.2 + 0.25*0.1
+0.2*0.75/0.175
+0.536521 + 0.227104
+?complete.cases
+x <- airquality[, -1]
+length(x)
+x
+complete.cases(x)
+sum(complete.cases(x))
+dim(x)
+is.na(x)
+apply(is.na(x), 1, sum)
+sum(apply(is.na(x), 1, sum))
+expand.grid(0:1, 0:1)
+expand.grid(0:1, 0:1, 0:1)
+library(UsingR)
+head(dvdsales)
+barplot(t(dvdsales),beside=TRUE)
+dim(dvdsales)
+t(dvdsales)
+t(dvdsales)[order(dvdsales)]
+t(dvdsales)[order(dvdsales),]
+order(dvdsales)
+?barplot
+names(t(dvdsales))
+(t(dvdsales))[,1]
+(t(dvdsales))[1,]
+(t(dvdsales))[2,]
+colnames(t(dvdsales))
+is.character(colnames(t(dvdsales)))
+as.numeric(colnames(t(dvdsales)))
+sort(as.numeric(colnames(t(dvdsales))))
+order(as.numeric(colnames(t(dvdsales))))
+t(dvdsales)[,order(as.numeric(colnames(t(dvdsales))))]
+barplot(dvdsales.new, beside = TRUE)
+dvdsales.new <- t(dvdsales)[,order(as.numeric(colnames(t(dvdsales))))]#
+#
+barplot(dvdsales.new, beside = TRUE)
+rownames(dvdsales)
+rownames(t(dvdsales))
+which.max(dvdsales)
+melt(dvdsales)
+library(reshape)
+melt(dvdsales)
+names(dvdsales.m) <- c("Year", "Month", "Sales")#
+#
+dvdsales.m$Year[which.max(dvdsales.m$Sales)]
+dvdsales.m <- melt(dvdsales)#
+#
+names(dvdsales.m) <- c("Year", "Month", "Sales")#
+#
+dvdsales.m$Year[which.max(dvdsales.m$Sales)]
+dvdsales.m$Month[which.max(dvdsales.m$Sales)]
+apply(dvdsales, 2, sum)
+apply(dvdsales, 2, sum, na.rm = T)
+sum.month <- apply(dvdsales, 2, sum, na.rm = T)
+names(sum.month)
+names(sum.month)[which.max(sum.month)]
+sum.year <- apply(dvdsales, 1, sum, na.rm = T)
+sum.year
+names(sum.year)[which.max(sum.year)]
+t(dvdsales)[,order(colnames(t(dvdsales)))]
+2^2/2 + (6^2 - 2^2)/2 + (8^2 - 6^2)/2
+2^2/2 + 4*(6^2 - 2^2)/2 + (8^2 - 6^2)/2
+64 -36
+2 + 16 + 2
+0.8413 - 0.1587
+1- 0.6826
+(7 - 7.6)/0/4
+(7 - 7.6)/0.4
+(7.4 - 7.6)/0.4
+(7.8 - 7.6)/0.4
+0.6915 - 0.3085
+0.4*0.52 + 7.6
+sum(dbinom(2:10, 0.9545))
+dbinom(2:10, 0.9545)
+?dbinom
+dbinom(2:10, 10,0.9545)
+sum(dbinom(2:10, 10,0.9545))
+8^3/(3*32)
+8^4/(4*32)
+32 - 5.333^2
+3/64
+sum(dpois(0:3, 4))
+1 - sum(dpois(0:3, 4))
+46+12+6
+12+7+15+16+15
+64/(8*3)
+64*4/(8*4)
+8 - 2.667^2
+8/9
+- 1.96*1.5 - 19.5
+(19.5 - 20.2)/(-2.33)
+3.15 - 1.88*0.002
+x <- seq(-10, 10, length = 1000)
+myfunc <- function(x){#
+	if(x <= 0){f <- 0}#
+	elseif(x > 0 & x < 4){f <- x^2/16}#
+	elseif(x > 4){f <- 1}#
+	return(f)#
+}
+?if
+)
+myfunc <- function(x){#
+	f <- NULL#
+	f[x <= 0] <- 0#
+	f[x > 0 & x <= 4] <- x^2/16#
+	f[x > 4] <- 1#
+	return(f)#
+}
+myfunc(10)
+myfunc(3.5)
+myfunc(x)
+myfunc <- function(x){#
+	f <- NULL#
+	f[x <= 0] <- 0#
+	f[x > 0 & x <= 4] <- (x^2)/16#
+	f[x > 4] <- 1#
+	return(f)#
+}
+myfunc(x)
+x
+x <- seq(-10, 10, length = 1000)#
+myfunc <- function(x){#
+	f <- NULL#
+	f[x <= 0] <- 0#
+	f[x > 0 && x <= 4] <- (x^2)/16#
+	f[x > 4] <- 1#
+	return(f)#
+}
+myfunc(x)
+x <- seq(-10, 10, length = 1000)#
+myfunc <- function(x){#
+	f <- NULL#
+	f[x <= 0] <- 0#
+	f[x > 0 & x < 4] <- (x^2)/16#
+	f[x >= 4] <- 1#
+	return(f)#
+}
+myfunc(x)
+x <- seq(-10, 10, length = 1000)#
+myfunc <- function(x){#
+	f <- NULL#
+	f[x <= 0] <- 0#
+	f[x < 4] <- (x^2)/16#
+	f[x >= 4] <- 1#
+	return(f)#
+}#
+myfunc(x)
+[x > 0 & x <= 4]
+x > 0 & x <= 4
+x <- seq(-10, 10, length = 1000)#
+myfunc <- function(x){#
+	f <- NULL#
+	f[x <= 0] <- 0#
+	f[x > 0 & x <= 4] <- (x^2)/16#
+	f[x > 4] <- 1#
+	return(f)#
+}#
+myfunc(x)
+x <- seq(-10, 10, length = 1000)#
+myfunc <- function(x){#
+	f <- (x^2)/16#
+	f[x <= 0] <- 0#
+	f[x > 4] <- 1#
+	return(f)#
+}#
+myfunc(x)
+x <- seq(-10, 10, length = 10000)#
+myfunc <- function(x){#
+	f <- (x^2)/16#
+	f[x <= 0] <- 0#
+	f[x > 4] <- 1#
+	return(f)#
+}#
+Fx <- myfunc(x)#
+#
+library(ggplot2)#
+#
+qplot(x, Fx, geom = "line")
+x <- seq(-5, 10, length = 10000)#
+myfunc <- function(x){#
+	f <- (x^2)/16#
+	f[x <= 0] <- 0#
+	f[x > 4] <- 1#
+	return(f)#
+}#
+Fx <- myfunc(x)#
+#
+library(ggplot2)#
+#
+qplot(x, Fx, geom = "line") + scale_x_continuous(limits = c(-5, 10), breaks = c(0, 4))
+qplot(x, Fx, geom = "line") + scale_x_continuous(name= "X", limits = c(-5, 10), breaks = c(0, 4)) + scale_y_continuous(name = "F(x)")
+qplot(x, Fx, geom = "line") + scale_x_continuous(name= "X", limits = c(-5, 10), breaks = c(0, 4)) + scale_y_continuous(name = "F(x)") + theme_bw(30)
+qplot(x, Fx, geom = "line") + scale_x_continuous(name= "X", limits = c(-5, 10), breaks = c(0, 4)) + scale_y_continuous(name = "F(x)") + theme_bw(10)
+qplot(x, Fx, geom = "line") + scale_x_continuous(name= "X", limits = c(-5, 10), breaks = c(0, 4)) + scale_y_continuous(name = "F(x)") + theme_bw(20)
+qplot(x, Fx, geom = "line") + scale_x_continuous(name= "X", limits = c(-5, 10), breaks = c(0, 4)) + scale_y_continuous(name = "F(x)") + theme_bw(18)
+qplot(x, Fx, geom = "line") + scale_x_continuous(name= "X", limits = c(-5, 10), breaks = c(0, 4)) + scale_y_continuous(name = "F(x)") + theme_bw(15)
+qplot(x, Fx, geom = "line", size = I(1)) + scale_x_continuous(name= "X", limits = c(-5, 10), breaks = c(0, 4)) + scale_y_continuous(name = "F(x)") + theme_bw(15)
+dat <- read.table(file.choose(), header = T)
+head(dat)
+library(ggplot2)
+qplot(x, y = 1, data = dat, geom = "point", col = cl) + facet_wrap(~ .sample)
+qplot(x, y = 1, data = dat, geom = "point", col = factor(cl)) + facet_wrap(~ .sample)
+qplot(x, y = 1, data = dat, geom = "jitter", col = factor(cl)) + facet_wrap(~ .sample)
+qplot(x, y = 1, data = dat, geom = "jitter", col = factor(cl)) + facet_wrap(~ .sample) + ylim(c(0,3))
+qplot(x, y = 1, data = dat, geom = "jitter", col = factor(cl)) + facet_wrap(~ .sample) + ylim(c(0,2))
+0(0.21) + 1(0.19) + 2(0.26) + 3(0.21) + 4(0.13)
+0*(0.21) + 1*(0.19) + 2*(0.26) + 3*(0.21) + 4*(0.13)
+0*(0.21) + 1*(0.19) + 2^2*(0.26) + 3^2*(0.21) + 4^2*(0.13)
+5.2 - 1.86^2
+(0.48 - 0.5)/(0.03/5)
+370*.003^2
+sqrt(0.00333)
+.03/(.1/5)
+load("/Users/Niladri/Documents/Research/Extending nullabor /nullabor/data/lakers.rdata")
+library(nullabor)#
+#
+threept <- subset(lal, type == "3pt" & !is.na(x) & !is.na(y))#
+threept <- threept[c(".id", "period", "time", "team", "etype", "player", "points", "result", "x", "y")]#
+#
+threept <- transform(threept, #
+  x = x + runif(length(x), -0.5, 0.5),#
+  y = y + runif(length(y), -0.5, 0.5))#
+threept <- transform(threept, #
+  r = sqrt((x - 25) ^ 2 + y ^ 2),#
+  angle = atan2(y, x - 25))
+threept <- subset(threept, r > 20 & r < 39)
+qplot(x, y, data = threept) + coord_equal()
+library(ggplot2)
+qplot(x, y, data = threept) + coord_equal()
+angle_scale <- scale_x_continuous("Angle (degrees)", #
+  breaks = c(0, 45, 90, 135, 180), limits = c(0, 180))#
+#
+qplot(angle * 180 / pi, r, data = threept) + #
+  angle_scale #
+  %+% lineup(null_lm(r ~ poly(angle, 2)), threept, n = 9)
+qplot(angle * 180 / pi, r, data = threept) + #
+  angle_scale %+% lineup(null_lm(r ~ poly(angle, 2)), threept, n = 9)
+qplot(angle * 180 / pi, r, data = threept) + #
+  angle_scale
+?lineup
+lineup(null_lm(r ~ poly(angle, 2)), threept, n = 9)
+lklk <- lineup(null_lm(r ~ poly(angle, 2)), threept, n = 9)
+head(lklk)
+qplot(angle * 180 / pi, r, data = threept) + #
+  angle_scale %+% lineup(null_lm(r ~ poly(angle, 2)), threept, n = 9) + facet_wrap(~.sample)
+?lineup
+lineup
+qplot(angle * 180 / pi, r, data = threept) + #
+  angle_scale %+% lineup(null_lm(r ~ poly(angle, 2)), threept, n = 9) + facet_wrap(~.sample)
+qplot(angle * 180 / pi, r, data = threept) + #
+  angle_scale %+% lineup(null_lm(r ~ poly(angle, 2)), threept, n = 9) + facet_wrap(~ .sample)
+qplot(mpg, wt, data = mtcars)
+lineup(null_permute("mpg"), mtcars)
+qplot(mpg, wt, data = mtcars) %+%#
+  lineup(null_permute("mpg"), mtcars) +#
+  facet_wrap(~ .sample)
+head(lineup(null_lm(r ~ poly(angle, 2)), threept, n = 9))
+qplot(angle * 180 / pi, r, data = threept) + #
+  angle_scale %+% lineup(null_lm(r ~ poly(angle, 2)), threept, n = 9) + #
+  facet_wrap(~ .sample)
+segment <- function(x, br) (x - br) * (x > br)#
+qplot(angle * 180 / pi, r, data = threept) + angle_scale +#
+  geom_smooth(method = lm, formula = y ~ x + segment(x, 90))
+last_plot() %+% lineup(null_lm(r ~ angle + segment(angle, pi / 2)), n = 9)
+last_plot() %+% lineup(null_lm(r ~ angle + segment(angle, pi / 2)), n = 9) +  facet_wrap(~ .sample)
+mod <- lm(r ~ poly(angle, 2), data = threept)#
+inrange$resid <- resid(mod)#
+qplot(angle, resid, data = inrange)#
+last_plot() %+% lineup(has_dist("resid", "normal", list(mean = 0, sd = 1))) + facet_wrap(~ .sample)
+mod <- lm(r ~ poly(angle, 2), data = threept)
+inrange <- threept#
+inrange$resid <- resid(mod)#
+qplot(angle, resid, data = inrange)#
+last_plot() %+% lineup(has_dist("resid", "normal", list(mean = 0, sd = 1))) + facet_wrap(~ .sample)
+threept <- subset(lal, type == "3pt" & !is.na(x) & !is.na(y))#
+threept <- threept[c(".id", "period", "time", "team", "etype", "player", "points", "result", "x", "y")]#
+#
+threept <- transform(threept, #
+  x = x + runif(length(x), -0.5, 0.5),#
+  y = y + runif(length(y), -0.5, 0.5))#
+threept <- transform(threept, #
+  r = sqrt((x - 25) ^ 2 + y ^ 2),#
+  angle = atan2(y, x - 25))#
+#
+# Focus in on shots in the typical range#
+threept <- subset(threept, r > 20 & r < 39)#
+#
+qplot(x, y, data = threept) + coord_equal()#
+#
+angle_scale <- scale_x_continuous("Angle (degrees)", #
+  breaks = c(0, 45, 90, 135, 180), limits = c(0, 180))#
+#
+qplot(angle * 180 / pi, r, data = threept) + #
+  angle_scale #
+  last_plot() %+% lineup(null_lm(r ~ poly(angle, 2)), threept, n = 9) + #
+  facet_wrap(~ .sample)
+library(nullabor)#
+#
+threept <- subset(lal, type == "3pt" & !is.na(x) & !is.na(y))#
+threept <- threept[c(".id", "period", "time", "team", "etype", "player", "points", "result", "x", "y")]#
+#
+threept <- transform(threept, #
+  x = x + runif(length(x), -0.5, 0.5),#
+  y = y + runif(length(y), -0.5, 0.5))#
+threept <- transform(threept, #
+  r = sqrt((x - 25) ^ 2 + y ^ 2),#
+  angle = atan2(y, x - 25))#
+#
+# Focus in on shots in the typical range#
+threept <- subset(threept, r > 20 & r < 39)#
+#
+qplot(x, y, data = threept) + coord_equal()#
+#
+angle_scale <- scale_x_continuous("Angle (degrees)", #
+  breaks = c(0, 45, 90, 135, 180), limits = c(0, 180))#
+#
+qplot(angle * 180 / pi, r, data = threept) + #
+  angle_scale #
+  last_plot() %+% lineup(null_lm(r ~ poly(angle, 2)), threept, n = 9) + #
+  facet_wrap(~ .sample)#
+#
+segment <- function(x, br) (x - br) * (x > br)#
+qplot(angle * 180 / pi, r, data = threept) + angle_scale +#
+  geom_smooth(method = lm, formula = y ~ x + segment(x, 90))#
+#
+last_plot() %+% lineup(null_lm(r ~ angle + segment(angle, pi / 2)), n = 9) +  facet_wrap(~ .sample)#
+#
+# Look at model residuals directly#
+#mod <- lm(r ~ poly(angle, 2), data = threept)#
+#inrange <- threept#
+#inrange$resid <- resid(mod)#
+#qplot(angle, resid, data = inrange)#
+#last_plot() %+% lineup(has_dist("resid", "normal", list(mean = 0, sd = 1))) + facet_wrap(~ .sample)
+library(formatR)
+install.packages("formatR")
+library(formatR)
+help(package = formatR)
+tidy.dir(".")

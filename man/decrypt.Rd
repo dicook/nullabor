@@ -2,7 +2,7 @@
 \alias{decrypt}
 \title{Use decrypt to reveal the position of the real data.}
 \usage{
-decrypt(...)
+  decrypt(...)
 }
 \arguments{
   \item{...}{character vector to decrypt}
@@ -14,5 +14,6 @@ decrypt(...)
   data is.
 }
 \examples{
-decrypt("0uXR2p rut L2O2")
+decrypt('0uXR2p rut L2O2')
 }
+

@@ -2,9 +2,10 @@
 \alias{add_true}
 \title{Add true data into data frame containing null data sets.}
 \usage{
-add_true(samples, true, pos)
+  add_true(samples, true, pos)
 }
 \description{
   Add true data into data frame containing null data sets.
 }
 \keyword{internal}
+

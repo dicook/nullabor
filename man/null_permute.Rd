@@ -2,7 +2,7 @@
 \alias{null_permute}
 \title{Generate null data by permuting a variable.}
 \usage{
-null_permute(var)
+  null_permute(var)
 }
 \arguments{
   \item{var}{name of variable to permute}
@@ -15,3 +15,4 @@ null_permute(var)
 \description{
   Null hypothesis: variable is independent of others
 }
+

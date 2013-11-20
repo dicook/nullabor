@@ -3,7 +3,8 @@
 \title{finds the difference using \code{calc_diff} for all combinations of
 number of bins in x and y direction}
 \usage{
-opt_diff(lineup.dat, xlow, xhigh, ylow, yhigh, pos, plot = FALSE, m = 20)
+  opt_diff(lineup.dat, xlow, xhigh, ylow, yhigh, pos,
+    plot = FALSE, m = 20)
 }
 \arguments{
   \item{lineup.dat}{lineup data to get the lineup}
@@ -37,3 +38,7 @@ opt_diff(lineup.dat, xlow, xhigh, ylow, yhigh, pos, plot = FALSE, m = 20)
   finds the difference using \code{calc_diff} for all
   combinations of number of bins in x and y direction
 }
+\examples{
+opt_diff(lineup.dat, 2, 10, 2, 10, 10) ## position of the observed data
+}
+

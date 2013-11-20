@@ -2,7 +2,7 @@
 \alias{resid_pboot}
 \title{Parametric bootstrap residuals.}
 \usage{
-resid_pboot(model, data)
+  resid_pboot(model, data)
 }
 \arguments{
   \item{model}{to extract residuals from}
@@ -12,3 +12,4 @@ resid_pboot(model, data)
 \description{
   For use with \code{\link{null_lm}}
 }
+

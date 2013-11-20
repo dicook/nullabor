@@ -2,14 +2,14 @@
 \alias{null_lm}
 \title{Generate null data with null residuals from a model.}
 \usage{
-null_lm(f, method = "rotate", ...)
+  null_lm(f, method = "rotate", ...)
 }
 \arguments{
   \item{f}{model specification formula, as defined by
   \code{\link{lm}}}
 
   \item{method}{method for generating null residuals.
-  Built in methods "rotate", "pboot" and "boot" are defined
+  Built in methods 'rotate', 'pboot' and 'boot' are defined
   by \code{\link{resid_rotate}}, \code{\link{resid_pboot}}
   and \code{\link{resid_boot}} respectively}
 
@@ -25,11 +25,13 @@ null_lm(f, method = "rotate", ...)
   predictors
 }
 \examples{
-if (require("ggplot2") && require("reshape2")) {
-    
-    x <- lm(tip ~ total_bill, data = tips)
-    tips.reg <- data.frame(tips, .resid = residuals(x), .fitted = fitted(x))
-    qplot(total_bill, .resid, data = tips.reg) \%+\% lineup(null_lm(tip ~ total_bill, 
-        method = "rotate"), tips.reg) + facet_wrap(~.sample)
+if (require('ggplot2') && require('reshape2')) {
+
+x <- lm(tip ~ total_bill, data = tips)
+tips.reg <- data.frame(tips, .resid = residuals(x), .fitted = fitted(x))
+qplot(total_bill, .resid, data = tips.reg) \%+\%
+  lineup(null_lm(tip ~ total_bill, method = 'rotate'), tips.reg) +
+  facet_wrap(~ .sample)
 }
 }
+
