@@ -9,7 +9,9 @@ Imports:
     MASS,
     reshape,
     ggplot2,
-    plyr
+    plyr,
+    moments,
+    fpc
 Suggests:
     reshape2
 LazyData: true

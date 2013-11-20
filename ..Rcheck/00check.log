@@ -1,0 +1,190 @@
+* using log directory ‘/Users/Niladri/Documents/Research/Extending nullabor /nullabor/..Rcheck’
+* using R version 2.15.2 (2012-10-26)
+* using platform: x86_64-apple-darwin9.8.0 (64-bit)
+* using session charset: UTF-8
+* checking for file ‘./DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘nullabor’ version ‘0.2’
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... WARNING
+Found the following executable file(s):
+  .git/objects/01/e54d4f793ded7ed26ecaa3af404a9897347f11
+  .git/objects/02/8849f84a85915e6cb691bededc67eafba3839b
+  .git/objects/08/0a6cd96cc241bea7b7ec3812925d8ff6a0c846
+  .git/objects/0a/3114b4b9bc57774029b6fd15c4146e05d57d63
+  .git/objects/0f/7aefcf4b1f7745fe5f154d82ecda46f1d89c18
+  .git/objects/0f/812f1e9dcb55c1383e5d17bd3c29118f10bb33
+  .git/objects/10/80f48ab7af0cc97b924870db10d60069007d32
+  .git/objects/12/8ffee52d0b6ea2740dbee0fe906d567048474e
+  .git/objects/14/08af9e29e567be12762d40ecc49b69daf5c4a9
+  .git/objects/14/37bb4000674a96bc7c6ba1740dbb2489091347
+  .git/objects/19/3923762813ae7f586ec0d517699d17c3753c9d
+  .git/objects/1c/b124797e591905c1ee0d654cc83843cddf97b9
+  .git/objects/20/cfa328104856652b07a1ba136549ff1fad0e99
+  .git/objects/22/e3ef7aca2f1c4ee09c7e6852388bc403b36a5e
+  .git/objects/2a/4aeec9748be836bf19117e4ecbdcaf052341dc
+  .git/objects/33/06d930bd7935db01e2e5da61f415e30cbc0b0c
+  .git/objects/34/2f146ac5481d4cb6a2e471b8906f859b570d50
+  .git/objects/3e/34b1dfbc5c0fb1dcfe4572a5b0726cf2b20d5b
+  .git/objects/3f/78b95dd48f9003af8cd1f6fc62f433a394e00a
+  .git/objects/41/d9dd9c306f3c57fbd8615319573464394b3821
+  .git/objects/44/fdeefa0c59f1d98ae2ad24a1c14ac5b835cd12
+  .git/objects/47/a5e1c86808f66992524cc3846db708ecd86a44
+  .git/objects/48/1be10672334227943c1e497a7e31703c46c87d
+  .git/objects/48/57d06a3a5979f31de95bbbc2680edd06509f6b
+  .git/objects/4a/dc509406864d2cc9132fea71c331b6eb520150
+  .git/objects/4f/861a033a2345395c604b760b26ed6cab5c44d5
+  .git/objects/50/46ef725882f915693c9d41f3317cff2501c7c4
+  .git/objects/52/bc8a02059f8aeb680b19941ed06899cf05a0f4
+  .git/objects/53/d1de7aa30762386eea128acc7f554da0c387eb
+  .git/objects/58/64481a061fcae5f6a295bc80d1e695f45140bb
+  .git/objects/5c/4c93f5cd9aaaebd1481db7f6d86110f9358236
+  .git/objects/60/b6c03183647dfe368c452d6174b731786a97b6
+  .git/objects/63/c4eb44ce06f03178d96f63014b16a4b680a269
+  .git/objects/67/8271b7fbba1399bfb372f34ed1906845491faf
+  .git/objects/6b/6cbc8ca784db0ecf61601a6f03973fd8148f6b
+  .git/objects/6d/085980b5f09c7c270e3cdbd357646ddbe9dff6
+  .git/objects/6e/61f9ed4b2d4b232c39f254c2da96b8dec71ac8
+  .git/objects/6e/6e9f27e111f9058b80b3ffd66dc5d26f284bad
+  .git/objects/6f/476864bbd2f288bee362f795093ef7427fd526
+  .git/objects/71/8f92a280d59f906e56cf791a4103942fdb5428
+  .git/objects/76/3a882653a71b8227b6ef4edd39c0f5b59c191b
+  .git/objects/76/8d2c5ffca441fb3725a18d4cf68a3b468dbf9e
+  .git/objects/77/627063a2b584f8137d459bb4197ed999514910
+  .git/objects/7b/05108c147bc9bb04ddd442aeca752f22548cbc
+  .git/objects/83/82bbfe264c75798ee22871150b5cefea896a7c
+  .git/objects/86/04fd082d5a9b803f88fb1e6523b7f450482287
+  .git/objects/86/bb76b92025a2fb6ae7077eaa7497f10c8ee933
+  .git/objects/8b/63f4dbe26eef27989a77c2d15abe4e1c5e753c
+  .git/objects/8d/5ec330ce1624c4bce61c79aecc733fea786d37
+  .git/objects/91/efd80312566c293a9a4ea6bb596ee30133bf4f
+  .git/objects/99/27fe36d3aa678017e44471cf3e627a2199c0a8
+  .git/objects/9d/176c8f2aa75ee67e7d9285728ddb6e83e9aa3b
+  .git/objects/9d/4438c510ab20f120deae49e39efc70064df656
+  .git/objects/a1/14f9faa349deecf6ca1c109f290959cdc8cd93
+  .git/objects/a2/11f8a8f7fd9ba4fc9160b6435478c500a2323a
+  .git/objects/a2/3d8b5e6d92afb575432e4cf4305ad815e22938
+  .git/objects/ab/c692c3ddfd4f3d91936ef21e771a19baffb38a
+  .git/objects/af/ae42731ca01070660a7eb08a2e0df0b74c57a3
+  .git/objects/b1/8e65ff7954b2df1c2708bec21ad1fddb851c71
+  .git/objects/b2/eafb1373aa8ac29f33e547417bdca1283183ce
+  .git/objects/ba/0b9c3fc68477c4626df83ec594eba08b345acd
+  .git/objects/bc/5bf79111f64aee23c3817071a2655a494cc912
+  .git/objects/c1/f6dab7c5199d5df5ec636dc1aaa9d33a222c25
+  .git/objects/c3/4595aab2a3ba08e9c5daf5f2e2b9df5db022e3
+  .git/objects/c6/f379eb1153df30a7f567c9c4d995784038dcc8
+  .git/objects/c9/a779e979764ba91b3fd66a148370c5fde3aed6
+  .git/objects/ca/14d435610059fd81604b75d4e4cb4e7b8e3b6c
+  .git/objects/cf/f8dc2cfa6884a7ec67cbbf3878fc7f10b8e15c
+  .git/objects/d7/1a5d756bc5c6db677bd2c0ca6d08422ae04fb7
+  .git/objects/d9/35e2b0e9f43a669206d00c90e2804b047eace6
+  .git/objects/d9/c77ce9215ca319aa08c20a417966e2821f768d
+  .git/objects/da/2ebd347268b3d3e72476385344801560270e20
+  .git/objects/de/894100cd1844ae935b0ad8094efa8a7b664f5d
+  .git/objects/e0/2d9e1b0d88b15241e19f95376026a844b324b1
+  .git/objects/e6/9de29bb2d1d6434b8b29ae775ad8c2e48c5391
+  .git/objects/e7/6d6653c9a97276e89b716cb03999566dcda8df
+  .git/objects/ea/0c873e4ce0aea644af575d62ab4bfd57f6d374
+  .git/objects/ed/381cf19c99023eb1b74c63784568a7d09b7626
+  .git/objects/f3/6bb96579e9a57afd47ed31e4ebb241dc6d4899
+  .git/objects/f4/8eda66c9f977fd8dec347bda6f44ad91027032
+  .git/objects/f6/ac7bf4c888d3a6f34b55115a8b67aa4d7927cb
+  .git/objects/f7/a92f331a86d9da276cdab199770502baa575b6
+  .git/objects/f9/3e3a1a1525fb5b91020da86e44810c87a2d7bc
+  .git/objects/fb/2c6ef5505453f249fe7933befae18f24858962
+  .git/objects/fb/799b1667564f1627049187f810dc8ec908d94c
+Source packages should not contain undeclared executable files.
+See section ‘Package structure’ in the ‘Writing R Extensions’ manual.
+* checking whether package ‘nullabor’ can be installed ... OK
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... WARNING
+Found the following directory(s) with names of check directories:
+  ./..Rcheck
+Most likely, these were included erroneously.
+Subdirectory ‘inst’ contains no files.
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking for unstated dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+bin_dist: no visible binding for global variable ‘lineup.dat’
+box_dist: no visible global function definition for ‘ddply’
+box_dist: no visible global function definition for ‘.’
+box_dist: no visible binding for global variable ‘group’
+box_dist: no visible binding for global variable ‘summarize’
+box_dist: no visible binding for global variable ‘val’
+calc_diff: no visible binding for global variable ‘plotno’
+calc_diff: no visible binding for global variable ‘pos.2’
+calc_diff: no visible global function definition for ‘ddply’
+calc_diff: no visible global function definition for ‘.’
+calc_diff: no visible binding for global variable ‘summarize’
+calc_diff: no visible binding for global variable ‘bin’
+distmet: no visible binding for global variable ‘plotno’
+distmet: no visible binding for global variable ‘pos.2’
+distmet: no visible global function definition for ‘ddply’
+distmet: no visible global function definition for ‘.’
+distmet: no visible binding for global variable ‘summarize’
+distmet: no visible binding for global variable ‘b’
+distmet: no visible global function definition for ‘ldply’
+distmet : <anonymous>: no visible global function definition for
+  ‘ldply’
+distmet: no visible global function definition for ‘qplot’
+distmet: no visible global function definition for ‘geom_segment’
+distmet: no visible global function definition for ‘aes’
+distmet: no visible global function definition for ‘geom_text’
+distmet: no visible binding for global variable ‘mean.dist’
+distmet: no visible global function definition for ‘ylim’
+opt_diff: no visible global function definition for ‘ggplot’
+opt_diff: no visible global function definition for ‘aes’
+opt_diff: no visible global function definition for ‘geom_tile’
+opt_diff: no visible binding for global variable ‘Diff’
+opt_diff: no visible global function definition for
+  ‘scale_fill_gradient’
+opt_diff: no visible global function definition for ‘xlab’
+opt_diff: no visible global function definition for ‘ylab’
+sep_dist: no visible global function definition for ‘cluster.stats’
+uni_dist: no visible global function definition for ‘skewness’
+uni_dist: no visible global function definition for ‘kurtosis’
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... WARNING
+Undocumented arguments in documentation object 'reg_dist'
+  ‘X.bin’ ‘Y.bin’
+
+Functions with \usage entries need to have the appropriate \alias
+entries, and all their arguments documented.
+The \usage entries must correspond to syntactically valid R code.
+See the chapter ‘Writing R documentation files’ in the ‘Writing R
+Extensions’ manual.
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking examples ... OK
+* checking PDF version of manual ... OK
+WARNING: There were 3 warnings.
+NOTE: There was 1 note.
+See
+  ‘/Users/Niladri/Documents/Research/Extending nullabor /nullabor/..Rcheck/00check.log’
+for details.

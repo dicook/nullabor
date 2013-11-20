@@ -2,7 +2,7 @@
 \alias{null_lm}
 \title{Generate null data with null residuals from a model.}
 \usage{
-  null_lm(f, method = "rotate", ...)
+null_lm(f, method = "rotate", ...)
 }
 \arguments{
   \item{f}{model specification formula, as defined by
@@ -26,12 +26,10 @@
 }
 \examples{
 if (require("ggplot2") && require("reshape2")) {
-
-x <- lm(tip ~ total_bill, data = tips)
-tips.reg <- data.frame(tips, .resid = residuals(x), .fitted = fitted(x))
-qplot(total_bill, .resid, data = tips.reg) \%+\%
-  lineup(null_lm(tip ~ total_bill, method = "rotate"), tips.reg) +
-  facet_wrap(~ .sample)
+    
+    x <- lm(tip ~ total_bill, data = tips)
+    tips.reg <- data.frame(tips, .resid = residuals(x), .fitted = fitted(x))
+    qplot(total_bill, .resid, data = tips.reg) \%+\% lineup(null_lm(tip ~ total_bill, 
+        method = "rotate"), tips.reg) + facet_wrap(~.sample)
 }
 }
-

@@ -2,7 +2,7 @@
 \alias{rorschach}
 \title{The Rorschach protocol.}
 \usage{
-  rorschach(method, true = NULL, n = 20, p = 0)
+rorschach(method, true = NULL, n = 20, p = 0)
 }
 \arguments{
   \item{method}{method for generating null data sets}
@@ -26,4 +26,3 @@
   exploratory data analysis and model diagnostics, Phil.
   Trans. R. Soc. A, 367, 4361-4383.
 }
-

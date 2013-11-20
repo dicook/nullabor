@@ -2,7 +2,7 @@
 \alias{all_sample}
 \title{Calculates the mean distance for all replicates}
 \usage{
-  all_sample(dat, repl, no.samp, method)
+all_sample(dat, repl, no.samp, method)
 }
 \arguments{
   \item{dat}{observed data set using}
@@ -16,4 +16,3 @@
 \description{
   Calculates the mean distance for all replicates
 }
-

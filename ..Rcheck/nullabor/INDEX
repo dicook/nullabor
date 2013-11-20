@@ -1,0 +1,32 @@
+bin_dist                Binned Distance
+box_dist                Distance based on side by side Boxplots for two
+                        levels
+calc_diff               Uses binned distance to calculate the mean
+                        distance between the true plot and the null
+                        plots in a lineup. also calculates the mean
+                        distance of the null plots among themselves and
+                        finds the difference between the mean distance
+                        of the true plot and the maximum mean distance
+                        of the null plots
+decrypt                 Use decrypt to reveal the position of the real
+                        data.
+distmet                 Calculates the distance measures
+lal                     Los Angeles Lakers play-by-play data.
+lineup                  The line-up protocol.
+null_dist               Generate null data with a specific
+                        distribution.
+null_lm                 Generate null data with null residuals from a
+                        model.
+null_permute            Generate null data by permuting a variable.
+opt_diff                finds the difference using 'calc_diff' for all
+                        combinations of number of bins in x and y
+                        direction
+reg_dist                Distance based on the regression parameters
+resid_boot              Bootstrap residuals.
+resid_pboot             Parametric bootstrap residuals.
+resid_rotate            Rotation residuals.
+resid_sigma             Residuals simulated by a normal model, with
+                        specified sigma
+rorschach               The Rorschach protocol.
+sep_dist                Distance based on separation of clusters
+uni_dist                Distance for univariate data

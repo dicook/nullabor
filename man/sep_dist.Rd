@@ -2,7 +2,7 @@
 \alias{sep_dist}
 \title{Distance based on separation of clusters}
 \usage{
-  sep_dist(X, PX, clustering = FALSE, nclust = 3)
+sep_dist(X, PX, clustering = FALSE, nclust = 3)
 }
 \arguments{
   \item{X}{a data.frame with two or three columns, the
@@ -25,4 +25,3 @@
   separation is the minimum distances of a point in the
   cluster to a a point of another cluster
 }
-

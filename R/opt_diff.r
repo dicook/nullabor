@@ -21,15 +21,13 @@ calc_diff <- function(lineup.dat, X.bin, Y.bin, pos, m = 20){
 			X <- lineup.dat[lineup.dat$.sample == i, ]
 		sapply(1:m, function(j){
 			PX <- lineup.dat[lineup.dat$.sample == j, ]
-			dis <- bin_dist(X, PX, X.bin, Y.bin)
+			dis <- bin_dist(X, PX, lineup.dat, X.bin, Y.bin)
 		})
 	})
-	require(reshape)
 	d.m <- melt(d)
 	names(d.m) <- c("pos.2", "plotno", "bin")
 	dat.bin <- subset(d.m, plotno != pos.2 & pos.2 != pos)
-	require(plyr)
-	dat.bin.mean <- ddply(dat.bin, .(plotno), summarize, bin.m = mean(bin), len = length(bin))
+	dat.bin.mean <- plyr::ddply(dat.bin, "plotno", summarize, bin.m = mean(bin), len = length(bin))
  with(dat.bin.mean, bin.m[len == (m - 1)] - max(bin.m[len != (m - 1)]))
 }
 
@@ -64,8 +62,7 @@ opt_diff <- function(lineup.dat, xlow, xhigh, ylow, yhigh, pos, plot = FALSE,  m
 	d.m$q <- d.m$q + ylow - 1
 	d.m <- data.frame(p = d.m$p, q = d.m$q, Diff = d.m$Diff)
 	if(plot){
-		require(ggplot2)
-		p <- ggplot(d.m, aes(x = factor(p), y = factor(q))) + geom_tile(aes(fill
+		p <- ggplot2::ggplot(d.m, aes(x = factor(p), y = factor(q))) + geom_tile(aes(fill
 		 	=   Diff)) + scale_fill_gradient(high ="blue", low ="white") + 
 		 	xlab("p") + ylab("q")
 		return(list(dat = d.m, p = p))

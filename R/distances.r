@@ -8,11 +8,11 @@
 #' @param PX another data.frame with two variables, the first column giving
 #' the explanatory variable and the second column giving the response
 #' variable
+#' @param nbins number of bins on the x-direction, by default nbins = 1
 #' @return distance between X and PX
 #' @export
 
-reg_dist <- function(X, PX, X.bin = 1, Y.bin = X.bin){
-	nbins <- X.bin <- Y.bin
+reg_dist <- function(X, PX, nbins = 1){
 	ss <- seq(min(X[,1]), max(X[,1]), length = nbins + 1)
 	beta.X <- NULL ; beta.PX <- NULL
 	for(k in 1:nbins){
@@ -37,12 +37,15 @@ reg_dist <- function(X, PX, X.bin = 1, Y.bin = X.bin){
 #' are used
 #' @param PX another data.frame with two variables, the first two columns 
 #' are used
-#' @param X.bin number of bins on the x-direction, by default nbin.X = 5
-#' @param Y.bin number of bins on the y-direction, by default nbin.Y = 5
+#' @param lineup.dat lineup data if used with a lineup, so that the binning id done based
+#' on the lineup data and not the individual plots, by default lineup.dat = NULL
+#' @param X.bin number of bins on the x-direction, by default X.bin = 5
+#' @param Y.bin number of bins on the y-direction, by default Y.bin = 5
 #' @return distance between X and PX
 #' @export
 
-bin_dist <- function(X,PX, X.bin = 5, Y.bin = 5) {
+bin_dist <- function(X,PX, lineup.dat = NULL, X.bin = 5, Y.bin = 5) {
+	if(!is.null(lineup.dat)){
 	if(!is.numeric(X[,1])){
 	X[,1] <- as.numeric(X[,1])
 	nij <- as.numeric(table(cut(X[,1], breaks=seq(min(X[,1]), max(X[,1]),length.out = length(unique(X[,1])) + 1), include.lowest = TRUE),cut(X[,2], breaks=seq(min(lineup.dat[,2]), max(lineup.dat[,2]),length.out = Y.bin + 1), include.lowest = TRUE)))
@@ -53,6 +56,18 @@ bin_dist <- function(X,PX, X.bin = 5, Y.bin = 5) {
 	mij <- as.numeric(table(cut(PX[,1], breaks=seq(min(X[,1]), max(X[,1]),length.out = length(unique(X[,1])) + 1), include.lowest = TRUE),cut(PX[,2], breaks=seq(min(lineup.dat[,2]), max(lineup.dat[,2]),length.out = Y.bin + 1), include.lowest = TRUE)))
 	}else
 	mij <- as.numeric(table(cut(PX[,1], breaks=seq(min(lineup.dat[,1]), max(lineup.dat[,1]),length.out = X.bin + 1), include.lowest = TRUE),cut(PX[,2], breaks=seq(min(lineup.dat[,2]), max(lineup.dat[,2]),length.out = Y.bin + 1), include.lowest = TRUE)))
+	}else if(is.null(lineup.dat)){
+		if(!is.numeric(X[,1])){
+		X[,1] <- as.numeric(X[,1])
+	nij <- as.numeric(table(cut(X[,1], breaks=seq(min(X[,1]), max(X[,1]),length.out = length(unique(X[,1])) + 1), include.lowest = TRUE),cut(X[,2], breaks=seq(min(X[,2]), max(X[,2]),length.out = Y.bin + 1), include.lowest = TRUE)))
+	}else
+		nij <- as.numeric(table(cut(X[,1], breaks=seq(min(X[,1]), max(X[,1]),length.out = X.bin + 1), include.lowest = TRUE),cut(X[,2], breaks=seq(min(X[,2]), max(X[,2]),length.out = Y.bin + 1), include.lowest = TRUE)))
+	if(!is.numeric(PX[,1])){
+	PX[,1] <- as.numeric(PX[,1])
+	mij <- as.numeric(table(cut(PX[,1], breaks=seq(min(X[,1]), max(X[,1]),length.out = length(unique(X[,1])) + 1), include.lowest = TRUE),cut(PX[,2], breaks=seq(min(lineup.dat[,2]), max(lineup.dat[,2]),length.out = Y.bin + 1), include.lowest = TRUE)))
+	}else
+	mij <- as.numeric(table(cut(PX[,1], breaks=seq(min(PX[,1]), max(PX[,1]),length.out = X.bin + 1), include.lowest = TRUE),cut(PX[,2], breaks=seq(min(PX[,2]), max(PX[,2]),length.out = Y.bin + 1), include.lowest = TRUE)))
+	}
 	sqrt(sum((nij-mij)^2))
 }
 
@@ -68,8 +83,8 @@ bin_dist <- function(X,PX, X.bin = 5, Y.bin = 5) {
 uni_dist <- function(X, PX){
 	xx <- X[, 1]
 	yy <- PX[,1]
-	stat.xx <- c(mean(xx), sd(xx), moments::skewness(xx), moments::kurtosis(xx))
-	stat.yy <- c(mean(yy), sd(yy), moments::skewness(yy), moments::kurtosis(yy))
+	stat.xx <- c(mean(xx), sd(xx), skewness(xx), kurtosis(xx))
+	stat.yy <- c(mean(yy), sd(yy), skewness(yy), kurtosis(yy))
 	sqrt(sum((stat.xx - stat.yy)^2))
 }
 
@@ -88,28 +103,27 @@ uni_dist <- function(X, PX){
 
 
 box_dist <- function(X, PX){
-	require(plyr)
 	if(!is.factor(X[,1])&!is.factor(X[,2])){
 		stop("X should have one factor variable \n \n")
 	}else if(is.factor(X[,1])){
 		X$group <- X[,1]
 		X$val <- X[,2]
-		X.sum <- ddply(X, .(group), summarize, sum.stat = quantile(val, c(0.25, 0.5, 0.75)))
+		X.sum <- plyr::ddply(X, "group", summarize, sum.stat = quantile(val, c(0.25, 0.5, 0.75)))
 	}else if(is.factor(X[,2])){
 		X$group <- X[,2]
 		X$val <- X[,1]
-		X.sum <- ddply(X, .(group), summarize, sum.stat = quantile(val, c(0.25, 0.5, 0.75)))
+		X.sum <- plyr::ddply(X, "group", summarize, sum.stat = quantile(val, c(0.25, 0.5, 0.75)))
 	}
 	if(!is.factor(PX[,1])&!is.factor(PX[,2])){
 		stop("PX should have one factor variable \n \n")
 	}else if(is.factor(PX[,1])){
 		PX$group <- PX[,1]
 		PX$val <- PX[,2]
-		PX.sum <- ddply(PX, .(group), summarize, sum.stat = quantile(val, c(0.25, 0.5, 0.75)))
+		PX.sum <- plyr::ddply(PX, "group", summarize, sum.stat = quantile(val, c(0.25, 0.5, 0.75)))
 	}else {
 		PX$group <- PX[,2]
 		PX$val <- PX[,1]
-		PX.sum <- ddply(PX, .(group), summarize, sum.stat = quantile(val, c(0.25, 0.5, 0.75)))
+		PX.sum <- plyr::ddply(PX, "group", summarize, sum.stat = quantile(val, c(0.25, 0.5, 0.75)))
 	}
 	abs.diff.X <- abs(X.sum$sum.stat[X.sum$group == levels(X.sum$group)[1]] - X.sum$sum.stat[X.sum$group == levels(X.sum$group)[2]])
 	abs.diff.PX <- abs(PX.sum$sum.stat[PX.sum$group == levels(PX.sum$group)[1]] - PX.sum$sum.stat[PX.sum$group == levels(PX.sum$group)[2]])
@@ -134,7 +148,6 @@ box_dist <- function(X, PX){
 #' export
 
 sep_dist <- function(X, PX, clustering = FALSE, nclust = 3){
-	require(fpc)
 	dX <- dist(X[,1:2])
 	dPX <- dist(PX[,1:2])
 	if(clustering){

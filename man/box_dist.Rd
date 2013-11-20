@@ -2,7 +2,7 @@
 \alias{box_dist}
 \title{Distance based on side by side Boxplots for two levels}
 \usage{
-  box_dist(X, PX)
+box_dist(X, PX)
 }
 \arguments{
   \item{X}{a data.frame with one factor variable and one
@@ -18,4 +18,3 @@
   distance is calculated by looking at the difference
   between first quartile, median and third quartile
 }
-

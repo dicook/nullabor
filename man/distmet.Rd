@@ -2,8 +2,7 @@
 \alias{distmet}
 \title{Calculates the distance measures}
 \usage{
-  distmet(lineup.dat, met, method, pos, m = 20,
-    dist.arg = NULL, plot = TRUE)
+distmet(lineup.dat, met, method, pos, m = 20, dist.arg = NULL, plot = TRUE)
 }
 \arguments{
   \item{lineup.dat}{lineup data}
@@ -30,4 +29,3 @@
 \author{
   Niladri Roy Chowdhury
 }
-

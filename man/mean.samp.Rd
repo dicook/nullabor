@@ -2,7 +2,7 @@
 \alias{mean.samp}
 \title{Calculates the mean distance for each plot in the lineup.}
 \usage{
-  mean.samp(dat, no.samp, method)
+mean.samp(dat, no.samp, method)
 }
 \arguments{
   \item{dat}{lineup data}
@@ -14,4 +14,3 @@
 \description{
   Calculates the mean distance for each plot in the lineup.
 }
-

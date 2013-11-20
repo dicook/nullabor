@@ -2,8 +2,7 @@
 \alias{lineup}
 \title{The line-up protocol.}
 \usage{
-  lineup(method, true = NULL, n = 20, pos = sample(n, 1),
-    samples = NULL)
+lineup(method, true = NULL, n = 20, pos = sample(n, 1), samples = NULL)
 }
 \arguments{
   \item{method}{method for generating null data sets}
@@ -43,11 +42,8 @@
 }
 \examples{
 if (require("ggplot2")) {
-qplot(mpg, wt, data = mtcars) \%+\%
-  lineup(null_permute("mpg"), mtcars) +
-  facet_wrap(~ .sample)
-qplot(mpg, .sample, data = lineup(null_permute("cyl"), mtcars),
-  colour = factor(cyl))
+    qplot(mpg, wt, data = mtcars) \%+\% lineup(null_permute("mpg"), mtcars) + 
+        facet_wrap(~.sample)
+    qplot(mpg, .sample, data = lineup(null_permute("cyl"), mtcars), colour = factor(cyl))
 }
 }
-
