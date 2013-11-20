@@ -28,11 +28,9 @@ distmet <- function(lineup.dat, met, method, pos, m = 20, dist.arg = NULL, plot 
 			 }
 		})
 	})
-	require(reshape)
 	d.m <- melt(d)
 	names(d.m) <- c("pos.2", "plotno", "b")
 	d <- subset(d.m, plotno != pos.2 & pos.2 != pos)
-	require(plyr)
 	dist.mean <- ddply(d, .(plotno), summarize, mean.dist = mean(b), len = 	
 	length(b))
 	diff <- with(dist.mean, mean.dist[len == (m - 1)] - max(mean.dist[len == (m - 2)]))
@@ -52,7 +50,6 @@ distmet <- function(lineup.dat, met, method, pos, m = 20, dist.arg = NULL, plot 
 	})
 	if(plot){
 	 dev.new()
-	 require(ggplot2)
 	 p <- qplot(all.samp$V1, geom="density", fill=I("grey80"), colour=I("grey80"), 
 	 xlab="Permutation distribution", ylab="") + geom_segment(aes(x=dist.mean
 	 $mean.dist[dist.mean$len == (m - 2)], xend = dist.mean$mean.dist[dist.mean
