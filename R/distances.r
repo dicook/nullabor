@@ -38,16 +38,15 @@ reg_dist <- function(X, PX, nbins = 1) {
 #' are used
 #' @param PX another data.frame with two variables, the first two columns
 #' are used
-#' @param lineup.dat data.frame providing lineup data if used with a lineup,
-#' so that the binning is done based on the lineup data and not the
-#' individual plots, by default lineup.dat = NULL
+#' @param dist.lineup LOGICAL; if TRUE, the binning is done based on the lineup data and not
+#' the individual plots, by default lineup.dat = FALSE
 #' @param X.bin number of bins on the x-direction, by default X.bin = 5
 #' @param Y.bin number of bins on the y-direction, by default Y.bin = 5
 #' @return distance between X and PX
 #' @export
 #' @examples with(mtcars, bin_dist(data.frame(wt, mpg), data.frame(sample(wt), mpg)))
-bin_dist <- function(X, PX, lineup.dat = NULL, X.bin = 5, Y.bin = 5) {
-    if (!is.null(lineup.dat)) {
+bin_dist <- function(X, PX, dist.lineup = FALSE, X.bin = 5, Y.bin = 5) {
+    if (dist.lineup) {
         if (!is.numeric(X[, 1])) {
             X[, 1] <- as.numeric(X[, 1])
             nij <- as.numeric(table(cut(X[, 1], breaks = seq(min(X[, 1]), max(X[, 1]), length.out = length(unique(X[, 1])) + 1), include.lowest = TRUE), cut(X[, 
@@ -60,7 +59,7 @@ bin_dist <- function(X, PX, lineup.dat = NULL, X.bin = 5, Y.bin = 5) {
                 2], breaks = seq(min(lineup.dat[, 2]), max(lineup.dat[, 2]), length.out = Y.bin + 1), include.lowest = TRUE)))
         } else mij <- as.numeric(table(cut(PX[, 1], breaks = seq(min(lineup.dat[, 1]), max(lineup.dat[, 1]), length.out = X.bin + 1), include.lowest = TRUE), 
             cut(PX[, 2], breaks = seq(min(lineup.dat[, 2]), max(lineup.dat[, 2]), length.out = Y.bin + 1), include.lowest = TRUE)))
-    } else if (is.null(lineup.dat)) {
+    } else if (!(dist.lineup)) {
         if (!is.numeric(X[, 1])) {
             X[, 1] <- as.numeric(X[, 1])
             nij <- as.numeric(table(cut(X[, 1], breaks = seq(min(X[, 1]), max(X[, 1]), length.out = length(unique(X[, 1])) + 1), include.lowest = TRUE), cut(X[, 
@@ -85,7 +84,8 @@ bin_dist <- function(X, PX, lineup.dat = NULL, X.bin = 5, Y.bin = 5) {
 #' @param PX another data.frame where the first column is only used
 #' @return distance between X and PX
 #' @export
-#' @examples uni_dist(rnorm(100), rpois(100, 2)) 
+#' @import moments
+#' @examples if(require("moments")){uni_dist(rnorm(100), rpois(100, 2))}
 uni_dist <- function(X, PX) {
     if (is.data.frame(X) & is.data.frame(PX)) {
         xx <- X[, 1]
@@ -116,31 +116,31 @@ uni_dist <- function(X, PX) {
 #' variable
 #' @return distance between X and PX
 #' @export
-#' @importFrom plyr ddply
-#' @examples with(mtcars, box_dist(data.frame(as.factor(am), mpg), 
-#' data.frame(as.factor(sample(am)), mpg)))
+#' @import plyr
+#' @examples if(require("plyr")) {with(mtcars, box_dist(data.frame(as.factor(am), mpg), 
+#' data.frame(as.factor(sample(am)), mpg)))}
 box_dist <- function(X, PX) {
     if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {
         stop("X should have one factor variable \n \n")
     } else if (is.factor(X[, 1])) {
         X$group <- X[, 1]
         X$val <- X[, 2]
-        X.sum <- plyr::ddply(X, "group", summarize, sum.stat = quantile(val, c(0.25, 0.5, 0.75)))
+        X.sum <- ddply(X, "group", summarize, sum.stat = quantile(val, c(0.25, 0.5, 0.75)))
     } else if (is.factor(X[, 2])) {
         X$group <- X[, 2]
         X$val <- X[, 1]
-        X.sum <- plyr::ddply(X, "group", summarize, sum.stat = quantile(val, c(0.25, 0.5, 0.75)))
+        X.sum <- ddply(X, "group", summarize, sum.stat = quantile(val, c(0.25, 0.5, 0.75)))
     }
     if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {
         stop("PX should have one factor variable \n \n")
     } else if (is.factor(PX[, 1])) {
         PX$group <- PX[, 1]
         PX$val <- PX[, 2]
-        PX.sum <- plyr::ddply(PX, "group", summarize, sum.stat = quantile(val, c(0.25, 0.5, 0.75)))
+        PX.sum <- ddply(PX, "group", summarize, sum.stat = quantile(val, c(0.25, 0.5, 0.75)))
     } else {
         PX$group <- PX[, 2]
         PX$val <- PX[, 1]
-        PX.sum <- plyr::ddply(PX, "group", summarize, sum.stat = quantile(val, c(0.25, 0.5, 0.75)))
+        PX.sum <- ddply(PX, "group", summarize, sum.stat = quantile(val, c(0.25, 0.5, 0.75)))
     }
     abs.diff.X <- abs(X.sum$sum.stat[X.sum$group == levels(X.sum$group)[1]] - X.sum$sum.stat[X.sum$group == levels(X.sum$group)[2]])
     abs.diff.PX <- abs(PX.sum$sum.stat[PX.sum$group == levels(PX.sum$group)[1]] - PX.sum$sum.stat[PX.sum$group == levels(PX.sum$group)[2]])
@@ -164,10 +164,11 @@ box_dist <- function(X, PX) {
 #' clustering, by default nclust = 3
 #' @return distance between X and PX
 #' @export
-#' @examples with(mtcars, sep_dist(data.frame(wt, mpg, as.factor(cyl)),
-#' data.frame(sample(wt), mpg, as.factor(cyl)), clustering = TRUE))
-#' @examples with(mtcars, sep_dist(data.frame(wt, mpg, as.factor(cyl)), 
-#' data.frame(sample(wt), mpg, as.factor(cyl)), nclust = 3))
+#' @import fpc
+#' @examples if(require("fpc")) { with(mtcars, sep_dist(data.frame(wt, mpg, 
+#' as.factor(cyl)), data.frame(sample(wt), mpg, as.factor(cyl)), clustering = TRUE))}
+#' @examples if(require("fpc")) { with(mtcars, sep_dist(data.frame(wt, mpg,
+#' as.factor(cyl)), data.frame(sample(wt), mpg, as.factor(cyl)), nclust = 3)) }
 sep_dist <- function(X, PX, clustering = FALSE, nclust = 3) {
     dX <- dist(X[, 1:2])
     dPX <- dist(PX[, 1:2])

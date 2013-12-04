@@ -18,6 +18,6 @@
   distance is calculated based on the first four moments
 }
 \examples{
-uni_dist(rnorm(100), rpois(100, 2))
+if(require("moments")){uni_dist(rnorm(100), rpois(100, 2))}
 }
 

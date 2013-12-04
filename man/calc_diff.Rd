@@ -5,10 +5,13 @@ and the null plots in a lineup. also calculates the mean distance of the
 null plots among themselves and finds the difference between the mean
 distance of the true plot and the maximum mean distance of the null plots}
 \usage{
-  calc_diff(lineup.dat, X.bin, Y.bin, pos, m = 20)
+  calc_diff(lineup.dat, var, X.bin, Y.bin, pos, m = 20)
 }
 \arguments{
   \item{lineup.dat}{lineup data to get the lineup}
+
+  \item{var}{a list of names of the variables to be used to
+  calculate the difference}
 
   \item{X.bin}{number of bins on the x-direction}
 
@@ -32,8 +35,8 @@ distance of the true plot and the maximum mean distance of the null plots}
   of the null plots
 }
 \examples{
-lineup.dat <- subset(lineup(null_permute('mpg'), mtcars, pos = 10), select =
-c(mpg, wt, .sample))
-calc_diff(lineup.dat, X.bin = 5, Y.bin = 5, pos = 10)
+if(require("plyr")) { if(require("reshape"))
+{ calc_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"),
+X.bin = 5, Y.bin = 5, pos = 10)}}
 }
 

@@ -1,9 +1,9 @@
-\name{dist.plot}
-\alias{dist.plot}
+\name{distplot}
+\alias{distplot}
 \title{Plotting the distribution of the distances with the distances for
 the null plots and true plot overlaid}
 \usage{
-  dist.plot(dat, pos, m = 20)
+  distplot(dat, pos, m = 20)
 }
 \arguments{
   \item{dat}{output from \code{\link{distmet}}}
@@ -18,7 +18,8 @@ the null plots and true plot overlaid}
   distances for the null plots and true plot overlaid
 }
 \examples{
-dist.plot(dat, pos = 10) ## position of the true plot in \\code{\\link{distmet}}
-example
+if(require("ggplot2")) {distplot(distmet(subset(lineup(null_permute('mpg'),
+mtcars, pos = 10), select = c(mpg, wt, .sample)), reg_dist, null_permute('mpg'), pos = 10),
+pos = 10)} ## position of the true plot in \\code{\\link{distmet}} example
 }
 

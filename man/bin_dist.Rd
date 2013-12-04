@@ -2,7 +2,8 @@
 \alias{bin_dist}
 \title{Binned Distance}
 \usage{
-  bin_dist(X, PX, lineup.dat = NULL, X.bin = 5, Y.bin = 5)
+  bin_dist(X, PX, dist.lineup = FALSE, X.bin = 5,
+    Y.bin = 5)
 }
 \arguments{
   \item{X}{a data.frame with two variables, the first two
@@ -11,10 +12,9 @@
   \item{PX}{another data.frame with two variables, the
   first two columns are used}
 
-  \item{lineup.dat}{data.frame providing lineup data if
-  used with a lineup, so that the binning is done based on
-  the lineup data and not the individual plots, by default
-  lineup.dat = NULL}
+  \item{dist.lineup}{LOGICAL; if TRUE, the binning is done
+  based on the lineup data and not the individual plots, by
+  default lineup.dat = FALSE}
 
   \item{X.bin}{number of bins on the x-direction, by
   default X.bin = 5}

@@ -26,7 +26,7 @@
   cluster to a a point of another cluster
 }
 \examples{
-with(mtcars, sep_dist(data.frame(wt, mpg, as.factor(cyl)),
-data.frame(sample(wt), mpg, as.factor(cyl)), clustering = TRUE))
+if(require("fpc")) { with(mtcars, sep_dist(data.frame(wt, mpg,
+as.factor(cyl)), data.frame(sample(wt), mpg, as.factor(cyl)), clustering = TRUE))}
 }
 

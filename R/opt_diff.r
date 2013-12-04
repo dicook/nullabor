@@ -7,6 +7,7 @@
 #'
 #'
 #' @param lineup.dat lineup data to get the lineup
+#' @param var a list of names of the variables to be used to calculate the difference
 #' @param X.bin number of bins on the x-direction
 #' @param Y.bin number of bins on the y-direction
 #' @param pos position of the true plot in the lineup
@@ -14,15 +15,16 @@
 #' @return difference between the mean distance of the true plot and
 #' the maximum mean distance of the null plots
 #' @export
-#' @examples lineup.dat <- subset(lineup(null_permute('mpg'), mtcars, pos = 10), select = 
-#' c(mpg, wt, .sample))
-#' calc_diff(lineup.dat, X.bin = 5, Y.bin = 5, pos = 10)
-calc_diff <- function(lineup.dat, X.bin, Y.bin, pos, m = 20) {
+#' @examples if(require("plyr")) { if(require("reshape"))
+#'{ calc_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"), 
+#' X.bin = 5, Y.bin = 5, pos = 10)}}
+calc_diff <- function(lineup.dat, var, X.bin, Y.bin, pos, m = 20) {
+	lineup.dat <- lineup.dat[, c(var, ".sample")]
     d <- sapply(1:m, function(i) {
         X <- lineup.dat[lineup.dat$.sample == i, ]
         sapply(1:m, function(j) {
             PX <- lineup.dat[lineup.dat$.sample == j, ]
-            dis <- bin_dist(X, PX, X.bin, Y.bin)
+            dis <- bin_dist(X, PX, dist.lineup = TRUE, X.bin, Y.bin)
         })
     })
     d.m <- melt(d)
@@ -38,6 +40,7 @@ calc_diff <- function(lineup.dat, X.bin, Y.bin, pos, m = 20) {
 #' number of bins in x and y direction
 #'
 #' @param lineup.dat lineup data to get the lineup
+#' @param var a list of names of the variables to be used to calculate the difference
 #' @param xlow the lowest value of number of bins on the x-direction
 #' @param xhigh the highest value of number of bins on the x-direction
 #' @param ylow the lowest value of number of bins on the y-direction
@@ -49,11 +52,14 @@ calc_diff <- function(lineup.dat, X.bin, Y.bin, pos, m = 20) {
 #' @return a dataframe with the number of bins and differences
 #' the maximum mean distance of the null plots
 #' @export
-#' @examples opt_diff(lineup.dat, 2, 10, 2, 10, 10) ## position of the observed data
-opt_diff <- function(lineup.dat, xlow, xhigh, ylow, yhigh, pos, plot = FALSE, m = 20) {
+#' @examples if(require("reshape")){
+#'	if(require("ggplot2")){ 
+#'		opt_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"), 2, 10,
+#' 2, 10, 10, plot = TRUE)}}
+opt_diff <- function(lineup.dat, var, xlow, xhigh, ylow, yhigh, pos, plot = FALSE, m = 20) {
     d <- sapply(xlow:xhigh, function(X.bin) {
         sapply(ylow:yhigh, function(Y.bin) {
-            calc_diff(lineup.dat, X.bin, Y.bin, pos, m)
+            calc_diff(lineup.dat, var, X.bin, Y.bin, pos, m)
         })
     })
     d.m <- melt(d)

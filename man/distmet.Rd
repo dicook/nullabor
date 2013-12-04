@@ -18,8 +18,8 @@
   \item{m}{the number of plots in the lineup; m = 20 by
   default}
 
-  \item{dist.arg}{a vector of inputs for the distance
-  metric met; NULL by default}
+  \item{dist.arg}{a list of inputs for the distance metric
+  met; NULL by default}
 
   \item{plot}{LOGICAL; if TRUE, returns density plot
   showing the distn of the measures; TRUE by default}
@@ -28,11 +28,13 @@
   Calculates the distance measures
 }
 \examples{
-lineup.dat <- subset(lineup(null_permute('mpg'), mtcars, pos = 10), select =
-c(mpg, wt, .sample))
-dat <- distmet(lineup.dat, reg_dist, null_permute('mpg'), pos = 10) ## using regression
-based distance
-dat <- distmet(lineup.dat, bin_dist, null_permute('mpg'), pos = 10, dist.arg = c(lineup =
-TRUE, X.bin = 5, Y.bin = 5)) ## using binned distance
+if(require("reshape")) {
+	if(require("plyr")) { distmet(lineup(null_permute('mpg'), mtcars, pos =
+10), var = c("mpg", "wt"), reg_dist, null_permute('mpg'), pos = 10) }}
+if(require("reshape")) {
+if(require("plyr")) {
+distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"), bin_dist,
+null_permute('mpg'), pos = 10, dist.arg = list(dist.lineup = TRUE, X.bin = 5, Y.bin =
+5)) }}
 }
 

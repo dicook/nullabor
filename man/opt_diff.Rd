@@ -3,11 +3,14 @@
 \title{finds the difference using \code{calc_diff} for all combinations of
 number of bins in x and y direction}
 \usage{
-  opt_diff(lineup.dat, xlow, xhigh, ylow, yhigh, pos,
+  opt_diff(lineup.dat, var, xlow, xhigh, ylow, yhigh, pos,
     plot = FALSE, m = 20)
 }
 \arguments{
   \item{lineup.dat}{lineup data to get the lineup}
+
+  \item{var}{a list of names of the variables to be used to
+  calculate the difference}
 
   \item{xlow}{the lowest value of number of bins on the
   x-direction}
@@ -39,6 +42,9 @@ number of bins in x and y direction}
   combinations of number of bins in x and y direction
 }
 \examples{
-opt_diff(lineup.dat, 2, 10, 2, 10, 10) ## position of the observed data
+if(require("reshape")){
+	if(require("ggplot2")){
+		opt_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"), 2, 10,
+2, 10, 10, plot = TRUE)}}
 }
 
