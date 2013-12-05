@@ -1,7 +1,10 @@
-dists <- c(beta = "beta", cauchy = "cauchy", `chi-squared` = "chisq", exponential = "exp", f = "f", gamma = "gamma", geometric = "geom", `log-normal` = "lnorm", 
-    lognormal = "lnorm", logistic = "logis", `negative binomial` = "nbinom", normal = "norm", poisson = "pois", t = "t", weibull = "weibull")
+dists <- c(beta = "beta", cauchy = "cauchy", `chi-squared` = "chisq", exponential = "exp", 
+    f = "f", gamma = "gamma", geometric = "geom", `log-normal` = "lnorm", lognormal = "lnorm", 
+    logistic = "logis", `negative binomial` = "nbinom", normal = "norm", poisson = "pois", 
+    t = "t", weibull = "weibull")
 
-# Specific distribution ------------------------------------------------------
+# Specific distribution
+# ------------------------------------------------------
 
 #' Generate null data with a specific distribution.
 #'

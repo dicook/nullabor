@@ -1,4 +1,5 @@
-# Linear model as null -------------------------------------------------------
+# Linear model as null
+# -------------------------------------------------------
 
 #' Generate null data with null residuals from a model.
 #'

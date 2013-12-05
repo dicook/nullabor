@@ -38,44 +38,60 @@ reg_dist <- function(X, PX, nbins = 1) {
 #' are used
 #' @param PX another data.frame with two variables, the first two columns
 #' are used
-#' @param dist.lineup LOGICAL; if TRUE, the binning is done based on the lineup data and not
-#' the individual plots, by default lineup.dat = FALSE
+#' @param lineup.dat lineup data so that the binning is done based on the lineup data and not
+#' the individual plots, by default lineup.dat = NULL ; automatically uses lineup data when 
+#' used with calc_diff and distmet
 #' @param X.bin number of bins on the x-direction, by default X.bin = 5
 #' @param Y.bin number of bins on the y-direction, by default Y.bin = 5
 #' @return distance between X and PX
 #' @export
 #' @examples with(mtcars, bin_dist(data.frame(wt, mpg), data.frame(sample(wt), mpg)))
-bin_dist <- function(X, PX, dist.lineup = FALSE, X.bin = 5, Y.bin = 5) {
-    if (dist.lineup) {
+bin_dist <- function(X, PX, lineup.dat = NULL, X.bin = 5, Y.bin = 5) {
+    if (!is.null(lineup.dat)) {
         if (!is.numeric(X[, 1])) {
             X[, 1] <- as.numeric(X[, 1])
-            nij <- as.numeric(table(cut(X[, 1], breaks = seq(min(X[, 1]), max(X[, 1]), length.out = length(unique(X[, 1])) + 1), include.lowest = TRUE), cut(X[, 
-                2], breaks = seq(min(lineup.dat[, 2]), max(lineup.dat[, 2]), length.out = Y.bin + 1), include.lowest = TRUE)))
-        } else nij <- as.numeric(table(cut(X[, 1], breaks = seq(min(lineup.dat[, 1]), max(lineup.dat[, 1]), length.out = X.bin + 1), include.lowest = TRUE), cut(X[, 
-            2], breaks = seq(min(lineup.dat[, 2]), max(lineup.dat[, 2]), length.out = Y.bin + 1), include.lowest = TRUE)))
+            nij <- as.numeric(table(cut(X[, 1], breaks = seq(min(X[, 1]), max(X[, 
+                1]), length.out = length(unique(X[, 1])) + 1), include.lowest = TRUE), 
+                cut(X[, 2], breaks = seq(min(lineup.dat[, 2]), max(lineup.dat[, 
+                  2]), length.out = Y.bin + 1), include.lowest = TRUE)))
+        } else nij <- as.numeric(table(cut(X[, 1], breaks = seq(min(lineup.dat[, 
+            1]), max(lineup.dat[, 1]), length.out = X.bin + 1), include.lowest = TRUE), 
+            cut(X[, 2], breaks = seq(min(lineup.dat[, 2]), max(lineup.dat[, 
+                2]), length.out = Y.bin + 1), include.lowest = TRUE)))
         if (!is.numeric(PX[, 1])) {
             PX[, 1] <- as.numeric(PX[, 1])
-            mij <- as.numeric(table(cut(PX[, 1], breaks = seq(min(X[, 1]), max(X[, 1]), length.out = length(unique(X[, 1])) + 1), include.lowest = TRUE), cut(PX[, 
-                2], breaks = seq(min(lineup.dat[, 2]), max(lineup.dat[, 2]), length.out = Y.bin + 1), include.lowest = TRUE)))
-        } else mij <- as.numeric(table(cut(PX[, 1], breaks = seq(min(lineup.dat[, 1]), max(lineup.dat[, 1]), length.out = X.bin + 1), include.lowest = TRUE), 
-            cut(PX[, 2], breaks = seq(min(lineup.dat[, 2]), max(lineup.dat[, 2]), length.out = Y.bin + 1), include.lowest = TRUE)))
-    } else if (!(dist.lineup)) {
+            mij <- as.numeric(table(cut(PX[, 1], breaks = seq(min(X[, 1]), 
+                max(X[, 1]), length.out = length(unique(X[, 1])) + 1), include.lowest = TRUE), 
+                cut(PX[, 2], breaks = seq(min(lineup.dat[, 2]), max(lineup.dat[, 
+                  2]), length.out = Y.bin + 1), include.lowest = TRUE)))
+        } else mij <- as.numeric(table(cut(PX[, 1], breaks = seq(min(lineup.dat[, 
+            1]), max(lineup.dat[, 1]), length.out = X.bin + 1), include.lowest = TRUE), 
+            cut(PX[, 2], breaks = seq(min(lineup.dat[, 2]), max(lineup.dat[, 
+                2]), length.out = Y.bin + 1), include.lowest = TRUE)))
+    } else if (is.null(lineup.dat)) {
         if (!is.numeric(X[, 1])) {
             X[, 1] <- as.numeric(X[, 1])
-            nij <- as.numeric(table(cut(X[, 1], breaks = seq(min(X[, 1]), max(X[, 1]), length.out = length(unique(X[, 1])) + 1), include.lowest = TRUE), cut(X[, 
-                2], breaks = seq(min(X[, 2]), max(X[, 2]), length.out = Y.bin + 1), include.lowest = TRUE)))
-        } else nij <- as.numeric(table(cut(X[, 1], breaks = seq(min(X[, 1]), max(X[, 1]), length.out = X.bin + 1), include.lowest = TRUE), cut(X[, 2], breaks = seq(min(X[, 
-            2]), max(X[, 2]), length.out = Y.bin + 1), include.lowest = TRUE)))
+            nij <- as.numeric(table(cut(X[, 1], breaks = seq(min(X[, 1]), max(X[, 
+                1]), length.out = length(unique(X[, 1])) + 1), include.lowest = TRUE), 
+                cut(X[, 2], breaks = seq(min(X[, 2]), max(X[, 2]), length.out = Y.bin + 
+                  1), include.lowest = TRUE)))
+        } else nij <- as.numeric(table(cut(X[, 1], breaks = seq(min(X[, 1]), 
+            max(X[, 1]), length.out = X.bin + 1), include.lowest = TRUE), cut(X[, 
+            2], breaks = seq(min(X[, 2]), max(X[, 2]), length.out = Y.bin + 
+            1), include.lowest = TRUE)))
         if (!is.numeric(PX[, 1])) {
             PX[, 1] <- as.numeric(PX[, 1])
-            mij <- as.numeric(table(cut(PX[, 1], breaks = seq(min(X[, 1]), max(X[, 1]), length.out = length(unique(X[, 1])) + 1), include.lowest = TRUE), cut(PX[, 
-                2], breaks = seq(min(lineup.dat[, 2]), max(lineup.dat[, 2]), length.out = Y.bin + 1), include.lowest = TRUE)))
-        } else mij <- as.numeric(table(cut(PX[, 1], breaks = seq(min(PX[, 1]), max(PX[, 1]), length.out = X.bin + 1), include.lowest = TRUE), cut(PX[, 2], breaks = seq(min(PX[, 
-            2]), max(PX[, 2]), length.out = Y.bin + 1), include.lowest = TRUE)))
+            mij <- as.numeric(table(cut(PX[, 1], breaks = seq(min(X[, 1]), 
+                max(X[, 1]), length.out = length(unique(X[, 1])) + 1), include.lowest = TRUE), 
+                cut(PX[, 2], breaks = seq(min(lineup.dat[, 2]), max(lineup.dat[, 
+                  2]), length.out = Y.bin + 1), include.lowest = TRUE)))
+        } else mij <- as.numeric(table(cut(PX[, 1], breaks = seq(min(PX[, 1]), 
+            max(PX[, 1]), length.out = X.bin + 1), include.lowest = TRUE), 
+            cut(PX[, 2], breaks = seq(min(PX[, 2]), max(PX[, 2]), length.out = Y.bin + 
+                1), include.lowest = TRUE)))
     }
     sqrt(sum((nij - mij)^2))
 }
-
 #' Distance for univariate data
 #'
 #' distance is calculated based on the first four moments
@@ -85,7 +101,7 @@ bin_dist <- function(X, PX, dist.lineup = FALSE, X.bin = 5, Y.bin = 5) {
 #' @return distance between X and PX
 #' @export
 #' @import moments
-#' @examples if(require("moments")){uni_dist(rnorm(100), rpois(100, 2))}
+#' @examples if(require('moments')){uni_dist(rnorm(100), rpois(100, 2))}
 uni_dist <- function(X, PX) {
     if (is.data.frame(X) & is.data.frame(PX)) {
         xx <- X[, 1]
@@ -117,7 +133,7 @@ uni_dist <- function(X, PX) {
 #' @return distance between X and PX
 #' @export
 #' @import plyr
-#' @examples if(require("plyr")) {with(mtcars, box_dist(data.frame(as.factor(am), mpg), 
+#' @examples if(require('plyr')) {with(mtcars, box_dist(data.frame(as.factor(am), mpg), 
 #' data.frame(as.factor(sample(am)), mpg)))}
 box_dist <- function(X, PX) {
     if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {
@@ -125,25 +141,31 @@ box_dist <- function(X, PX) {
     } else if (is.factor(X[, 1])) {
         X$group <- X[, 1]
         X$val <- X[, 2]
-        X.sum <- ddply(X, "group", summarize, sum.stat = quantile(val, c(0.25, 0.5, 0.75)))
+        X.sum <- ddply(X, "group", summarize, sum.stat = quantile(val, c(0.25, 
+            0.5, 0.75)))
     } else if (is.factor(X[, 2])) {
         X$group <- X[, 2]
         X$val <- X[, 1]
-        X.sum <- ddply(X, "group", summarize, sum.stat = quantile(val, c(0.25, 0.5, 0.75)))
+        X.sum <- ddply(X, "group", summarize, sum.stat = quantile(val, c(0.25, 
+            0.5, 0.75)))
     }
     if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {
         stop("PX should have one factor variable \n \n")
     } else if (is.factor(PX[, 1])) {
         PX$group <- PX[, 1]
         PX$val <- PX[, 2]
-        PX.sum <- ddply(PX, "group", summarize, sum.stat = quantile(val, c(0.25, 0.5, 0.75)))
+        PX.sum <- ddply(PX, "group", summarize, sum.stat = quantile(val, c(0.25, 
+            0.5, 0.75)))
     } else {
         PX$group <- PX[, 2]
         PX$val <- PX[, 1]
-        PX.sum <- ddply(PX, "group", summarize, sum.stat = quantile(val, c(0.25, 0.5, 0.75)))
+        PX.sum <- ddply(PX, "group", summarize, sum.stat = quantile(val, c(0.25, 
+            0.5, 0.75)))
     }
-    abs.diff.X <- abs(X.sum$sum.stat[X.sum$group == levels(X.sum$group)[1]] - X.sum$sum.stat[X.sum$group == levels(X.sum$group)[2]])
-    abs.diff.PX <- abs(PX.sum$sum.stat[PX.sum$group == levels(PX.sum$group)[1]] - PX.sum$sum.stat[PX.sum$group == levels(PX.sum$group)[2]])
+    abs.diff.X <- abs(X.sum$sum.stat[X.sum$group == levels(X.sum$group)[1]] - 
+        X.sum$sum.stat[X.sum$group == levels(X.sum$group)[2]])
+    abs.diff.PX <- abs(PX.sum$sum.stat[PX.sum$group == levels(PX.sum$group)[1]] - 
+        PX.sum$sum.stat[PX.sum$group == levels(PX.sum$group)[2]])
     sqrt(sum((abs.diff.X - abs.diff.PX)^2))
 }
 
@@ -165,10 +187,12 @@ box_dist <- function(X, PX) {
 #' @return distance between X and PX
 #' @export
 #' @import fpc
-#' @examples if(require("fpc")) { with(mtcars, sep_dist(data.frame(wt, mpg, 
-#' as.factor(cyl)), data.frame(sample(wt), mpg, as.factor(cyl)), clustering = TRUE))}
-#' @examples if(require("fpc")) { with(mtcars, sep_dist(data.frame(wt, mpg,
-#' as.factor(cyl)), data.frame(sample(wt), mpg, as.factor(cyl)), nclust = 3)) }
+#' @examples if(require('fpc')) { with(mtcars, sep_dist(data.frame(wt, mpg, 
+#' as.numeric(as.factor(mtcars$cyl))), data.frame(sample(wt), mpg, 
+#' as.numeric(as.factor(mtcars$cyl))), clustering = TRUE))}
+#' @examples if(require('fpc')) { with(mtcars, sep_dist(data.frame(wt, mpg, 
+#' as.numeric(as.factor(mtcars$cyl))), data.frame(sample(wt), mpg, 
+#' as.numeric(as.factor(mtcars$cyl))), nclustering = 3))}
 sep_dist <- function(X, PX, clustering = FALSE, nclust = 3) {
     dX <- dist(X[, 1:2])
     dPX <- dist(PX[, 1:2])

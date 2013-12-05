@@ -42,9 +42,9 @@ number of bins in x and y direction}
   combinations of number of bins in x and y direction
 }
 \examples{
-if(require("reshape")){
-	if(require("ggplot2")){
-		opt_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"), 2, 10,
+if(require('reshape')){
+if(require('ggplot2')){
+opt_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 2, 10,
 2, 10, 10, plot = TRUE)}}
 }
 

@@ -10,8 +10,8 @@ distance of the true plot and the maximum mean distance of the null plots}
 \arguments{
   \item{lineup.dat}{lineup data to get the lineup}
 
-  \item{var}{a list of names of the variables to be used to
-  calculate the difference}
+  \item{var}{a vector of names of the variables to be used
+  to calculate the difference}
 
   \item{X.bin}{number of bins on the x-direction}
 
@@ -35,8 +35,8 @@ distance of the true plot and the maximum mean distance of the null plots}
   of the null plots
 }
 \examples{
-if(require("plyr")) { if(require("reshape"))
-{ calc_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"),
+if(require('plyr')) { if(require('reshape'))
+{ calc_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'),
 X.bin = 5, Y.bin = 5, pos = 10)}}
 }
 

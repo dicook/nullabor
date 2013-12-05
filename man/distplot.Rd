@@ -18,8 +18,10 @@ the null plots and true plot overlaid}
   distances for the null plots and true plot overlaid
 }
 \examples{
-if(require("ggplot2")) {distplot(distmet(subset(lineup(null_permute('mpg'),
-mtcars, pos = 10), select = c(mpg, wt, .sample)), reg_dist, null_permute('mpg'), pos = 10),
-pos = 10)} ## position of the true plot in \\code{\\link{distmet}} example
+if(require('ggplot2')) {
+	if(require('reshape')) {
+if(require('plyr')) {distplot(distmet(lineup(null_permute('mpg'), mtcars, pos
+= 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10),
+pos = 10)}}} ## position of the true plot in \\code{\\link{distmet}} example
 }
 

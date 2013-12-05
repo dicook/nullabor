@@ -19,7 +19,7 @@
   between first quartile, median and third quartile
 }
 \examples{
-if(require("plyr")) {with(mtcars, box_dist(data.frame(as.factor(am), mpg),
+if(require('plyr')) {with(mtcars, box_dist(data.frame(as.factor(am), mpg),
 data.frame(as.factor(sample(am)), mpg)))}
 }
 
