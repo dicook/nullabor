@@ -57,22 +57,20 @@ distmet <- function(lineup.dat, var, met, method, pos, dist.arg = NULL, m = 20) 
         mean(Dist$V1)
     })
     return(list(dist.mean = dist.mean[, c("plotno", dist = "mean.dist")], all.val = all.samp, 
-        diff = diff, closest = closest))
+        diff = diff, closest = closest, pos = pos))
 }
 
 #' Plotting the distribution of the distances with the distances for 
 #' the null plots and true plot overlaid  
 #'
 #' @param dat output from \code{\link{distmet}}
-#' @param pos position of the observed data in the lineup
 #' @param m the number of plots in the lineup; m = 20 by default
 #' @export
 #' @examples if(require('ggplot2')) {
 #'	if(require('reshape')) {
 #' if(require('plyr')) {distplot(distmet(lineup(null_permute('mpg'), mtcars, pos
-#' = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10),
-#' pos = 10)}}} ## position of the true plot in \code{\link{distmet}} example
-distplot <- function(dat, pos, m = 20) {
+#' = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10))}}} 
+distplot <- function(dat, m = 20) {
     p <- with(dat, qplot(all.val$V1, geom = "density", fill = I("grey80"), 
         colour = I("grey80"), xlab = "Permutation distribution", ylab = "") + 
         geom_segment(aes(x = dist.mean$mean.dist[dist.mean$plotno != pos], 
