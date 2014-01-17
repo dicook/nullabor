@@ -1,7 +1,10 @@
 \name{opt_diff}
 \alias{opt_diff}
-\title{finds the difference using \code{calc_diff} for all combinations of
-number of bins in x and y direction}
+\title{This function finds the optimal number of bins in both x and y direction which should
+be used to calculate the binned distance. The binned distance is calculated for each
+combination of provided choices of number of bins in x and y direction and finds the
+difference using \code{calc_diff} for each combination. The combination for which the
+difference is maximum should be used.}
 \usage{
   opt_diff(lineup.dat, var, xlow, xhigh, ylow, yhigh, pos,
     plot = FALSE, m = 20)
@@ -38,8 +41,13 @@ number of bins in x and y direction}
   maximum mean distance of the null plots
 }
 \description{
-  finds the difference using \code{calc_diff} for all
-  combinations of number of bins in x and y direction
+  This function finds the optimal number of bins in both x
+  and y direction which should be used to calculate the
+  binned distance. The binned distance is calculated for
+  each combination of provided choices of number of bins in
+  x and y direction and finds the difference using
+  \code{calc_diff} for each combination. The combination
+  for which the difference is maximum should be used.
 }
 \examples{
 if(require('reshape')){

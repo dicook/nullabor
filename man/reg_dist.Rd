@@ -20,7 +20,13 @@
   distance between X and PX
 }
 \description{
-  Distance based on the regression parameters
+  Dataset X is binned into 5 bins in x-direction. A
+  regression line is fitted to the data in each bin and the
+  regression coefficients are noted. Same is done for
+  dataset PX. An euclidean distance is calculated between
+  the two sets of regression parameters. If the
+  relationship between X and PX looks linear, number of
+  bins should be equal to 1.
 }
 \examples{
 with(mtcars, reg_dist(data.frame(wt, mpg), data.frame(sample(wt), mpg)))

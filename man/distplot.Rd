@@ -1,7 +1,7 @@
 \name{distplot}
 \alias{distplot}
-\title{Plotting the distribution of the distances with the distances for
-the null plots and true plot overlaid}
+\title{The distribution of the distance measure is plotted with the distances for
+the null plots and true plot overlaid.}
 \usage{
   distplot(dat, m = 20)
 }
@@ -12,12 +12,12 @@ the null plots and true plot overlaid}
   default}
 }
 \description{
-  Plotting the distribution of the distances with the
-  distances for the null plots and true plot overlaid
+  The distribution of the distance measure is plotted with
+  the distances for the null plots and true plot overlaid.
 }
 \examples{
 if(require('ggplot2')) {
-	if(require('reshape')) {
+if(require('reshape')) {
 if(require('plyr')) {distplot(distmet(lineup(null_permute('mpg'), mtcars, pos
 = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10))}}}
 }

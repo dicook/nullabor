@@ -26,8 +26,11 @@
   distance between X and PX
 }
 \description{
-  euclidean distance is calculated by binning the data and
-  counting the number of points in each bin
+  Data X is binned into X.bin bins in x-direction and
+  Y.bins in y-direction. The number of points in each cell
+  is then counted. Same is done for data PX. An euclidean
+  distance is calculated between the number of points in
+  each cell between X and PX.
 }
 \examples{
 with(mtcars, bin_dist(data.frame(wt, mpg), data.frame(sample(wt), mpg)))

@@ -1,10 +1,11 @@
-# Calculating the difference between the mean distance of true plot and the
-# maximum of the null plots.
+# Calculating the difference between the mean distance of true plot and the maximum of the null
+# plots.
 #'
-#' Uses binned distance to calculate the mean distance between the true plot
-#' and the null plots in a lineup. also calculates the mean distance of the
-#' null plots among themselves and finds the difference between the mean
-#' distance of the true plot and the maximum mean distance of the null plots
+#' Binned distance is used to calculate the mean distance between the true plot
+#' and all the null plots in a lineup. The mean distances of each null plot to all
+#' the other null plots are calculated. The difference between the mean
+#' distance of the true plot and the maximum mean distance of the null plots is then 
+#' calculated.
 #'
 #'
 #' @param lineup.dat lineup data to get the lineup
@@ -31,17 +32,18 @@ calc_diff <- function(lineup.dat, var, X.bin, Y.bin, pos, m = 20) {
     d.m <- melt(d)
     names(d.m) <- c("pos.2", "plotno", "bin")
     dat.bin <- subset(d.m, plotno != pos.2 & pos.2 != pos)
-    dat.bin.mean <- ddply(dat.bin, .(plotno), summarize, bin.m = mean(bin), 
-        len = length(bin))
+    dat.bin.mean <- ddply(dat.bin, .(plotno), summarize, bin.m = mean(bin), len = length(bin))
     with(dat.bin.mean, bin.m[len == (m - 1)] - max(bin.m[len != (m - 1)]))
 }
 
 
-# Finds the number of bins on x and y axis which gives the maximum binned
-# distance
+# Finds the number of bins on x and y axis which gives the maximum binned distance
 #'
-#' finds the difference using \code{calc_diff} for all combinations of
-#' number of bins in x and y direction
+#' This function finds the optimal number of bins in both x and y direction which should
+#' be used to calculate the binned distance. The binned distance is calculated for each
+#' combination of provided choices of number of bins in x and y direction and finds the
+#' difference using \code{calc_diff} for each combination. The combination for which the
+#' difference is maximum should be used.
 #'
 #' @param lineup.dat lineup data to get the lineup
 #' @param var a list of names of the variables to be used to calculate the difference
@@ -60,22 +62,16 @@ calc_diff <- function(lineup.dat, var, X.bin, Y.bin, pos, m = 20) {
 #' if(require('ggplot2')){ 
 #' opt_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 2, 10,
 #' 2, 10, 10, plot = TRUE)}}
-opt_diff <- function(lineup.dat, var, xlow, xhigh, ylow, yhigh, pos, plot = FALSE, 
-    m = 20) {
-    d <- sapply(xlow:xhigh, function(X.bin) {
-        sapply(ylow:yhigh, function(Y.bin) {
-            calc_diff(lineup.dat, var, X.bin, Y.bin, pos, m)
+opt_diff <- function(lineup.dat, var, xlow, xhigh, ylow, yhigh, pos, plot = FALSE, m = 20) {
+    d.m <- ldply(xlow:xhigh, function(X.bin) {
+        ldply(ylow:yhigh, function(Y.bin) {
+            data.frame(X.bin, Y.bin, calc_diff(lineup.dat, var, X.bin, Y.bin, pos, m))
         })
-    })
-    d.m <- melt(d)
-    names(d.m) <- c("q", "p", "Diff")
-    d.m$p <- d.m$p + xlow - 1
-    d.m$q <- d.m$q + ylow - 1
-    d.m <- data.frame(p = d.m$p, q = d.m$q, Diff = d.m$Diff)
+    }, .progress = progress_text(char = "="))
+    names(d.m) <- c("p", "q", "Diff")
     if (plot) {
-        p <- ggplot(d.m, aes(x = factor(p), y = factor(q))) + geom_tile(aes(fill = Diff)) + 
-            scale_fill_gradient(high = "blue", low = "white") + xlab("p") + 
-            ylab("q")
+        p <- ggplot(d.m, aes(x = factor(p), y = factor(q))) + geom_tile(aes(fill = Diff)) + scale_fill_gradient(high = "blue", 
+            low = "white") + xlab("p") + ylab("q")
         return(list(dat = d.m, p = p))
     } else {
         return(dat = d.m)

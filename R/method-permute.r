@@ -1,5 +1,4 @@
-# Multivariate independence
-# --------------------------------------------------
+# Multivariate independence --------------------------------------------------
 
 
 #' Generate null data by permuting a variable.

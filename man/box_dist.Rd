@@ -15,8 +15,12 @@
   distance between X and PX
 }
 \description{
-  distance is calculated by looking at the difference
-  between first quartile, median and third quartile
+  Assuming there are only two groups, the first quartile,
+  median and third quartile is calculated for each group of
+  data X. The absolute difference between these statistics
+  between the two groups are then calculated. Same is done
+  for data PX. Finally an euclidean distance is calculated
+  between the absolute differences of X and PX.
 }
 \examples{
 if(require('plyr')) {with(mtcars, box_dist(data.frame(as.factor(am), mpg),

@@ -21,9 +21,14 @@
   distance between X and PX
 }
 \description{
-  distance based on the separation between clusters
-  separation is the minimum distances of a point in the
-  cluster to a a point of another cluster
+  The separation between clusters is defined by the minimum
+  distances of a point in the cluster to a point in another
+  cluster. The number of clusters are provided. If not, the
+  hierarchical clustering method is used to obtain the
+  clusters. The separation between the clusters for dataset
+  X is calculated. Same is done for dataset PX. An
+  euclidean distance is then calculated between these
+  separation for X and PX.
 }
 \examples{
 if(require('fpc')) { with(mtcars, sep_dist(data.frame(wt, mpg,

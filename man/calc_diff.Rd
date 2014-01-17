@@ -1,9 +1,10 @@
 \name{calc_diff}
 \alias{calc_diff}
-\title{Uses binned distance to calculate the mean distance between the true plot
-and the null plots in a lineup. also calculates the mean distance of the
-null plots among themselves and finds the difference between the mean
-distance of the true plot and the maximum mean distance of the null plots}
+\title{Binned distance is used to calculate the mean distance between the true plot
+and all the null plots in a lineup. The mean distances of each null plot to all
+the other null plots are calculated. The difference between the mean
+distance of the true plot and the maximum mean distance of the null plots is then
+calculated.}
 \usage{
   calc_diff(lineup.dat, var, X.bin, Y.bin, pos, m = 20)
 }
@@ -27,12 +28,12 @@ distance of the true plot and the maximum mean distance of the null plots}
   the maximum mean distance of the null plots
 }
 \description{
-  Uses binned distance to calculate the mean distance
-  between the true plot and the null plots in a lineup.
-  also calculates the mean distance of the null plots among
-  themselves and finds the difference between the mean
-  distance of the true plot and the maximum mean distance
-  of the null plots
+  Binned distance is used to calculate the mean distance
+  between the true plot and all the null plots in a lineup.
+  The mean distances of each null plot to all the other
+  null plots are calculated. The difference between the
+  mean distance of the true plot and the maximum mean
+  distance of the null plots is then calculated.
 }
 \examples{
 if(require('plyr')) { if(require('reshape'))

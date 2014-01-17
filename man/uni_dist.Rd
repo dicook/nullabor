@@ -15,7 +15,9 @@
   distance between X and PX
 }
 \description{
-  distance is calculated based on the first four moments
+  The first four moments is calculated for data X and data
+  PX. An euclidean distance is calculated between these
+  moments for X and PX.
 }
 \examples{
 if(require('moments')){uni_dist(rnorm(100), rpois(100, 2))}
