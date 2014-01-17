@@ -25,5 +25,5 @@ Collate:
     'method-permute.r'
     'protocols.r'
     'distmet.r'
-    'distances.R'
+    'distances.r'
     'opt_diff.r'
