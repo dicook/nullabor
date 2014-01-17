@@ -1,5 +1,5 @@
-# Calculating the difference between the mean distance of true plot and the maximum of the null
-# plots.
+#' Calculating the difference between the mean distance of true plot and the maximum of the null
+#' plots.
 #'
 #' Binned distance is used to calculate the mean distance between the true plot
 #' and all the null plots in a lineup. The mean distances of each null plot to all
