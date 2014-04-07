@@ -1,3 +1,5 @@
+#' Empirical distribution of the distance
+#'
 #' The empirical distribution of the distance measures is calculated based on the mean
 #' distance of each of the null plots from the other null plots in a lineup.  
 #'
@@ -43,6 +45,7 @@
 #' distmet(lineup.dat, var = 'residual', 'uni_dist', null_dist('residual', dist = 'normal'),
 #' pos = 19) }}}} # Assuming pos = 19; but put the true position for pos
 distmet <- function(lineup.dat, var, met, method, pos, repl = 1000, dist.arg = NULL, m = 20) {
+	plotno <- pos.2 <- b <- NULL
     lineup.dat <- lineup.dat[, c(var, ".sample")]
     if (!is.character(met)) {
         stop("function met should be a character")
@@ -84,7 +87,8 @@ distmet <- function(lineup.dat, var, met, method, pos, repl = 1000, dist.arg = N
     return(list(lineup = dist.mean[, c("plotno", dist = "mean.dist")], null_values = all.samp, diff = diff, 
         closest = closest, pos = pos))
 }
-
+#' Plotting the distribution of the distance measure
+#'
 #' The distribution of the distance measure is plotted with the distances for 
 #' the null plots and true plot overlaid.  
 #'

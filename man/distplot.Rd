@@ -1,7 +1,6 @@
 \name{distplot}
 \alias{distplot}
-\title{The distribution of the distance measure is plotted with the distances for
-the null plots and true plot overlaid.}
+\title{Plotting the distribution of the distance measure}
 \usage{
   distplot(dat, m = 20)
 }

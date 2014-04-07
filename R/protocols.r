@@ -7,7 +7,6 @@
 #' analysis and model diagnostics, Phil. Trans. R. Soc. A, 367, 4361-4383.
 #'
 #' @export
-#' @importFrom plyr rdply
 #' @param method method for generating null data sets
 #' @param true true data set. If \code{NULL}, \code{\link{find_plot_data}}
 #'   will attempt to extract it from the current ggplot2 plot.
@@ -55,7 +54,6 @@ rorschach <- function(method, true = NULL, n = 20, p = 0) {
 #' @param samples samples generated under the null hypothesis. Only specify
 #'   this if you don't want lineup to generate the data for you.
 #' @export
-#' @importFrom plyr rdply
 #' @examples
 #' if (require('ggplot2')) {
 #' qplot(mpg, wt, data = mtcars) %+% 
@@ -78,7 +76,6 @@ lineup <- function(method, true = NULL, n = 20, pos = sample(n, 1), samples = NU
 
 #' Add true data into data frame containing null data sets.
 #' @keywords internal
-#' @importFrom plyr rbind.fill
 add_true <- function(samples, true, pos) {
     samples$.sample <- with(samples, ifelse(.n >= pos, .n + 1, .n))
     samples$.n <- NULL

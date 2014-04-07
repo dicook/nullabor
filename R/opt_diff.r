@@ -1,5 +1,4 @@
-#' Calculating the difference between the mean distance of true plot and the maximum of the null
-#' plots.
+#' Calculating the difference between true plot and the null plot with the maximum distance.
 #'
 #' Binned distance is used to calculate the mean distance between the true plot
 #' and all the null plots in a lineup. The mean distances of each null plot to all
@@ -21,6 +20,7 @@
 #'{ calc_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 
 #' X.bin = 5, Y.bin = 5, pos = 10)}}
 calc_diff <- function(lineup.dat, var, X.bin, Y.bin, pos, m = 20) {
+	plotno <- pos.2 <- bin <- NULL
     lineup.dat <- lineup.dat[, c(var, ".sample")]
     d <- sapply(1:m, function(i) {
         X <- lineup.dat[lineup.dat$.sample == i, ]
@@ -37,7 +37,7 @@ calc_diff <- function(lineup.dat, var, X.bin, Y.bin, pos, m = 20) {
 }
 
 
-# Finds the number of bins on x and y axis which gives the maximum binned distance
+#' Finds the number of bins in x and y direction which gives the maximum binned distance
 #'
 #' This function finds the optimal number of bins in both x and y direction which should
 #' be used to calculate the binned distance. The binned distance is calculated for each
@@ -63,6 +63,7 @@ calc_diff <- function(lineup.dat, var, X.bin, Y.bin, pos, m = 20) {
 #' opt_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 2, 10,
 #' 2, 10, 10, plot = TRUE)}}
 opt_diff <- function(lineup.dat, var, xlow, xhigh, ylow, yhigh, pos, plot = FALSE, m = 20) {
+	Diff <- NULL
     d.m <- ldply(xlow:xhigh, function(X.bin) {
         ldply(ylow:yhigh, function(Y.bin) {
             data.frame(X.bin, Y.bin, calc_diff(lineup.dat, var, X.bin, Y.bin, pos, m))
