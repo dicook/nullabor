@@ -2,7 +2,7 @@
 \alias{uni_dist}
 \title{Distance for univariate data}
 \usage{
-  uni_dist(X, PX)
+uni_dist(X, PX)
 }
 \arguments{
   \item{X}{a data.frame where the first column is only
@@ -12,12 +12,12 @@
   only used}
 }
 \value{
-  distance between X and PX
+distance between X and PX
 }
 \description{
-  The first four moments is calculated for data X and data
-  PX. An euclidean distance is calculated between these
-  moments for X and PX.
+The first four moments is calculated for data X and data
+PX. An euclidean distance is calculated between these
+moments for X and PX.
 }
 \examples{
 if(require('moments')){uni_dist(rnorm(100), rpois(100, 2))}

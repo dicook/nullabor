@@ -89,7 +89,7 @@ Binned distance is highly affected by the choice of the number of bins. The numb
 
 ```{r}
 library(ggplot2)
-opt.diff <- opt_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 2, 10, 2, 10, 10, plot = TRUE)
+opt.diff <- opt_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 2, 10, 2, 10, 10, plot = TRUE, progress.bar = FALSE)
 head(opt.diff$dat)
 opt.diff$p
 ```
@@ -114,7 +114,7 @@ Copy and paste the output of lineup.dat to get the position of the true plot
 ```
 
 ```{r, message = FALSE}
-dist.vals <- distmet(lineup.dat, var = c('mpg', 'wt'), 'bin_dist', null_permute('mpg'), pos = 16, dist.arg = list(X.bin = 5, Y.bin = 5))
+dist.vals <- distmet(lineup.dat, var = c('mpg', 'wt'), 'bin_dist', null_permute('mpg'), pos = 16, dist.arg = list(X.bin = 5, Y.bin = 5), progress.bar = FALSE)
 ```
 
 ```{r}

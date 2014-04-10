@@ -55,6 +55,7 @@ calc_diff <- function(lineup.dat, var, X.bin, Y.bin, pos, m = 20) {
 #' @param plot LOGICAL; if true, returns a tile plot for the combinations
 #' of number of bins with the differences as weights
 #' @param m number of plots in the lineup, by default m = 20
+#' @param progress.bar LOGICAL; shows progress of function, by default TRUE
 #' @return a dataframe with the number of bins and differences
 #' the maximum mean distance of the null plots
 #' @export
@@ -62,13 +63,21 @@ calc_diff <- function(lineup.dat, var, X.bin, Y.bin, pos, m = 20) {
 #' if(require('ggplot2')){ 
 #' opt_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 2, 10,
 #' 2, 10, 10, plot = TRUE)}}
-opt_diff <- function(lineup.dat, var, xlow, xhigh, ylow, yhigh, pos, plot = FALSE, m = 20) {
+opt_diff <- function(lineup.dat, var, xlow, xhigh, ylow, yhigh, pos, plot = FALSE, m = 20, progress.bar = TRUE) {
 	Diff <- NULL
+	if(progress.bar){
     d.m <- ldply(xlow:xhigh, function(X.bin) {
         ldply(ylow:yhigh, function(Y.bin) {
             data.frame(X.bin, Y.bin, calc_diff(lineup.dat, var, X.bin, Y.bin, pos, m))
         })
     }, .progress = progress_text(char = "="))
+    }else{
+    	d.m <- ldply(xlow:xhigh, function(X.bin) {
+        ldply(ylow:yhigh, function(Y.bin) {
+            data.frame(X.bin, Y.bin, calc_diff(lineup.dat, var, X.bin, Y.bin, pos, m))
+        })
+    })
+    	}
     names(d.m) <- c("p", "q", "Diff")
     if (plot) {
         p <- ggplot(d.m, aes(x = factor(p), y = factor(q))) + geom_tile(aes(fill = Diff)) + scale_fill_gradient(high = "blue", 

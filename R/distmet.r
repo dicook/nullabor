@@ -13,6 +13,7 @@
 #' default
 #' @param dist.arg a list or vector of inputs for the distance metric met; NULL by default
 #' @param m the number of plots in the lineup; m = 20 by default
+#' @param progress.bar LOGICAL; shows progress of function, by default TRUE
 #' @examples if(require('reshape')) {
 #' if(require('plyr')) { distmet(lineup(null_permute('mpg'), mtcars, pos =
 #' 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10) }}
@@ -44,7 +45,7 @@
 #' #decrypt('....') #Copy and paste to get the true position
 #' distmet(lineup.dat, var = 'residual', 'uni_dist', null_dist('residual', dist = 'normal'),
 #' pos = 19) }}}} # Assuming pos = 19; but put the true position for pos
-distmet <- function(lineup.dat, var, met, method, pos, repl = 1000, dist.arg = NULL, m = 20) {
+distmet <- function(lineup.dat, var, met, method, pos, repl = 1000, dist.arg = NULL, m = 20, progress.bar = TRUE) {
 	plotno <- pos.2 <- b <- NULL
     lineup.dat <- lineup.dat[, c(var, ".sample")]
     if (!is.character(met)) {
@@ -72,6 +73,7 @@ distmet <- function(lineup.dat, var, met, method, pos, repl = 1000, dist.arg = N
     diff <- with(dist.mean, mean.dist[len == (m - 1)] - max(mean.dist[len == (m - 2)]))
     closest <- dist.mean[order(dist.mean$mean.dist, decreasing = TRUE), ]$plotno[2:6]
     obs.dat <- lineup.dat[lineup.dat$.sample == pos, ]
+    if(progress.bar){
     all.samp <- ldply(1:repl, function(k) {
         null <- method(obs.dat)  # method
         Dist <- ldply(1:(m - 2), function(l) {
@@ -84,6 +86,20 @@ distmet <- function(lineup.dat, var, met, method, pos, repl = 1000, dist.arg = N
         })
         mean(Dist$V1)
     }, .progress = progress_text(char = "="))
+    }else{
+    	 all.samp <- ldply(1:repl, function(k) {
+        null <- method(obs.dat)  # method
+        Dist <- ldply(1:(m - 2), function(l) {
+            null.dat <- method(null)  # method
+            if (is.null(dist.arg)) {
+                do.call(func, list(null, null.dat))
+            } else {
+                do.call(func, append(list(null, null.dat), unname(dist.arg)))  # dist.met
+            }
+        })
+        mean(Dist$V1)
+    })
+    	}
     return(list(lineup = dist.mean[, c("plotno", dist = "mean.dist")], null_values = all.samp, diff = diff, 
         closest = closest, pos = pos))
 }

@@ -2,8 +2,8 @@
 \alias{distmet}
 \title{Empirical distribution of the distance}
 \usage{
-  distmet(lineup.dat, var, met, method, pos, repl = 1000,
-    dist.arg = NULL, m = 20)
+distmet(lineup.dat, var, met, method, pos, repl = 1000, dist.arg = NULL,
+  m = 20, progress.bar = TRUE)
 }
 \arguments{
   \item{lineup.dat}{lineup data}
@@ -25,11 +25,14 @@
 
   \item{m}{the number of plots in the lineup; m = 20 by
   default}
+
+  \item{progress.bar}{LOGICAL; shows progress of function,
+  by default TRUE}
 }
 \description{
-  The empirical distribution of the distance measures is
-  calculated based on the mean distance of each of the null
-  plots from the other null plots in a lineup.
+The empirical distribution of the distance measures is
+calculated based on the mean distance of each of the null
+plots from the other null plots in a lineup.
 }
 \examples{
 if(require('reshape')) {

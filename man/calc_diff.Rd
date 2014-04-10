@@ -2,7 +2,7 @@
 \alias{calc_diff}
 \title{Calculating the difference between true plot and the null plot with the maximum distance.}
 \usage{
-  calc_diff(lineup.dat, var, X.bin, Y.bin, pos, m = 20)
+calc_diff(lineup.dat, var, X.bin, Y.bin, pos, m = 20)
 }
 \arguments{
   \item{lineup.dat}{lineup data to get the lineup}
@@ -20,16 +20,16 @@
   20}
 }
 \value{
-  difference between the mean distance of the true plot and
-  the maximum mean distance of the null plots
+difference between the mean distance of the true plot and
+the maximum mean distance of the null plots
 }
 \description{
-  Binned distance is used to calculate the mean distance
-  between the true plot and all the null plots in a lineup.
-  The mean distances of each null plot to all the other
-  null plots are calculated. The difference between the
-  mean distance of the true plot and the maximum mean
-  distance of the null plots is then calculated.
+Binned distance is used to calculate the mean distance
+between the true plot and all the null plots in a lineup.
+The mean distances of each null plot to all the other null
+plots are calculated. The difference between the mean
+distance of the true plot and the maximum mean distance of
+the null plots is then calculated.
 }
 \examples{
 if(require('plyr')) { if(require('reshape'))

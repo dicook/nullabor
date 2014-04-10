@@ -2,7 +2,7 @@
 \alias{sep_dist}
 \title{Distance based on separation of clusters}
 \usage{
-  sep_dist(X, PX, clustering = FALSE, nclust = 3)
+sep_dist(X, PX, clustering = FALSE, nclust = 3)
 }
 \arguments{
   \item{X}{a data.frame with two or three columns, the
@@ -18,17 +18,17 @@
   hierarchial clustering, by default nclust = 3}
 }
 \value{
-  distance between X and PX
+distance between X and PX
 }
 \description{
-  The separation between clusters is defined by the minimum
-  distances of a point in the cluster to a point in another
-  cluster. The number of clusters are provided. If not, the
-  hierarchical clustering method is used to obtain the
-  clusters. The separation between the clusters for dataset
-  X is calculated. Same is done for dataset PX. An
-  euclidean distance is then calculated between these
-  separation for X and PX.
+The separation between clusters is defined by the minimum
+distances of a point in the cluster to a point in another
+cluster. The number of clusters are provided. If not, the
+hierarchical clustering method is used to obtain the
+clusters. The separation between the clusters for dataset X
+is calculated. Same is done for dataset PX. An euclidean
+distance is then calculated between these separation for X
+and PX.
 }
 \examples{
 if(require('fpc')) { with(mtcars, sep_dist(data.frame(wt, mpg,

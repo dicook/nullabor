@@ -2,7 +2,7 @@
 \alias{null_dist}
 \title{Generate null data with a specific distribution.}
 \usage{
-  null_dist(var, dist, params = NULL)
+null_dist(var, dist, params = NULL)
 }
 \arguments{
   \item{var}{variable name}
@@ -17,11 +17,11 @@
   estimate them.}
 }
 \value{
-  a function that given \code{data} generates a null data
-  set.  For use with \code{\link{lineup}} or
-  \code{\link{rorschach}}
+a function that given \code{data} generates a null data
+set.  For use with \code{\link{lineup}} or
+\code{\link{rorschach}}
 }
 \description{
-  Null hypothesis: variable has specified distribution
+Null hypothesis: variable has specified distribution
 }
 

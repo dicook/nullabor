@@ -2,7 +2,7 @@
 \alias{box_dist}
 \title{Distance based on side by side Boxplots for two levels}
 \usage{
-  box_dist(X, PX)
+box_dist(X, PX)
 }
 \arguments{
   \item{X}{a data.frame with one factor variable and one
@@ -12,15 +12,15 @@
   continuous variable}
 }
 \value{
-  distance between X and PX
+distance between X and PX
 }
 \description{
-  Assuming there are only two groups, the first quartile,
-  median and third quartile is calculated for each group of
-  data X. The absolute difference between these statistics
-  between the two groups are then calculated. Same is done
-  for data PX. Finally an euclidean distance is calculated
-  between the absolute differences of X and PX.
+Assuming there are only two groups, the first quartile,
+median and third quartile is calculated for each group of
+data X. The absolute difference between these statistics
+between the two groups are then calculated. Same is done
+for data PX. Finally an euclidean distance is calculated
+between the absolute differences of X and PX.
 }
 \examples{
 if(require('plyr')) {with(mtcars, box_dist(data.frame(as.factor(am), mpg),

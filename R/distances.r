@@ -138,6 +138,7 @@ uni_dist <- function(X, PX) {
 #' @examples if(require('plyr')) {with(mtcars, box_dist(data.frame(as.factor(am), mpg), 
 #' data.frame(as.factor(sample(am)), mpg)))}
 box_dist <- function(X, PX) {
+	val <- NULL
     if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {
         stop("X should have one factor variable \n \n")
     } else if (is.factor(X[, 1])) {

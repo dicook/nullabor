@@ -2,7 +2,7 @@
 \alias{resid_sigma}
 \title{Residuals simulated by a normal model, with specified sigma}
 \usage{
-  resid_sigma(model, data, sigma = 1)
+resid_sigma(model, data, sigma = 1)
 }
 \arguments{
   \item{model}{to extract residuals from}
@@ -12,6 +12,6 @@
   \item{sigma,}{a specific sigma to model}
 }
 \description{
-  For use with \code{\link{null_lm}}
+For use with \code{\link{null_lm}}
 }
 

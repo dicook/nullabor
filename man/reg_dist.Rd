@@ -2,7 +2,7 @@
 \alias{reg_dist}
 \title{Distance based on the regression parameters}
 \usage{
-  reg_dist(X, PX, nbins = 1)
+reg_dist(X, PX, nbins = 1)
 }
 \arguments{
   \item{X}{a data.frame with two variables, the first
@@ -17,16 +17,15 @@
   default nbins = 1}
 }
 \value{
-  distance between X and PX
+distance between X and PX
 }
 \description{
-  Dataset X is binned into 5 bins in x-direction. A
-  regression line is fitted to the data in each bin and the
-  regression coefficients are noted. Same is done for
-  dataset PX. An euclidean distance is calculated between
-  the two sets of regression parameters. If the
-  relationship between X and PX looks linear, number of
-  bins should be equal to 1.
+Dataset X is binned into 5 bins in x-direction. A
+regression line is fitted to the data in each bin and the
+regression coefficients are noted. Same is done for dataset
+PX. An euclidean distance is calculated between the two
+sets of regression parameters. If the relationship between
+X and PX looks linear, number of bins should be equal to 1.
 }
 \examples{
 with(mtcars, reg_dist(data.frame(wt, mpg), data.frame(sample(wt), mpg)))

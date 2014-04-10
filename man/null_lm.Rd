@@ -2,7 +2,7 @@
 \alias{null_lm}
 \title{Generate null data with null residuals from a model.}
 \usage{
-  null_lm(f, method = "rotate", ...)
+null_lm(f, method = "rotate", ...)
 }
 \arguments{
   \item{f}{model specification formula, as defined by
@@ -16,13 +16,13 @@
   \item{...}{other arguments passedd onto \code{method}.}
 }
 \value{
-  a function that given \code{data} generates a null data
-  set.  For use with \code{\link{lineup}} or
-  \code{\link{rorschach}}
+a function that given \code{data} generates a null data
+set.  For use with \code{\link{lineup}} or
+\code{\link{rorschach}}
 }
 \description{
-  Null hypothesis: variable is linear combination of
-  predictors
+Null hypothesis: variable is linear combination of
+predictors
 }
 \examples{
 if (require('ggplot2') && require('reshape2')) {
