@@ -48,7 +48,7 @@ uni_dist(rnorm(100), rpois(100, 2))
 ```
 
 ```
-## [1] 2.24
+## [1] 2.506
 ```
 
 
@@ -63,7 +63,7 @@ with(mtcars, reg_dist(data.frame(wt, mpg), data.frame(sample(wt), mpg)))
 ```
 
 ```
-## [1] 364.7
+## [1] 521.7
 ```
 
 
@@ -79,7 +79,7 @@ with(mtcars, box_dist(data.frame(as.factor(am), mpg), data.frame(as.factor(sampl
 ```
 
 ```
-## [1] 6.445
+## [1] 10.99
 ```
 
 
@@ -96,7 +96,7 @@ with(mtcars, sep_dist(data.frame(wt, mpg, as.numeric(as.factor(mtcars$cyl))),
 ```
 
 ```
-## [1] 0.5648
+## [1] 1.574
 ```
 
 Binned Distance
@@ -111,7 +111,7 @@ with(mtcars, bin_dist(data.frame(wt, mpg), data.frame(sample(wt), mpg)), X.bin =
 ```
 
 ```
-## [1] 9.592
+## [1] 8.944
 ```
 
 
@@ -141,7 +141,7 @@ calc_diff(lineup(null_permute("mpg"), mtcars, pos = 10), var = c("mpg", "wt"),
 ```
 
 ```
-## [1] 2.921
+## [1] 2.602
 ```
 
 
@@ -159,13 +159,13 @@ head(opt.diff$dat)
 ```
 
 ```
-##   p q  Diff
-## 1 2 2 1.725
-## 2 2 3 3.366
-## 3 2 4 4.256
-## 4 2 5 3.557
-## 5 2 6 1.798
-## 6 2 7 1.277
+##   p q    Diff
+## 1 2 2 -0.4094
+## 2 2 3  2.7812
+## 3 2 4  2.8251
+## 4 2 5  3.2051
+## 5 2 6  1.4146
+## 6 2 7  1.4203
 ```
 
 ```r
@@ -213,12 +213,12 @@ head(dist.vals$lineup)
 
 ```
 ##   plotno mean.dist
-## 1      1     5.611
-## 2      2     6.098
-## 3      3     5.284
-## 4      4     5.595
-## 5      5     6.215
-## 6      6     5.400
+## 1      1     5.527
+## 2      2     5.075
+## 3      3     5.582
+## 4      4     5.124
+## 5      5     6.180
+## 6      6     6.174
 ```
 
 ```r
@@ -226,7 +226,7 @@ dist.vals$diff
 ```
 
 ```
-## [1] 2.749
+## [1] 1.11
 ```
 
 ```r
@@ -234,7 +234,7 @@ head(dist.vals$closest)
 ```
 
 ```
-## [1]  5  2 19  1  4
+## [1] 15 19 20  5  6
 ```
 
 ```r
