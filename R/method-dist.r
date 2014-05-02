@@ -17,6 +17,7 @@ dists <- c(beta = "beta", cauchy = "cauchy", `chi-squared` = "chisq", exponentia
 #' @return a function that given \code{data} generates a null data set.
 #'   For use with \code{\link{lineup}} or \code{\link{rorschach}}
 #' @export
+#' @importFrom MASS fitdistr
 null_dist <- function(var, dist, params = NULL) {
     dist <- match.arg(dist, names(dists))
     generator <- match.fun(paste("r", dists[dist], sep = ""))
@@ -24,7 +25,7 @@ null_dist <- function(var, dist, params = NULL) {
     function(df) {
         # If parameters not specified, use fitdistr from MASS to find them
         if (is.null(params)) {
-            params <- as.list(coef(MASS::fitdistr(df[[var]], dist)))
+            params <- as.list(coef(fitdistr(df[[var]], dist)))
         }
         params$n <- nrow(df)
         df[[var]] <- do.call(generator, params)

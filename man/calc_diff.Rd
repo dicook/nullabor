@@ -32,8 +32,6 @@ distance of the true plot and the maximum mean distance of
 the null plots is then calculated.
 }
 \examples{
-if(require('plyr')) { if(require('reshape'))
-{ calc_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'),
-X.bin = 5, Y.bin = 5, pos = 10)}}
+calc_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), X.bin = 5, Y.bin = 5, pos = 10)
 }
 

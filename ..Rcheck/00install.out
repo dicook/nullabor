@@ -1,14 +1,12 @@
 * installing *source* package ‘nullabor’ ...
 ** R
 ** data
-**  moving datasets to lazyload DB
+*** moving datasets to lazyload DB
 ** demo
 ** preparing package for lazy loading
 ** help
 *** installing help indices
 ** building package indices
+** installing vignettes
 ** testing if installed package can be loaded
-*** arch - i386
-*** arch - x86_64
-
 * DONE (nullabor)

@@ -49,9 +49,6 @@ for each combination. The combination for which the
 difference is maximum should be used.
 }
 \examples{
-if(require('reshape')){
-if(require('ggplot2')){
-opt_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 2, 10,
-2, 10, 10, plot = TRUE)}}
+opt_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 2, 10, 2, 10, 10, plot = TRUE)
 }
 

@@ -6,7 +6,6 @@
 #' distance of the true plot and the maximum mean distance of the null plots is then 
 #' calculated.
 #'
-#'
 #' @param lineup.dat lineup data to get the lineup
 #' @param var a vector of names of the variables to be used to calculate the difference
 #' @param X.bin number of bins on the x-direction
@@ -16,9 +15,10 @@
 #' @return difference between the mean distance of the true plot and
 #' the maximum mean distance of the null plots
 #' @export
-#' @examples if(require('plyr')) { if(require('reshape'))
-#'{ calc_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 
-#' X.bin = 5, Y.bin = 5, pos = 10)}}
+#' @importFrom plyr ddply
+#' @importFrom reshape melt
+#' @examples 
+#'calc_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), X.bin = 5, Y.bin = 5, pos = 10)
 calc_diff <- function(lineup.dat, var, X.bin, Y.bin, pos, m = 20) {
 	plotno <- pos.2 <- bin <- NULL
     lineup.dat <- lineup.dat[, c(var, ".sample")]
@@ -59,10 +59,9 @@ calc_diff <- function(lineup.dat, var, X.bin, Y.bin, pos, m = 20) {
 #' @return a dataframe with the number of bins and differences
 #' the maximum mean distance of the null plots
 #' @export
-#' @examples if(require('reshape')){
-#' if(require('ggplot2')){ 
-#' opt_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 2, 10,
-#' 2, 10, 10, plot = TRUE)}}
+#' @importFrom plyr ldply
+#' @examples 
+#' opt_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 2, 10, 2, 10, 10, plot = TRUE)
 opt_diff <- function(lineup.dat, var, xlow, xhigh, ylow, yhigh, pos, plot = FALSE, m = 20, progress.bar = TRUE) {
 	Diff <- NULL
 	if(progress.bar){

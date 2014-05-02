@@ -4,6 +4,7 @@ box_dist	box_dist
 calc_diff	calc_diff
 decrypt	decrypt
 distmet	distmet
+distplot	distplot
 find_plot_data	find_plot_data
 lal	lal
 lineup	lineup

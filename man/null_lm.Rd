@@ -25,13 +25,10 @@ Null hypothesis: variable is linear combination of
 predictors
 }
 \examples{
-if (require('ggplot2') && require('reshape2')) {
-
 x <- lm(tip ~ total_bill, data = tips)
 tips.reg <- data.frame(tips, .resid = residuals(x), .fitted = fitted(x))
 qplot(total_bill, .resid, data = tips.reg) \%+\%
   lineup(null_lm(tip ~ total_bill, method = 'rotate'), tips.reg) +
   facet_wrap(~ .sample)
-}
 }
 

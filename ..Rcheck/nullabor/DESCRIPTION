@@ -5,12 +5,10 @@ Title: Tools for graphical inference
 Author: Hadley Wickham <h.wickham@gmail.com>
 Maintainer: Hadley Wickham <h.wickham@gmail.com>
 License: GPL
-Imports: MASS, reshape, ggplot2, plyr, moments, fpc
+Depends: ggplot2
+Imports: MASS, reshape, plyr, moments, fpc
 Suggests: reshape2
 LazyData: true
 Type: Package
 LazyLoad: false
-Collate: 'encryption.r' 'lal.r' 'method-dist.r' 'method-model.r'
-        'method-permute.r' 'protocols.r' 'distmet.r' 'distances.r'
-        'opt_diff.r'
-Built: R 2.15.2; ; 2013-11-04 19:47:42 UTC; unix
+Built: R 3.0.2; ; 2014-05-02 17:58:54 UTC; unix

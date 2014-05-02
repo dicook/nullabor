@@ -15,9 +15,6 @@ The distribution of the distance measure is plotted with
 the distances for the null plots and true plot overlaid.
 }
 \examples{
-if(require('ggplot2')) {
-if(require('reshape')) {
-if(require('plyr')) {distplot(distmet(lineup(null_permute('mpg'), mtcars, pos
-= 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10))}}}
+distplot(distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10))
 }
 

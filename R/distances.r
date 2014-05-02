@@ -99,7 +99,7 @@ bin_dist <- function(X, PX, lineup.dat = NULL, X.bin = 5, Y.bin = 5) {
 #' @param PX another data.frame where the first column is only used
 #' @return distance between X and PX
 #' @export
-#' @import moments
+#' @importFrom moments skewness kurtosis
 #' @examples if(require('moments')){uni_dist(rnorm(100), rpois(100, 2))}
 uni_dist <- function(X, PX) {
     if (is.data.frame(X) & is.data.frame(PX)) {
@@ -134,7 +134,7 @@ uni_dist <- function(X, PX) {
 #' variable
 #' @return distance between X and PX
 #' @export
-#' @import plyr
+#' @importFrom plyr ddply
 #' @examples if(require('plyr')) {with(mtcars, box_dist(data.frame(as.factor(am), mpg), 
 #' data.frame(as.factor(sample(am)), mpg)))}
 box_dist <- function(X, PX) {
@@ -188,7 +188,7 @@ box_dist <- function(X, PX) {
 #' clustering, by default nclust = 3
 #' @return distance between X and PX
 #' @export
-#' @import fpc
+#' @importFrom fpc cluster.stats
 #' @examples if(require('fpc')) { with(mtcars, sep_dist(data.frame(wt, mpg, 
 #' as.numeric(as.factor(mtcars$cyl))), data.frame(sample(wt), mpg, 
 #' as.numeric(as.factor(mtcars$cyl))), clustering = TRUE))}
