@@ -56,9 +56,11 @@ lineup.dat <- lineup(null_dist('residual', dist = 'normal'), resid.dat)
 qplot(residual, data = lineup.dat, geom = 'histogram', binwidth = 0.25) +
 facet_wrap(~ .sample)
 #decrypt('....') #Copy and paste to get the true position
-if(require('reshape')){
-distmet(lineup.dat, var = 'residual', 'uni_dist', null_dist('residual', dist =
-'normal'), pos = 19)}
+
+if(require('reshape')) {
+distmet(lineup.dat, var = 'residual', 'uni_dist',
+  null_dist('residual', dist = 'normal'), pos = 19)
+}
 # Assuming pos = 19; but put the true position for pos
 }
 

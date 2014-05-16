@@ -1,7 +1,7 @@
 #' Empirical distribution of the distance
 #'
 #' The empirical distribution of the distance measures is calculated based on the mean
-#' distance of each of the null plots from the other null plots in a lineup.  
+#' distance of each of the null plots from the other null plots in a lineup.
 #'
 #' @export
 #' @param lineup.dat lineup data
@@ -23,7 +23,7 @@
 #'
 #' if(require('reshape')){
 #' distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'),
-#' 'bin_dist', null_permute('mpg'), pos = 10, dist.arg = list(X.bin = 5, Y.bin = 5))} 
+#' 'bin_dist', null_permute('mpg'), pos = 10, dist.arg = list(X.bin = 5, Y.bin = 5))}
 #'
 #'
 #' lineup.dat <- lineup(null_permute('mpg'), mtcars)
@@ -41,9 +41,11 @@
 #' qplot(residual, data = lineup.dat, geom = 'histogram', binwidth = 0.25) +
 #' facet_wrap(~ .sample)
 #' #decrypt('....') #Copy and paste to get the true position
-#' if(require('reshape')){
-#' distmet(lineup.dat, var = 'residual', 'uni_dist', null_dist('residual', dist =
-#' 'normal'), pos = 19)} 
+#'
+#' if(require('reshape')) {
+#' distmet(lineup.dat, var = 'residual', 'uni_dist',
+#'   null_dist('residual', dist = 'normal'), pos = 19)
+#' }
 #' # Assuming pos = 19; but put the true position for pos
 distmet <- function(lineup.dat, var, met, method, pos, repl = 1000, dist.arg = NULL, m = 20, progress.bar = TRUE) {
 	plotno <- pos.2 <- b <- NULL
@@ -58,10 +60,10 @@ distmet <- function(lineup.dat, var, met, method, pos, repl = 1000, dist.arg = N
     d <- sapply(1:m, function(x) {
         sapply(1:m, function(y) {
             if (is.null(dist.arg)) {
-                dis <- do.call(func, list(lineup.dat[lineup.dat$.sample == x, ], lineup.dat[lineup.dat$.sample == 
+                dis <- do.call(func, list(lineup.dat[lineup.dat$.sample == x, ], lineup.dat[lineup.dat$.sample ==
                   y, ]))
             } else {
-                dis <- do.call(func, append(list(lineup.dat[lineup.dat$.sample == x, ], lineup.dat[lineup.dat$.sample == 
+                dis <- do.call(func, append(list(lineup.dat[lineup.dat$.sample == x, ], lineup.dat[lineup.dat$.sample ==
                   y, ]), unname(dist.arg)))
             }
         })
@@ -100,30 +102,30 @@ distmet <- function(lineup.dat, var, met, method, pos, repl = 1000, dist.arg = N
         mean(Dist$V1)
     })
     	}
-    return(list(lineup = dist.mean[, c("plotno", dist = "mean.dist")], null_values = all.samp, diff = diff, 
+    return(list(lineup = dist.mean[, c("plotno", dist = "mean.dist")], null_values = all.samp, diff = diff,
         closest = closest, pos = pos))
 }
 #' Plotting the distribution of the distance measure
 #'
-#' The distribution of the distance measure is plotted with the distances for 
-#' the null plots and true plot overlaid.  
+#' The distribution of the distance measure is plotted with the distances for
+#' the null plots and true plot overlaid.
 #'
 #' @param dat output from \code{\link{distmet}}
 #' @param m the number of plots in the lineup; m = 20 by default
 #' @export
-#' @examples 
+#' @examples
 #' if(require('reshape')){
 #' distplot(distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg',
 #' 'wt'), 'reg_dist', null_permute('mpg'), pos = 10)) }
 distplot <- function(dat, m = 20) {
-    p <- with(dat, qplot(null_values$V1, geom = "density", fill = I("grey80"), colour = I("grey80"), 
-        xlab = "Permutation distribution", ylab = "") + geom_segment(aes(x = lineup$mean.dist[lineup$plotno != 
-        pos], xend = lineup$mean.dist[lineup$plotno != pos], y = rep(0.01 * min(density(null_values$V1)$y), 
-        (m - 1)), yend = rep(0.05 * max(density(null_values$V1)$y), (m - 1))), size = 1, alpha = I(0.7)) + 
-        geom_segment(aes(x = lineup$mean.dist[lineup$plotno == pos], xend = lineup$mean.dist[lineup$plotno == 
-            pos], y = 0.01 * min(density(null_values$V1)$y), yend = 0.1 * max(density(null_values$V1)$y)), 
-            colour = "darkorange", size = 1) + geom_text(data = lineup, y = -0.03 * max(density(null_values$V1)$y), 
-        size = 2.5, aes(x = mean.dist, label = plotno)) + ylim(c(-0.04 * max(density(null_values$V1)$y), 
+    p <- with(dat, qplot(null_values$V1, geom = "density", fill = I("grey80"), colour = I("grey80"),
+        xlab = "Permutation distribution", ylab = "") + geom_segment(aes(x = lineup$mean.dist[lineup$plotno !=
+        pos], xend = lineup$mean.dist[lineup$plotno != pos], y = rep(0.01 * min(density(null_values$V1)$y),
+        (m - 1)), yend = rep(0.05 * max(density(null_values$V1)$y), (m - 1))), size = 1, alpha = I(0.7)) +
+        geom_segment(aes(x = lineup$mean.dist[lineup$plotno == pos], xend = lineup$mean.dist[lineup$plotno ==
+            pos], y = 0.01 * min(density(null_values$V1)$y), yend = 0.1 * max(density(null_values$V1)$y)),
+            colour = "darkorange", size = 1) + geom_text(data = lineup, y = -0.03 * max(density(null_values$V1)$y),
+        size = 2.5, aes(x = mean.dist, label = plotno)) + ylim(c(-0.04 * max(density(null_values$V1)$y),
         max(density(null_values$V1)$y) + 0.1)))
     return(p)
-} 
+}
