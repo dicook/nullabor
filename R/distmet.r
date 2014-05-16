@@ -16,21 +16,34 @@
 #' @param progress.bar LOGICAL; shows progress of function, by default TRUE
 #' @importFrom reshape melt
 #' @examples
-#' distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10) 
-#' distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'bin_dist', null_permute('mpg'), pos = 10, dist.arg = list(X.bin = 5, Y.bin = 5)) 
+#' if(require('reshape')){
+#' distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'),
+#' 'reg_dist', null_permute('mpg'), pos = 10)}
+#'
+#'
+#' if(require('reshape')){
+#' distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'),
+#' 'bin_dist', null_permute('mpg'), pos = 10, dist.arg = list(X.bin = 5, Y.bin = 5))} 
+#'
+#'
 #' lineup.dat <- lineup(null_permute('mpg'), mtcars)
 #' qplot(mpg, wt, data = lineup.dat, geom = 'point') + facet_wrap(~ .sample)
 #' #decrypt('...') # Copy and paste the output from lineup.dat to get the
 #' #position of the true plot
 #' #[1] 'True data in position 13' # Use pos = 13
-#' distmet(lineup.dat, var = c('mpg', 'wt'), 'bin_dist', null_permute('mpg'), pos = 13, dist.arg = list(X.bin = 5, Y.bin = 5))
+#' if(require('reshape')){
+#' distmet(lineup.dat, var = c('mpg', 'wt'), 'bin_dist', null_permute('mpg'), pos = 13,
+#' dist.arg = list(X.bin = 5, Y.bin = 5))}
 #' #Example using uni_dist
 #' mod <- lm(wt ~ mpg, data = mtcars)
 #' resid.dat <- data.frame(residual = mod$resid)
 #' lineup.dat <- lineup(null_dist('residual', dist = 'normal'), resid.dat)
-#' qplot(residual, data = lineup.dat, geom = 'histogram', binwidth = 0.25) + facet_wrap(~ .sample)
+#' qplot(residual, data = lineup.dat, geom = 'histogram', binwidth = 0.25) +
+#' facet_wrap(~ .sample)
 #' #decrypt('....') #Copy and paste to get the true position
-#' distmet(lineup.dat, var = 'residual', 'uni_dist', null_dist('residual', dist = 'normal'), pos = 19) 
+#' if(require('reshape')){
+#' distmet(lineup.dat, var = 'residual', 'uni_dist', null_dist('residual', dist =
+#' 'normal'), pos = 19)} 
 #' # Assuming pos = 19; but put the true position for pos
 distmet <- function(lineup.dat, var, met, method, pos, repl = 1000, dist.arg = NULL, m = 20, progress.bar = TRUE) {
 	plotno <- pos.2 <- b <- NULL
@@ -99,7 +112,9 @@ distmet <- function(lineup.dat, var, met, method, pos, repl = 1000, dist.arg = N
 #' @param m the number of plots in the lineup; m = 20 by default
 #' @export
 #' @examples 
-#' distplot(distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10)) 
+#' if(require('reshape')){
+#' distplot(distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg',
+#' 'wt'), 'reg_dist', null_permute('mpg'), pos = 10)) }
 distplot <- function(dat, m = 20) {
     p <- with(dat, qplot(null_values$V1, geom = "density", fill = I("grey80"), colour = I("grey80"), 
         xlab = "Permutation distribution", ylab = "") + geom_segment(aes(x = lineup$mean.dist[lineup$plotno != 

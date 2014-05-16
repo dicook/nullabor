@@ -18,7 +18,9 @@
 #' @importFrom plyr ddply
 #' @importFrom reshape melt
 #' @examples 
-#'calc_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), X.bin = 5, Y.bin = 5, pos = 10)
+#' if(require('plyr') & require('reshape')){
+#' calc_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), X.bin
+#' = 5, Y.bin = 5, pos = 10)}
 calc_diff <- function(lineup.dat, var, X.bin, Y.bin, pos, m = 20) {
 	plotno <- pos.2 <- bin <- NULL
     lineup.dat <- lineup.dat[, c(var, ".sample")]
@@ -61,7 +63,9 @@ calc_diff <- function(lineup.dat, var, X.bin, Y.bin, pos, m = 20) {
 #' @export
 #' @importFrom plyr ldply
 #' @examples 
-#' opt_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 2, 10, 2, 10, 10, plot = TRUE)
+#' if(require('reshape')){
+#' opt_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 2, 10,
+#' 2, 10, 10, plot = TRUE)}
 opt_diff <- function(lineup.dat, var, xlow, xhigh, ylow, yhigh, pos, plot = FALSE, m = 20, progress.bar = TRUE) {
 	Diff <- NULL
 	if(progress.bar){

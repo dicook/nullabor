@@ -13,6 +13,7 @@
 #'   For use with \code{\link{lineup}} or \code{\link{rorschach}}
 #' @export
 #' @examples
+#' require('reshape')
 #' x <- lm(tip ~ total_bill, data = tips)
 #' tips.reg <- data.frame(tips, .resid = residuals(x), .fitted = fitted(x))
 #' qplot(total_bill, .resid, data = tips.reg) %+%
