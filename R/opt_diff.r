@@ -3,7 +3,7 @@
 #' Binned distance is used to calculate the mean distance between the true plot
 #' and all the null plots in a lineup. The mean distances of each null plot to all
 #' the other null plots are calculated. The difference between the mean
-#' distance of the true plot and the maximum mean distance of the null plots is then 
+#' distance of the true plot and the maximum mean distance of the null plots is then
 #' calculated.
 #'
 #' @param lineup.dat lineup data to get the lineup
@@ -15,9 +15,8 @@
 #' @return difference between the mean distance of the true plot and
 #' the maximum mean distance of the null plots
 #' @export
-#' @importFrom plyr ddply
 #' @importFrom reshape melt
-#' @examples 
+#' @examples
 #' if(require('plyr') & require('reshape')){
 #' calc_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), X.bin
 #' = 5, Y.bin = 5, pos = 10)}
@@ -61,8 +60,7 @@ calc_diff <- function(lineup.dat, var, X.bin, Y.bin, pos, m = 20) {
 #' @return a dataframe with the number of bins and differences
 #' the maximum mean distance of the null plots
 #' @export
-#' @importFrom plyr ldply
-#' @examples 
+#' @examples
 #' if(require('reshape')){
 #' opt_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 2, 10,
 #' 2, 10, 10, plot = TRUE)}
@@ -83,10 +81,10 @@ opt_diff <- function(lineup.dat, var, xlow, xhigh, ylow, yhigh, pos, plot = FALS
     	}
     names(d.m) <- c("p", "q", "Diff")
     if (plot) {
-        p <- ggplot(d.m, aes(x = factor(p), y = factor(q))) + geom_tile(aes(fill = Diff)) + scale_fill_gradient(high = "blue", 
+        p <- ggplot(d.m, aes(x = factor(p), y = factor(q))) + geom_tile(aes(fill = Diff)) + scale_fill_gradient(high = "blue",
             low = "white") + xlab("p") + ylab("q")
         return(list(dat = d.m, p = p))
     } else {
         return(dat = d.m)
     }
-} 
+}
