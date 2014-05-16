@@ -1,5 +1,5 @@
 Package: nullabor
-Version: 0.2
+Version: 0.3
 Description: Generate null datasets and null plots with ease.
 Title: Tools for graphical inference
 Author: Hadley Wickham <h.wickham@gmail.com>
