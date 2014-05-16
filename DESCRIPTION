@@ -14,7 +14,9 @@ Imports:
     moments,
     fpc
 Suggests:
-    reshape2
+    reshape2,
+    knitr
+VignetteBuilder: knitr
 LazyData: true
 Type: Package
 LazyLoad: false
