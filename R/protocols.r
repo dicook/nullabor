@@ -20,7 +20,7 @@ rorschach <- function(method, true = NULL, n = 20, p = 0) {
         n <- n - 1
     }
     
-    samples <- rdply(n, method(true))
+    samples <- plyr::rdply(n, method(true))
     if (show_true) {
         pos <- sample(n + 1, 1)
         message(encrypt("True data in position ", pos))
@@ -66,7 +66,7 @@ lineup <- function(method, true = NULL, n = 20, pos = sample(n, 1), samples = NU
     true <- find_plot_data(true)
     
     if (is.null(samples)) {
-        samples <- rdply(n - 1, method(true))
+        samples <- plyr::rdply(n - 1, method(true))
     }
     if (missing(pos)) {
         message("decrypt(\"", encrypt("True data in position ", pos), "\")")
@@ -81,7 +81,7 @@ add_true <- function(samples, true, pos) {
     samples$.n <- NULL
     true$.sample <- pos
     
-    all <- rbind.fill(samples, true)
+    all <- plyr::rbind.fill(samples, true)
     all[order(all$.sample), ]
 }
 

@@ -133,38 +133,35 @@ uni_dist <- function(X, PX) {
 #' @param PX a data.frame with one factor variable and one continuous
 #' variable
 #' @return distance between X and PX
+#' @importFrom dplyr summarise group_by
 #' @export
-#' @import plyr
-#' @examples if(require('plyr')) {with(mtcars, box_dist(data.frame(as.factor(am), mpg), 
+#' @examples if(require('dplyr')) {with(mtcars, box_dist(data.frame(as.factor(am), mpg), 
 #' data.frame(as.factor(sample(am)), mpg)))}
 box_dist <- function(X, PX) {
-	val <- NULL
+	val <- group <- NULL
     if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {
         stop("X should have one factor variable \n \n")
     } else if (is.factor(X[, 1])) {
         X$group <- X[, 1]
         X$val <- X[, 2]
-        X.sum <- ddply(X, "group", summarize, sum.stat = quantile(val, c(0.25, 0.5, 0.75)))
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))
     } else if (is.factor(X[, 2])) {
         X$group <- X[, 2]
         X$val <- X[, 1]
-        X.sum <- ddply(X, "group", summarize, sum.stat = quantile(val, c(0.25, 0.5, 0.75)))
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))
     }
     if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {
         stop("PX should have one factor variable \n \n")
     } else if (is.factor(PX[, 1])) {
         PX$group <- PX[, 1]
         PX$val <- PX[, 2]
-        PX.sum <- ddply(PX, "group", summarize, sum.stat = quantile(val, c(0.25, 0.5, 0.75)))
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))
     } else {
         PX$group <- PX[, 2]
         PX$val <- PX[, 1]
-        PX.sum <- ddply(PX, "group", summarize, sum.stat = quantile(val, c(0.25, 0.5, 0.75)))
-    }
-    abs.diff.X <- abs(X.sum$sum.stat[X.sum$group == levels(X.sum$group)[1]] - X.sum$sum.stat[X.sum$group == 
-        levels(X.sum$group)[2]])
-    abs.diff.PX <- abs(PX.sum$sum.stat[PX.sum$group == levels(PX.sum$group)[1]] - PX.sum$sum.stat[PX.sum$group == 
-        levels(PX.sum$group)[2]])
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }
+    abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[2:4] - as.numeric(X.sum[group == levels(group)[2], ])[2:4]))
+    abs.diff.PX <- with(PX.sum, abs(as.numeric(PX.sum[group == levels(group)[1], ])[2:4] - as.numeric(PX.sum[group == levels(group)[2], ])[2:4]))
     sqrt(sum((abs.diff.X - abs.diff.PX)^2))
 }
 
