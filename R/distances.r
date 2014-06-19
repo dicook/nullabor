@@ -45,14 +45,14 @@ reg_dist <- function(X, PX, nbins = 1) {
 #' @param PX another data.frame with two variables, the first two columns
 #' are used
 #' @param lineup.dat lineup data so that the binning is done based on the lineup data and not
-#' the individual plots, by default lineup.dat = NULL ; automatically uses lineup data when 
-#' used with calc_diff and distmet
+#' the individual plots, by default lineup.dat = lineup.dat ; if one wishes to calculate the 
+#' binned distance between two plots, one should use lineup.dat = NULL
 #' @param X.bin number of bins on the x-direction, by default X.bin = 5
 #' @param Y.bin number of bins on the y-direction, by default Y.bin = 5
 #' @return distance between X and PX
 #' @export
-#' @examples with(mtcars, bin_dist(data.frame(wt, mpg), data.frame(sample(wt), mpg)))
-bin_dist <- function(X, PX, lineup.dat = NULL, X.bin = 5, Y.bin = 5) {
+#' @examples with(mtcars, bin_dist(data.frame(wt, mpg), data.frame(sample(wt), mpg), lineup.dat = NULL))
+bin_dist <- function(X, PX, lineup.dat = lineup.dat, X.bin = 5, Y.bin = 5) {
     if (!is.null(lineup.dat)) {
         if (!is.numeric(X[, 1])) {
             X[, 1] <- as.numeric(X[, 1])
