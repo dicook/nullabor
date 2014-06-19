@@ -1,0 +1,1476 @@
+mtcars %.%#
+    group_by(cyl, gear) %.%#
+    summarise(newvar = sum(wt))
+library(dplyr)#
+mtcars %.%#
+    group_by(cyl, gear) %.%#
+    summarise(newvar = sum(wt)) %.%#
+    summarise(newvar2 = sum(newvar) + 5)
+detach(plyr)
+detach(package:plyr)    #
+library(dplyr)#
+mtcars %.%#
+    group_by(cyl, gear) %.%#
+    summarise(newvar = sum(wt)) %.%#
+    group_by(cyl) %.%#
+    summarise(newvar2 = sum(newvar) + 5)
+pos.dat %.%#
+    group_by(pos.1, pos.2) %.%#
+    summarise(b = bin_dist(X = filter(lineup.dat, .sample == pos.1), PX = filter(lineup.dat, .sample == pos.2), lineup.dat = lineup.dat, X.bin, Y.bin))
+summarise(group_by(pos.dat, pos.1, pos.2), b = bin_dist(X = filter(lineup.dat, .sample == pos.1), PX = filter(lineup.dat, .sample == pos.2), lineup.dat = lineup.dat, X.bin, Y.bin))
+bin.dist <- filter(bin.dist, pos.2 != pos)#
+	bin.mean <- summarise(group_by(bin.dist, pos.1), bin = mean(b))
+pos.dat <- expand.grid(pos.1 = 1:20, pos.2 = 1:20)#
+	pos.dat <- filter(pos.dat, pos.1 != pos.2)#
+	bin.dist <- summarise(group_by(pos.dat, pos.1, pos.2), b = bin_dist(X = filter(lineup.dat, .sample == pos.1), PX = filter(lineup.dat, .sample == pos.2), lineup.dat = lineup.dat, X.bin, Y.bin))#
+	bin.dist <- filter(bin.dist, pos.2 != pos)#
+	bin.mean <- summarise(group_by(bin.dist, pos.1), bin = mean(b))
+pos <- 10
+pos.dat <- expand.grid(pos.1 = 1:20, pos.2 = 1:20)#
+	pos.dat <- filter(pos.dat, pos.1 != pos.2)#
+	bin.dist <- summarise(group_by(pos.dat, pos.1, pos.2), b = bin_dist(X = filter(lineup.dat, .sample == pos.1), PX = filter(lineup.dat, .sample == pos.2), lineup.dat = lineup.dat, X.bin, Y.bin))#
+	bin.dist <- filter(bin.dist, pos.2 != pos)#
+	bin.mean <- summarise(group_by(bin.dist, pos.1), bin = mean(b))
+bin.mean
+pos.dat <- expand.grid(pos.1 = 1:20, pos.2 = 1:20)#
+	pos.dat <- filter(pos.dat, pos.1 != pos.2 and pos.2 != pos)#
+	bin.dist <- summarise(group_by(pos.dat, pos.1, pos.2), b = bin_dist(X = filter(lineup.dat, .sample == pos.1), PX = filter(lineup.dat, .sample == pos.2), lineup.dat = lineup.dat, X.bin, Y.bin))#
+#	bin.dist <- filter(bin.dist, pos.2 != pos)#
+	bin.mean <- summarise(group_by(bin.dist, pos.1), bin = mean(b))
+?filter
+pos.dat <- expand.grid(pos.1 = 1:20, pos.2 = 1:20)#
+	pos.dat <- filter(pos.dat, pos.1 != pos.2 & pos.2 != pos)#
+	bin.dist <- summarise(group_by(pos.dat, pos.1, pos.2), b = bin_dist(X = filter(lineup.dat, .sample == pos.1), PX = filter(lineup.dat, .sample == pos.2), lineup.dat = lineup.dat, X.bin, Y.bin))#
+#	bin.dist <- filter(bin.dist, pos.2 != pos)#
+	bin.mean <- summarise(group_by(bin.dist, pos.1), bin = mean(b))
+bin.mean
+bin.mean
+with(bin.mean, filter(bin.m, pos.1 == pos) - max(filter(bin.m, pos.1 != pos)))
+with(bin.mean, filter(bin, pos.1 == pos) - max(filter(bin, pos.1 != pos)))
+with(bin.mean, filter(bin.mean, pos.1 == pos) - max(filter(bin.mean, pos.1 != pos)))
+with(bin.mean, bin[pos.1 == pos] - max(bin[pos.1 != pos])
+)
+calc_diff <- function(lineup.dat, var, X.bin, Y.bin, pos, m = 20){#
+	lineup.dat <- select(lineup.dat, var, ".sample")#
+	pos.dat <- expand.grid(pos.1 = 1:20, pos.2 = 1:20)#
+	pos.dat <- filter(pos.dat, pos.1 != pos.2 & pos.2 != pos)#
+	bin.dist <- summarise(group_by(pos.dat, pos.1, pos.2), b = bin_dist(X = filter(lineup.dat, .sample == pos.1), PX = filter(lineup.dat, .sample == pos.2), lineup.dat = lineup.dat, X.bin, Y.bin))#
+	bin.mean <- summarise(group_by(bin.dist, pos.1), bin = mean(b))#
+	with(bin.mean, bin[pos.1 == pos] - max(bin[pos.1 != pos]))#
+}
+calc_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), X.bin = 5, Y.bin = 5, pos = 10)
+calc_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c(mpg, wt), X.bin = 5, Y.bin = 5, pos = 10)
+lineup(null_permute('mpg'), mtcars, pos = 10)
+calc_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c(mpg, wt), X.bin = 5, Y.bin = 5, pos = 10)
+lineup.dat <- lineup(null_permute('mpg'), mtcars, pos = 10)
+var <- c(mpg, wt)
+lineup.dat <- select(lineup.dat, c(mpg, wt), ".sample")
+lineup.dat <- select(lineup.dat, c(mpg, wt), .sample)
+lineup.dat <- select(lineup.dat, c(mpg, wt), .sample)#
+	pos.dat <- expand.grid(pos.1 = 1:20, pos.2 = 1:20)#
+	pos.dat <- filter(pos.dat, pos.1 != pos.2 & pos.2 != pos)#
+	bin.dist <- summarise(group_by(pos.dat, pos.1, pos.2), b = bin_dist(X = filter(lineup.dat, .sample == pos.1), PX = filter(lineup.dat, .sample == pos.2), lineup.dat = lineup.dat, X.bin, Y.bin))#
+	bin.mean <- summarise(group_by(bin.dist, pos.1), bin = mean(b))#
+	with(bin.mean, bin[pos.1 == pos] - max(bin[pos.1 != pos]))
+calc_diff <- function(lineup.dat, var, X.bin, Y.bin, pos, m = 20){#
+	lineup.dat <- select(lineup.dat, c(mpg, wt), .sample)#
+	pos.dat <- expand.grid(pos.1 = 1:20, pos.2 = 1:20)#
+	pos.dat <- filter(pos.dat, pos.1 != pos.2 & pos.2 != pos)#
+	bin.dist <- summarise(group_by(pos.dat, pos.1, pos.2), b = bin_dist(X = filter(lineup.dat, .sample == pos.1), PX = filter(lineup.dat, .sample == pos.2), lineup.dat = lineup.dat, X.bin, Y.bin))#
+	bin.mean <- summarise(group_by(bin.dist, pos.1), bin = mean(b))#
+	with(bin.mean, bin[pos.1 == pos] - max(bin[pos.1 != pos]))#
+}
+calc_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c(mpg, wt), X.bin = 5, Y.bin = 5, pos = 10)
+calc_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c(mpg, wt), X.bin = 5, Y.bin = 5, pos = 10)
+calc_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c(mpg, wt), X.bin = 5, Y.bin = 5, pos = 10)
+calc_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c(mpg, wt), X.bin = 5, Y.bin = 5, pos = 10)
+calc_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c(mpg, wt), X.bin = 5, Y.bin = 5, pos = 10)
+calc_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c(mpg, wt), X.bin = 5, Y.bin = 5, pos = 10)
+calc_diff1 <- function(lineup.dat, var, X.bin, Y.bin, pos, m = 20) {#
+	plotno <- pos.2 <- bin <- NULL#
+    lineup.dat <- lineup.dat[, c(var, ".sample")]#
+    d <- sapply(1:m, function(i) {#
+        X <- lineup.dat[lineup.dat$.sample == i, ]#
+        sapply(1:m, function(j) {#
+            PX <- lineup.dat[lineup.dat$.sample == j, ]#
+            dis <- bin_dist(X, PX, lineup.dat = lineup.dat, X.bin, Y.bin)#
+        })#
+    })#
+    d.m <- melt(d)#
+    names(d.m) <- c("pos.2", "plotno", "bin")#
+    dat.bin <- subset(d.m, plotno != pos.2 & pos.2 != pos)#
+    dat.bin.mean <- ddply(dat.bin, .(plotno), summarize, bin.m = mean(bin), len = length(bin))#
+    with(dat.bin.mean, bin.m[len == (m - 1)] - max(bin.m[len != (m - 1)]))#
+}#
+#
+detach(package:plyr)#
+calc_diff2 <- function(lineup.dat, var, X.bin, Y.bin, pos, m = 20){#
+	lineup.dat <- select(lineup.dat, c(mpg, wt), .sample)#
+	pos.dat <- expand.grid(pos.1 = 1:20, pos.2 = 1:20)#
+	pos.dat <- filter(pos.dat, pos.1 != pos.2 & pos.2 != pos)#
+	bin.dist <- summarise(group_by(pos.dat, pos.1, pos.2), b = bin_dist(X = filter(lineup.dat, .sample == pos.1), PX = filter(lineup.dat, .sample == pos.2), lineup.dat = lineup.dat, X.bin, Y.bin))#
+	bin.mean <- summarise(group_by(bin.dist, pos.1), bin = mean(b))#
+	with(bin.mean, bin[pos.1 == pos] - max(bin[pos.1 != pos]))#
+}
+t1 <- proc.time()   #
+calc_diff1(lineup(null_permute('mpg'), mtcars, pos = 10), var = c(mpg, wt), X.bin = 5, Y.bin = 5, pos = 10)#
+proc.time() - t1
+t1 <- proc.time()   #
+calc_diff1(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"), X.bin = 5, Y.bin = 5, pos = 10)#
+proc.time() - t1
+detach(package:plyr)#
+t2 <- proc.time()   #
+calc_diff1(lineup(null_permute('mpg'), mtcars, pos = 10), var = c(mpg, wt), X.bin = 5, Y.bin = 5, pos = 10)#
+proc.time() - t2
+opt_diff <- function(lineup.dat, var, xlow, xhigh, ylow, yhigh, pos, plot = FALSE, m = 20) {#
+	Diff <- NULL#
+	bins <- expand.grid(xbins = xlow:xhigh, ybins = ylow:yhigh)#
+	diff.bins <- summarise(group_by(bins, xbins, ybins), Diff = calc_diff(lineup.dat, var, xbins, ybins, pos, m))	#
+    if (plot) {#
+        p <- ggplot(diff.bins, aes(x = factor(xbins), y = factor(ybins))) + geom_tile(aes(fill = Diff)) + scale_fill_gradient(high = "blue", #
+            low = "white")#
+        return(list(dat = diff.bins, p = p))#
+    } else {#
+        return(dat = diff.bins)#
+    }#
+}
+opt_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c(mpg, wt), 2, 5, 2, 5, 10, plot = TRUE)
+calc_diff2 <- function(lineup.dat, var, X.bin, Y.bin, pos, m = 20){#
+	lineup.dat <- select(lineup.dat, var, .sample)#
+	pos.dat <- expand.grid(pos.1 = 1:20, pos.2 = 1:20)#
+	pos.dat <- filter(pos.dat, pos.1 != pos.2 & pos.2 != pos)#
+	bin.dist <- summarise(group_by(pos.dat, pos.1, pos.2), b = bin_dist(X = filter(lineup.dat, .sample == pos.1), PX = filter(lineup.dat, .sample == pos.2), lineup.dat = lineup.dat, X.bin, Y.bin))#
+	bin.mean <- summarise(group_by(bin.dist, pos.1), bin = mean(b))#
+	with(bin.mean, bin[pos.1 == pos] - max(bin[pos.1 != pos]))#
+}
+calc_diff2(lineup(null_permute('mpg'), mtcars, pos = 10), var = c(mpg, wt), X.bin = 5, Y.bin = 5, pos = 10)
+calc_diff2 <- function(lineup.dat, var, X.bin, Y.bin, pos, m = 20){#
+	var = var#
+	lineup.dat <- select(lineup.dat, var, .sample)#
+	pos.dat <- expand.grid(pos.1 = 1:20, pos.2 = 1:20)#
+	pos.dat <- filter(pos.dat, pos.1 != pos.2 & pos.2 != pos)#
+	bin.dist <- summarise(group_by(pos.dat, pos.1, pos.2), b = bin_dist(X = filter(lineup.dat, .sample == pos.1), PX = filter(lineup.dat, .sample == pos.2), lineup.dat = lineup.dat, X.bin, Y.bin))#
+	bin.mean <- summarise(group_by(bin.dist, pos.1), bin = mean(b))#
+	with(bin.mean, bin[pos.1 == pos] - max(bin[pos.1 != pos]))#
+}
+calc_diff2(lineup(null_permute('mpg'), mtcars, pos = 10), var = c(mpg, wt), X.bin = 5, Y.bin = 5, pos = 10)
+lineup.dat <- select(lineup.dat, c(mpg, wt), .sample)
+var = c("mpg", "wt")
+is.character(var)
+as.character(var)
+as.numeric(var)
+as.factro(var)
+as.factor(var)
+calc_diff2 <- function(lineup.dat, var, X.bin, Y.bin, pos, m = 20){#
+	var = as.factor(var)#
+	lineup.dat <- select(lineup.dat, var, .sample)#
+	pos.dat <- expand.grid(pos.1 = 1:20, pos.2 = 1:20)#
+	pos.dat <- filter(pos.dat, pos.1 != pos.2 & pos.2 != pos)#
+	bin.dist <- summarise(group_by(pos.dat, pos.1, pos.2), b = bin_dist(X = filter(lineup.dat, .sample == pos.1), PX = filter(lineup.dat, .sample == pos.2), lineup.dat = lineup.dat, X.bin, Y.bin))#
+	bin.mean <- summarise(group_by(bin.dist, pos.1), bin = mean(b))#
+	with(bin.mean, bin[pos.1 == pos] - max(bin[pos.1 != pos]))#
+}
+calc_diff2(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"), X.bin = 5, Y.bin = 5, pos = 10)
+t2 <- proc.time()   #
+calc_diff2(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"), X.bin = 5, Y.bin = 5, pos = 10)#
+proc.time() - t2
+t2 <- proc.time()   #
+calc_diff2(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"), X.bin = 5, Y.bin = 5, pos = 10)#
+proc.time() - t2
+t2 <- proc.time()   #
+calc_diff2(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"), X.bin = 5, Y.bin = 5, pos = 10)#
+proc.time() - t2
+opt_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"), 2, 5, 2, 5, 10, plot = TRUE)
+t <- proc.time()#
+opt_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"), 2, 5, 2, 5, 10, plot = TRUE)#
+proc.time() - t
+t <- proc.time()#
+opt_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"), 2, 5, 2, 5, 10, plot = FALSE)#
+proc.time() - t
+t <- proc.time()#
+opt_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"), 2, 4, 3, 5, 10, plot = FALSE)#
+proc.time() - t
+t <- proc.time()#
+opt_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"), 2, 4, 3, 5, 10, plot = FALSE)#
+proc.time() - t
+opt_diff <- function(lineup.dat, var, xlow, xhigh, ylow, yhigh, pos, plot = FALSE, m = 20, progress.bar = TRUE) {#
+	Diff <- NULL#
+	if(progress.bar){#
+    d.m <- ldply(xlow:xhigh, function(X.bin) {#
+        ldply(ylow:yhigh, function(Y.bin) {#
+            data.frame(X.bin, Y.bin, calc_diff(lineup.dat, var, X.bin, Y.bin, pos, m))#
+        })#
+    }, .progress = progress_text(char = "="))#
+    }else{#
+    	d.m <- ldply(xlow:xhigh, function(X.bin) {#
+        ldply(ylow:yhigh, function(Y.bin) {#
+            data.frame(X.bin, Y.bin, calc_diff(lineup.dat, var, X.bin, Y.bin, pos, m))#
+        })#
+    })#
+    	}#
+    names(d.m) <- c("p", "q", "Diff")#
+    if (plot) {#
+        p <- ggplot(d.m, aes(x = factor(p), y = factor(q))) + geom_tile(aes(fill = Diff)) + scale_fill_gradient(high = "blue", #
+            low = "white") + xlab("p") + ylab("q")#
+        return(list(dat = d.m, p = p))#
+    } else {#
+        return(dat = d.m)#
+    }#
+}
+opt_diff1 <- function(lineup.dat, var, xlow, xhigh, ylow, yhigh, pos, plot = FALSE, m = 20, progress.bar = TRUE) {#
+	Diff <- NULL#
+	if(progress.bar){#
+    d.m <- ldply(xlow:xhigh, function(X.bin) {#
+        ldply(ylow:yhigh, function(Y.bin) {#
+            data.frame(X.bin, Y.bin, calc_diff(lineup.dat, var, X.bin, Y.bin, pos, m))#
+        })#
+    }, .progress = progress_text(char = "="))#
+    }else{#
+    	d.m <- ldply(xlow:xhigh, function(X.bin) {#
+        ldply(ylow:yhigh, function(Y.bin) {#
+            data.frame(X.bin, Y.bin, calc_diff(lineup.dat, var, X.bin, Y.bin, pos, m))#
+        })#
+    })#
+    	}#
+    names(d.m) <- c("p", "q", "Diff")#
+    if (plot) {#
+        p <- ggplot(d.m, aes(x = factor(p), y = factor(q))) + geom_tile(aes(fill = Diff)) + scale_fill_gradient(high = "blue", #
+            low = "white") + xlab("p") + ylab("q")#
+        return(list(dat = d.m, p = p))#
+    } else {#
+        return(dat = d.m)#
+    }#
+} #
+#
+opt_diff2 <- function(lineup.dat, var, xlow, xhigh, ylow, yhigh, pos, plot = FALSE, m = 20) {#
+	Diff <- NULL#
+	bins <- expand.grid(xbins = xlow:xhigh, ybins = ylow:yhigh)#
+	diff.bins <- summarise(group_by(bins, xbins, ybins), Diff = calc_diff(lineup.dat, var, xbins, ybins, pos, m))	#
+    if (plot) {#
+        p <- ggplot(diff.bins, aes(x = factor(xbins), y = factor(ybins))) + geom_tile(aes(fill = Diff)) + scale_fill_gradient(high = "blue", #
+            low = "white")#
+        return(list(dat = diff.bins, p = p))#
+    } else {#
+        return(dat = diff.bins)#
+    }#
+}
+t1 <- proc.time()#
+opt_diff1(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"), 2, 4, 3, 5, 10, plot = FALSE)#
+proc.time() - t1
+library(plyr)
+t1 <- proc.time()#
+opt_diff1(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"), 2, 4, 3, 5, 10, plot = FALSE)#
+proc.time() - t1
+t1 <- proc.time()#
+opt_diff1(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"), 2, 4, 3, 5, 10, plot = FALSE)#
+proc.time() - t1
+calc_diff2(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"), X.bin = 5, Y.bin = 5, pos = 10)
+calc_diff2 <- function(lineup.dat, var, X.bin, Y.bin, pos, m = 20){#
+	var = as.factor(var)#
+	lineup.dat <- select(lineup.dat, var, .sample)#
+	pos.dat <- expand.grid(pos.1 = 1:20, pos.2 = 1:20)#
+	pos.dat <- filter(pos.dat, pos.1 != pos.2 & pos.2 != pos)#
+	bin.dist <- summarise(group_by(pos.dat, pos.1, pos.2), b = bin_dist(X = filter(lineup.dat, .sample == pos.1), PX = filter(lineup.dat, .sample == pos.2), lineup.dat = lineup.dat, X.bin, Y.bin))#
+	bin.mean <- summarise(group_by(bin.dist, pos.1), bin = mean(b))#
+	with(bin.mean, bin[pos.1 == pos] - max(bin[pos.1 != pos]))#
+}
+calc_diff2(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"), X.bin = 5, Y.bin = 5, pos = 10)
+lineup.dat <- lineup(null_permute('mpg'), mtcars, pos = 10)#
+var <- c("mpg", "wt")
+var = as.factor(var)#
+	lineup.dat <- select(lineup.dat, var, .sample)#
+	pos.dat <- expand.grid(pos.1 = 1:20, pos.2 = 1:20)#
+	pos.dat <- filter(pos.dat, pos.1 != pos.2 & pos.2 != pos)#
+	bin.dist <- summarise(group_by(pos.dat, pos.1, pos.2), b = bin_dist(X = filter(lineup.dat, .sample == pos.1), PX = filter(lineup.dat, .sample == pos.2), lineup.dat = lineup.dat, X.bin, Y.bin))#
+	bin.mean <- summarise(group_by(bin.dist, pos.1), bin = mean(b))#
+	with(bin.mean, bin[pos.1 == pos] - max(bin[pos.1 != pos]))
+lineup.dat
+var
+lineup.dat <- select(lineup.dat, var, .sample)
+lineup.dat
+var <- c("mpg", "wt")
+as.vector(var)
+as.string(var)
+names(var)
+head(mtcars)
+var <- c(1, 5)
+var
+names(mtcars)[var]
+var <- c(1, 6)
+names(mtcars)[var]
+?select
+subset
+select
+c("a", "b")
+?quote
+as.name(c("a", "b"))
+var <- c("mpg", "wt")
+as.name(var)
+as.name(var[1])
+as.name(var[2])
+calc_diff2 <- function(lineup.dat, var, X.bin, Y.bin, pos, m = 20){#
+	var = c(as.name(var[1]), as.name(var[2]))#
+	lineup.dat <- select(lineup.dat, var, .sample)#
+	pos.dat <- expand.grid(pos.1 = 1:20, pos.2 = 1:20)#
+	pos.dat <- filter(pos.dat, pos.1 != pos.2 & pos.2 != pos)#
+	bin.dist <- summarise(group_by(pos.dat, pos.1, pos.2), b = bin_dist(X = filter(lineup.dat, .sample == pos.1), PX = filter(lineup.dat, .sample == pos.2), lineup.dat = lineup.dat, X.bin, Y.bin))#
+	bin.mean <- summarise(group_by(bin.dist, pos.1), bin = mean(b))#
+	with(bin.mean, bin[pos.1 == pos] - max(bin[pos.1 != pos]))#
+}
+calc_diff2(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"), X.bin = 5, Y.bin = 5, pos = 10)
+lineup.dat <- lineup(null_permute('mpg'), mtcars, pos = 10)#
+var <- c("mpg", "wt")
+var = c(as.name(var[1]), as.name(var[2]))
+var
+var = c(unlist(as.name(var[1]), as.name(var[2])))
+var = unlist(c(as.name(var[1]), as.name(var[2])))
+c(as.name(var[1]), as.name(var[2]))
+c(as.name(var[1]), as.name(var[2]))
+var
+var <- c("mpg", "wt")
+c(as.name(var[1]), as.name(var[2]))
+unlist(c(as.name(var[1]), as.name(var[2])))
+var <- c("mpg", "wt")
+lineup.dat <- select(lineup.dat, as.name(var[1]), as.name(var[2]), .sample)
+as.name(var[1])
+lineup.dat <- select(lineup.dat, as.name(var[1]), as.name(var[2]), .sample)
+var <- c("mpg", "wt")
+lineup.dat <- lineup.dat[, c(var, ".sample")]
+lineup.dat <- lineup.dat[, c(var, ".sample")]#
+	pos.dat <- expand.grid(pos.1 = 1:20, pos.2 = 1:20)#
+	pos.dat <- filter(pos.dat, pos.1 != pos.2 & pos.2 != pos)#
+	bin.dist <- summarise(group_by(pos.dat, pos.1, pos.2), b = bin_dist(X = filter(lineup.dat, .sample == pos.1), PX = filter(lineup.dat, .sample == pos.2), lineup.dat = lineup.dat, X.bin, Y.bin))#
+	bin.mean <- summarise(group_by(bin.dist, pos.1), bin = mean(b))#
+	with(bin.mean, bin[pos.1 == pos] - max(bin[pos.1 != pos]))
+calc_diff2 <- function(lineup.dat, var, X.bin, Y.bin, pos, m = 20){#
+	lineup.dat <- lineup.dat[, c(var, ".sample")]#
+	pos.dat <- expand.grid(pos.1 = 1:20, pos.2 = 1:20)#
+	pos.dat <- filter(pos.dat, pos.1 != pos.2 & pos.2 != pos)#
+	bin.dist <- summarise(group_by(pos.dat, pos.1, pos.2), b = bin_dist(X = filter(lineup.dat, .sample == pos.1), PX = filter(lineup.dat, .sample == pos.2), lineup.dat = lineup.dat, X.bin, Y.bin))#
+	bin.mean <- summarise(group_by(bin.dist, pos.1), bin = mean(b))#
+	with(bin.mean, bin[pos.1 == pos] - max(bin[pos.1 != pos]))#
+}
+calc_diff2(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"), X.bin = 5, Y.bin = 5, pos = 10)
+detach(package:plyr)
+calc_diff2(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"), X.bin = 5, Y.bin = 5, pos = 10)
+detach(package:plyr)#
+t2 <- proc.time()   #
+calc_diff2(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"), X.bin = 5, Y.bin = 5, pos = 10)#
+proc.time() - t2
+library(plyr)
+detach(package:plyr)
+opt_diff <- function(lineup.dat, var, xlow, xhigh, ylow, yhigh, pos, plot = FALSE, m = 20) {#
+	Diff <- NULL#
+	bins <- expand.grid(xbins = xlow:xhigh, ybins = ylow:yhigh)#
+	diff.bins <- summarise(group_by(bins, xbins, ybins), Diff = calc_diff(lineup.dat, var, xbins, ybins, pos, m))	#
+    if (plot) {#
+        p <- ggplot(diff.bins, aes(x = factor(xbins), y = factor(ybins))) + geom_tile(aes(fill = Diff)) + scale_fill_gradient(high = "blue", #
+            low = "white")#
+        return(list(dat = diff.bins, p = p))#
+    } else {#
+        return(dat = diff.bins)#
+    }#
+} #
+#
+t1 <- proc.time()#
+opt_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"), 2, 4, 3, 5, 10, plot = FALSE)#
+proc.time() - t1
+t1 <- proc.time()#
+opt_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"), 2, 4, 3, 5, 10, plot = TRUE)#
+proc.time() - t1
+t1 <- proc.time()#
+opt_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"), 2, 4, 3, 5, 10, plot = TRUE)#
+proc.time() - t1
+opt_diff <- function(lineup.dat, var, xlow, xhigh, ylow, yhigh, pos, plot = FALSE, m = 20) {#
+	Diff <- NULL#
+	bins <- expand.grid(xbins = xlow:xhigh, ybins = ylow:yhigh)#
+	diff.bins <- summarise(group_by(bins, xbins, ybins), Diff = calc_diff(lineup.dat, var, xbins, ybins, pos, m))	#
+    if (plot) {#
+        p <- ggplot(diff.bins, aes(x = factor(xbins), y = factor(ybins))) + geom_tile(aes(fill = Diff)) + scale_fill_gradient(high = "blue", #
+            low = "white") + xlab("xbins") + ylab("ybins")#
+        return(list(dat = diff.bins, p = p))#
+    } else {#
+        return(dat = diff.bins)#
+    }#
+} #
+#
+t1 <- proc.time()#
+opt_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"), 2, 4, 3, 5, 10, plot = TRUE)#
+proc.time() - t1
+calc_diff <- function(lineup.dat, var, X.bin, Y.bin, pos, m = 20){#
+	lineup.dat <- select(lineup.dat, c(mpg, wt), .sample)#
+	pos.dat <- expand.grid(pos.1 = 1:20, pos.2 = 1:20)#
+	pos.dat <- filter(pos.dat, pos.1 != pos.2 & pos.2 != pos)#
+	bin.dist <- summarise(group_by(pos.dat, pos.1, pos.2), b = bin_dist(X = filter(lineup.dat, .sample == pos.1), PX = filter(lineup.dat, .sample == pos.2), lineup.dat = lineup.dat, X.bin, Y.bin))#
+	bin.mean <- summarise(group_by(bin.dist, pos.1), bin = mean(b))#
+	with(bin.mean, bin[pos.1 == pos] - max(bin[pos.1 != pos]))#
+}
+opt_diff <- function(lineup.dat, var, xlow, xhigh, ylow, yhigh, pos, plot = FALSE, m = 20) {#
+	Diff <- NULL#
+	bins <- expand.grid(xbins = xlow:xhigh, ybins = ylow:yhigh)#
+	diff.bins <- summarise(group_by(bins, xbins, ybins), Diff = calc_diff(lineup.dat, var, xbins, ybins, pos, m))	#
+    if (plot) {#
+        p <- ggplot(diff.bins, aes(x = factor(xbins), y = factor(ybins))) + geom_tile(aes(fill = Diff)) + scale_fill_gradient(high = "blue", #
+            low = "white") + xlab("xbins") + ylab("ybins")#
+        return(list(dat = diff.bins, p = p))#
+    } else {#
+        return(dat = diff.bins)#
+    }#
+}
+opt_diff <- function(lineup.dat, var, xlow, xhigh, ylow, yhigh, pos, plot = FALSE, m = 20) {#
+	Diff <- NULL#
+	bins <- expand.grid(xbins = xlow:xhigh, ybins = ylow:yhigh)#
+	diff.bins <- summarise(group_by(bins, xbins, ybins), Diff = calc_diff(lineup.dat, var, xbins, ybins, pos, m))	#
+    if (plot) {#
+        p <- ggplot(diff.bins, aes(x = factor(xbins), y = factor(ybins))) + geom_tile(aes(fill = Diff)) + scale_fill_gradient(high = "blue", #
+            low = "white") + xlab("xbins") + ylab("ybins")#
+        return(list(dat = diff.bins, p = p))#
+    } else {#
+        return(dat = diff.bins)#
+    }#
+} #
+#
+t1 <- proc.time()#
+opt_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c("mpg", "wt"), 2, 4, 3, 5, 10, plot = TRUE)#
+proc.time() - t1
+replicate(10, rnorm(10))
+replicate(10, rnorm(1))
+funto <- function(obs.dat, func, method, m = 20, dist.arg = NULL){#
+	null <- method(obs.dat)#
+	Dist <- replicate(m - 2, function(...){#
+		null.dat <- method(null)#
+		 ifelse(is.null(dist.arg), do.call(func, list(null, null.dat)), #
+		do.call(func, append(list(null, null.dat), unname(dist.arg))))#
+	})	#
+	mean(Dist)#
+}
+funto <- function(obs.dat, func, method, m, dist.arg){#
+	null <- method(obs.dat)#
+	Dist <- replicate(m - 2, function(...){#
+		null.dat <- method(null)#
+		 ifelse(is.null(dist.arg), do.call(func, list(null, null.dat)), #
+		do.call(func, append(list(null, null.dat), unname(dist.arg))))#
+	})	#
+	mean(Dist)#
+}
+null_gen <- function(obs.dat, func, method, m, dist.arg){#
+	null <- method(obs.dat)#
+	Dist <- replicate(m - 2, function(...){#
+		null.dat <- method(null)#
+		 ifelse(is.null(dist.arg), do.call(func, list(null, null.dat)), #
+		do.call(func, append(list(null, null.dat), unname(dist.arg))))#
+	})	#
+	mean(Dist)#
+}
+distmet <- function(lineup.dat, var, met, method, pos, repl = 1000, dist.arg = NULL, m = 20) {#
+	plotno <- pos.2 <- b <- NULL#
+	dat.pos <- expand.grid(pos.1 = 1:m, pos.2 = 1:m)#
+	dat.pos <- filter(dat.pos, pos.1 != pos.2 & pos.2 != pos)#
+    lineup.dat <- lineup.dat[, c(var, ".sample")]#
+    if (!is.character(met)) {#
+        stop("function met should be a character")#
+    }#
+    func <- match.fun(met)#
+    if (as.character(met) == "bin_dist") {#
+        dist.arg <- list(lineup.dat, dist.arg[[1]], dist.arg[[2]])#
+    }#
+    d <- summarise(group_by(dat.pos, pos.1, pos.2), b = ifelse(is.null(dist.arg), #
+    			do.call(func, list(filter(lineup.dat, .sample == pos.1), filter(lineup.dat, .sample == pos.2))), #
+    			do.call(func, append(list(filter(lineup.dat, .sample == pos.1), filter(lineup.dat, .sample == pos.2)), unname(dist.arg)))))#
+    dist.mean <- summarise(group_by(d, pos.1), mean.dist = mean(b))#
+    diff <- with(dist.mean, mean.dist[pos.1 == pos] - max(mean.dist[pos.1 != pos]))#
+    closest <- dist.mean[order(dist.mean$mean.dist, decreasing = TRUE), ]$plotno[2:6]#
+    obs.dat <- filter(lineup.dat, .sample == pos)#
+    all.samp <- replicate(repl, null_gen(obs.dat, func, method, m, dist.arg))#
+   return(list(lineup = dist.mean[, c(plotno = "pos.1", dist = "mean.dist")], null_values = all.samp, diff = diff, #
+        closest = closest, pos = pos))#
+}#
+#
+null_gen <- function(obs.dat, func, method, m, dist.arg){#
+	null <- method(obs.dat)#
+	Dist <- replicate(m - 2, function(...){#
+		null.dat <- method(null)#
+		 ifelse(is.null(dist.arg), do.call(func, list(null, null.dat)), #
+		do.call(func, append(list(null, null.dat), unname(dist.arg))))#
+	})	#
+	mean(Dist)#
+}
+distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10, repl = 100)
+lineup.dat <- lineup(null_permute('mpg'), mtcars, pos = 10)
+lineup.dat <- lineup(null_permute('mpg'), mtcars, pos = 10)#
+var = c('mpg', 'wt')#
+func = 'reg_dist'#
+method = null_permute('mpg')#
+pos = 10#
+repl = 100
+dist.arg = NULL
+obs.dat <- filter(lineup.dat, .sample == pos)
+null_gen(obs.dat, func, method, m, dist.arg)
+null_gen(obs.dat, func, method, m, dist.arg)
+m = 20
+null_gen(obs.dat, func, method, m, dist.arg)
+?replicate
+null_gen <- function(null, func, method, m, dist.arg){#
+	Dist <- replicate(m - 2, {#
+		null.dat <- method(null)#
+		 ifelse(is.null(dist.arg), do.call(func, list(null, null.dat)), #
+		do.call(func, append(list(null, null.dat), unname(dist.arg))))#
+	})	#
+	mean(Dist)#
+}
+null_gen(obs.dat, func, method, m, dist.arg)
+null_gen(obs.dat, func, method, m, dist.arg)
+null_gen(obs.dat, func, method, m, dist.arg)
+null <- obs.dat
+null.dat <- method(null)
+null.dat
+obs.dat <- filter(lineup.dat, .sample == pos & select = var)
+obs.dat <- filter(lineup.dat, .sample == pos & select == var)
+obs.dat <- filter(lineup.dat, .sample == pos & var)
+?filter
+obs.dat <- select(filter(lineup.dat, .sample == pos), var)
+var = c('mpg', 'wt')
+obs.dat <- select(filter(lineup.dat, .sample == pos), var)
+obs.dat <- filter(lineup.dat, .sample == pos)[, c(var, ".sample")]
+null <- obs.dat
+null
+null.dat <- method(null)
+null.dat
+ifelse(is.null(dist.arg), do.call(func, list(null, null.dat)), #
+		do.call(func, append(list(null, null.dat), unname(dist.arg))))
+Dist <- replicate(m - 2, {#
+		null.dat <- method(null)#
+		 ifelse(is.null(dist.arg), do.call(func, list(null, null.dat)), #
+		do.call(func, append(list(null, null.dat), unname(dist.arg))))#
+	})	#
+	mean(Dist)
+Dist <- replicate(m - 2, {#
+		null.dat <- method(null)#
+		 ifelse(is.null(dist.arg), do.call(func, list(null, null.dat)), #
+		do.call(func, append(list(null, null.dat), unname(dist.arg))))#
+	})
+Dist
+distmet <- function(lineup.dat, var, met, method, pos, repl = 1000, dist.arg = NULL, m = 20) {#
+	plotno <- pos.2 <- b <- NULL#
+	dat.pos <- expand.grid(pos.1 = 1:m, pos.2 = 1:m)#
+	dat.pos <- filter(dat.pos, pos.1 != pos.2 & pos.2 != pos)#
+    lineup.dat <- lineup.dat[, c(var, ".sample")]#
+    if (!is.character(met)) {#
+        stop("function met should be a character")#
+    }#
+    func <- match.fun(met)#
+    if (as.character(met) == "bin_dist") {#
+        dist.arg <- list(lineup.dat, dist.arg[[1]], dist.arg[[2]])#
+    }#
+    d <- summarise(group_by(dat.pos, pos.1, pos.2), b = ifelse(is.null(dist.arg), #
+    			do.call(func, list(filter(lineup.dat, .sample == pos.1), filter(lineup.dat, .sample == pos.2))), #
+    			do.call(func, append(list(filter(lineup.dat, .sample == pos.1), filter(lineup.dat, .sample == pos.2)), unname(dist.arg)))))#
+    dist.mean <- summarise(group_by(d, pos.1), mean.dist = mean(b))#
+    diff <- with(dist.mean, mean.dist[pos.1 == pos] - max(mean.dist[pos.1 != pos]))#
+    closest <- dist.mean[order(dist.mean$mean.dist, decreasing = TRUE), ]$plotno[2:6]#
+    obs.dat <- filter(lineup.dat, .sample == pos)[, c(var, ".sample")]#
+    all.samp <- replicate(repl, {#
+    	null <- method(obs.dat)#
+    	null_gen(null, func, method, m, dist.arg)#
+    	})#
+   return(list(lineup = dist.mean[, c(plotno = "pos.1", dist = "mean.dist")], null_values = all.samp, diff = diff, #
+        closest = closest, pos = pos))#
+}
+distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10, repl = 100)
+t1 <- proc.time()#
+distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10, repl = 100)#
+proc.time() - t1
+t1 <- proc.time()#
+distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10, repl = 1000)#
+proc.time() - t1
+t1 <- proc.time()#
+distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10, repl = 500)#
+proc.time() - t1
+t1 <- proc.time()#
+distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10, repl = 50)#
+proc.time() - t1
+distplot(distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10, repl = 50))
+distplot <- function(dat, m = 20) {#
+    p <- with(dat, qplot(null_values, geom = "density", fill = I("grey80"), colour = I("grey80"), #
+        xlab = "Permutation distribution", ylab = "") + geom_segment(aes(x = lineup$mean.dist[lineup$plotno != #
+        pos], xend = lineup$mean.dist[lineup$plotno != pos], y = rep(0.01 * min(density(null_values)$y), #
+        (m - 1)), yend = rep(0.05 * max(density(null_values)$y), (m - 1))), size = 1, alpha = I(0.7)) + #
+        geom_segment(aes(x = lineup$mean.dist[lineup$plotno == pos], xend = lineup$mean.dist[lineup$plotno == #
+            pos], y = 0.01 * min(density(null_values)$y), yend = 0.1 * max(density(null_values)$y)), #
+            colour = "darkorange", size = 1) + geom_text(data = lineup, y = -0.03 * max(density(null_values)$y), #
+        size = 2.5, aes(x = mean.dist, label = plotno)) + ylim(c(-0.04 * max(density(null_values)$y), #
+        max(density(null_values)$y) + 0.1)))#
+    return(p)#
+}
+distplot(distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10, repl = 50))
+distmet <- function(lineup.dat, var, met, method, pos, repl = 1000, dist.arg = NULL, m = 20) {#
+	plotno <- pos.2 <- b <- NULL#
+	dat.pos <- expand.grid(pos.1 = 1:m, pos.2 = 1:m)#
+	dat.pos <- filter(dat.pos, pos.1 != pos.2 & pos.2 != pos)#
+    lineup.dat <- lineup.dat[, c(var, ".sample")]#
+    if (!is.character(met)) {#
+        stop("function met should be a character")#
+    }#
+    func <- match.fun(met)#
+    if (as.character(met) == "bin_dist") {#
+        dist.arg <- list(lineup.dat, dist.arg[[1]], dist.arg[[2]])#
+    }#
+    d <- summarise(group_by(dat.pos, pos.1, pos.2), b = ifelse(is.null(dist.arg), #
+    			do.call(func, list(filter(lineup.dat, .sample == pos.1), filter(lineup.dat, .sample == pos.2))), #
+    			do.call(func, append(list(filter(lineup.dat, .sample == pos.1), filter(lineup.dat, .sample == pos.2)), unname(dist.arg)))))#
+    dist.mean <- summarise(group_by(d, pos.1), mean.dist = mean(b))#
+    diff <- with(dist.mean, mean.dist[pos.1 == pos] - max(mean.dist[pos.1 != pos]))#
+    closest <- dist.mean[order(dist.mean$mean.dist, decreasing = TRUE), ]$plotno[2:6]#
+    obs.dat <- filter(lineup.dat, .sample == pos)[, c(var, ".sample")]#
+    all.samp <- replicate(repl, {#
+    	null <- method(obs.dat)#
+    	null_gen(null, func, method, m, dist.arg)#
+    	})#
+   return(list(lineup = dist.mean[, c(pos.1 = "plotno", dist = "mean.dist")], null_values = all.samp, diff = diff, #
+        closest = closest, pos = pos))#
+}
+distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10, repl = 50)
+distmet <- function(lineup.dat, var, met, method, pos, repl = 1000, dist.arg = NULL, m = 20) {#
+	plotno <- pos.2 <- b <- NULL#
+	dat.pos <- expand.grid(plotno = 1:m, pos.2 = 1:m)#
+	dat.pos <- filter(dat.pos, plotno != pos.2 & pos.2 != pos)#
+    lineup.dat <- lineup.dat[, c(var, ".sample")]#
+    if (!is.character(met)) {#
+        stop("function met should be a character")#
+    }#
+    func <- match.fun(met)#
+    if (as.character(met) == "bin_dist") {#
+        dist.arg <- list(lineup.dat, dist.arg[[1]], dist.arg[[2]])#
+    }#
+    d <- summarise(group_by(dat.pos, plotno, pos.2), b = ifelse(is.null(dist.arg), #
+    			do.call(func, list(filter(lineup.dat, .sample == plotno), filter(lineup.dat, .sample == pos.2))), #
+    			do.call(func, append(list(filter(lineup.dat, .sample == plotno), filter(lineup.dat, .sample == pos.2)), unname(dist.arg)))))#
+    dist.mean <- summarise(group_by(d, plotno), mean.dist = mean(b))#
+    diff <- with(dist.mean, mean.dist[plotno == pos] - max(mean.dist[plotno != pos]))#
+    closest <- dist.mean[order(dist.mean$mean.dist, decreasing = TRUE), ]$plotno[2:6]#
+    obs.dat <- filter(lineup.dat, .sample == pos)[, c(var, ".sample")]#
+    all.samp <- replicate(repl, {#
+    	null <- method(obs.dat)#
+    	null_gen(null, func, method, m, dist.arg)#
+    	})#
+   return(list(lineup = dist.mean[, c(pos.1 = "plotno", dist = "mean.dist")], null_values = all.samp, diff = diff, #
+        closest = closest, pos = pos))#
+}
+distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10, repl = 50)
+distplot(distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10, repl = 50))
+t1 <- proc.time()#
+ distplot(distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10, repl = 50))#
+proc.time() - t1
+t1 <- proc.time()#
+ distplot(distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10, repl = 100))#
+proc.time() - t1
+t1 <- proc.time()#
+ distplot(distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10, repl = 50))#
+proc.time() - t1
+box_dist <- function(X, PX) {#
+	val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, "group"), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, "group"), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, "group"), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(X, "group"), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))#
+    }#
+    abs.diff.X <- with(X.sum, abs(sum.stat[group == levels(group)[1]] - sum.stat[group == levels(group)[2]]))#
+    abs.diff.PX <- with(PX.sum, abs(sum.stat[group == levels(group)[1]] - sum.stat[group == #
+        levels(group)[2]])#
+    sqrt(sum((abs.diff.X - abs.diff.PX)^2))#
+}
+box_dist <- function(X, PX) {#
+	val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, "group"), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, "group"), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, "group"), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(X, "group"), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))#
+    }#
+    abs.diff.X <- with(X.sum, abs(sum.stat[group == levels(group)[1]] - sum.stat[group == levels(group)[2]]))#
+    abs.diff.PX <- with(PX.sum, abs(sum.stat[group == levels(group)[1]] - sum.stat[group == #
+        levels(group)[2]]))#
+    sqrt(sum((abs.diff.X - abs.diff.PX)^2))#
+}
+with(mtcars, box_dist(data.frame(as.factor(am), mpg), #
+#' data.frame(as.factor(sample(am)), mpg)))
+)
+))
+with(mtcars, box_dist(data.frame(as.factor(am), mpg),  data.frame(as.factor(sample(am)), mpg)))
+with(mtcars, box_dist(data.frame(as.factor(am), mpg), data.frame(as.factor(sample(am)), mpg)))
+detach(package:plyr)
+val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, "group"), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, "group"), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))#
+    }
+X <- data.frame(as.factor(am), mpg)
+X <- data.frame(as.factor(mtcars$am), mtcars$mpg)
+Y <-  data.frame(as.factor(sample(mtcars$am)), mtcars$mpg)
+val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, "group"), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, "group"), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))#
+    }
+val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))#
+    }
+X
+X.sum <- summarise(group_by(X, group), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))
+group_by(X, group)
+summarise(group_by(X, group), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))
+?summarise
+summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75)))
+summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))
+val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }
+X <- data.frame(as.factor(mtcars$am), mtcars$mpg)#
+PX <-  data.frame(as.factor(sample(mtcars$am)), mtcars$mpg)
+val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }
+abs.diff.X <- with(X.sum, abs(sum.stat[group == levels(group)[1]] - sum.stat[group == levels(group)[2]]))
+X.sum
+PX.sum
+abs.diff.X <- with(X.sum, abs(X.sum[,c(1:3)][group == levels(group)[1]] - X.sum[,c(1:3)][group == levels(group)[2]]))
+abs.diff.X <- with(X.sum, abs(X.sum[,c(1:3)][group == levels(group)[1],] - X.sum[,c(1:3)][group == levels(group)[2], ]))
+abs.diff.X <- X.sum[group == levels(group)[1], ]
+abs.diff.X <- with(X.sum, X.sum[group == levels(group)[1], ])
+abs.diff.X
+abs.diff.X <- with(X.sum, abs(X.sum[group == levels(group)[1], ] - X.sum[group == levels(group)[2], ]))
+abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[1:3] - as.numeric(X.sum[group == levels(group)[2], ])[1:3]))
+abs.diff.X
+abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[2:4] - as.numeric(X.sum[group == levels(group)[2], ])[2:4]))
+abs.diff.X
+box_dist <- function(X, PX) {#
+	val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }#
+    abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[2:4] - as.numeric(X.sum[group == levels(group)[2], ])[2:4]))#
+    abs.diff.PX <- with(PX.sum, abs(as.numeric(PX.sum[group == levels(group)[1], ])[2:4] - as.numeric(PX.sum[group == levels(group)[2], ])[2:4]))#
+    sqrt(sum((abs.diff.X - abs.diff.PX)^2))#
+}
+with(mtcars, box_dist(data.frame(as.factor(mtcars$am), mtcars$mpg), data.frame(as.factor(sample(mtcars$am)), mtcars$mpg)))
+box_dist <- function(X, PX) {#
+	val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }#
+    abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[2:4] - as.numeric(X.sum[group == levels(group)[2], ])[2:4]))#
+    abs.diff.PX <- with(PX.sum, abs(as.numeric(PX.sum[group == levels(group)[1], ])[2:4] - as.numeric(PX.sum[group == levels(group)[2], ])[2:4]))#
+    sqrt(sum((abs.diff.X - abs.diff.PX)^2))#
+}#
+#
+with(mtcars, box_dist(data.frame(as.factor(mtcars$am), mtcars$mpg), data.frame(as.factor(sample(mtcars$am)), mtcars$mpg)))
+box_dist <- function(X, PX) {#
+	val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }#
+    abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[2:4] - as.numeric(X.sum[group == levels(group)[2], ])[2:4]))#
+    abs.diff.PX <- with(PX.sum, abs(as.numeric(PX.sum[group == levels(group)[1], ])[2:4] - as.numeric(PX.sum[group == levels(group)[2], ])[2:4]))#
+    sqrt(sum((abs.diff.X - abs.diff.PX)^2))#
+}#
+#
+with(mtcars, box_dist(data.frame(as.factor(mtcars$am), mtcars$mpg), data.frame(as.factor(sample(mtcars$am)), mtcars$mpg)))
+box_dist <- function(X, PX) {#
+	val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }#
+    abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[2:4] - as.numeric(X.sum[group == levels(group)[2], ])[2:4]))#
+    abs.diff.PX <- with(PX.sum, abs(as.numeric(PX.sum[group == levels(group)[1], ])[2:4] - as.numeric(PX.sum[group == levels(group)[2], ])[2:4]))#
+    sqrt(sum((abs.diff.X - abs.diff.PX)^2))#
+}#
+#
+with(mtcars, box_dist(data.frame(as.factor(mtcars$am), mtcars$mpg), data.frame(as.factor(sample(mtcars$am)), mtcars$mpg)))
+box_dist <- function(X, PX) {#
+	val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }#
+    abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[2:4] - as.numeric(X.sum[group == levels(group)[2], ])[2:4]))#
+    abs.diff.PX <- with(PX.sum, abs(as.numeric(PX.sum[group == levels(group)[1], ])[2:4] - as.numeric(PX.sum[group == levels(group)[2], ])[2:4]))#
+    sqrt(sum((abs.diff.X - abs.diff.PX)^2))#
+}#
+#
+with(mtcars, box_dist(data.frame(as.factor(mtcars$am), mtcars$mpg), data.frame(as.factor(sample(mtcars$am)), mtcars$mpg)))
+box_dist <- function(X, PX) {#
+	val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }#
+    abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[2:4] - as.numeric(X.sum[group == levels(group)[2], ])[2:4]))#
+    abs.diff.PX <- with(PX.sum, abs(as.numeric(PX.sum[group == levels(group)[1], ])[2:4] - as.numeric(PX.sum[group == levels(group)[2], ])[2:4]))#
+    sqrt(sum((abs.diff.X - abs.diff.PX)^2))#
+}#
+#
+with(mtcars, box_dist(data.frame(as.factor(mtcars$am), mtcars$mpg), data.frame(as.factor(sample(mtcars$am)), mtcars$mpg)))
+box_dist <- function(X, PX) {#
+	val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }#
+    abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[2:4] - as.numeric(X.sum[group == levels(group)[2], ])[2:4]))#
+    abs.diff.PX <- with(PX.sum, abs(as.numeric(PX.sum[group == levels(group)[1], ])[2:4] - as.numeric(PX.sum[group == levels(group)[2], ])[2:4]))#
+    sqrt(sum((abs.diff.X - abs.diff.PX)^2))#
+}#
+#
+with(mtcars, box_dist(data.frame(as.factor(mtcars$am), mtcars$mpg), data.frame(as.factor(sample(mtcars$am)), mtcars$mpg)))
+box_dist <- function(X, PX) {#
+	val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }#
+    abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[2:4] - as.numeric(X.sum[group == levels(group)[2], ])[2:4]))#
+    abs.diff.PX <- with(PX.sum, abs(as.numeric(PX.sum[group == levels(group)[1], ])[2:4] - as.numeric(PX.sum[group == levels(group)[2], ])[2:4]))#
+    sqrt(sum((abs.diff.X - abs.diff.PX)^2))#
+}#
+#
+with(mtcars, box_dist(data.frame(as.factor(mtcars$am), mtcars$mpg), data.frame(as.factor(sample(mtcars$am)), mtcars$mpg)))
+box_dist <- function(X, PX) {#
+	val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }#
+    abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[2:4] - as.numeric(X.sum[group == levels(group)[2], ])[2:4]))#
+    abs.diff.PX <- with(PX.sum, abs(as.numeric(PX.sum[group == levels(group)[1], ])[2:4] - as.numeric(PX.sum[group == levels(group)[2], ])[2:4]))#
+    sqrt(sum((abs.diff.X - abs.diff.PX)^2))#
+}#
+#
+with(mtcars, box_dist(data.frame(as.factor(mtcars$am), mtcars$mpg), data.frame(as.factor(sample(mtcars$am)), mtcars$mpg)))
+box_dist <- function(X, PX) {#
+	val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }#
+    abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[2:4] - as.numeric(X.sum[group == levels(group)[2], ])[2:4]))#
+    abs.diff.PX <- with(PX.sum, abs(as.numeric(PX.sum[group == levels(group)[1], ])[2:4] - as.numeric(PX.sum[group == levels(group)[2], ])[2:4]))#
+    sqrt(sum((abs.diff.X - abs.diff.PX)^2))#
+}#
+#
+with(mtcars, box_dist(data.frame(as.factor(mtcars$am), mtcars$mpg), data.frame(as.factor(sample(mtcars$am)), mtcars$mpg)))
+box_dist <- function(X, PX) {#
+	val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }#
+    abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[2:4] - as.numeric(X.sum[group == levels(group)[2], ])[2:4]))#
+    abs.diff.PX <- with(PX.sum, abs(as.numeric(PX.sum[group == levels(group)[1], ])[2:4] - as.numeric(PX.sum[group == levels(group)[2], ])[2:4]))#
+    sqrt(sum((abs.diff.X - abs.diff.PX)^2))#
+}#
+#
+with(mtcars, box_dist(data.frame(as.factor(mtcars$am), mtcars$mpg), data.frame(as.factor(sample(mtcars$am)), mtcars$mpg)))
+box_dist <- function(X, PX) {#
+	val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }#
+    abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[2:4] - as.numeric(X.sum[group == levels(group)[2], ])[2:4]))#
+    abs.diff.PX <- with(PX.sum, abs(as.numeric(PX.sum[group == levels(group)[1], ])[2:4] - as.numeric(PX.sum[group == levels(group)[2], ])[2:4]))#
+    sqrt(sum((abs.diff.X - abs.diff.PX)^2))#
+}#
+#
+with(mtcars, box_dist(data.frame(as.factor(mtcars$am), mtcars$mpg), data.frame(as.factor(sample(mtcars$am)), mtcars$mpg)))
+box_dist <- function(X, PX) {#
+	val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }#
+    abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[2:4] - as.numeric(X.sum[group == levels(group)[2], ])[2:4]))#
+    abs.diff.PX <- with(PX.sum, abs(as.numeric(PX.sum[group == levels(group)[1], ])[2:4] - as.numeric(PX.sum[group == levels(group)[2], ])[2:4]))#
+    sqrt(sum((abs.diff.X - abs.diff.PX)^2))#
+}#
+#
+with(mtcars, box_dist(data.frame(as.factor(mtcars$am), mtcars$mpg), data.frame(as.factor(sample(mtcars$am)), mtcars$mpg)))
+box_dist <- function(X, PX) {#
+	val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }#
+    abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[2:4] - as.numeric(X.sum[group == levels(group)[2], ])[2:4]))#
+    abs.diff.PX <- with(PX.sum, abs(as.numeric(PX.sum[group == levels(group)[1], ])[2:4] - as.numeric(PX.sum[group == levels(group)[2], ])[2:4]))#
+    sqrt(sum((abs.diff.X - abs.diff.PX)^2))#
+}#
+#
+with(mtcars, box_dist(data.frame(as.factor(mtcars$am), mtcars$mpg), data.frame(as.factor(sample(mtcars$am)), mtcars$mpg)))
+box_dist <- function(X, PX) {#
+	val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }#
+    abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[2:4] - as.numeric(X.sum[group == levels(group)[2], ])[2:4]))#
+    abs.diff.PX <- with(PX.sum, abs(as.numeric(PX.sum[group == levels(group)[1], ])[2:4] - as.numeric(PX.sum[group == levels(group)[2], ])[2:4]))#
+    sqrt(sum((abs.diff.X - abs.diff.PX)^2))#
+}#
+#
+with(mtcars, box_dist(data.frame(as.factor(mtcars$am), mtcars$mpg), data.frame(as.factor(sample(mtcars$am)), mtcars$mpg)))
+box_dist <- function(X, PX) {#
+	val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }#
+    abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[2:4] - as.numeric(X.sum[group == levels(group)[2], ])[2:4]))#
+    abs.diff.PX <- with(PX.sum, abs(as.numeric(PX.sum[group == levels(group)[1], ])[2:4] - as.numeric(PX.sum[group == levels(group)[2], ])[2:4]))#
+    sqrt(sum((abs.diff.X - abs.diff.PX)^2))#
+}#
+#
+with(mtcars, box_dist(data.frame(as.factor(mtcars$am), mtcars$mpg), data.frame(as.factor(sample(mtcars$am)), mtcars$mpg)))
+box_dist <- function(X, PX) {#
+	val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }#
+    abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[2:4] - as.numeric(X.sum[group == levels(group)[2], ])[2:4]))#
+    abs.diff.PX <- with(PX.sum, abs(as.numeric(PX.sum[group == levels(group)[1], ])[2:4] - as.numeric(PX.sum[group == levels(group)[2], ])[2:4]))#
+    sqrt(sum((abs.diff.X - abs.diff.PX)^2))#
+}#
+#
+with(mtcars, box_dist(data.frame(as.factor(mtcars$am), mtcars$mpg), data.frame(as.factor(sample(mtcars$am)), mtcars$mpg)))
+box_dist <- function(X, PX) {#
+	val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }#
+    abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[2:4] - as.numeric(X.sum[group == levels(group)[2], ])[2:4]))#
+    abs.diff.PX <- with(PX.sum, abs(as.numeric(PX.sum[group == levels(group)[1], ])[2:4] - as.numeric(PX.sum[group == levels(group)[2], ])[2:4]))#
+    sqrt(sum((abs.diff.X - abs.diff.PX)^2))#
+}#
+#
+with(mtcars, box_dist(data.frame(as.factor(mtcars$am), mtcars$mpg), data.frame(as.factor(sample(mtcars$am)), mtcars$mpg)))
+box_dist <- function(X, PX) {#
+	val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }#
+    abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[2:4] - as.numeric(X.sum[group == levels(group)[2], ])[2:4]))#
+    abs.diff.PX <- with(PX.sum, abs(as.numeric(PX.sum[group == levels(group)[1], ])[2:4] - as.numeric(PX.sum[group == levels(group)[2], ])[2:4]))#
+    sqrt(sum((abs.diff.X - abs.diff.PX)^2))#
+}#
+#
+with(mtcars, box_dist(data.frame(as.factor(mtcars$am), mtcars$mpg), data.frame(as.factor(sample(mtcars$am)), mtcars$mpg)))
+box_dist <- function(X, PX) {#
+	val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }#
+    abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[2:4] - as.numeric(X.sum[group == levels(group)[2], ])[2:4]))#
+    abs.diff.PX <- with(PX.sum, abs(as.numeric(PX.sum[group == levels(group)[1], ])[2:4] - as.numeric(PX.sum[group == levels(group)[2], ])[2:4]))#
+    sqrt(sum((abs.diff.X - abs.diff.PX)^2))#
+}#
+#
+with(mtcars, box_dist(data.frame(as.factor(mtcars$am), mtcars$mpg), data.frame(as.factor(sample(mtcars$am)), mtcars$mpg)))
+box_dist <- function(X, PX) {#
+	val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }#
+    abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[2:4] - as.numeric(X.sum[group == levels(group)[2], ])[2:4]))#
+    abs.diff.PX <- with(PX.sum, abs(as.numeric(PX.sum[group == levels(group)[1], ])[2:4] - as.numeric(PX.sum[group == levels(group)[2], ])[2:4]))#
+    sqrt(sum((abs.diff.X - abs.diff.PX)^2))#
+}#
+#
+with(mtcars, box_dist(data.frame(as.factor(mtcars$am), mtcars$mpg), data.frame(as.factor(sample(mtcars$am)), mtcars$mpg)))
+box_dist <- function(X, PX) {#
+	val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }#
+    abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[2:4] - as.numeric(X.sum[group == levels(group)[2], ])[2:4]))#
+    abs.diff.PX <- with(PX.sum, abs(as.numeric(PX.sum[group == levels(group)[1], ])[2:4] - as.numeric(PX.sum[group == levels(group)[2], ])[2:4]))#
+    sqrt(sum((abs.diff.X - abs.diff.PX)^2))#
+}#
+#
+with(mtcars, box_dist(data.frame(as.factor(mtcars$am), mtcars$mpg), data.frame(as.factor(sample(mtcars$am)), mtcars$mpg)))

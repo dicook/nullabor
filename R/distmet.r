@@ -1,7 +1,8 @@
 #' Empirical distribution of the distance
 #'
 #' The empirical distribution of the distance measures is calculated based on the mean
-#' distance of each of the null plots from the other null plots in a lineup.  
+#' distance of each of the null plots from the other null plots in a lineup. At this moment
+#' this method works only for \code{\link{null_permute}} method.
 #'
 #' @export
 #' @param lineup.dat lineup data
@@ -17,7 +18,7 @@
 #' @examples
 #' if(require('dplyr')){
 #' distmet(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg', 'wt'),
-#' 'reg_dist', null_permute('mpg'), pos = 10, repl = 100, m = 8)}
+#' 'reg_dist', null_permute('mpg'), pos = 1, repl = 100, m = 8)}
 #'
 #' \donttest{
 #' if(require('dplyr')){
@@ -49,27 +50,13 @@
 #' # Assuming pos = 19; but put the true position for pos
 #' }
 distmet <- function(lineup.dat, var, met, method, pos, repl = 1000, dist.arg = NULL, m = 20) {
-	plotno <- pos.2 <- b <- NULL
-	dat.pos <- expand.grid(plotno = 1:m, pos.2 = 1:m)
-	dat.pos <- filter(dat.pos, plotno != pos.2 & pos.2 != pos)
-    lineup.dat <- lineup.dat[, c(var, ".sample")]
-    if (!is.character(met)) {
-        stop("function met should be a character")
-    }
-    func <- match.fun(met)
-    if (as.character(met) == "bin_dist") {
-        dist.arg <- list(lineup.dat, dist.arg[[1]], dist.arg[[2]])
-    }
-    d <- summarise(group_by(dat.pos, plotno, pos.2), b = ifelse(is.null(dist.arg), 
-    			do.call(func, list(filter(lineup.dat, .sample == plotno), filter(lineup.dat, .sample == pos.2))), 
-    			do.call(func, append(list(filter(lineup.dat, .sample == plotno), filter(lineup.dat, .sample == pos.2)), unname(dist.arg)))))
-    dist.mean <- summarise(group_by(d, plotno), mean.dist = mean(b))
+    dist.mean <- calc_mean_dist(lineup.dat, var, met, pos, dist.arg, m)
     diff <- with(dist.mean, mean.dist[plotno == pos] - max(mean.dist[plotno != pos]))
     closest <- dist.mean[order(dist.mean$mean.dist, decreasing = TRUE), ]$plotno[2:6]
     obs.dat <- lineup.dat[lineup.dat$.sample == pos, c(var, ".sample")]
     all.samp <- replicate(repl, {
     	null <- method(obs.dat)
-    	null_gen(null, func, method, m, dist.arg)
+    	null_gen(lineup.dat, null, met, method, m, dist.arg)
     	})
    return(list(lineup = dist.mean[, c(pos.1 = "plotno", dist = "mean.dist")], null_values = all.samp, diff = diff, 
         closest = closest, pos = pos))
@@ -78,7 +65,11 @@ distmet <- function(lineup.dat, var, met, method, pos, repl = 1000, dist.arg = N
 #' Computing th distance for the null plots
 #' 
 #' @keywords internal
-null_gen <- function(null, func, method, m, dist.arg){
+null_gen <- function(lineup.dat, null, met, method, m, dist.arg){
+	if (as.character(met) == "bin_dist") {
+        dist.arg <- list(lineup.dat, dist.arg[[1]], dist.arg[[2]])
+    }
+	func <- match.fun(met)
 	Dist <- replicate(m - 2, {
 		null.dat <- method(null)
 		 ifelse(is.null(dist.arg), do.call(func, list(null, null.dat)), 

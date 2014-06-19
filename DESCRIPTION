@@ -1,22 +1,21 @@
 Package: nullabor
-Version: 0.3
+Version: 0.2
 Description: Generate null datasets and null plots with ease.
 Title: Tools for graphical inference
 Author: Hadley Wickham <h.wickham@gmail.com>
 Maintainer: Hadley Wickham <h.wickham@gmail.com>
 License: GPL
 Depends:
-    ggplot2
+    ggplot2,
+    reshape
 Imports:
     MASS,
-    reshape,
     plyr,
+    dplyr,
     moments,
     fpc
 Suggests:
-    reshape2,
-    knitr
-VignetteBuilder: knitr
+    reshape2
 LazyData: true
 Type: Package
 LazyLoad: false
