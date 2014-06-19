@@ -30,8 +30,9 @@ calculated.
 }
 \examples{
 if(require('dplyr')){
-calc_diff(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg', 'wt'), met = 'bin_dist',
-dist.arg = list(X.bin = 5, Y.bin = 5), pos = 1, m = 8)}
+lineup.dat <- lineup(null_permute('mpg'), mtcars, pos = 1)
+calc_diff(lineup.dat, var = c('mpg', 'wt'), met = 'bin_dist',
+dist.arg = list(lineup.dat = lineup.dat, X.bin = 5, Y.bin = 5), pos = 1, m = 8)}
 
 if(require('dplyr')){
 calc_diff(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg', 'wt'), met = 'reg_dist',

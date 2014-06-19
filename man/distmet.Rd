@@ -37,7 +37,8 @@ distmet(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg', 'wt'),
 \donttest{
 if(require('dplyr')){
 distmet(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg', 'wt'),
-'bin_dist', null_permute('mpg'), pos = 1, repl = 100, dist.arg = list(X.bin = 5, Y.bin = 5))} }
+'bin_dist', null_permute('mpg'), pos = 1, repl = 100, dist.arg = list(lineup.dat = lineup.dat, X.bin =
+5, Y.bin = 5))} }
 
 
 lineup.dat <- lineup(null_permute('mpg'), mtcars)
@@ -47,7 +48,7 @@ qplot(mpg, wt, data = lineup.dat, geom = 'point') + facet_wrap(~ .sample)
 #[1] 'True data in position 4' # Use pos = 4
 if(require('dplyr')){
 distmet(lineup.dat, var = c('mpg', 'wt'), 'bin_dist', null_permute('mpg'), pos = 4, repl =
-100, dist.arg = list(X.bin = 5, Y.bin = 5), m = 8)}
+100, dist.arg = list(lineup.dat = lineup.dat, X.bin = 5, Y.bin = 5), m = 8)}
 
 #Example using uni_dist
 

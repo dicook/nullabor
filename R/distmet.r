@@ -23,7 +23,8 @@
 #' \donttest{
 #' if(require('dplyr')){
 #' distmet(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg', 'wt'),
-#' 'bin_dist', null_permute('mpg'), pos = 1, repl = 100, dist.arg = list(X.bin = 5, Y.bin = 5))} }
+#' 'bin_dist', null_permute('mpg'), pos = 1, repl = 100, dist.arg = list(lineup.dat = lineup.dat, X.bin =
+#' 5, Y.bin = 5))} }
 #'
 #'
 #' lineup.dat <- lineup(null_permute('mpg'), mtcars)
@@ -33,7 +34,7 @@
 #' #[1] 'True data in position 4' # Use pos = 4
 #' if(require('dplyr')){
 #' distmet(lineup.dat, var = c('mpg', 'wt'), 'bin_dist', null_permute('mpg'), pos = 4, repl =
-#' 100, dist.arg = list(X.bin = 5, Y.bin = 5), m = 8)}
+#' 100, dist.arg = list(lineup.dat = lineup.dat, X.bin = 5, Y.bin = 5), m = 8)}
 #'
 #' #Example using uni_dist
 #'
@@ -66,9 +67,6 @@ distmet <- function(lineup.dat, var, met, method, pos, repl = 1000, dist.arg = N
 #' 
 #' @keywords internal
 null_gen <- function(lineup.dat, null, met, method, m, dist.arg){
-	if (as.character(met) == "bin_dist") {
-        dist.arg <- list(lineup.dat, dist.arg[[1]], dist.arg[[2]])
-    }
 	func <- match.fun(met)
 	Dist <- replicate(m - 2, {
 		null.dat <- method(null)

@@ -27,9 +27,6 @@ calc_mean_dist <- function(lineup.dat, var, met, pos, dist.arg = NULL, m = 20){
         stop("function met should be a character")
     }
     func <- match.fun(met)
-    if (as.character(met) == "bin_dist") {
-        dist.arg <- list(lineup.dat, dist.arg[[1]], dist.arg[[2]])
-    }
     d <- summarise(group_by(dat.pos, plotno, pos.2), b = with(lineup.dat, ifelse(is.null(dist.arg), 
     			do.call(func, list(filter(lineup.dat, .sample == plotno), 
     			filter(lineup.dat, .sample == pos.2))), 
@@ -56,8 +53,9 @@ calc_mean_dist <- function(lineup.dat, var, met, pos, dist.arg = NULL, m = 20){
 #' @export
 #' @examples 
 #' if(require('dplyr')){
-#' calc_diff(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg', 'wt'), met = 'bin_dist', 
-#' dist.arg = list(X.bin = 5, Y.bin = 5), pos = 1, m = 8)}
+#' lineup.dat <- lineup(null_permute('mpg'), mtcars, pos = 1)
+#' calc_diff(lineup.dat, var = c('mpg', 'wt'), met = 'bin_dist', 
+#' dist.arg = list(lineup.dat = lineup.dat, X.bin = 5, Y.bin = 5), pos = 1, m = 8)}
 #'
 #' if(require('dplyr')){
 #' calc_diff(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg', 'wt'), met = 'reg_dist', 
@@ -95,7 +93,7 @@ calc_diff <- function(lineup.dat, var, met, pos, dist.arg = NULL, m = 20){
 opt_bin_diff <- function(lineup.dat, var, xlow, xhigh, ylow, yhigh, pos, plot = FALSE, m = 20) {
 	Diff <- xbins <- ybins <- NULL
 	bins <- expand.grid(xbins = xlow:xhigh, ybins = ylow:yhigh)
-	diff.bins <- summarise(group_by(bins, xbins, ybins), Diff = calc_diff(lineup.dat, var, met = 'bin_dist', pos, dist.arg = list(X.bin = xbins, Y.bin = ybins), m))	
+	diff.bins <- summarise(group_by(bins, xbins, ybins), Diff = calc_diff(lineup.dat, var, met = 'bin_dist', pos, dist.arg = list(lineup.dat = lineup.dat, X.bin = xbins, Y.bin = ybins), m))	
     if (plot) {
         p <- ggplot(diff.bins, aes(x = factor(xbins), y = factor(ybins))) + geom_tile(aes(fill = Diff)) + scale_fill_gradient(high = "blue", 
             low = "white") + xlab("xbins") + ylab("ybins")
