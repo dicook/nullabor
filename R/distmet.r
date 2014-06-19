@@ -23,7 +23,7 @@
 #' \donttest{
 #' if(require('dplyr')){
 #' distmet(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg', 'wt'),
-#' 'bin_dist', null_permute('mpg'), pos = 10, , repl = 100, dist.arg = list(X.bin = 5, Y.bin = 5))} }
+#' 'bin_dist', null_permute('mpg'), pos = 1, repl = 100, dist.arg = list(X.bin = 5, Y.bin = 5))} }
 #'
 #'
 #' lineup.dat <- lineup(null_permute('mpg'), mtcars)
