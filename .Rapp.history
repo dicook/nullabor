@@ -1,0 +1,785 @@
+obs.dat <- select(filter(lineup.dat, .sample == pos), var)
+obs.dat <- filter(lineup.dat, .sample == pos)[, c(var, ".sample")]
+null <- obs.dat
+null
+null.dat <- method(null)
+null.dat
+ifelse(is.null(dist.arg), do.call(func, list(null, null.dat)), #
+		do.call(func, append(list(null, null.dat), unname(dist.arg))))
+Dist <- replicate(m - 2, {#
+		null.dat <- method(null)#
+		 ifelse(is.null(dist.arg), do.call(func, list(null, null.dat)), #
+		do.call(func, append(list(null, null.dat), unname(dist.arg))))#
+	})	#
+	mean(Dist)
+Dist <- replicate(m - 2, {#
+		null.dat <- method(null)#
+		 ifelse(is.null(dist.arg), do.call(func, list(null, null.dat)), #
+		do.call(func, append(list(null, null.dat), unname(dist.arg))))#
+	})
+Dist
+distmet <- function(lineup.dat, var, met, method, pos, repl = 1000, dist.arg = NULL, m = 20) {#
+	plotno <- pos.2 <- b <- NULL#
+	dat.pos <- expand.grid(pos.1 = 1:m, pos.2 = 1:m)#
+	dat.pos <- filter(dat.pos, pos.1 != pos.2 & pos.2 != pos)#
+    lineup.dat <- lineup.dat[, c(var, ".sample")]#
+    if (!is.character(met)) {#
+        stop("function met should be a character")#
+    }#
+    func <- match.fun(met)#
+    if (as.character(met) == "bin_dist") {#
+        dist.arg <- list(lineup.dat, dist.arg[[1]], dist.arg[[2]])#
+    }#
+    d <- summarise(group_by(dat.pos, pos.1, pos.2), b = ifelse(is.null(dist.arg), #
+    			do.call(func, list(filter(lineup.dat, .sample == pos.1), filter(lineup.dat, .sample == pos.2))), #
+    			do.call(func, append(list(filter(lineup.dat, .sample == pos.1), filter(lineup.dat, .sample == pos.2)), unname(dist.arg)))))#
+    dist.mean <- summarise(group_by(d, pos.1), mean.dist = mean(b))#
+    diff <- with(dist.mean, mean.dist[pos.1 == pos] - max(mean.dist[pos.1 != pos]))#
+    closest <- dist.mean[order(dist.mean$mean.dist, decreasing = TRUE), ]$plotno[2:6]#
+    obs.dat <- filter(lineup.dat, .sample == pos)[, c(var, ".sample")]#
+    all.samp <- replicate(repl, {#
+    	null <- method(obs.dat)#
+    	null_gen(null, func, method, m, dist.arg)#
+    	})#
+   return(list(lineup = dist.mean[, c(plotno = "pos.1", dist = "mean.dist")], null_values = all.samp, diff = diff, #
+        closest = closest, pos = pos))#
+}
+distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10, repl = 100)
+t1 <- proc.time()#
+distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10, repl = 100)#
+proc.time() - t1
+t1 <- proc.time()#
+distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10, repl = 1000)#
+proc.time() - t1
+t1 <- proc.time()#
+distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10, repl = 500)#
+proc.time() - t1
+t1 <- proc.time()#
+distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10, repl = 50)#
+proc.time() - t1
+distplot(distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10, repl = 50))
+distplot <- function(dat, m = 20) {#
+    p <- with(dat, qplot(null_values, geom = "density", fill = I("grey80"), colour = I("grey80"), #
+        xlab = "Permutation distribution", ylab = "") + geom_segment(aes(x = lineup$mean.dist[lineup$plotno != #
+        pos], xend = lineup$mean.dist[lineup$plotno != pos], y = rep(0.01 * min(density(null_values)$y), #
+        (m - 1)), yend = rep(0.05 * max(density(null_values)$y), (m - 1))), size = 1, alpha = I(0.7)) + #
+        geom_segment(aes(x = lineup$mean.dist[lineup$plotno == pos], xend = lineup$mean.dist[lineup$plotno == #
+            pos], y = 0.01 * min(density(null_values)$y), yend = 0.1 * max(density(null_values)$y)), #
+            colour = "darkorange", size = 1) + geom_text(data = lineup, y = -0.03 * max(density(null_values)$y), #
+        size = 2.5, aes(x = mean.dist, label = plotno)) + ylim(c(-0.04 * max(density(null_values)$y), #
+        max(density(null_values)$y) + 0.1)))#
+    return(p)#
+}
+distplot(distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10, repl = 50))
+distmet <- function(lineup.dat, var, met, method, pos, repl = 1000, dist.arg = NULL, m = 20) {#
+	plotno <- pos.2 <- b <- NULL#
+	dat.pos <- expand.grid(pos.1 = 1:m, pos.2 = 1:m)#
+	dat.pos <- filter(dat.pos, pos.1 != pos.2 & pos.2 != pos)#
+    lineup.dat <- lineup.dat[, c(var, ".sample")]#
+    if (!is.character(met)) {#
+        stop("function met should be a character")#
+    }#
+    func <- match.fun(met)#
+    if (as.character(met) == "bin_dist") {#
+        dist.arg <- list(lineup.dat, dist.arg[[1]], dist.arg[[2]])#
+    }#
+    d <- summarise(group_by(dat.pos, pos.1, pos.2), b = ifelse(is.null(dist.arg), #
+    			do.call(func, list(filter(lineup.dat, .sample == pos.1), filter(lineup.dat, .sample == pos.2))), #
+    			do.call(func, append(list(filter(lineup.dat, .sample == pos.1), filter(lineup.dat, .sample == pos.2)), unname(dist.arg)))))#
+    dist.mean <- summarise(group_by(d, pos.1), mean.dist = mean(b))#
+    diff <- with(dist.mean, mean.dist[pos.1 == pos] - max(mean.dist[pos.1 != pos]))#
+    closest <- dist.mean[order(dist.mean$mean.dist, decreasing = TRUE), ]$plotno[2:6]#
+    obs.dat <- filter(lineup.dat, .sample == pos)[, c(var, ".sample")]#
+    all.samp <- replicate(repl, {#
+    	null <- method(obs.dat)#
+    	null_gen(null, func, method, m, dist.arg)#
+    	})#
+   return(list(lineup = dist.mean[, c(pos.1 = "plotno", dist = "mean.dist")], null_values = all.samp, diff = diff, #
+        closest = closest, pos = pos))#
+}
+distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10, repl = 50)
+distmet <- function(lineup.dat, var, met, method, pos, repl = 1000, dist.arg = NULL, m = 20) {#
+	plotno <- pos.2 <- b <- NULL#
+	dat.pos <- expand.grid(plotno = 1:m, pos.2 = 1:m)#
+	dat.pos <- filter(dat.pos, plotno != pos.2 & pos.2 != pos)#
+    lineup.dat <- lineup.dat[, c(var, ".sample")]#
+    if (!is.character(met)) {#
+        stop("function met should be a character")#
+    }#
+    func <- match.fun(met)#
+    if (as.character(met) == "bin_dist") {#
+        dist.arg <- list(lineup.dat, dist.arg[[1]], dist.arg[[2]])#
+    }#
+    d <- summarise(group_by(dat.pos, plotno, pos.2), b = ifelse(is.null(dist.arg), #
+    			do.call(func, list(filter(lineup.dat, .sample == plotno), filter(lineup.dat, .sample == pos.2))), #
+    			do.call(func, append(list(filter(lineup.dat, .sample == plotno), filter(lineup.dat, .sample == pos.2)), unname(dist.arg)))))#
+    dist.mean <- summarise(group_by(d, plotno), mean.dist = mean(b))#
+    diff <- with(dist.mean, mean.dist[plotno == pos] - max(mean.dist[plotno != pos]))#
+    closest <- dist.mean[order(dist.mean$mean.dist, decreasing = TRUE), ]$plotno[2:6]#
+    obs.dat <- filter(lineup.dat, .sample == pos)[, c(var, ".sample")]#
+    all.samp <- replicate(repl, {#
+    	null <- method(obs.dat)#
+    	null_gen(null, func, method, m, dist.arg)#
+    	})#
+   return(list(lineup = dist.mean[, c(pos.1 = "plotno", dist = "mean.dist")], null_values = all.samp, diff = diff, #
+        closest = closest, pos = pos))#
+}
+distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10, repl = 50)
+distplot(distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10, repl = 50))
+t1 <- proc.time()#
+ distplot(distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10, repl = 50))#
+proc.time() - t1
+t1 <- proc.time()#
+ distplot(distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10, repl = 100))#
+proc.time() - t1
+t1 <- proc.time()#
+ distplot(distmet(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'), pos = 10, repl = 50))#
+proc.time() - t1
+box_dist <- function(X, PX) {#
+	val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, "group"), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, "group"), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, "group"), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(X, "group"), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))#
+    }#
+    abs.diff.X <- with(X.sum, abs(sum.stat[group == levels(group)[1]] - sum.stat[group == levels(group)[2]]))#
+    abs.diff.PX <- with(PX.sum, abs(sum.stat[group == levels(group)[1]] - sum.stat[group == #
+        levels(group)[2]])#
+    sqrt(sum((abs.diff.X - abs.diff.PX)^2))#
+}
+box_dist <- function(X, PX) {#
+	val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, "group"), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, "group"), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, "group"), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(X, "group"), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))#
+    }#
+    abs.diff.X <- with(X.sum, abs(sum.stat[group == levels(group)[1]] - sum.stat[group == levels(group)[2]]))#
+    abs.diff.PX <- with(PX.sum, abs(sum.stat[group == levels(group)[1]] - sum.stat[group == #
+        levels(group)[2]]))#
+    sqrt(sum((abs.diff.X - abs.diff.PX)^2))#
+}
+with(mtcars, box_dist(data.frame(as.factor(am), mpg), #
+#' data.frame(as.factor(sample(am)), mpg)))
+)
+))
+with(mtcars, box_dist(data.frame(as.factor(am), mpg),  data.frame(as.factor(sample(am)), mpg)))
+with(mtcars, box_dist(data.frame(as.factor(am), mpg), data.frame(as.factor(sample(am)), mpg)))
+detach(package:plyr)
+val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, "group"), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, "group"), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))#
+    }
+X <- data.frame(as.factor(am), mpg)
+X <- data.frame(as.factor(mtcars$am), mtcars$mpg)
+Y <-  data.frame(as.factor(sample(mtcars$am)), mtcars$mpg)
+val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, "group"), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, "group"), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))#
+    }
+val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))#
+    }
+X
+X.sum <- summarise(group_by(X, group), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))
+group_by(X, group)
+summarise(group_by(X, group), sum.stat = quantile(val, c(0.25, 0.5, 0.75)))
+?summarise
+summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75)))
+summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))
+val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }
+X <- data.frame(as.factor(mtcars$am), mtcars$mpg)#
+PX <-  data.frame(as.factor(sample(mtcars$am)), mtcars$mpg)
+val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }
+abs.diff.X <- with(X.sum, abs(sum.stat[group == levels(group)[1]] - sum.stat[group == levels(group)[2]]))
+X.sum
+PX.sum
+abs.diff.X <- with(X.sum, abs(X.sum[,c(1:3)][group == levels(group)[1]] - X.sum[,c(1:3)][group == levels(group)[2]]))
+abs.diff.X <- with(X.sum, abs(X.sum[,c(1:3)][group == levels(group)[1],] - X.sum[,c(1:3)][group == levels(group)[2], ]))
+abs.diff.X <- X.sum[group == levels(group)[1], ]
+abs.diff.X <- with(X.sum, X.sum[group == levels(group)[1], ])
+abs.diff.X
+abs.diff.X <- with(X.sum, abs(X.sum[group == levels(group)[1], ] - X.sum[group == levels(group)[2], ]))
+abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[1:3] - as.numeric(X.sum[group == levels(group)[2], ])[1:3]))
+abs.diff.X
+abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[2:4] - as.numeric(X.sum[group == levels(group)[2], ])[2:4]))
+abs.diff.X
+box_dist <- function(X, PX) {#
+	val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }#
+    abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[2:4] - as.numeric(X.sum[group == levels(group)[2], ])[2:4]))#
+    abs.diff.PX <- with(PX.sum, abs(as.numeric(PX.sum[group == levels(group)[1], ])[2:4] - as.numeric(PX.sum[group == levels(group)[2], ])[2:4]))#
+    sqrt(sum((abs.diff.X - abs.diff.PX)^2))#
+}
+with(mtcars, box_dist(data.frame(as.factor(mtcars$am), mtcars$mpg), data.frame(as.factor(sample(mtcars$am)), mtcars$mpg)))
+box_dist <- function(X, PX) {#
+	val <- NULL#
+    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {#
+        stop("X should have one factor variable \n \n")#
+    } else if (is.factor(X[, 1])) {#
+        X$group <- X[, 1]#
+        X$val <- X[, 2]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else if (is.factor(X[, 2])) {#
+        X$group <- X[, 2]#
+        X$val <- X[, 1]#
+        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    }#
+    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {#
+        stop("PX should have one factor variable \n \n")#
+    } else if (is.factor(PX[, 1])) {#
+        PX$group <- PX[, 1]#
+        PX$val <- PX[, 2]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))#
+    } else {#
+        PX$group <- PX[, 2]#
+        PX$val <- PX[, 1]#
+        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }#
+    abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[2:4] - as.numeric(X.sum[group == levels(group)[2], ])[2:4]))#
+    abs.diff.PX <- with(PX.sum, abs(as.numeric(PX.sum[group == levels(group)[1], ])[2:4] - as.numeric(PX.sum[group == levels(group)[2], ])[2:4]))#
+    sqrt(sum((abs.diff.X - abs.diff.PX)^2))#
+}#
+#
+with(mtcars, box_dist(data.frame(as.factor(mtcars$am), mtcars$mpg), data.frame(as.factor(sample(mtcars$am)), mtcars$mpg)))
+distmet <- function(lineup.dat, var, met, method, pos, repl = 1000, dist.arg = NULL, m = 20) {#
+    dist.mean <- calc_mean_dist(lineup.dat, var, met, pos, dist.arg, m)#
+    diff <- with(dist.mean, mean.dist[plotno == pos] - max(mean.dist[plotno != pos]))#
+    closest <- dist.mean[order(dist.mean$mean.dist, decreasing = TRUE), ]$plotno[2:6]#
+    obs.dat <- lineup.dat[lineup.dat$.sample == pos, c(var, ".sample")]#
+    all.samp <- replicate(repl, {#
+    	null <- method(obs.dat)#
+    	null_gen(lineup.dat, null, met, method, m, dist.arg)#
+    	})#
+   return(list(lineup = dist.mean[, c(pos.1 = "plotno", dist = "mean.dist")], null_values = all.samp, diff = diff, #
+        closest = closest, pos = pos))#
+}#
+#
+#' Computing th distance for the null plots#
+#' #
+#' @keywords internal#
+null_gen <- function(lineup.dat, null, met, method, m, dist.arg){#
+	if (as.character(met) == "bin_dist") {#
+        dist.arg <- list(lineup.dat, dist.arg[[1]], dist.arg[[2]])#
+    }#
+	func <- match.fun(met)#
+	Dist <- replicate(m - 2, {#
+		null.dat <- method(null)#
+		 ifelse(is.null(dist.arg), do.call(func, list(null, null.dat)), #
+		do.call(func, append(list(null, null.dat), unname(dist.arg))))#
+	})	#
+	mean(Dist)#
+}
+lineup.dat <- lineup(null_permute('mpg'), mtcars, pos = 10)
+library(nullabor)
+lineup.dat <- lineup(null_permute('mpg'), mtcars, pos = 10)
+distmet(lineup.dat, var = c('mpg', 'wt'), 'bin_dist', null_permute('mpg'), pos = 4, repl = 100, dist.arg = list(X.bin = 5, Y.bin = 5), m = 8)
+library(dplyr)
+distmet(lineup.dat, var = c('mpg', 'wt'), 'bin_dist', null_permute('mpg'), pos = 4, repl = 100, dist.arg = list(X.bin = 5, Y.bin = 5), m = 8)
+calc_mean_dist(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg', 'wt'), met = 'reg_dist', pos = 1)
+calc_mean_dist(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg', 'wt'), met = 'bin_dist', pos = 1)
+calc_mean_dist(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg', 'wt'), met = 'bin_dist', pos = 1, dist.arg = list(X.bin = 5, Y.bin = 5))
+repl <- 1000
+dist.mean <- calc_mean_dist(lineup.dat, var, met, pos, dist.arg, m)
+m <- 20
+dist.arg = list(X.bin = 5, Y.bin = 5)
+pos = 1
+met = 'bin_dist'
+var = c('mpg', 'wt'),
+var = c('mpg', 'wt')
+lineup.dat <- lineup(null_permute('mpg'), mtcars, pos = 1)
+dist.mean <- calc_mean_dist(lineup.dat, var, met, pos, dist.arg, m)
+dist.mean
+diff <- with(dist.mean, mean.dist[plotno == pos] - max(mean.dist[plotno != pos]))
+diff
+closest <- dist.mean[order(dist.mean$mean.dist, decreasing = TRUE), ]$plotno[2:6]
+closest
+obs.dat <- lineup.dat[lineup.dat$.sample == pos, c(var, ".sample")]
+repl <- 100
+method <- null_permute('mpg')
+null_gen <- function(lineup.dat, null, met, method, m, dist.arg){#
+	if (as.character(met) == "bin_dist") {#
+        dist.arg <- list(lineup.dat, dist.arg[[1]], dist.arg[[2]])#
+    }#
+	func <- match.fun(met)#
+	Dist <- replicate(m - 2, {#
+		null.dat <- method(null)#
+		 ifelse(is.null(dist.arg), do.call(func, list(null, null.dat)), #
+		do.call(func, append(list(null, null.dat), unname(dist.arg))))#
+	})	#
+	mean(Dist)#
+}
+all.samp <- replicate(repl, {#
+    	null <- method(obs.dat)#
+    	null_gen(lineup.dat, null, met, method, m, dist.arg)#
+    	})
+all.samp
+if (as.character(met) == "bin_dist") {#
+        dist.arg <- list(lineup.dat, dist.arg[[1]], dist.arg[[2]])#
+    }
+dist.arg
+func <- match.fun(met)
+func
+ifelse(is.null(dist.arg), do.call(func, list(null, null.dat)), #
+		do.call(func, append(list(null, null.dat), unname(dist.arg))))
+null <- method(obs.dat)
+null.dat <- method(null)
+ifelse(is.null(dist.arg), do.call(func, list(null, null.dat)), #
+		do.call(func, append(list(null, null.dat), unname(dist.arg))))
+Dist <- replicate(m - 2, {#
+		null.dat <- method(null)#
+		 ifelse(is.null(dist.arg), do.call(func, list(null, null.dat)), #
+		do.call(func, append(list(null, null.dat), unname(dist.arg))))#
+	})
+Dist
+is.null(dist.arg)
+do.call(func, append(list(null, null.dat), unname(dist.arg)))
+append(list(null, null.dat), unname(dist.arg))
+X <- null
+PX <- null.dat
+bin_dist(null, null.dat)
+bin_dist(null, null.dat, lineup.dat = lineup.dat)
+calc_mean_dist <- function(lineup.dat, var, met, pos, dist.arg = NULL, m = 20){#
+	plotno <- pos.2 <- b <- NULL#
+	dat.pos <- expand.grid(plotno = 1:m, pos.2 = 1:m)#
+	dat.pos <- filter(dat.pos, plotno != pos.2 & pos.2 != pos)#
+    lineup.dat <- lineup.dat[, c(var, ".sample")]#
+    if (!is.character(met)) {#
+        stop("function met should be a character")#
+    }#
+    func <- match.fun(met)#
+    if (as.character(met) == "bin_dist") {#
+        dist.arg <- list(lineup.dat, dist.arg[[1]], dist.arg[[2]])#
+    }#
+    d <- summarise(group_by(dat.pos, plotno, pos.2), b = ifelse(is.null(dist.arg), #
+    			do.call(func, list(filter(lineup.dat, .sample == plotno), #
+    			filter(lineup.dat, .sample == pos.2))), #
+    			do.call(func, append(list(filter(lineup.dat, .sample == plotno),#
+    			filter(lineup.dat, .sample == pos.2)), unname(dist.arg)))))#
+    summarise(group_by(d, plotno), mean.dist = mean(b))		#
+}
+head(lineup.dat)
+calc_mean_dist(lineup.dat, var = c('mpg', 'wt'), met = 'bin_dist', pos = 1, dist.arg = list(X.bin = 5, Y.bin = 5))
+plotno <- pos.2 <- b <- NULL#
+	dat.pos <- expand.grid(plotno = 1:m, pos.2 = 1:m)#
+	dat.pos <- filter(dat.pos, plotno != pos.2 & pos.2 != pos)#
+    lineup.dat <- lineup.dat[, c(var, ".sample")]#
+    if (!is.character(met)) {#
+        stop("function met should be a character")#
+    }
+met
+func <- match.fun(met)
+if (as.character(met) == "bin_dist") {#
+        dist.arg <- list(lineup.dat, dist.arg[[1]], dist.arg[[2]])#
+    }
+dist.arg
+dist.arg <- list(X.bin = 5, Y.bin = 5)
+if (as.character(met) == "bin_dist") {#
+        dist.arg <- list(lineup.dat, dist.arg[[1]], dist.arg[[2]])#
+    }
+dist.arg
+b = ifelse(is.null(dist.arg), #
+    			do.call(func, list(filter(lineup.dat, .sample == plotno), #
+    			filter(lineup.dat, .sample == pos.2))), #
+    			do.call(func, append(list(filter(lineup.dat, .sample == plotno),#
+    			filter(lineup.dat, .sample == pos.2)), unname(dist.arg))))
+do.call(func, append(list(filter(lineup.dat, .sample == plotno),#
+    			filter(lineup.dat, .sample == pos.2)), unname(dist.arg))))
+do.call(func, append(list(filter(lineup.dat, .sample == plotno),#
+    			filter(lineup.dat, .sample == pos.2)), unname(dist.arg)))
+d <- summarise(group_by(dat.pos, plotno, pos.2), b = ifelse(is.null(dist.arg), #
+    			do.call(func, list(filter(lineup.dat, .sample == plotno), #
+    			filter(lineup.dat, .sample == pos.2))), #
+    			do.call(func, append(list(filter(lineup.dat, .sample == plotno),#
+    			filter(lineup.dat, .sample == pos.2)), unname(dist.arg)))))
+d
+summarise(group_by(d, plotno), mean.dist = mean(b))
+calc_mean_dist <- function(lineup.dat, var, met, pos, dist.arg = NULL, m = 20){#
+	plotno <- pos.2 <- b <- NULL#
+	dat.pos <- expand.grid(plotno = 1:m, pos.2 = 1:m)#
+	dat.pos <- filter(dat.pos, plotno != pos.2 & pos.2 != pos)#
+    lineup.dat <- lineup.dat[, c(var, ".sample")]#
+    if (!is.character(met)) {#
+        stop("function met should be a character")#
+    }#
+    func <- match.fun(met)#
+    if (as.character(met) == "bin_dist") {#
+        dist.arg <- list(lineup.dat, dist.arg[[1]], dist.arg[[2]])#
+    }#
+    d <- summarise(group_by(dat.pos, plotno, pos.2), b = ifelse(is.null(dist.arg), #
+    			do.call(func, list(lineup.dat[lineup.dat$.sample == plotno, ],#
+    			lineup.dat[lineup.dat$.sample == pos.2, ])), #
+    			do.call(func, append(list(lineup.dat[lineup.dat$.sample == plotno, ],#
+    			lineup.dat[lineup.dat$.sample == pos.2, ]), unname(dist.arg)))))#
+    summarise(group_by(d, plotno), mean.dist = mean(b))		#
+}
+dist.arg <- list(X.bin = 5, Y.bin = 5)
+calc_mean_dist(lineup.dat, var = c('mpg', 'wt'), met = 'bin_dist', pos = 1, dist.arg = list(X.bin = 5, Y.bin = 5))
+plotno <- pos.2 <- b <- NULL#
+	dat.pos <- expand.grid(plotno = 1:m, pos.2 = 1:m)#
+	dat.pos <- filter(dat.pos, plotno != pos.2 & pos.2 != pos)#
+    lineup.dat <- lineup.dat[, c(var, ".sample")]
+head(lineup.dat)
+func <- match.fun(met)#
+    if (as.character(met) == "bin_dist") {#
+        dist.arg <- list(lineup.dat, dist.arg[[1]], dist.arg[[2]])#
+    }
+dist.arg
+b = ifelse(is.null(dist.arg), #
+    			do.call(func, list(lineup.dat[lineup.dat$.sample == plotno, ],#
+    			lineup.dat[lineup.dat$.sample == pos.2, ])), #
+    			do.call(func, append(list(lineup.dat[lineup.dat$.sample == plotno, ],#
+    			lineup.dat[lineup.dat$.sample == pos.2, ]), unname(dist.arg))))
+b
+plotno = 1
+pos.2 = 10
+b = ifelse(is.null(dist.arg), #
+    			do.call(func, list(lineup.dat[lineup.dat$.sample == plotno, ],#
+    			lineup.dat[lineup.dat$.sample == pos.2, ])), #
+    			do.call(func, append(list(lineup.dat[lineup.dat$.sample == plotno, ],#
+    			lineup.dat[lineup.dat$.sample == pos.2, ]), unname(dist.arg)))))
+b = ifelse(is.null(dist.arg), #
+    			do.call(func, list(lineup.dat[lineup.dat$.sample == plotno, ],#
+    			lineup.dat[lineup.dat$.sample == pos.2, ])), #
+    			do.call(func, append(list(lineup.dat[lineup.dat$.sample == plotno, ],#
+    			lineup.dat[lineup.dat$.sample == pos.2, ]), unname(dist.arg))))
+b
+filter(lineup.dat, .sample == plotno)
+filter(lineup.dat, .sample == pos.2)
+unname(dist.arg)
+do.call(func, append(list(filter(lineup.dat, .sample == plotno),#
+    			filter(lineup.dat, .sample == pos.2)), unname(dist.arg))))
+do.call(func, append(list(filter(lineup.dat, .sample == plotno),#
+    			filter(lineup.dat, .sample == pos.2)), unname(dist.arg))
+)
+plotno <- 3
+do.call(func, append(list(filter(lineup.dat, .sample == plotno),#
+    			filter(lineup.dat, .sample == pos.2)), unname(dist.arg)))
+append(list(filter(lineup.dat, .sample == plotno),#
+    			filter(lineup.dat, .sample == pos.2)), unname(dist.arg))
+do.call(func, append(list(filter(lineup.dat, .sample == plotno),#
+    			filter(lineup.dat, .sample == pos.2)), unname(dist.arg)))
+func
+is.null(dist.arg)
+?unname
+col3 <- 750+ 100*rt(1500, df = 3)#
+breaks <- factor(cut(col3, breaks = 360+5*(0:155)))#
+z <- table(breaks)#
+z[1:5] # The names are larger than the data ...#
+barplot(unname(z), axes = FALSE)
+calc_mean_dist <- function(lineup.dat, var, met, pos, dist.arg = NULL, m = 20){#
+	plotno <- pos.2 <- b <- NULL#
+	dat.pos <- expand.grid(plotno = 1:m, pos.2 = 1:m)#
+	dat.pos <- filter(dat.pos, plotno != pos.2 & pos.2 != pos)#
+    lineup.dat <- lineup.dat[, c(var, ".sample")]#
+    if (!is.character(met)) {#
+        stop("function met should be a character")#
+    }#
+    func <- match.fun(met)#
+    if (as.character(met) == "bin_dist") {#
+        dist.arg <- list(lineup.dat, dist.arg[[1]], dist.arg[[2]])#
+    }#
+    d <- summarise(group_by(dat.pos, plotno, pos.2), b = ifelse(is.null(dist.arg), #
+    			do.call(func, list(filter(lineup.dat, .sample == plotno), #
+    			filter(lineup.dat, .sample == pos.2))), #
+    			do.call(func, append(list(filter(lineup.dat, .sample == plotno),#
+    			filter(lineup.dat, .sample == pos.2)), dist.arg)))))#
+    summarise(group_by(d, plotno), mean.dist = mean(b))		#
+}
+calc_mean_dist <- function(lineup.dat, var, met, pos, dist.arg = NULL, m = 20){#
+	plotno <- pos.2 <- b <- NULL#
+	dat.pos <- expand.grid(plotno = 1:m, pos.2 = 1:m)#
+	dat.pos <- filter(dat.pos, plotno != pos.2 & pos.2 != pos)#
+    lineup.dat <- lineup.dat[, c(var, ".sample")]#
+    if (!is.character(met)) {#
+        stop("function met should be a character")#
+    }#
+    func <- match.fun(met)#
+    if (as.character(met) == "bin_dist") {#
+        dist.arg <- list(lineup.dat, dist.arg[[1]], dist.arg[[2]])#
+    }#
+    d <- summarise(group_by(dat.pos, plotno, pos.2), b = ifelse(is.null(dist.arg), #
+    			do.call(func, list(filter(lineup.dat, .sample == plotno), #
+    			filter(lineup.dat, .sample == pos.2))), #
+    			do.call(func, append(list(filter(lineup.dat, .sample == plotno),#
+    			filter(lineup.dat, .sample == pos.2)), dist.arg))))#
+    summarise(group_by(d, plotno), mean.dist = mean(b))		#
+}
+calc_mean_dist(lineup.dat, var = c('mpg', 'wt'), met = 'bin_dist', pos = 1, dist.arg = list(X.bin = 5, Y.bin = 5))
+?do.call
+do.call(paste, list(as.name("A"), as.name("B")), quote = TRUE)
+?append
+dist.arg <- list(lineup.dat = lineup.dat, X.bin = 5, Y.bin = 5)
+d <- summarise(group_by(dat.pos, plotno, pos.2), b = ifelse(is.null(dist.arg), #
+    			do.call(func, list(filter(lineup.dat, .sample == plotno), #
+    			filter(lineup.dat, .sample == pos.2))), #
+    			do.call(func, append(list(filter(lineup.dat, .sample == plotno),#
+    			filter(lineup.dat, .sample == pos.2)), unname(dist.arg)))))
+d
+summarise(group_by(d, plotno), mean.dist = mean(b))
+?ifelse
+do.call(func, append(list(filter(lineup.dat, .sample == plotno),#
+    			filter(lineup.dat, .sample == pos.2)), unname(dist.arg)))
+do.call(func, append(list(filter(lineup.dat, .sample == plotno),#
+    			filter(lineup.dat, .sample == pos.2)), unname(dist.arg)))
+do.call(func, list(filter(lineup.dat, .sample == plotno), #
+    			filter(lineup.dat, .sample == pos.2)))
+d <- summarise(group_by(dat.pos, plotno, pos.2), b = ifelse(is.null(dist.arg), #
+    			do.call(func, list(filter(lineup.dat, .sample == plotno), #
+    			filter(lineup.dat, .sample == pos.2))), #
+    			do.call(func, append(list(filter(lineup.dat, .sample == plotno),#
+    			filter(lineup.dat, .sample == pos.2), unname(dist.arg))))))#
+    summarise(group_by(d, plotno), mean.dist = mean(b))
+is.list(unname(dist.arg))
+list(filter(lineup.dat, .sample == plotno),#
+    			filter(lineup.dat, .sample == pos.2))
+append(list(filter(lineup.dat, .sample == plotno),#
+    			filter(lineup.dat, .sample == pos.2)), unname(dist.arg))
+is.list(append(list(filter(lineup.dat, .sample == plotno),#
+    			filter(lineup.dat, .sample == pos.2)), unname(dist.arg)))
+do.call(func, append(list(filter(lineup.dat, .sample == plotno),#
+    			filter(lineup.dat, .sample == pos.2)), unname(dist.arg)))
+?do.call
+d <- summarise(group_by(dat.pos, plotno, pos.2), b = ifelse(is.null(dist.arg), #
+    			do.call(func, list(filter(lineup.dat, .sample == plotno), #
+    			filter(lineup.dat, .sample == pos.2))), #
+    			do.call(func, args = append(list(filter(lineup.dat, .sample == plotno),#
+    			filter(lineup.dat, .sample == pos.2)), unname(dist.arg)))))
+summarise(group_by(d, plotno), mean.dist = mean(b))
+bin_dist(X, PX)
+bin_dist(X, PX, lineup.dat = lineup.dat)
+bin_dist(X, PX, lineup.dat = NULL)
+X
+PX
+X <- filter(lineup.dat, .sample == 1)
+PX <- filter(lineup.dat, .sample == 10)
+bin_dist(X, PX)
+bin_dist(X, PX, lineup.dat = lineup.dat)
+bin_dist(X, PX, lineup.dat = NULL)
+X <- filter(lineup.dat, .sample == 3)
+bin_dist(X, PX, lineup.dat = NULL)
+bin_dist(X, PX, lineup.dat = lineup.dat)
+lineup.dat
+bin_dist(X, PX, lineup.dat = lineup.dat)
+bin_dist(X, PX, lineup.dat = NULL)
+dist.arg <- list(X.bin = 5, Y.bin = 5)
+if (as.character(met) == "bin_dist") {#
+        dist.arg <- list(lineup.dat, dist.arg[[1]], dist.arg[[2]])#
+    }
+func <- match.fun(met)
+null.dat <- method(null)
+null
+null <- X
+null.dat <- method(null)
+ifelse(is.null(dist.arg), do.call(func, list(null, null.dat)), #
+		do.call(func, append(list(null, null.dat), unname(dist.arg))))
+ifelse(is.null(dist.arg), do.call(func, list(null, null.dat)), #
+		do.call(func, append(list(null, null.dat), unname(dist.arg))))
+dist.arg <- NULL
+ifelse(is.null(dist.arg), do.call(func, list(null, null.dat)), #
+		do.call(func, append(list(null, null.dat), unname(dist.arg))))
+distmet <- function(lineup.dat, var, met, method, pos, repl = 1000, dist.arg = NULL, m = 20) {#
+    dist.mean <- calc_mean_dist(lineup.dat, var, met, pos, dist.arg, m)#
+    diff <- with(dist.mean, mean.dist[plotno == pos] - max(mean.dist[plotno != pos]))#
+    closest <- dist.mean[order(dist.mean$mean.dist, decreasing = TRUE), ]$plotno[2:6]#
+    obs.dat <- lineup.dat[lineup.dat$.sample == pos, c(var, ".sample")]#
+    all.samp <- replicate(repl, {#
+    	null <- method(obs.dat)#
+    	null_gen(lineup.dat, null, met, method, m, dist.arg)#
+    	})#
+   return(list(lineup = dist.mean[, c(pos.1 = "plotno", dist = "mean.dist")], null_values = all.samp, diff = diff, #
+        closest = closest, pos = pos))#
+}#
+#
+#' Computing th distance for the null plots#
+#' #
+#' @keywords internal#
+null_gen <- function(lineup.dat, null, met, method, m, dist.arg){#
+	if (as.character(met) == "bin_dist") {#
+        dist.arg <- list(lineup.dat, dist.arg[[1]], dist.arg[[2]])#
+    }#
+	func <- match.fun(met)#
+	Dist <- replicate(m - 2, {#
+		null.dat <- method(null)#
+		 ifelse(is.null(dist.arg), do.call(func, list(null, null.dat)), #
+		do.call(func, append(list(null, null.dat), unname(dist.arg))))#
+	})	#
+	mean(Dist)#
+}
+distmet(lineup.dat, var = c('mpg', 'wt'), 'bin_dist', null_permute('mpg'), pos = 1, repl = 100, dist.arg = list(X.bin = 5, Y.bin = 5), m = 20)
+dist.vals <- distmet(lineup.dat, var = c('mpg', 'wt'), 'bin_dist', null_permute('mpg'), pos = 1, repl = 100, dist.arg = list(X.bin = 5, Y.bin = 5), m = 20)
+distplot <- function(dat, m = 20) {#
+    p <- with(dat, qplot(null_values, geom = "density", fill = I("grey80"), colour = I("grey80"), #
+        xlab = "Permutation distribution", ylab = "") + geom_segment(aes(x = lineup$mean.dist[lineup$plotno != #
+        pos], xend = lineup$mean.dist[lineup$plotno != pos], y = rep(0.01 * min(density(null_values)$y), #
+        (m - 1)), yend = rep(0.05 * max(density(null_values)$y), (m - 1))), size = 1, alpha = I(0.7)) + #
+        geom_segment(aes(x = lineup$mean.dist[lineup$plotno == pos], xend = lineup$mean.dist[lineup$plotno == #
+            pos], y = 0.01 * min(density(null_values)$y), yend = 0.1 * max(density(null_values)$y)), #
+            colour = "darkorange", size = 1) + geom_text(data = lineup, y = -0.03 * max(density(null_values)$y), #
+        size = 2.5, aes(x = mean.dist, label = plotno)) + ylim(c(-0.04 * max(density(null_values)$y), #
+        max(density(null_values)$y) + 0.1)))#
+    return(p)#
+}
+distplot(dist.vals)
+library(roxygen2)
+roxygenize(".")
+library(devtools)
+build()
+check()
+check()
+install_github("nullabor", "niladrir")
+library(nullabor)
+?distmet
+distmet(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg', 'wt'),#
+'reg_dist', null_permute('mpg'), pos = 1, repl = 100, m = 8)
+library(dplyr)
+distmet(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg', 'wt'),#
+'reg_dist', null_permute('mpg'), pos = 1, repl = 100, m = 8)
+detach(package:plyr)
+distmet(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg', 'wt'),#
+'reg_dist', null_permute('mpg'), pos = 1, repl = 100, m = 8)
+distmet(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg', 'wt'),#
+'bin_dist', null_permute('mpg'), pos = 1, repl = 100, dist.arg = list(X.bin = 5, Y.bin = 5), m = 8)
+?bin_dist
+?calc_mean_dist
+calc_mean_dist(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg', 'wt'),#
+met = 'reg_dist', pos = 1)
+calc_mean_dist(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg', 'wt'),#
+met = 'bin_dist', pos = 1)
+calc_mean_dist(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg', 'wt'),#
+met = 'bin_dist', pos = 1, dist.arg = list(X.bin = 5, Y.bin = 5))
+calc_mean_dist
+roxygenize(".")
+roxygenize(".")
+build()
+check()
+roxygenize(".")
+roxygenize(".")
+build()
+check()
+roxygenize(".")
+build()
+check()
+roxygenize(".")
+build()
+check()
