@@ -1,9 +1,12 @@
 Package: nullabor
 Version: 0.3.0
-Description: Package for supporting visual inference. Generate null datasets and null plots using permutation and simulation. Calculate distance metrics for a lineup, and examine the distributions of metrics. 
+Description: Package for supporting visual inference. Generate null datasets
+    and null plots using permutation and simulation. Calculate distance metrics
+    for a lineup, and examine the distributions of metrics.
 Title: Tools for graphical inference
-Author: Hadley Wickham <h.wickham@gmail.com>
-Maintainer: Hadley Wickham <h.wickham@gmail.com>
+Author: Hadley Wickham <h.wickham@gmail.com>, Niladri Roy Chowdhury
+    <niladri.ia@gmail.com>, Di Cook <dicook@iastate.edu>
+Maintainer: Di Cook <dicook@iastate.edu>
 License: GPL
 Depends:
     ggplot2,
