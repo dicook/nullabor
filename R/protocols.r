@@ -15,18 +15,18 @@
 rorschach <- function(method, true = NULL, n = 20, p = 0) {
     true <- find_plot_data(true)
     show_true <- rbinom(1, 1, p) == 1
-    
+
     if (show_true) {
         n <- n - 1
     }
-    
+
     samples <- plyr::rdply(n, method(true))
     if (show_true) {
         pos <- sample(n + 1, 1)
         message(encrypt("True data in position ", pos))
         samples <- add_true(samples, true, pos)
     }
-    
+
     samples
 }
 
@@ -43,12 +43,12 @@ rorschach <- function(method, true = NULL, n = 20, p = 0) {
 #' Generate n - 1 null datasets and randomly position the true data.  If you
 #' pick the real data as being noticeably different, then you have formally
 #' established that it is different to with p-value 1/n.
-#' 
+#'
 #' @param method method for generating null data sets
 #' @param true true data set. If \code{NULL}, \code{\link{find_plot_data}}
 #'   will attempt to extract it from the current ggplot2 plot.
 #' @param n total number of samples to generate (including true data)
-#' @param pos position of true data.  Leave missing to pick position at 
+#' @param pos position of true data.  Leave missing to pick position at
 #'   random.  Encryped position will be printed on the command line,
 #'   \code{\link{decrypt}} to understand.
 #' @param samples samples generated under the null hypothesis. Only specify
@@ -56,15 +56,15 @@ rorschach <- function(method, true = NULL, n = 20, p = 0) {
 #' @export
 #' @examples
 #' if (require('ggplot2')) {
-#' qplot(mpg, wt, data = mtcars) %+% 
-#'   lineup(null_permute('mpg'), mtcars) + 
+#' qplot(mpg, wt, data = mtcars) %+%
+#'   lineup(null_permute('mpg'), mtcars) +
 #'   facet_wrap(~ .sample)
-#' qplot(mpg, .sample, data = lineup(null_permute('cyl'), mtcars), 
+#' qplot(mpg, .sample, data = lineup(null_permute('cyl'), mtcars),
 #'   colour = factor(cyl))
 #' }
 lineup <- function(method, true = NULL, n = 20, pos = sample(n, 1), samples = NULL) {
     true <- find_plot_data(true)
-    
+
     if (is.null(samples)) {
         samples <- plyr::rdply(n - 1, method(true))
     }
@@ -80,27 +80,28 @@ add_true <- function(samples, true, pos) {
     samples$.sample <- with(samples, ifelse(.n >= pos, .n + 1, .n))
     samples$.n <- NULL
     true$.sample <- pos
-    
+
     all <- plyr::rbind.fill(samples, true)
+    attr(all, "pos") <- pos
     all[order(all$.sample), ]
 }
 
 #' Find plot data.
 #' If data is not specified, this function will attempt to find the data
 #' corresponding to the last ggplot2 created or displayed. This will work
-#' in most situations where you are creating the plot and immediately 
+#' in most situations where you are creating the plot and immediately
 #' displaying it, but may not work in other situations.  In those cases,
 #' please specify the data explicitly.
 #'
 #' @keywords internal
 #' @importFrom ggplot2 last_plot
 find_plot_data <- function(data) {
-    if (!is.null(data)) 
+    if (!is.null(data))
         return(data)
-    
+
     if (exists("last_plot") && !is.null(last_plot())) {
         last_plot()$data
     } else {
         stop("Missing true dataset")
     }
-} 
+}
