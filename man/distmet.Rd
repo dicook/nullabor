@@ -24,10 +24,24 @@ default}
 
 \item{m}{the number of plots in the lineup; m = 20 by default}
 }
+\value{
+lineup has the data used for the caulations
+
+null_values contains new null samples from which to compare nulls in lineup
+
+diff difference in distance between nulls and actual data and that of the null
+that is most different from other nulls. A negative value means that the actual data
+plot is similar to the null plots.
+
+closest list of the five closest nulls to the actual data plot
+
+pos position of the actual data plot in the lineup
+}
 \description{
 The empirical distribution of the distance measures is calculated based on the mean
 distance of each of the null plots from the other null plots in a lineup. At this moment
-this method works only for \code{\link{null_permute}} method.
+this method works only for \code{\link{null_permute}} method. This function helps get some
+assessment of whether the actual data plot is very different from the null plots.
 }
 \examples{
 if(require('dplyr')){
@@ -50,8 +64,7 @@ if(require('dplyr')){
 distmet(lineup.dat, var = c('mpg', 'wt'), 'bin_dist', null_permute('mpg'), pos = 4, repl =
 100, dist.arg = list(lineup.dat = lineup.dat, X.bin = 5, Y.bin = 5), m = 8)}
 
-#Example using uni_dist
-
+# Example using uni_dist
 \donttest{
 mod <- lm(wt ~ mpg, data = mtcars)
 resid.dat <- data.frame(residual = mod$resid)

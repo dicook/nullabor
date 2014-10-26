@@ -10,7 +10,8 @@ Maintainer: Di Cook <dicook@iastate.edu>
 License: GPL
 Depends:
     ggplot2,
-    reshape
+    reshape,
+    knitr
 Imports:
     MASS,
     plyr,
@@ -22,3 +23,4 @@ Suggests:
 LazyData: true
 Type: Package
 LazyLoad: false
+VignetteBuilder: knitr

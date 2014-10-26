@@ -11,12 +11,14 @@ distplot(dat, m = 20)
 \item{m}{the number of plots in the lineup; m = 20 by default}
 }
 \description{
-The distribution of the distance measure is plotted with the distances for
-the null plots and true plot overlaid.
+The permutation distribution of the distance measure is plotted with the distances for
+the null plots. Distance measure values for the null plots and the true plot are overlaid.
 }
 \examples{
 if(require('dplyr')){
-distplot(distmet(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg',
-'wt'), 'reg_dist', null_permute('mpg'), pos = 1, repl = 100, m = 8), m = 8) }
+d <- lineup(null_permute('mpg'), mtcars, pos = 1)
+qplot(mpg, wt, data=d) + facet_wrap(~.sample)
+distplot(distmet(d, var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'),
+pos = 1, repl = 100, m = 8), m = 8) }
 }
 
