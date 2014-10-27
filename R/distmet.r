@@ -99,14 +99,14 @@ null_gen <- function(lineup.dat, null, met, method, m, dist.arg){
 #' distplot(distmet(d, var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'),
 #' pos = 1, repl = 100, m = 8), m = 8) }
 distplot <- function(dat, m = 20) {
-    p <- with(dat, qplot(null_values, geom = "density", fill = I("grey80"), colour = I("grey80"),
-        xlab = "Permutation distribution", ylab = "") + geom_segment(aes(x = lineup$mean.dist[lineup$plotno !=
+    p <- with(dat, ggplot2::qplot(null_values, geom = "density", fill = I("grey80"), colour = I("grey80"),
+        xlab = "Permutation distribution", ylab = "") + ggplot2::geom_segment(aes(x = lineup$mean.dist[lineup$plotno !=
         pos], xend = lineup$mean.dist[lineup$plotno != pos], y = rep(0.01 * min(density(null_values)$y),
         (m - 1)), yend = rep(0.05 * max(density(null_values)$y), (m - 1))), size = 1, alpha = I(0.7)) +
-        geom_segment(aes(x = lineup$mean.dist[lineup$plotno == pos], xend = lineup$mean.dist[lineup$plotno ==
+        ggplot2::geom_segment(aes(x = lineup$mean.dist[lineup$plotno == pos], xend = lineup$mean.dist[lineup$plotno ==
             pos], y = 0.01 * min(density(null_values)$y), yend = 0.1 * max(density(null_values)$y)),
-            colour = "darkorange", size = 1) + geom_text(data = lineup, y = -0.03 * max(density(null_values)$y),
-        size = 2.5, aes(x = mean.dist, label = plotno)) + ylim(c(-0.04 * max(density(null_values)$y),
+            colour = "darkorange", size = 1) + ggplot2::geom_text(data = lineup, y = -0.03 * max(density(null_values)$y),
+        size = 2.5, aes(x = mean.dist, label = plotno)) + ggplot2::ylim(c(-0.04 * max(density(null_values)$y),
         max(density(null_values)$y) + 0.1)))
     return(p)
 }

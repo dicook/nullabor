@@ -95,8 +95,8 @@ opt_bin_diff <- function(lineup.dat, var, xlow, xhigh, ylow, yhigh, pos, plot = 
 	bins <- expand.grid(xbins = xlow:xhigh, ybins = ylow:yhigh)
 	diff.bins <- summarise(group_by(bins, xbins, ybins), Diff = calc_diff(lineup.dat, var, met = 'bin_dist', pos, dist.arg = list(lineup.dat = lineup.dat, X.bin = xbins, Y.bin = ybins), m))
     if (plot) {
-        p <- ggplot(diff.bins, aes(x = factor(xbins), y = factor(ybins))) + geom_tile(aes(fill = Diff)) + scale_fill_gradient(high = "blue",
-            low = "white") + xlab("xbins") + ylab("ybins")
+        p <- ggplot2::ggplot(diff.bins, gpplot2::aes(x = factor(xbins), y = factor(ybins))) + ggplot2::geom_tile(aes(fill = Diff)) + scale_fill_gradient(high = "blue",
+            low = "white") + ggplot2::xlab("xbins") + ggplot2::ylab("ybins")
         return(list(dat = diff.bins, p = p))
     } else {
         return(dat = diff.bins)
