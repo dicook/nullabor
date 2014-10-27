@@ -13,12 +13,14 @@
 #'   For use with \code{\link{lineup}} or \code{\link{rorschach}}
 #' @export
 #' @examples
-#' require('reshape')
+#' if (requireNamespace('reshape2', quietly = TRUE)) {
+#' data("tips", package = "reshape2")
 #' x <- lm(tip ~ total_bill, data = tips)
 #' tips.reg <- data.frame(tips, .resid = residuals(x), .fitted = fitted(x))
 #' qplot(total_bill, .resid, data = tips.reg) %+%
 #'   lineup(null_lm(tip ~ total_bill, method = 'rotate'), tips.reg) +
 #'   facet_wrap(~ .sample)
+#' }
 null_lm <- function(f, method = "rotate", ...) {
     if (is.character(method)) {
         method <- match.fun(paste("resid", method, sep = "_"))
@@ -26,7 +28,7 @@ null_lm <- function(f, method = "rotate", ...) {
     function(df) {
         model <- eval(substitute(lm(formula, data = df), list(formula = f)))
         resp_var <- all.vars(f[[2]])
-        
+
         resid <- method(model, df, ...)
         fitted <- predict(model, df)
         df[".resid"] <- resid
@@ -50,7 +52,7 @@ n <- function(model) length(resid(model))
 #' @export
 resid_rotate <- function(model, data) {
     data[names(model$model)[1]] <- rnorm(nrow(data))
-    
+
     rmodel <- update(model, data = data)
     resid(rmodel) * sqrt(rss(model)/rss(rmodel))
 }
@@ -87,4 +89,4 @@ resid_sigma <- function(model, data, sigma = 1) {
 #' @export
 resid_boot <- function(model, data) {
     sample(resid(model))
-} 
+}
