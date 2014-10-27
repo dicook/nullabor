@@ -17,6 +17,8 @@ Introduction
 
 ```{r}
 library(nullabor)
+library(ggplot2)
+library(dplyr)
 ```
 
 The  **nullabor** package provides functions to support visual inference, as described in the papers:
@@ -156,7 +158,6 @@ Calculating the mean distances for the plots in the lineup
 It is interesting to see whether the true plot in a lineup is different from all the null plots. To find this the distances between the true plot and all the null plots are calculated and the mean of these distances is calculated. Similarly, for each null plot, the distance between the null plot and all the other null plots is calculated and averaged to obtain the mean distance for each null plot. `"calc_mean_dist"` calculates the mean distance corresponding to each plot in the lineup. If the mean distance of the true plot is larger than the mean distances of all the null plots, the lineup is considered easy. If one of the null plots has a larger mean distance than the true plot, the lineup is considered difficult.  
 
 ```{r}
-library(dplyr)
 calc_mean_dist(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), met = 'reg_dist', pos = 10)
 ```
 
@@ -175,7 +176,6 @@ Optimum number of bins
 Binned distance is highly affected by the choice of the number of bins. The number of bins is provided by the user and this can be subjective. This motivates to design a way to select the optimum number of bins to be used. `"opt_diff"` finds the optimal number of bins in both x and y direction which should be used to calculate the binned distance. The binned distance is calculated for each combination of provided choices of number of bins in x and y direction and finds the difference using `"calc_diff"` for each combination. The combination for which the difference is maximum should be used.  
 
 ```{r, fig.height = 5, fig.width = 5.5}
-library(ggplot2)
 opt.diff <- opt_bin_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 2, 10, 2, 10, pos = 10, plot = TRUE)
 head(opt.diff$dat)
 opt.diff$p
@@ -198,9 +198,7 @@ Copy and paste the output of lineup.dat to get the position of the true plot
 ```
 
 ```{r, message = FALSE}
-library(dplyr)
 dist.vals <- distmet(lineup.dat, var = c('mpg', 'wt'),'reg_dist', null_permute('mpg'), pos = 10, repl = 100, dist.arg = NULL) 
-
 ```
 
 ```{r}
