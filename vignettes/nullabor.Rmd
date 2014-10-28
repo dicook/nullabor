@@ -15,7 +15,7 @@ opts_chunk$set(out.extra='style="display:block; margin: auto"', fig.align="cente
 Introduction
 ------------
 
-```{r}
+```{r message=FALSE}
 library(nullabor)
 library(ggplot2)
 library(dplyr)
@@ -176,15 +176,14 @@ Optimum number of bins
 Binned distance is highly affected by the choice of the number of bins. The number of bins is provided by the user and this can be subjective. This motivates to design a way to select the optimum number of bins to be used. `"opt_diff"` finds the optimal number of bins in both x and y direction which should be used to calculate the binned distance. The binned distance is calculated for each combination of provided choices of number of bins in x and y direction and finds the difference using `"calc_diff"` for each combination. The combination for which the difference is maximum should be used.  
 
 ```{r, fig.height = 5, fig.width = 5.5}
-opt.diff <- opt_bin_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 2, 10, 2, 10, pos = 10, plot = TRUE)
-head(opt.diff$dat)
+opt.diff <- opt_bin_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 2, 4, 2, 4, pos = 10, plot = TRUE)
 opt.diff$p
 ```
 
 Distribution of distance metrics
 -----------------------------------------------
 
-Measuring the quality of a lineup is interesting. But it may also be important to compare a few lineups. `"distmet"` function provides the empirical distribution of the distance metrics based on the mean distance of the true plot and the mean distance from the null plots. The lineup data, the null generating mechanism and the choice of the distance metric has to be provided. Users have the flexibility of using their distance metrics. The position of the true plot in the lineup has to be provided as well. If the distance metrics require additional arguments, those have to be provided as well.
+Measuring the quality of a lineup is interesting. But it may also be important to compare a few lineups. The `"distmet"` function provides the empirical distribution of the distance metrics based on the mean distance of the true plot and the mean distance from the null plots. The lineup data, the null generating mechanism and the choice of the distance metric has to be provided. Users have the flexibility of using their distance metrics. The position of the true plot in the lineup has to be provided as well. If the distance metrics require additional arguments, those have to be provided as well.
 
 ```{r, fig.height = 10, fig.width = 11}
 lineup.dat <- lineup(null_permute('mpg'), mtcars, pos = 10)
@@ -211,7 +210,6 @@ dist.vals$pos
 
 ```{r, message = FALSE}
 dist.vals <- distmet(lineup.dat, var = c('mpg', 'wt'),'bin_dist', null_permute('mpg'), pos = 10, repl = 100, dist.arg = list(lineup.dat = lineup.dat, X.bin = 5, Y.bin = 5)) 
-
 ```
 
 Plotting the empirical distribution of the distance metric

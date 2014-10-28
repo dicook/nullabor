@@ -29,6 +29,7 @@ of points in each cell is then counted. Same is done for data PX. An euclidean
 distance is calculated between the number of points in each cell between X and PX.
 }
 \examples{
-with(mtcars, bin_dist(data.frame(wt, mpg), data.frame(sample(wt), mpg), lineup.dat = NULL))
+with(mtcars, bin_dist(data.frame(wt, mpg), data.frame(sample(wt), mpg),
+lineup.dat = NULL))
 }
 
