@@ -44,39 +44,43 @@ this method works only for \code{\link{null_permute}} method. This function help
 assessment of whether the actual data plot is very different from the null plots.
 }
 \examples{
-if(require('dplyr')){
-distmet(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg', 'wt'),
-'reg_dist', null_permute('mpg'), pos = 1, repl = 100, m = 8)}
+# Each of these examples uses a small number of nulls (m=8), and a small number of
+repeated sampling from the null distribution (repl=100), to make it faster to run.
+In your own examples you should think about increasing each of these, at least to the defaults.
+if (require('dplyr')) {
+  d <- lineup(null_permute('mpg'), mtcars, pos = 1)
+  dd <- distmet(d, var = c('mpg', 'wt'),
+    'reg_dist', null_permute('mpg'), pos = 1, repl = 100, m = 8)
+  distplot(dd, m=8)
+}
 
-\donttest{
-if(require('dplyr')){
-distmet(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg', 'wt'),
-'bin_dist', null_permute('mpg'), pos = 1, repl = 100,
-dist.arg = list(lineup.dat = lineup.dat, X.bin = 5, Y.bin = 5))} }
+d <- lineup(null_permute('mpg'), mtcars, pos=4, n=8)
+qplot(mpg, wt, data = d, geom = 'point') + facet_wrap(~ .sample, ncol=4)
+if (require('dplyr')) {
+  dd <- distmet(d, var = c('mpg', 'wt'), 'bin_dist', null_permute('mpg'),
+    pos = 4, repl = 100, dist.arg = list(lineup.dat = d, X.bin = 5,
+    Y.bin = 5), m = 8)
+  distplot(dd, m=8)
+}
 
-
-lineup.dat <- lineup(null_permute('mpg'), mtcars)
-qplot(mpg, wt, data = lineup.dat, geom = 'point') + facet_wrap(~ .sample)
-#decrypt('...') # Copy and paste the output from lineup.dat to get the
-#position of the true plot
-#[1] 'True data in position 4' # Use pos = 4
-if(require('dplyr')){
-distmet(lineup.dat, var = c('mpg', 'wt'), 'bin_dist', null_permute('mpg'),
-pos = 4, repl = 100, dist.arg = list(lineup.dat = lineup.dat, X.bin = 5,
-Y.bin = 5), m = 8)}
+# Example using bin_dist
+\dontrun{
+if (require('dplyr')) {
+  distmet(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg', 'wt'),
+    'bin_dist', null_permute('mpg'), pos = 1, repl = 100,
+    dist.arg = list(lineup.dat = lineup.dat, X.bin = 5, Y.bin = 5))}
+}
 
 # Example using uni_dist
-\donttest{
+\dontrun{
 mod <- lm(wt ~ mpg, data = mtcars)
 resid.dat <- data.frame(residual = mod$resid)
-lineup.dat <- lineup(null_dist('residual', dist = 'normal'), resid.dat)
+lineup.dat <- lineup(null_dist('residual', dist = 'normal'), resid.dat, pos=19)
 qplot(residual, data = lineup.dat, geom = 'histogram', binwidth = 0.25) +
 facet_wrap(~ .sample)
-#decrypt('....') #Copy and paste to get the true position
-if(require('dplyr')){
-distmet(lineup.dat, var = 'residual', 'uni_dist', null_dist('residual',
-dist = 'normal'), pos = 19, repl = 100)}
-# Assuming pos = 19; but put the true position for pos
+if (require('dplyr')) {
+  distmet(lineup.dat, var = 'residual', 'uni_dist', null_dist('residual',
+  dist = 'normal'), pos = 19, repl = 100)}
 }
 }
 
