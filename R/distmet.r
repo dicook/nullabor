@@ -46,21 +46,27 @@
 #' # Example using bin_dist
 #' \dontrun{
 #' if (require('dplyr')) {
-#'   distmet(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg', 'wt'),
-#'     'bin_dist', null_permute('mpg'), pos = 1, repl = 100,
-#'     dist.arg = list(lineup.dat = lineup.dat, X.bin = 5, Y.bin = 5))}
+#'   d <- lineup(null_permute('mpg'), mtcars, pos = 1)
+#'   qplot(mpg, wt, data=d, geom='point') + facet_wrap(~ .sample, ncol=5)
+#'   dd <- distmet(d, var = c('mpg', 'wt'),
+#'     'bin_dist', null_permute('mpg'), pos = 1, repl = 500,
+#'     dist.arg = list(lineup.dat = d, X.bin = 5, Y.bin = 5))
+#'   distplot(dd)
+#' }
 #' }
 #'
 #' # Example using uni_dist
 #' \dontrun{
 #' mod <- lm(wt ~ mpg, data = mtcars)
 #' resid.dat <- data.frame(residual = mod$resid)
-#' lineup.dat <- lineup(null_dist('residual', dist = 'normal'), resid.dat, pos=19)
-#' qplot(residual, data = lineup.dat, geom = 'histogram', binwidth = 0.25) +
-#' facet_wrap(~ .sample)
+#' d <- lineup(null_dist('residual', dist = 'normal'), resid.dat, pos=19)
+#' qplot(residual, data = d, geom = 'histogram', binwidth = 0.25) +
+#'   facet_wrap(~ .sample, ncol=5)
 #' if (require('dplyr')) {
-#'   distmet(lineup.dat, var = 'residual', 'uni_dist', null_dist('residual',
-#'   dist = 'normal'), pos = 19, repl = 100)}
+#'   dd <- distmet(d, var = 'residual', 'uni_dist', null_dist('residual',
+#'     dist = 'normal'), pos = 19, repl = 500)
+#'   distplot(dd)
+#' }
 #' }
 distmet <- function(lineup.dat, var, met, method, pos, repl = 1000, dist.arg = NULL, m = 20) {
     dist.mean <- calc_mean_dist(lineup.dat, var, met, pos, dist.arg, m)
@@ -97,11 +103,12 @@ null_gen <- function(lineup.dat, null, met, method, m, dist.arg){
 #' @param m the number of plots in the lineup; m = 20 by default
 #' @export
 #' @examples
-#' if(require('dplyr')){
-#' d <- lineup(null_permute('mpg'), mtcars, pos = 1)
-#' qplot(mpg, wt, data=d) + facet_wrap(~.sample)
-#' distplot(distmet(d, var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'),
-#' pos = 1, repl = 100, m = 8), m = 8) }
+#' if (require('dplyr')) {
+#'   d <- lineup(null_permute('mpg'), mtcars, pos = 1)
+#'   qplot(mpg, wt, data=d) + facet_wrap(~.sample)
+#'   distplot(distmet(d, var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'),
+#'     pos = 1, repl = 100, m = 8), m = 8)
+#' }
 distplot <- function(dat, m = 20) {
     p <- with(dat, ggplot2::qplot(null_values, geom = "density", fill = I("grey80"), colour = I("grey80"),
         xlab = "Permutation distribution", ylab = "") + ggplot2::geom_segment(aes(x = lineup$mean.dist[lineup$plotno !=
