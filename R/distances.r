@@ -121,11 +121,13 @@ uni_dist <- function(X, PX) {
     sqrt(sum((stat.xx - stat.yy)^2))
 }
 
-#' Distance based on side by side Boxplots for two levels
+#' Distance based on side by side Boxplots
 #'
-#' Assuming there are only two groups, the first quartile, median and third quartile
-#' is calculated for each group of data X. The absolute difference between these
-#' statistics between the two groups are then calculated. Same is done for data PX.
+#' Assuming that data set X consists of a categorical group variable a numeric value,
+#' a summary of the first quartile, median and third quartile of this value is calculated
+#' for each group.
+#' The extent (as absolute difference) of the minimum and maximum value across groups is computed for
+#' first quartile, median and third quartile. Same is done for data PX.
 #' Finally an euclidean distance is calculated between the absolute differences of
 #' X and PX.
 #'
@@ -140,30 +142,26 @@ uni_dist <- function(X, PX) {
 #' data.frame(as.factor(sample(am)), mpg)))}
 box_dist <- function(X, PX) {
 	val <- group <- NULL
-    if (!is.factor(X[, 1]) & !is.factor(X[, 2])) {
-        stop("X should have one factor variable \n \n")
-    } else if (is.factor(X[, 1])) {
-        X$group <- X[, 1]
-        X$val <- X[, 2]
-        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))
-    } else if (is.factor(X[, 2])) {
-        X$group <- X[, 2]
-        X$val <- X[, 1]
-        X.sum <- summarise(group_by(X, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))
-    }
-    if (!is.factor(PX[, 1]) & !is.factor(PX[, 2])) {
-        stop("PX should have one factor variable \n \n")
-    } else if (is.factor(PX[, 1])) {
-        PX$group <- PX[, 1]
-        PX$val <- PX[, 2]
-        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))
-    } else {
-        PX$group <- PX[, 2]
-        PX$val <- PX[, 1]
-        PX.sum <- summarise(group_by(PX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))    }
-    abs.diff.X <- with(X.sum, abs(as.numeric(X.sum[group == levels(group)[1], ])[2:4] - as.numeric(X.sum[group == levels(group)[2], ])[2:4]))
-    abs.diff.PX <- with(PX.sum, abs(as.numeric(PX.sum[group == levels(group)[1], ])[2:4] - as.numeric(PX.sum[group == levels(group)[2], ])[2:4]))
-    sqrt(sum((abs.diff.X - abs.diff.PX)^2))
+	find_factor <- function(dframe) {
+	  isfactor <- c(is.factor(dframe[,1]), is.factor(dframe[,2]))
+	  if (sum(isfactor) != 1) stop("data must have exactly one factor variable\n\n")
+	  isfactor
+	}
+
+	dq <- function(dX) {
+	  # compute absolute difference between min and max of each statistic
+	  Xfactor <- find_factor(dX)
+	  dX$group <- dX[, Xfactor]
+	  dX$val <- dX[, !Xfactor]
+	  X.sum <- summarise(group_by(dX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))
+	  unlist(lapply(X.sum[,-1], function(x) abs(diff(range(x)))))
+	}
+
+	abs.diff.X <- dq(X)
+	abs.diff.PX <- dq(PX)
+
+
+  sqrt(sum((abs.diff.X - abs.diff.PX)^2))
 }
 
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/distances.r
 \name{box_dist}
 \alias{box_dist}
-\title{Distance based on side by side Boxplots for two levels}
+\title{Distance based on side by side Boxplots}
 \usage{
 box_dist(X, PX)
 }
@@ -17,9 +17,11 @@ variable}
 distance between X and PX
 }
 \description{
-Assuming there are only two groups, the first quartile, median and third quartile
-is calculated for each group of data X. The absolute difference between these
-statistics between the two groups are then calculated. Same is done for data PX.
+Assuming that data set X consists of a categorical group variable a numeric value,
+a summary of the first quartile, median and third quartile of this value is calculated
+for each group.
+The extent (as absolute difference) of the minimum and maximum value across groups is computed for
+first quartile, median and third quartile. Same is done for data PX.
 Finally an euclidean distance is calculated between the absolute differences of
 X and PX.
 }
