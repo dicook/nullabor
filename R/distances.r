@@ -18,20 +18,18 @@
 #' @export
 #' @examples with(mtcars, reg_dist(data.frame(wt, mpg), data.frame(sample(wt), mpg)))
 reg_dist <- function(X, PX, nbins = 1) {
-    ss <- seq(min(X[, 1]), max(X[, 1]), length = nbins + 1)
-    beta.X <- NULL
-    beta.PX <- NULL
-    for (k in 1:nbins) {
-        X.sub <- subset(X, X[, 1] >= ss[k] & X[, 1] <= ss[k + 1])
-        PX.sub <- subset(PX, X[, 1] >= ss[k] & X[, 1] <= ss[k + 1])
-        b.X <- as.numeric(coef(lm(X.sub[, 2] ~ X.sub[, 1])))
-        b.PX <- as.numeric(coef(lm(PX.sub[, 2] ~ PX.sub[, 1])))
-        beta.X <- rbind(beta.X, b.X)
-        beta.PX <- rbind(beta.PX, b.PX)
-    }
-    beta.X <- subset(beta.X, !is.na(beta.X[, 2]))
-    beta.PX <- subset(beta.PX, !is.na(beta.PX[, 2]))
-    sum((beta.X[, 1] - beta.PX[, 1])^2 + (beta.X[, 2] - beta.PX[, 2])^2)
+  dc <- function(dX) {
+    dX$.group <- 1
+    if (nbins > 1) dX$.group <- cut(dX[,1], breaks=nbins)
+    dX$.y <- dX[,2]
+    dX$.x <- dX[,1]
+
+    group_by(dX, .group) %>% do(data.frame(rbind(coef(lm(.y~.x, data=.)))))
+  }
+
+  beta.X <- dc(X)
+  beta.PX <- dc(PX)
+  sum((beta.X[,-1] - beta.PX[,-1])^2)
 }
 
 #' Binned Distance
