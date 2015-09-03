@@ -139,7 +139,6 @@ uni_dist <- function(X, PX) {
 #' @examples if(require('dplyr')) {with(mtcars, box_dist(data.frame(as.factor(am), mpg),
 #' data.frame(as.factor(sample(am)), mpg)))}
 box_dist <- function(X, PX) {
-	val <- group <- NULL
 	find_factor <- function(dframe) {
 	  isfactor <- c(is.factor(dframe[,1]), is.factor(dframe[,2]))
 	  if (sum(isfactor) != 1) stop("data must have exactly one factor variable\n\n")
@@ -149,9 +148,10 @@ box_dist <- function(X, PX) {
 	dq <- function(dX) {
 	  # compute absolute difference between min and max of each statistic
 	  Xfactor <- find_factor(dX)
-	  dX$group <- dX[, Xfactor]
-	  dX$val <- dX[, !Xfactor]
-	  X.sum <- summarise(group_by(dX, group), q1 = quantile(val, 0.25), q2 = quantile(val, 0.5), q3 = quantile(val,0.75))
+	  if (length(Xfactor) > 2) stop("Dataset cannot not have more than one categorical and one continuous data.\n\n")
+	  dX$.group <- dX[, Xfactor]
+	  dX$.val <- dX[, !Xfactor]
+	  X.sum <- summarise(group_by(dX, .group), q1 = quantile(.val, 0.25), q2 = quantile(.val, 0.5), q3 = quantile(.val,0.75))
 	  unlist(lapply(X.sum[,-1], function(x) abs(diff(range(x)))))
 	}
 
