@@ -4,7 +4,7 @@
 \alias{reg_dist}
 \title{Distance based on the regression parameters}
 \usage{
-reg_dist(X, PX, nbins = 1)
+reg_dist(X, PX, nbins = 1, intercept = TRUE)
 }
 \arguments{
 \item{X}{a data.frame with two variables, the first column giving
@@ -16,6 +16,8 @@ the explanatory variable and the second column giving the response
 variable}
 
 \item{nbins}{number of bins on the x-direction, by default nbins = 1}
+
+\item{intercept}{include the distances between intercepts?}
 }
 \value{
 distance between X and PX

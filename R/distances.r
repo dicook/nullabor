@@ -14,10 +14,11 @@
 #' the explanatory variable and the second column giving the response
 #' variable
 #' @param nbins number of bins on the x-direction, by default nbins = 1
+#' @param intercept include the distances between intercepts?
 #' @return distance between X and PX
 #' @export
 #' @examples with(mtcars, reg_dist(data.frame(wt, mpg), data.frame(sample(wt), mpg)))
-reg_dist <- function(X, PX, nbins = 1) {
+reg_dist <- function(X, PX, nbins = 1, intercept=TRUE) {
   dc <- function(dX) {
     dX$.group <- 1
     if (nbins > 1) dX$.group <- cut(dX[,1], breaks=nbins)
@@ -29,7 +30,10 @@ reg_dist <- function(X, PX, nbins = 1) {
 
   beta.X <- dc(X)
   beta.PX <- dc(PX)
-  sum((beta.X[,-1] - beta.PX[,-1])^2)
+  if (intercept)
+    return(sum((beta.X[,-1] - beta.PX[,-1])^2))
+  else
+    return(sum((beta.X[,3] - beta.PX[,3])^2))
 }
 
 #' Binned Distance
