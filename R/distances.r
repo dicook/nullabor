@@ -55,44 +55,30 @@ reg_dist <- function(X, PX, nbins = 1, intercept=TRUE) {
 #' @export
 #' @examples with(mtcars, bin_dist(data.frame(wt, mpg), data.frame(sample(wt), mpg),
 #' lineup.dat = NULL))
-bin_dist <- function(X, PX, lineup.dat = lineup.dat, X.bin = 5, Y.bin = 5) {
-    if (!is.null(lineup.dat)) {
-        if (!is.numeric(X[, 1])) {
-            X[, 1] <- as.numeric(X[, 1])
-            nij <- as.numeric(table(cut(X[, 1], breaks = seq(min(X[, 1]), max(X[, 1]), length.out = length(unique(X[,
-                1])) + 1), include.lowest = TRUE), cut(X[, 2], breaks = seq(min(lineup.dat[, 2]), max(lineup.dat[,
-                2]), length.out = Y.bin + 1), include.lowest = TRUE)))
-        } else nij <- as.numeric(table(cut(X[, 1], breaks = seq(min(lineup.dat[, 1]), max(lineup.dat[,
-            1]), length.out = X.bin + 1), include.lowest = TRUE), cut(X[, 2], breaks = seq(min(lineup.dat[,
-            2]), max(lineup.dat[, 2]), length.out = Y.bin + 1), include.lowest = TRUE)))
-        if (!is.numeric(PX[, 1])) {
-            PX[, 1] <- as.numeric(PX[, 1])
-            mij <- as.numeric(table(cut(PX[, 1], breaks = seq(min(X[, 1]), max(X[, 1]), length.out = length(unique(X[,
-                1])) + 1), include.lowest = TRUE), cut(PX[, 2], breaks = seq(min(lineup.dat[, 2]), max(lineup.dat[,
-                2]), length.out = Y.bin + 1), include.lowest = TRUE)))
-        } else mij <- as.numeric(table(cut(PX[, 1], breaks = seq(min(lineup.dat[, 1]), max(lineup.dat[,
-            1]), length.out = X.bin + 1), include.lowest = TRUE), cut(PX[, 2], breaks = seq(min(lineup.dat[,
-            2]), max(lineup.dat[, 2]), length.out = Y.bin + 1), include.lowest = TRUE)))
-    } else if (is.null(lineup.dat)) {
-        if (!is.numeric(X[, 1])) {
-            X[, 1] <- as.numeric(X[, 1])
-            nij <- as.numeric(table(cut(X[, 1], breaks = seq(min(X[, 1]), max(X[, 1]), length.out = length(unique(X[,
-                1])) + 1), include.lowest = TRUE), cut(X[, 2], breaks = seq(min(X[, 2]), max(X[, 2]),
-                length.out = Y.bin + 1), include.lowest = TRUE)))
-        } else nij <- as.numeric(table(cut(X[, 1], breaks = seq(min(X[, 1]), max(X[, 1]), length.out = X.bin +
-            1), include.lowest = TRUE), cut(X[, 2], breaks = seq(min(X[, 2]), max(X[, 2]), length.out = Y.bin +
-            1), include.lowest = TRUE)))
-        if (!is.numeric(PX[, 1])) {
-            PX[, 1] <- as.numeric(PX[, 1])
-            mij <- as.numeric(table(cut(PX[, 1], breaks = seq(min(X[, 1]), max(X[, 1]), length.out = length(unique(X[,
-                1])) + 1), include.lowest = TRUE), cut(PX[, 2], breaks = seq(min(lineup.dat[, 2]), max(lineup.dat[,
-                2]), length.out = Y.bin + 1), include.lowest = TRUE)))
-        } else mij <- as.numeric(table(cut(PX[, 1], breaks = seq(min(PX[, 1]), max(PX[, 1]), length.out = X.bin +
-            1), include.lowest = TRUE), cut(PX[, 2], breaks = seq(min(PX[, 2]), max(PX[, 2]), length.out = Y.bin +
-            1), include.lowest = TRUE)))
-    }
-    sqrt(sum((nij - mij)^2))
+bin_dist <- function (X, PX, lineup.dat = lineup.dat, X.bin = 5, Y.bin = 5)
+{
+  # determine cutoff points - if lineup.dat is provided, use overall cutoff points:
+  bin2d <- function(dX) {
+    if (is.null(range1)) range1 <- range(dX[,1])
+    if (is.null(range2)) range2 <- range(dX[,2])
+
+    breaks1 <- seq(range1[1], range1[2], length.out=X.bin+1)
+    breaks2 <- seq(range2[1], range2[2], length.out=Y.bin+1)
+    as.numeric(table(cut(dX[,1], breaks=breaks1, include.lowest=TRUE),
+                     cut(dX[,2], breaks=breaks2, include.lowest=TRUE)))
+  }
+
+  range1 <- range2 <- NULL
+  if (!is.null(lineup.dat)) {
+    range1 <- range(lineup.dat[,1])
+    range2 <- range(lineup.dat[,2])
+  }
+
+  if (!is.numeric(X[,1])) X.bin <- length(unique(X[,1]))
+
+  sqrt(sum( (bin2d(X) - bin2d(PX))^2 ))
 }
+
 #' Distance for univariate data
 #'
 #' The first four moments is calculated for data X and data PX. An euclidean distance
