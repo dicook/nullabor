@@ -59,19 +59,19 @@ bin_dist <- function (X, PX, lineup.dat = lineup.dat, X.bin = 5, Y.bin = 5)
 {
   # determine cutoff points - if lineup.dat is provided, use overall cutoff points:
   bin2d <- function(dX) {
-    if (is.null(range1)) range1 <- range(dX[,1])
-    if (is.null(range2)) range2 <- range(dX[,2])
+    if (is.null(range1)) range1 <- range(as.numeric(dX[, 1]))
+    if (is.null(range2)) range2 <- range(as.numeric(dX[, 2]))
 
     breaks1 <- seq(range1[1], range1[2], length.out=X.bin+1)
     breaks2 <- seq(range2[1], range2[2], length.out=Y.bin+1)
-    as.numeric(table(cut(dX[,1], breaks=breaks1, include.lowest=TRUE),
+    as.numeric(table(cut(as.numeric(dX[,1]), breaks=breaks1, include.lowest=TRUE),
                      cut(dX[,2], breaks=breaks2, include.lowest=TRUE)))
   }
 
   range1 <- range2 <- NULL
   if (!is.null(lineup.dat)) {
-    range1 <- range(lineup.dat[,1])
-    range2 <- range(lineup.dat[,2])
+    range1 <- range(as.numeric(lineup.dat[, 1]))
+    range2 <- range(as.numeric(lineup.dat[, 2]))
   }
 
   if (!is.numeric(X[,1])) X.bin <- length(unique(X[,1]))
