@@ -180,18 +180,15 @@ box_dist <- function(X, PX) {
 #' as.numeric(as.factor(mtcars$cyl))), data.frame(sample(wt), mpg,
 #' as.numeric(as.factor(mtcars$cyl))), nclustering = 3))}
 sep_dist <- function(X, PX, clustering = FALSE, nclust = 3) {
-    dX <- dist(X[, 1:2])
-    dPX <- dist(PX[, 1:2])
+  cl_dist <- function(Y) {
+    dY <- dist(Y[, 1:2])
     if (clustering) {
-        X$cl <- X[, 3]
-        PX$cl <- PX[, 3]
-        X.clus <- cluster.stats(dX, clustering = X$cl)$separation
-        PX.clus <- cluster.stats(dPX, clustering = PX$cl)$separation
+      Y$cl <- Y[, 3]
     } else {
-        complete.X <- cutree(hclust(dX), nclust)
-        complete.PX <- cutree(hclust(dPX), nclust)
-        X.clus <- cluster.stats(dX, complete.X)$separation
-        PX.clus <- cluster.stats(dPX, complete.PX)$separation
+      Y$cl <- cutree(hclust(dY), nclust)
     }
-    sqrt(sum((X.clus - PX.clus)^2))
+    cluster.stats(dY, clustering = Y$cl)$separation
+  }
+
+  sqrt(sum((cl_dist(X) - cl_dist(PX))^2))
 }
