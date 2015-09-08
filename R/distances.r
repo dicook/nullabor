@@ -170,6 +170,7 @@ box_dist <- function(X, PX) {
 #' clustering variable, by default FALSE
 #' @param nclust the number of clusters to be obtained by hierarchial
 #' clustering, by default nclust = 3
+#' @param type character string to specify which measure to use for distance, see ?cluster.stats for details
 #' @return distance between X and PX
 #' @export
 #' @import fpc
@@ -179,7 +180,7 @@ box_dist <- function(X, PX) {
 #' @examples if(require('fpc')) { with(mtcars, sep_dist(data.frame(wt, mpg,
 #' as.numeric(as.factor(mtcars$cyl))), data.frame(sample(wt), mpg,
 #' as.numeric(as.factor(mtcars$cyl))), nclustering = 3))}
-sep_dist <- function(X, PX, clustering = FALSE, nclust = 3) {
+sep_dist <- function(X, PX, clustering = FALSE, nclust = 3, type="separation") {
   cl_dist <- function(Y) {
     dY <- dist(Y[, 1:2])
     if (clustering) {
@@ -187,7 +188,7 @@ sep_dist <- function(X, PX, clustering = FALSE, nclust = 3) {
     } else {
       Y$cl <- cutree(hclust(dY), nclust)
     }
-    cluster.stats(dY, clustering = Y$cl)$separation
+    cluster.stats(dY, clustering = Y$cl)[[type]]
   }
 
   sqrt(sum((cl_dist(X) - cl_dist(PX))^2))
