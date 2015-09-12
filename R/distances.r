@@ -15,11 +15,13 @@
 #' variable
 #' @param nbins number of bins on the x-direction, by default nbins = 1
 #' @param intercept include the distances between intercepts?
+#' @param scale logical value: should the variables be scaled before computing regression coefficients?
 #' @return distance between X and PX
 #' @export
 #' @examples with(mtcars, reg_dist(data.frame(wt, mpg), data.frame(sample(wt), mpg)))
-reg_dist <- function(X, PX, nbins = 1, intercept=TRUE) {
+reg_dist <- function(X, PX, nbins = 1, intercept=TRUE, scale=FALSE) {
   dc <- function(dX) {
+    if (scale) dX <- data.frame(scale(dX))
     dX$.group <- 1
     if (nbins > 1) dX$.group <- cut(dX[,1], breaks=nbins)
     dX$.y <- dX[,2]
