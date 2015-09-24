@@ -4,7 +4,7 @@
 \alias{sep_dist}
 \title{Distance based on separation of clusters}
 \usage{
-sep_dist(X, PX, clustering = FALSE, nclust = 3)
+sep_dist(X, PX, clustering = FALSE, nclust = 3, type = "separation")
 }
 \arguments{
 \item{X}{a data.frame with two or three columns, the first two columns
@@ -18,6 +18,8 @@ clustering variable, by default FALSE}
 
 \item{nclust}{the number of clusters to be obtained by hierarchial
 clustering, by default nclust = 3}
+
+\item{type}{character string to specify which measure to use for distance, see ?cluster.stats for details}
 }
 \value{
 distance between X and PX
