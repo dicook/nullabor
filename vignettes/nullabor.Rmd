@@ -88,16 +88,15 @@ If the null generating mechanism is specialised it is worth creating the process
 ```{r}
 library(MASS)
 
-wasp.true <- data.frame(matrix(rnorm(50*41), ncol=41))
-wasp.true$Group <- c(rep("A", 14), rep("B", 12), rep("C", 12), rep("D", 12))
+data(wasps)
 
-wasp.lda <- lda(Group~., data=wasp.true)
+wasp.lda <- lda(Group~., data=wasps)
 wasp.ld <- predict(wasp.lda, dimen=2)$x
-true <- data.frame(wasp.ld, Group=wasp.true$Group)
+true <- data.frame(wasp.ld, Group=wasps$Group)
 
 wasp.sim <- data.frame(LD1=NULL, LD2=NULL, Group=NULL, .n=NULL)
 for (i in 1:19) {
-  x <- wasp.true
+  x <- wasps
   x$Group <- sample(x$Group)
   x.lda <- lda(Group~., data=x[,-1])
   x.ld <- predict(x.lda, dimen=2)$x
