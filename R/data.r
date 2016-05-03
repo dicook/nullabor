@@ -44,4 +44,7 @@ NULL
 #' These margins are based on the actual election outcome}
 #' \item{Democrat}{logical vector True, if the democratic party is  the majority party in this state. }
 #' }
-"electoral"
+#' @docType data
+#' @name electoral
+NULL
+

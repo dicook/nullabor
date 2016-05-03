@@ -22,11 +22,7 @@ These margins are based on polls.}
 These margins are based on the actual election outcome}
 \item{Democrat}{logical vector True, if the democratic party is  the majority party in this state. }
 }}
-\usage{
-electoral
-}
 \description{
 Polls and election results from the 2012 US Election
 }
-\keyword{datasets}
 
