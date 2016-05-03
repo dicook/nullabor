@@ -114,6 +114,17 @@ ggplot(d, aes(x=LD1, y=LD2, colour=Group)) +
 attr(d, "pos")
 ```
 
+Computing p-values
+------------------
+
+The function `pvisual` can be used to compute a visual p-value after the lineup has been shown to a group of independent observers. You need to provide (1) number of plots in the lineup, m (default=20), (2) number of observers who read the plot, K, and (3) the number of observers who picked the data plot. For the above example, suppose that 10 observers evaluated the lineup, and of these 4 selected the data plot, then the visual p-value, calculated using the binomial, and via simulation to account for dependencies is:
+
+```{r}
+pvisual(4, 10)
+```
+
+***Need to (1) account for multiple selections. (2) add power calculations***
+
 References
 ----------
 
