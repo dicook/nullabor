@@ -1,0 +1,52 @@
+"State","Electoral.Votes","Margin","Democrat"
+"Alabama",9,21,FALSE
+"Alaska",3,21,FALSE
+"Arizona",11,7.5,FALSE
+"Arkansas",6,24,FALSE
+"California",55,14,TRUE
+"Colorado",9,1.5,TRUE
+"Connecticut",7,11.9,TRUE
+"Delaware",3,25,TRUE
+"D.C.",3,86,TRUE
+"Florida",29,1.5,FALSE
+"Georgia",16,10,FALSE
+"Hawaii",4,27,TRUE
+"Idaho",4,25,FALSE
+"Illinois",20,16,TRUE
+"Indiana",11,9.5,FALSE
+"Iowa",6,2,TRUE
+"Kansas",6,9,FALSE
+"Kentucky",8,14,FALSE
+"Louisiana",8,19,FALSE
+"Maine",4,11.4,TRUE
+"Maryland",10,21.5,TRUE
+"Massachusetts",11,20.1,TRUE
+"Michigan",16,4,TRUE
+"Minnesota",10,5.7,TRUE
+"Mississippi",6,18,FALSE
+"Missouri",10,10.8,FALSE
+"Montana",3,9,FALSE
+"Nebraska",5,13.5,FALSE
+"Nevada",6,2.7,TRUE
+"New Hampshire",4,2,TRUE
+"New Jersey",14,13,TRUE
+"New Mexico",5,10,TRUE
+"New York",29,26.7,TRUE
+"North Carolina",15,3,FALSE
+"North Dakota",3,17.7,FALSE
+"Ohio",18,2.3,TRUE
+"Oklahoma",7,26,FALSE
+"Oregon",7,6,TRUE
+"Pennsylvania",20,3,TRUE
+"Rhode Island",4,23.5,TRUE
+"South Carolina",9,10.5,FALSE
+"South Dakota",3,12,FALSE
+"Tennessee",11,25,FALSE
+"Texas",38,16.7,FALSE
+"Utah",6,43.5,FALSE
+"Vermont",3,37,TRUE
+"Virginia",13,0.2,TRUE
+"Washington",12,13.7,TRUE
+"West Virginia",5,17,FALSE
+"Wisconsin",10,3.9,TRUE
+"Wyoming",3,32,FALSE
