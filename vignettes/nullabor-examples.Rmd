@@ -33,7 +33,8 @@ simPoll <- function(trueData) {
 `simPoll` is a relatively specialized function that takes polling results for each state and produces a random value from a normal distribution using the polling results as the mean. For now we assume a standard deviation (or 'accuracy') for each state poll of 2.5.  
 `sim1` is a first instance of the simulation - based on this simulation, we can compute for example the number of Electoral Votes for the Democratic party based on this simulated election day result.
 ```{r}
-margins <- read.csv("lighthouse-polls.csv")
+data(electoral, package="nullabor")
+margins <- electoral$polls
 
 sim1 <- simPoll(margins)
 sum(sim1$Electoral.Votes[sim1$Democrat])
@@ -50,7 +51,7 @@ summary(lpdata)
 We need to exchange the polling results for the actual election results.
 
 ```{r}
-election <- read.csv("election2012.csv")
+election <- electoral$election
 idx <- which(lpdata$.sample==pos)
 lpdata$Margin[idx] <- election$Margin
 ```
