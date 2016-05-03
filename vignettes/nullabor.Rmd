@@ -3,7 +3,7 @@
 %\VignetteIndexEntry{An Introduction to the nullabor package}
 -->
 
-An Introduction to the **nullabor** package
+An introduction to the **nullabor** package
 =======================================
 
 
@@ -12,8 +12,7 @@ library(knitr)
 opts_chunk$set(out.extra='style="display:block; margin: auto"', fig.align="center")
 ```
 
-Introduction
-------------
+The  **nullabor** package provides functions to support quantifying the significance of structure seen in plots of data. 
 
 ```{r message=FALSE}
 library(nullabor)
@@ -21,25 +20,9 @@ library(ggplot2)
 library(dplyr)
 ```
 
-The  **nullabor** package provides functions to support visual inference, as described in the papers:
-
-Buja, A., Cook, D., Hofmann, H., Lawrence, M., Lee, E.-K., Swayne, D. F, Wickham, H. (2009) Statistical Inference for Exploratory Data Analysis and Model Diagnostics, Royal Society Philosophical
-  Transactions A, 367:4361--4383.
-  
-Wickham, H., Cook, D., Hofmann, H. and Buja, A. (2010) Graphical Inference for Infovis, IEEE Transactions on Visualization and Computer Graphics, 16(6):973--979, http://doi.ieeecomputersociety.org/10.1109/TVCG.2010.161. Best paper award.
-
-Hofmann, H., Follett, L., Majumder, M. and Cook, D. (2012) Graphical Tests for Power Comparison of Competing Designs, IEEE Transactions on Visualization and Computer Graphics, 18(12):2441--2448, http://doi.ieeecomputersociety.org/10.1109/TVCG.2012.230.
-
-Majumder, M., Hofmann, H. and Cook, D. (2013) Validation of Visual Statistical Inference, Applied to Linear Models, Journal of the American Statistical Association, 108(503):942--956. Featured Article http://amstat.tandfonline.com/doi/pdf/10.1080/01621459.2013.808157.
-
-Roy Chowdhury, N., Cook, D., Hofmann, H., Majumder, M., Lee, E. K., Toth, A. (2014) Understanding High Dimension, Small Sample Size Problems Using Visual Statistical Inference, Computational Statistics, To appear.
-
-Majumder, M. and Hofmann, H. and Cook, D. (2014) Human Factors Influencing Visual Statistical Inference,
-http://arxiv.org/abs/1408.1974.
 
 The functions provide methods for two protocols: ***lineup*** and ***rorschach***. The lineup protocol places the plot of the actual data among a field of plots of null data, and in the Rorschach, all plots are of null data. The ***encrypt*** function enables the location of the actual data plot to be a secret, that needs ***decrypt*** to reveal. There are several different functions for generating null data sets: ***null_permute***, ***null_lm*** and ***null_dist***. 
 
-The functions ***reg_dist***, ***bin_dist***, ***uni_dist***, ***box_dist***, ***sep_dist*** are ways of calculating how different one plot is from another. These are used to get a sense if the actual data plot is different from the null plots, in as far as we can determine numerically. The functions ***distmet*** and ***distplot*** compute a rough estimate of the distribution of the distance measures for the data and the null generating mechanism, and make a plot where the values for the actual data plot and the null plots in a lineup are shown. This helps a little to evaluate whether people should easily pick the actual data plot from the lineup and thus help to organize the Amazon Turk experiments (http://www.public.iastate.edu/~hofmann/experiments.html)[http://www.public.iastate.edu/~hofmann/experiments.html] some.
 
 The lineup protocol
 -------------------
@@ -131,3 +114,19 @@ ggplot(d, aes(x=LD1, y=LD2, colour=Group)) +
 attr(d, "pos")
 ```
 
+References
+----------
+
+Buja, A., Cook, D., Hofmann, H., Lawrence, M., Lee, E.-K., Swayne, D. F, Wickham, H. (2009) Statistical Inference for Exploratory Data Analysis and Model Diagnostics, Royal Society Philosophical
+  Transactions A, 367:4361--4383.
+  
+Wickham, H., Cook, D., Hofmann, H. and Buja, A. (2010) Graphical Inference for Infovis, IEEE Transactions on Visualization and Computer Graphics, 16(6):973--979, [http://doi.ieeecomputersociety.org/10.1109/TVCG.2010.161](http://doi.ieeecomputersociety.org/10.1109/TVCG.2010.161). Best paper award.
+
+Hofmann, H., Follett, L., Majumder, M. and Cook, D. (2012) Graphical Tests for Power Comparison of Competing Designs, IEEE Transactions on Visualization and Computer Graphics, 18(12):2441--2448, [http://doi.ieeecomputersociety.org/10.1109/TVCG.2012.230](ttp://doi.ieeecomputersociety.org/10.1109/TVCG.2012.230).
+
+Majumder, M., Hofmann, H. and Cook, D. (2013) Validation of Visual Statistical Inference, Applied to Linear Models, Journal of the American Statistical Association, 108(503):942--956. Featured Article http://amstat.tandfonline.com/doi/pdf/10.1080/01621459.2013.808157.
+
+Roy Chowdhury, N., Cook, D., Hofmann, H., Majumder, M., Lee, E. K., & Toth, A. L. (2014). Using visual statistical inference to better understand random class separations in high dimension, low sample size data. Computational Statistics, 30(2), 293-316. [10.1007/s00180-014-0534-x](http://dx.doi.org/10.1007/s00180-014-0534-x)
+
+Majumder, M. and Hofmann, H. and Cook, D. (2014) Human Factors Influencing Visual Statistical Inference,
+[http://arxiv.org/abs/1408.1974](http://arxiv.org/abs/1408.1974).

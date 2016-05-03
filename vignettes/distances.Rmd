@@ -23,6 +23,8 @@ The distance metrics included in the nullabor package cover some of the types of
 
 When a null-generating method is given the functions can simulate more draws from the null to provide an empirical distribution of the distance values for the null plots. This would be used to guage how far the data plot is to the null plots relative to how far null plots are from each other. This might be used to assess whether the data plot in lineup shuld be detected or not by a human observer.
 
+The functions `reg_dist`, `bin_dist`, `uni_dist`, `box_dist`, `sep_dist` are ways of calculating how different one plot is from another. These are used to get a sense if the actual data plot is different from the null plots, in as far as we can determine numerically. The functions `distmet` and `distplot` compute a rough estimate of the distribution of the distance measures for the data and the null generating mechanism, and make a plot where the values for the actual data plot and the null plots in a lineup are shown. This helps a little to evaluate whether we would expect people to easily pick the data plot from the lineup and thus help to organize the setting up and analysing the results from Amazon Turk experiments [http://www.public.iastate.edu/~hofmann/experiments.html](http://www.public.iastate.edu/~hofmann/experiments.html) some.
+
 ```{r message=FALSE}
 library(nullabor)
 library(ggplot2)
@@ -31,12 +33,12 @@ library(dplyr)
 
 Distance metrics
 ----------------------------
-There are five different distance metrics in **nullabor** package, named `"bin_dist"`, `"box_dist"`, `"reg_dist"`, `"sep_dist"` and `"uni_dist"`. The different distance metrics are constructed so that they can identify the different properties of the data. `"uni_dist"` works for univariate data while the others works for all types of bivariate data. Binned distance is a generic distance which can be used in any situations while the other distance metrics are constructed so that they can identify the effect of graphical elements in a plot like an overlaid regression line or presence of defined clusters. To calculate some of the metrics, additional informations like a class variable or the number of bins should be provided.
+There are five different distance metrics in **nullabor** package, named `bin_dist`, `box_dist`, `reg_dist`, `sep_dist` and `uni_dist`. The different distance metrics are constructed so that they can identify the different properties of the data. `uni_dist` works for univariate data while the others works for all types of bivariate data. Binned distance is a generic distance which can be used in any situations while the other distance metrics are constructed so that they can identify the effect of graphical elements in a plot like an overlaid regression line or presence of defined clusters. To calculate some of the metrics, additional informations like a class variable or the number of bins should be provided.
 
 Distance for univariate data
 -----------------------------------------------------
 
-`"uni_dist"` is a distance metric which calculates the euclidean distance between the first four central moments of two univariate data. A typical usage would be when one needs to calculate the distance between the two histograms drawn from two datasets.
+`uni_dist` is a distance metric which calculates the euclidean distance between the first four central moments of two univariate data. A typical usage would be when one needs to calculate the distance between the two histograms drawn from two datasets.
 
 ```{r}
 uni_dist(rnorm(100), rpois(100, 2))
@@ -45,7 +47,7 @@ uni_dist(rnorm(100), rpois(100, 2))
 Distance based on regression parameters
 -----------------------------------------------------
 
-`"reg_dist"` is a distance metric which calculates the euclidean distance between the regression parameters of a model fitted to one plot and that of another plot. It is advisable to use this distance in situations where a regression line is overlaid on a scatterplot.
+`reg_dist` is a distance metric which calculates the euclidean distance between the regression parameters of a model fitted to one plot and that of another plot. It is advisable to use this distance in situations where a regression line is overlaid on a scatterplot.
 
 ```{r}
 with(mtcars, reg_dist(data.frame(wt, mpg), data.frame(sample(wt), mpg)))
@@ -54,7 +56,7 @@ with(mtcars, reg_dist(data.frame(wt, mpg), data.frame(sample(wt), mpg)))
 Distance based on boxplots
 -----------------------------------------------------
 
-`"box_dist"` is a distance metric which works for side-by-side boxplots with two levels. The first quartile, median and the third quartile are calculated for each box and the absolute distances of these are calculated for the two boxes. `"box_dist"` calculates the euclidean distance between these absolute distances for the two plots.  The boxplot distance should be used in situations where a side-by-side boxplot is used to compare the distribution of a variable at two different levels.
+`box_dist` is a distance metric which works for side-by-side boxplots with two levels. The first quartile, median and the third quartile are calculated for each box and the absolute distances of these are calculated for the two boxes. `box_dist` calculates the euclidean distance between these absolute distances for the two plots.  The boxplot distance should be used in situations where a side-by-side boxplot is used to compare the distribution of a variable at two different levels.
 
 ```{r}
 with(mtcars, box_dist(data.frame(as.factor(am), mpg),  data.frame(as.factor(sample(am)), mpg)))
@@ -63,7 +65,7 @@ with(mtcars, box_dist(data.frame(as.factor(am), mpg),  data.frame(as.factor(samp
 Distance based on separation
 ------------------------------------------------------
 
-`"sep_dist"` is a distance metric based on the separation between clusters. The separation between clusters is defined by the minimum distances of a point in 
+`sep_dist` is a distance metric based on the separation between clusters. The separation between clusters is defined by the minimum distances of a point in 
 the cluster to a point in another cluster. The separation between the clusters for a given dataset is calculated. An euclidean distance is calculated between the separation for the given dataset and another dataset. The number of clusters in the dataset should be provided. If not, the hierarchical clustering method is used to obtain the clusters.
 
 ```{r}
@@ -73,7 +75,7 @@ with(mtcars, sep_dist(data.frame(wt, mpg,  as.numeric(as.factor(mtcars$cyl))), d
 Binned Distance
 -----------------------------------------------------
 
-`"bin_dist"` is a generic distance which works for any situation for any dataset. For a given bivariate dataset, X and Y variables are divided into p and q bins respectively to obtain pq cells. The number of points falling in each cell are counted for a given dataset. `"bin_dist"` between two datasets calculates the euclidean distance between the cell counts of these two data. The values of p and q should be provided as arguments.
+`bin_dist` is a generic distance which works for any situation for any dataset. For a given bivariate dataset, X and Y variables are divided into p and q bins respectively to obtain pq cells. The number of points falling in each cell are counted for a given dataset. `bin_dist` between two datasets calculates the euclidean distance between the cell counts of these two data. The values of p and q should be provided as arguments.
 
 ```{r}
 with(mtcars, bin_dist(data.frame(wt, mpg), data.frame(sample(wt), mpg), lineup.dat = NULL, X.bin = 5, Y.bin = 5))
@@ -82,7 +84,7 @@ with(mtcars, bin_dist(data.frame(wt, mpg), data.frame(sample(wt), mpg), lineup.d
 Calculating the mean distances for the plots in the lineup
 -----------------------------------------------------------
 
-It is interesting to see whether the true plot in a lineup is different from all the null plots. To find this the distances between the true plot and all the null plots are calculated and the mean of these distances is calculated. Similarly, for each null plot, the distance between the null plot and all the other null plots is calculated and averaged to obtain the mean distance for each null plot. `"calc_mean_dist"` calculates the mean distance corresponding to each plot in the lineup. If the mean distance of the true plot is larger than the mean distances of all the null plots, the lineup is considered easy. If one of the null plots has a larger mean distance than the true plot, the lineup is considered difficult.  
+It is interesting to see whether the true plot in a lineup is different from all the null plots. To find this the distances between the true plot and all the null plots are calculated and the mean of these distances is calculated. Similarly, for each null plot, the distance between the null plot and all the other null plots is calculated and averaged to obtain the mean distance for each null plot. `calc_mean_dist` calculates the mean distance corresponding to each plot in the lineup. If the mean distance of the true plot is larger than the mean distances of all the null plots, the lineup is considered easy. If one of the null plots has a larger mean distance than the true plot, the lineup is considered difficult.  
 
 ```{r}
 calc_mean_dist(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), met = 'reg_dist', pos = 10)
@@ -91,7 +93,7 @@ calc_mean_dist(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt
 Calculating difference measure for lineups
 --------------------------------------------------------
 
-The mean distances for each plot in the lineup are obtained using `"calc_mean_dist"`.`"calc_diff"` calculates the difference between the mean distance for the true plot and the maximum mean distance for the null plots.
+The mean distances for each plot in the lineup are obtained using `calc_mean_dist`.`calc_diff` calculates the difference between the mean distance for the true plot and the maximum mean distance for the null plots.
 
 ```{r}
 calc_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), met = 'reg_dist', dist.arg = NULL, pos = 10)
@@ -100,9 +102,9 @@ calc_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), m
 Optimum number of bins
 --------------------------------------------------------
 
-Binned distance is highly affected by the choice of the number of bins. The number of bins is provided by the user and this can be subjective. This motivates to design a way to select the optimum number of bins to be used. `"opt_diff"` finds the optimal number of bins in both x and y direction which should be used to calculate the binned distance. The binned distance is calculated for each combination of provided choices of number of bins in x and y direction and finds the difference using `"calc_diff"` for each combination. The combination for which the difference is maximum should be used.  
+Binned distance is highly affected by the choice of the number of bins. The number of bins is provided by the user and this can be subjective. This motivates to design a way to select the optimum number of bins to be used. `opt_diff` finds the optimal number of bins in both x and y direction which should be used to calculate the binned distance. The binned distance is calculated for each combination of provided choices of number of bins in x and y direction and finds the difference using `calc_diff` for each combination. The combination for which the difference is maximum should be used.  
 
-```{r, fig.height = 5, fig.width = 5.5}
+```{r, fig.height = 3, fig.width = 3.5}
 opt.diff <- opt_bin_diff(lineup(null_permute('mpg'), mtcars, pos = 10), var = c('mpg', 'wt'), 2, 4, 2, 4, pos = 10, plot = TRUE)
 opt.diff$p
 ```
@@ -110,7 +112,7 @@ opt.diff$p
 Distribution of distance metrics
 -----------------------------------------------
 
-Measuring the quality of a lineup is interesting. But it may also be important to compare a few lineups. The `"distmet"` function provides the empirical distribution of the distance metrics based on the mean distance of the true plot and the mean distance from the null plots. The lineup data, the null generating mechanism and the choice of the distance metric has to be provided. Users have the flexibility of using their distance metrics. The position of the true plot in the lineup has to be provided as well. If the distance metrics require additional arguments, those have to be provided as well.
+Measuring the quality of a lineup is interesting. But it may also be important to compare a few lineups. The `distmet` function provides the empirical distribution of the distance metrics based on the mean distance of the true plot and the mean distance from the null plots. The lineup data, the null generating mechanism and the choice of the distance metric has to be provided. Users have the flexibility of using their distance metrics. The position of the true plot in the lineup has to be provided as well. If the distance metrics require additional arguments, those have to be provided as well.
 
 ```{r, fig.height = 10, fig.width = 11}
 lineup.dat <- lineup(null_permute('mpg'), mtcars, pos = 10)
@@ -142,7 +144,7 @@ dist.vals <- distmet(lineup.dat, var = c('mpg', 'wt'),'bin_dist', null_permute('
 Plotting the empirical distribution of the distance metric
 -------------------------------------------------------------------------------
 
-`"distplot"` functions plots the empirical distribution of the distance metric, given the output of `"distmet"` function. The distribution is shown in grey along the distance for the true plot in orange and the distances for the null plots in black. 
+`distplot` functions plots the empirical distribution of the distance metric, given the output of `distmet` function. The distribution is shown in grey along the distance for the true plot in orange and the distances for the null plots in black. 
 
 ```{r, fig.height = 5, fig.width = 5.5 }
 distplot(dist.vals)
