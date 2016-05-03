@@ -5,7 +5,8 @@ Description: Tools for visual inference. Generate null data sets
     for a lineup, and examine the distributions of metrics.
 Title: Tools for Graphical Inference
 Author: Hadley Wickham <h.wickham@gmail.com>, Niladri Roy Chowdhury
-    <niladri.ia@gmail.com>, Di Cook <dicook@iastate.edu>, Heike Hofmann <hofmann@iastate.edu>
+    <niladri.ia@gmail.com>, Di Cook <dicook@iastate.edu>, Heike Hofmann
+    <hofmann@iastate.edu>
 Maintainer: Di Cook <dicook@iastate.edu>
 License: GPL
 Depends:
@@ -23,3 +24,4 @@ LazyData: true
 Type: Package
 LazyLoad: false
 VignetteBuilder: knitr
+RoxygenNote: 5.0.1

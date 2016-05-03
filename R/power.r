@@ -8,7 +8,8 @@
 #' @return vector of powers for each pic_id
 #' @export
 #' @examples
-#' visual_power(15, 20, m=3) # triangle test
+#' data(turk_results)
+#' visual_power(turk_results)
 
 visual_power <- function(data, m=20) {
   data <- data %>% mutate(

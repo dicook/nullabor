@@ -90,7 +90,7 @@ library(MASS)
 
 data(wasps)
 
-wasp.lda <- lda(Group~., data=wasps)
+wasp.lda <- lda(Group~., data=wasps[,-1])
 wasp.ld <- predict(wasp.lda, dimen=2)$x
 true <- data.frame(wasp.ld, Group=wasps$Group)
 
@@ -122,7 +122,15 @@ The function `pvisual` can be used to compute a visual p-value after the lineup 
 pvisual(4, 10)
 ```
 
-***Need to (1) account for multiple selections. (2) add power calculations***
+Computing power
+---------------
+
+The function `visual_power` can be used to compute the power of each lineup. This is an example using the sample turk results provided.
+
+```{r}
+data(turk_results)
+visual_power(turk_results)
+```
 
 References
 ----------
