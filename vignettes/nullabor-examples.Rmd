@@ -1,0 +1,93 @@
+<!--
+%\VignetteEngine{knitr::docco_linear}
+%\VignetteIndexEntry{An Introduction to the nullabor package}
+-->
+
+Example lineups in nullabor 
+=======================================
+
+
+```{r setup, include=FALSE}
+library(knitr)
+opts_chunk$set(out.extra='style="display:block; margin: auto"', fig.align="center")
+```
+
+# Electoral Building
+
+
+The idea in this example is to take the margins for each state as reported by a pollster and sample for each state from a normal distribution to get a vector of values representing the margins of a potential election day outcome. The polls here are loosely based on the 2012 US Elction polls by \url{http://freedomslighthouse.net/2012-presidential-election-electoral-vote-map/}. 
+
+```{r}
+simPoll <- function(trueData) {
+  simMargin <- rnorm(nrow(trueData), mean=trueData$Margin, sd=2.5)
+  simDemocrat <- ((simMargin>0) & trueData$Democrat) | ((simMargin<0) & !trueData$Democrat)
+
+  simMargin <- abs(simMargin)
+  res <- trueData
+  res$Democrat <- simDemocrat
+  res$Margin <- simMargin
+  res
+}
+```
+
+`simPoll` is a relatively specialized function that takes polling results for each state and produces a random value from a normal distribution using the polling results as the mean. For now we assume a standard deviation (or 'accuracy') for each state poll of 2.5.  
+`sim1` is a first instance of the simulation - based on this simulation, we can compute for example the number of Electoral Votes for the Democratic party based on this simulated election day result.
+```{r}
+margins <- read.csv("lighthouse-polls.csv")
+
+sim1 <- simPoll(margins)
+sum(sim1$Electoral.Votes[sim1$Democrat])
+```
+Because the `simPoll` function returns a data set of exactly the same form as the original data, we can use this function as a method in the `lineup` call to get a set of simulations together with the polling results.
+Because we want to keep track of the position of the real data, we set the position ourselves (but keep it secret for now by using a random position).
+
+```{r}
+pos <- sample(20,1)
+lpdata <- nullabor::lineup(method = simPoll, true=margins, n=20, pos=pos)
+dim(lpdata)
+summary(lpdata)
+```
+We need to exchange the polling results for the actual election results.
+
+```{r}
+election <- read.csv("election2012.csv")
+idx <- which(lpdata$.sample==pos)
+lpdata$Margin[idx] <- election$Margin
+```
+
+... and now we have to build the actual plot. That requires a bit of restructuring of the data:
+
+```{r, warning=FALSE, message=FALSE}
+library(dplyr)
+lpdata <- lpdata %>% arrange(desc(Margin))
+lpdata <- lpdata %>% group_by(.sample, Democrat) %>% mutate(
+  tower=cumsum(Electoral.Votes[order(Margin, decreasing=TRUE)])
+) 
+lpdata$diff <-  with(lpdata, Margin*c(1,-1)[as.numeric(Democrat)+1])
+```
+
+And now we can plot the rectangles:
+```{r, fig.height=7, fig.width=6, warning=FALSE, message=FALSE}
+library(ggplot2)
+dframe <- lpdata
+dframe$diff <- with(dframe, diff+sign(diff)*0.075)
+dframe$diff <- pmin(50, dframe$diff)
+ggplot(aes(x=diff, y=tower, colour = factor(Democrat)), data=dframe) + 
+  scale_colour_manual(values=c("red", "blue"), guide="none") + 
+  scale_fill_manual(values=c("red", "blue"), guide="none") + 
+  scale_x_continuous(breaks=c(-25,0,25), labels=c("25", "0", "25"), 
+                     limits=c(-50,50)) + 
+  geom_rect(aes(xmin=pmin(0, diff), xmax=pmax(0,diff), ymin=0, 
+                ymax=tower, fill=Democrat), size=0) +
+  geom_vline(xintercept=0, colour="white") + 
+  facet_wrap(~.sample) +
+  theme(axis.text=element_blank(), axis.ticks=element_blank(),
+        axis.title=element_blank(), 
+        plot.margin=unit(c(0.1,0.1,0,0), "cm")) +
+  ggtitle("Which of these panels looks the most different?")
+```
+Try to decide for yourself! Which plot looks the most different in this lineup?
+Once you have choosen, you can compare it to the number below:
+```{r}
+pos
+```
