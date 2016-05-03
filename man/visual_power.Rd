@@ -20,6 +20,7 @@ in a set of lineups. It adjusts for multiple picks by the same individual, by we
 by the total number of choices.
 }
 \examples{
-visual_power(15, 20, m=3) # triangle test
+data(turk_results)
+visual_power(turk_results)
 }
 
