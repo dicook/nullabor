@@ -110,14 +110,21 @@ null_gen <- function(lineup.dat, null, met, method, m, dist.arg){
 #'     pos = 1, repl = 100, m = 8), m = 8)
 #' }
 distplot <- function(dat, m = 20) {
-    p <- with(dat, ggplot2::qplot(null_values, geom = "density", fill = I("grey80"), colour = I("grey80"),
-        xlab = "Permutation distribution", ylab = "") + ggplot2::geom_segment(aes(x = lineup$mean.dist[lineup$plotno !=
-        pos], xend = lineup$mean.dist[lineup$plotno != pos], y = rep(0.01 * min(density(null_values)$y),
-        (m - 1)), yend = rep(0.05 * max(density(null_values)$y), (m - 1))), size = 1, alpha = I(0.7)) +
-        ggplot2::geom_segment(aes(x = lineup$mean.dist[lineup$plotno == pos], xend = lineup$mean.dist[lineup$plotno ==
-            pos], y = 0.01 * min(density(null_values)$y), yend = 0.1 * max(density(null_values)$y)),
-            colour = "darkorange", size = 1) + ggplot2::geom_text(data = lineup, y = -0.03 * max(density(null_values)$y),
-        size = 2.5, aes(x = mean.dist, label = plotno)) + ggplot2::ylim(c(-0.04 * max(density(null_values)$y),
-        max(density(null_values)$y) + 0.1)))
+    null <- data.frame(null_values=dat$null_values)
+    lineupvals <- dat$lineup
+    lineupvals$true <- ifelse(lineupvals$plotno == dat$pos, "true", "null")
+    lineupvals$y <- 0.01 * min(density(null$null_values)$y)
+    lineupvals$yend <- 0.05 * max(density(null$null_values)$y)
+                               
+    p <- ggplot2::ggplot(null, ggplot2::aes(x=null_values)) +
+         ggplot2::geom_density(fill = I("grey80"), colour = I("grey80")) +
+              xlab("Permutation distribution") + ylab("")
+    p <- p + ggplot2::geom_segment(data=lineupvals, ggplot2::aes(x=mean.dist, xend=mean.dist,
+                            y=y, yend=yend, colour=true), alpha=0.8) 
+    p <- p + ggplot2::geom_text(data=lineupvals,
+                              ggplot2::aes(x = mean.dist, y=0, label = plotno, colour=true), vjust="top")
+    p <- p + ggplot2::scale_colour_manual(values=c("true"="darkorange","null"="grey50"))
+    p <- p + ggplot2::theme(legend.position="none")
+                            
     return(p)
 }
