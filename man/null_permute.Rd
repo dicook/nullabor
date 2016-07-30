@@ -16,4 +16,13 @@ a function that given \code{data} generates a null data set.
 \description{
 Null hypothesis: variable is independent of others
 }
+\examples{
+data(mtcars)
+ggplot(data=rorschach(method=null_permute("mpg"), n = 3, true=mtcars)) +
+geom_boxplot(aes(x=factor(cyl), y=mpg, fill=factor(cyl))) +facet_grid(.~.n) +
+theme(legend.position="none", aspect.ratio=1)
+}
+\seealso{
+null_lm, null_dist
+}
 

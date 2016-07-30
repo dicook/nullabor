@@ -32,4 +32,7 @@ qplot(total_bill, .resid, data = tips.reg) \%+\%
   facet_wrap(~ .sample)
 }
 }
+\seealso{
+null_permute, null_dist
+}
 
