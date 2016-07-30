@@ -25,6 +25,9 @@ rorschach <- function(method, true = NULL, n = 20, p = 0) {
         pos <- sample(n + 1, 1)
         message(encrypt("True data in position ", pos))
         samples <- add_true(samples, true, pos)
+    } else {
+      samples$.sample <- samples$.n
+      samples$.n <- NULL
     }
 
     samples

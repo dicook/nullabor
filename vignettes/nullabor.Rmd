@@ -50,7 +50,7 @@ The Rorschach protocol is used to calibrate the eyes for variation due to sampli
 
 ```{r, fig.height = 10, fig.width = 11}
 d <- rorschach(null_permute("mpg"), mtcars, n = 20, p = 0)
-ggplot(data=d, aes(x=mpg, y=wt)) + geom_point() + facet_wrap(~ .n)
+ggplot(data=d, aes(x=mpg, y=wt)) + geom_point() + facet_wrap(~ .sample)
 ```
 
 Generate null data with a specific distribution
