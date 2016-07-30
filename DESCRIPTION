@@ -8,7 +8,8 @@ Author: Hadley Wickham <h.wickham@gmail.com>, Niladri Roy Chowdhury
     <niladri.ia@gmail.com>, Di Cook <dicook@iastate.edu>, Heike Hofmann
     <hofmann@iastate.edu>
 Maintainer: Di Cook <dicook@iastate.edu>
-License: GPL
+License: GPL (>= 2)
+URL: http://github.com/dicook/nullabor
 Depends:
     ggplot2
 Imports:
