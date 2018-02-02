@@ -1,5 +1,5 @@
 dists <- c(beta = "beta", cauchy = "cauchy", `chi-squared` = "chisq", exponential = "exp", f = "f", gamma = "gamma",
-    geometric = "geom", `log-normal` = "lnorm", lognormal = "lnorm", logistic = "logis", `negative binomial` = "nbinom",
+    geometric = "geom", `log-normal` = "lnorm", lognormal = "lnorm", logistic = "logis", `negative binomial` = "nbinom", binomial = "binom",
     normal = "norm", poisson = "pois", t = "t", uniform = 'unif', weibull = "weibull")
 
 # Specific distribution ------------------------------------------------------
