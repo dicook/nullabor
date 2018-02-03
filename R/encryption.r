@@ -5,7 +5,7 @@
 .new_string <- paste(.new, collapse = "")
 
 encrypt <- function(...) {
-    message <- paste(..., sep = "")
+  message <- paste(..., sep = "")
     chartr(.old_string, .new_string, message)
 }
 
@@ -21,5 +21,7 @@ encrypt <- function(...) {
 #' decrypt('0uXR2p rut L2O2')
 decrypt <- function(...) {
     message <- paste(..., sep = "")
-    chartr(.new_string, .old_string, message)
-} 
+    m <- chartr(.new_string, .old_string, message)
+    m_num <- as.numeric(substr(m, 23, 24)) - 10
+    paste(substr(m, 1, 22), m_num)
+}

@@ -23,7 +23,7 @@ rorschach <- function(method, true = NULL, n = 20, p = 0) {
     samples <- plyr::rdply(n, method(true))
     if (show_true) {
         pos <- sample(n + 1, 1)
-        message(encrypt("True data in position ", pos))
+        message(encrypt("True data in position ", pos+10))
         samples <- add_true(samples, true, pos)
     } else {
       samples$.sample <- samples$.n
@@ -72,7 +72,7 @@ lineup <- function(method, true = NULL, n = 20, pos = sample(n, 1), samples = NU
         samples <- plyr::rdply(n - 1, method(true))
     }
     if (missing(pos)) {
-        message("decrypt(\"", encrypt("True data in position ", pos), "\")")
+        message("decrypt(\"", encrypt("True data in position ", pos+10), "\")")
     }
     add_true(samples, true, pos)
 }

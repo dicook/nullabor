@@ -17,7 +17,8 @@ Imports:
     plyr,
     dplyr,
     moments,
-    fpc
+    fpc,
+    stringr
 Suggests:
     reshape2,
     knitr
