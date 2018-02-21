@@ -10,4 +10,3 @@ add_true(samples, true, pos)
 Add true data into data frame containing null data sets.
 }
 \keyword{internal}
-

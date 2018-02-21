@@ -17,4 +17,3 @@ string to reveal which where the real data is.
 \examples{
 decrypt('0uXR2p rut L2O2')
 }
-

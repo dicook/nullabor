@@ -39,4 +39,3 @@ if(require('dplyr')){
 calc_diff(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg', 'wt'), met = 'reg_dist',
 dist.arg = NULL, pos = 1, m = 8)}
 }
-

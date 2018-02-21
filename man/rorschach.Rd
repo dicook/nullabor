@@ -23,4 +23,3 @@ hypothesis. The protocol is described in Buja, Cook, Hofmann, Lawrence,
 Lee, Swayne, Wickham (2009) Statistical inference for exploratory data
 analysis and model diagnostics, Phil. Trans. R. Soc. A, 367, 4361-4383.
 }
-

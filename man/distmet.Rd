@@ -56,7 +56,7 @@ if (require('dplyr')) {
 }
 
 d <- lineup(null_permute('mpg'), mtcars, pos=4, n=8)
-qplot(mpg, wt, data = d, geom = 'point') + facet_wrap(~ .sample, ncol=4)
+ggplot(d, aes(mpg, wt)) + geom_point() + facet_wrap(~ .sample, ncol=4)
 if (require('dplyr')) {
   dd <- distmet(d, var = c('mpg', 'wt'), 'bin_dist', null_permute('mpg'),
     pos = 4, repl = 100, dist.arg = list(lineup.dat = d, X.bin = 5,
@@ -68,7 +68,7 @@ if (require('dplyr')) {
 \dontrun{
 if (require('dplyr')) {
   d <- lineup(null_permute('mpg'), mtcars, pos = 1)
-  qplot(mpg, wt, data=d, geom='point') + facet_wrap(~ .sample, ncol=5)
+  ggplot(d, aes(mpg, wt)) + geom_point() + facet_wrap(~ .sample, ncol=5)
   dd <- distmet(d, var = c('mpg', 'wt'),
     'bin_dist', null_permute('mpg'), pos = 1, repl = 500,
     dist.arg = list(lineup.dat = d, X.bin = 5, Y.bin = 5))
@@ -81,8 +81,7 @@ if (require('dplyr')) {
 mod <- lm(wt ~ mpg, data = mtcars)
 resid.dat <- data.frame(residual = mod$resid)
 d <- lineup(null_dist('residual', dist = 'normal'), resid.dat, pos=19)
-qplot(residual, data = d, geom = 'histogram', binwidth = 0.25) +
-  facet_wrap(~ .sample, ncol=5)
+ggplot(d, aes(residual)) + geom_histogram(binwidth = 0.25) + facet_wrap(~ .sample, ncol=5)
 if (require('dplyr')) {
   dd <- distmet(d, var = 'residual', 'uni_dist', null_dist('residual',
     dist = 'normal'), pos = 19, repl = 500)
@@ -90,4 +89,3 @@ if (require('dplyr')) {
 }
 }
 }
-

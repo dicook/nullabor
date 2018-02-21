@@ -18,8 +18,8 @@
 #' data("tips", package = "reshape2")
 #' x <- lm(tip ~ total_bill, data = tips)
 #' tips.reg <- data.frame(tips, .resid = residuals(x), .fitted = fitted(x))
-#' qplot(total_bill, .resid, data = tips.reg) %+%
-#'   lineup(null_lm(tip ~ total_bill, method = 'rotate'), tips.reg) +
+#' ggplot(lineup(null_lm(tip ~ total_bill, method = 'rotate'), tips.reg)) +
+#'   geom_point(aes(x = total_bill, y = .resid)) +
 #'   facet_wrap(~ .sample)
 #' }
 null_lm <- function(f, method = "rotate", ...) {
