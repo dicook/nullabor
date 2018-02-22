@@ -33,10 +33,15 @@ dataset PX. An euclidean distance is then calculated between these separation fo
 X and PX.
 }
 \examples{
-if(require('fpc')) { with(mtcars, sep_dist(data.frame(wt, mpg,
-as.numeric(as.factor(mtcars$cyl))), data.frame(sample(wt), mpg,
-as.numeric(as.factor(mtcars$cyl))), clustering = TRUE))}
-if(require('fpc')) { with(mtcars, sep_dist(data.frame(wt, mpg,
-as.numeric(as.factor(mtcars$cyl))), data.frame(sample(wt), mpg,
-as.numeric(as.factor(mtcars$cyl))), nclustering = 3))}
+if(require('fpc')) {
+with(mtcars, sep_dist(data.frame(wt, mpg, as.numeric(as.factor(mtcars$cyl))),
+              data.frame(sample(wt), mpg, as.numeric(as.factor(mtcars$cyl))),
+              clustering = TRUE))
+}
+
+if (require('fpc')) {
+with(mtcars, sep_dist(data.frame(wt, mpg, as.numeric(as.factor(mtcars$cyl))),
+             data.frame(sample(wt), mpg, as.numeric(as.factor(mtcars$cyl))),
+             nclust = 3))
+}
 }

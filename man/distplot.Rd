@@ -18,7 +18,7 @@ the null plots. Distance measure values for the null plots and the true plot are
 \examples{
 if (require('dplyr')) {
   d <- lineup(null_permute('mpg'), mtcars, pos = 1)
-  qplot(mpg, wt, data=d) + facet_wrap(~.sample)
+  ggplot(d, aes(mpg, wt)) + geom_point() + facet_wrap(~.sample)
   distplot(distmet(d, var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'),
     pos = 1, repl = 100, m = 8), m = 8)
 }

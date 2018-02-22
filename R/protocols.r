@@ -58,13 +58,12 @@ rorschach <- function(method, true = NULL, n = 20, p = 0) {
 #'   this if you don't want lineup to generate the data for you.
 #' @export
 #' @examples
-#' if (require('ggplot2')) {
-#' qplot(mpg, wt, data = mtcars) %+%
-#'   lineup(null_permute('mpg'), mtcars) +
+#' ggplot(lineup(null_permute('mpg'), mtcars), aes(mpg, wt)) +
+#'   geom_point() +
 #'   facet_wrap(~ .sample)
-#' qplot(mpg, .sample, data = lineup(null_permute('cyl'), mtcars),
-#'   colour = factor(cyl))
-#' }
+#' ggplot(lineup(null_permute('cyl'), mtcars),
+#'        aes(mpg, .sample, colour = factor(cyl))) +
+#'        geom_point()
 lineup <- function(method, true = NULL, n = 20, pos = sample(n, 1), samples = NULL) {
     true <- find_plot_data(true)
 
