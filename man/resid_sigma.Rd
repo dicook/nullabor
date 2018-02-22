@@ -16,4 +16,3 @@ resid_sigma(model, data, sigma = 1)
 \description{
 For use with \code{\link{null_lm}}
 }
-

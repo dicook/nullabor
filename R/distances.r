@@ -176,12 +176,18 @@ box_dist <- function(X, PX) {
 #' @return distance between X and PX
 #' @export
 #' @import fpc
-#' @examples if(require('fpc')) { with(mtcars, sep_dist(data.frame(wt, mpg,
-#' as.numeric(as.factor(mtcars$cyl))), data.frame(sample(wt), mpg,
-#' as.numeric(as.factor(mtcars$cyl))), clustering = TRUE))}
-#' @examples if(require('fpc')) { with(mtcars, sep_dist(data.frame(wt, mpg,
-#' as.numeric(as.factor(mtcars$cyl))), data.frame(sample(wt), mpg,
-#' as.numeric(as.factor(mtcars$cyl))), nclustering = 3))}
+#' @examples
+#' if(require('fpc')) {
+#' with(mtcars, sep_dist(data.frame(wt, mpg, as.numeric(as.factor(mtcars$cyl))),
+#'               data.frame(sample(wt), mpg, as.numeric(as.factor(mtcars$cyl))),
+#'               clustering = TRUE))
+#'}
+#'
+#'if (require('fpc')) {
+#'with(mtcars, sep_dist(data.frame(wt, mpg, as.numeric(as.factor(mtcars$cyl))),
+#'              data.frame(sample(wt), mpg, as.numeric(as.factor(mtcars$cyl))),
+#'              nclust = 3))
+#'}
 sep_dist <- function(X, PX, clustering = FALSE, nclust = 3, type="separation") {
   cl_dist <- function(Y) {
     dY <- dist(Y[, 1:2])

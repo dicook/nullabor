@@ -7,4 +7,3 @@
 \description{
 Subset of data from a Turk experiment, used to show how to compute power of a lineup
 }
-

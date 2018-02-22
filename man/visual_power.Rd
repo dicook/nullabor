@@ -23,4 +23,3 @@ by the total number of choices.
 data(turk_results)
 visual_power(turk_results)
 }
-

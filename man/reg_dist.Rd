@@ -34,4 +34,3 @@ be equal to 1.
 \examples{
 with(mtcars, reg_dist(data.frame(wt, mpg), data.frame(sample(wt), mpg)))
 }
-

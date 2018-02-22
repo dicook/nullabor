@@ -40,4 +40,3 @@ We distinguish between three different scenarios:
 \examples{
 pvisual(15, 20, m=3) # triangle test
 }
-
