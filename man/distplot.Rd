@@ -23,4 +23,3 @@ if (require('dplyr')) {
     pos = 1, repl = 100, m = 8), m = 8)
 }
 }
-

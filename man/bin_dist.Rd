@@ -33,4 +33,3 @@ distance is calculated between the number of points in each cell between X and P
 with(mtcars, bin_dist(data.frame(wt, mpg), data.frame(sample(wt), mpg),
 lineup.dat = NULL))
 }
-

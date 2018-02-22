@@ -69,7 +69,9 @@ lineup <- function(method, true = NULL, n = 20, pos = sample(n, 1), samples = NU
     true <- find_plot_data(true)
 
     if (is.null(samples)) {
-        samples <- plyr::rdply(n - 1, method(true))
+        for (i in 1:(n-1))
+          samples <- bind_rows(samples, bind_cols(.n=rep(i, nrow(true)), method(true)))
+        #samples <- plyr::rdply(n - 1, method(true))
     }
     if (missing(pos)) {
         message("decrypt(\"", encrypt("True data in position ", pos+10), "\")")
@@ -84,7 +86,7 @@ add_true <- function(samples, true, pos) {
     samples$.n <- NULL
     true$.sample <- pos
 
-    all <- plyr::rbind.fill(samples, true)
+    all <- plyr::rbind.fill(samples, as_tibble(true))
     attr(all, "pos") <- pos
     all[order(all$.sample), ]
 }

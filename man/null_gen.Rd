@@ -10,4 +10,3 @@ null_gen(lineup.dat, null, met, method, m, dist.arg)
 Computing th distance for the null plots
 }
 \keyword{internal}
-

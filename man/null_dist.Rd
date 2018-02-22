@@ -39,4 +39,3 @@ ggplot(data=rorschach(method=null_dist("x", "uniform", params=list(min=0, max=1)
 \seealso{
 null_permute, null_lm
 }
-

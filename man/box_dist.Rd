@@ -29,4 +29,3 @@ X and PX.
 if(require('dplyr')) {with(mtcars, box_dist(data.frame(as.factor(am), mpg),
 data.frame(as.factor(sample(am)), mpg)))}
 }
-

@@ -44,4 +44,3 @@ qplot(mpg, .sample, data = lineup(null_permute('cyl'), mtcars),
   colour = factor(cyl))
 }
 }
-

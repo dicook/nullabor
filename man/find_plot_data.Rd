@@ -20,4 +20,3 @@ displaying it, but may not work in other situations.  In those cases,
 please specify the data explicitly.
 }
 \keyword{internal}
-

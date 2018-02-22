@@ -21,4 +21,3 @@ is calculated between these moments for X and PX.
 \examples{
 if(require('moments')){uni_dist(rnorm(100), rpois(100, 2))}
 }
-

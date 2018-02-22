@@ -14,4 +14,3 @@ resid_pboot(model, data)
 \description{
 For use with \code{\link{null_lm}}
 }
-

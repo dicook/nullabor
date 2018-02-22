@@ -25,4 +25,3 @@ theme(legend.position="none", aspect.ratio=1)
 \seealso{
 null_lm, null_dist
 }
-

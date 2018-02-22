@@ -8,4 +8,3 @@
 Play by play data from all games played by the Los Angeles lakers in the
 2008/2009 season.
 }
-

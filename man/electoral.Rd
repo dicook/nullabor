@@ -25,4 +25,3 @@ These margins are based on the actual election outcome}
 \description{
 Polls and election results from the 2012 US Election
 }
-

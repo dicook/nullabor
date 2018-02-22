@@ -35,4 +35,3 @@ qplot(total_bill, .resid, data = tips.reg) \%+\%
 \seealso{
 null_permute, null_dist
 }
-
