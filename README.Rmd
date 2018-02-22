@@ -1,0 +1,37 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# nullabor
+
+Tools for graphical inference: prevent fooling yourself with the Rorschach
+protocol and check the surprising features in your data with the lineup
+protocol!
+
+## Installation
+
+The nullabor package can be installed from CRAN
+
+```{r cran-installation, eval = FALSE}
+install.packages("nullabor")
+```
+
+You can install the development version of nullabor from github with:
+
+```{r gh-installation, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("dicook/nullabor")
+```
+
+
+
