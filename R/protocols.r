@@ -85,7 +85,7 @@ add_true <- function(samples, true, pos) {
     samples$.n <- NULL
     true$.sample <- pos
 
-    all <- plyr::rbind.fill(samples, as_tibble(true))
+    all <- plyr::rbind.fill(samples, true)
     attr(all, "pos") <- pos
     all[order(all$.sample), ]
 }
