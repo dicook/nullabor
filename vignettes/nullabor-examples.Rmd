@@ -10,6 +10,7 @@ Example lineups in nullabor
 ```{r setup, include=FALSE}
 library(knitr)
 opts_chunk$set(out.extra='style="display:block; margin: auto"', fig.align="center")
+library(nullabor)
 ```
 
 # Electoral Building
