@@ -16,11 +16,10 @@ Authors@R: c(
 Maintainer: Di Cook <dicook@iastate.edu>
 License: GPL (>= 2)
 URL: http://github.com/dicook/nullabor
-Depends:
-    tidyverse
 Imports:
     MASS,
     plyr,
+    tidyverse,
     rlang,
     moments,
     fpc,

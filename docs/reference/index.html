@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/readable/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -118,71 +118,11 @@
       <tbody>
         <tr>
           <th colspan="2">
-            <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-            <p class="section-desc"></p>
+            <h2 id="section-null-generating-methods" class="hasAnchor"><a href="#section-null-generating-methods" class="anchor"></a>Null generating methods</h2>
+            <p class="section-desc"><p>These are the current ways to generate null data sets</p></p>
           </th>
         </tr>
         <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="bin_dist.html">bin_dist</a></code> </p>
-          </td>
-          <td><p>Binned Distance</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="box_dist.html">box_dist</a></code> </p>
-          </td>
-          <td><p>Distance based on side by side Boxplots</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="calc_diff.html">calc_diff</a></code> </p>
-          </td>
-          <td><p>Calculating the difference between true plot and the null plot with the maximum distance.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="calc_mean_dist.html">calc_mean_dist</a></code> </p>
-          </td>
-          <td><p>Calculating the mean distances of each plot in the lineup.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="decrypt.html">decrypt</a></code> </p>
-          </td>
-          <td><p>Use decrypt to reveal the position of the real data.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="distmet.html">distmet</a></code> </p>
-          </td>
-          <td><p>Empirical distribution of the distance</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="distplot.html">distplot</a></code> </p>
-          </td>
-          <td><p>Plotting the distribution of the distance measure</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="electoral.html">electoral</a></code> </p>
-          </td>
-          <td><p>Polls and election results from the 2012 US Election</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="lal.html">lal</a></code> </p>
-          </td>
-          <td><p>Los Angeles Lakers play-by-play data.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="lineup.html">lineup</a></code> </p>
-          </td>
-          <td><p>The line-up protocol.</p></td>
-        </tr><tr>
           <!--  -->
           <td>
             <p><code><a href="null_dist.html">null_dist</a></code> </p>
@@ -206,84 +146,6 @@
             <p><code><a href="null_ts.html">null_ts</a></code> </p>
           </td>
           <td><p>Generate null data by simulating from a time series model.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="opt_bin_diff.html">opt_bin_diff</a></code> </p>
-          </td>
-          <td><p>Finds the number of bins in x and y direction which gives the maximum binned distance.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="pvisual.html">pvisual</a></code> </p>
-          </td>
-          <td><p>P-value calculations.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="reg_dist.html">reg_dist</a></code> </p>
-          </td>
-          <td><p>Distance based on the regression parameters</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="resid_boot.html">resid_boot</a></code> </p>
-          </td>
-          <td><p>Bootstrap residuals.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="resid_pboot.html">resid_pboot</a></code> </p>
-          </td>
-          <td><p>Parametric bootstrap residuals.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="resid_rotate.html">resid_rotate</a></code> </p>
-          </td>
-          <td><p>Rotation residuals.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="resid_sigma.html">resid_sigma</a></code> </p>
-          </td>
-          <td><p>Residuals simulated by a normal model, with specified sigma</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="rorschach.html">rorschach</a></code> </p>
-          </td>
-          <td><p>The Rorschach protocol.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sep_dist.html">sep_dist</a></code> </p>
-          </td>
-          <td><p>Distance based on separation of clusters</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="turk_results.html">turk_results</a></code> </p>
-          </td>
-          <td><p>Sample turk results</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="uni_dist.html">uni_dist</a></code> </p>
-          </td>
-          <td><p>Distance for univariate data</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="visual_power.html">visual_power</a></code> </p>
-          </td>
-          <td><p>Power calculations.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="wasps.html">wasps</a></code> </p>
-          </td>
-          <td><p>Wasp gene expression data.</p></td>
         </tr>
       </tbody>
       </table>
@@ -293,7 +155,7 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#section-null-generating-methods">Null generating methods</a></li>
     </ul>
   </div>
 </div>
