@@ -8,8 +8,11 @@
 <title> • nullabor</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><meta property="og:title" content="">
+<meta property="og:description" content="">
+<meta name="twitter:card" content="summary">
+<!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
@@ -110,7 +113,7 @@ margins &lt;-<span class="st"> </span>electoral<span class="op">$</span>polls
 
 sim1 &lt;-<span class="st"> </span><span class="kw">simPoll</span>(margins)
 <span class="kw">sum</span>(sim1<span class="op">$</span>Electoral.Votes[sim1<span class="op">$</span>Democrat])</code></pre></div>
-<pre><code>## [1] 265</code></pre>
+<pre><code>## [1] 319</code></pre>
 <p>Because the <code>simPoll</code> function returns a data set of exactly the same form as the original data, we can use this function as a method in the <code>lineup</code> call to get a set of simulations together with the polling results. Because we want to keep track of the position of the real data, we set the position ourselves (but keep it secret for now by using a random position).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pos &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">20</span>,<span class="dv">1</span>)
 lpdata &lt;-<span class="st"> </span>nullabor<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/nullabor/topics/lineup">lineup</a></span>(<span class="dt">method =</span> simPoll, <span class="dt">true=</span>margins, <span class="dt">n=</span><span class="dv">20</span>, <span class="dt">pos=</span>pos)
@@ -118,12 +121,12 @@ lpdata &lt;-<span class="st"> </span>nullabor<span class="op">::</span><span cla
 <pre><code>## [1] 1020    5</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(lpdata)</code></pre></div>
 <pre><code>##         State     Electoral.Votes     Margin          Democrat      
-##  Alabama   : 20   Min.   : 3.00   Min.   : 0.01142   Mode :logical  
-##  Alaska    : 20   1st Qu.: 4.00   1st Qu.: 6.60349   FALSE:526      
-##  Arizona   : 20   Median : 8.00   Median :13.52734   TRUE :494      
-##  Arkansas  : 20   Mean   :10.55   Mean   :15.95676                  
-##  California: 20   3rd Qu.:12.00   3rd Qu.:21.87454                  
-##  Colorado  : 20   Max.   :55.00   Max.   :91.27563                  
+##  Alabama   : 20   Min.   : 3.00   Min.   : 0.00246   Mode :logical  
+##  Alaska    : 20   1st Qu.: 4.00   1st Qu.: 6.34921   FALSE:529      
+##  Arizona   : 20   Median : 8.00   Median :13.15739   TRUE :491      
+##  Arkansas  : 20   Mean   :10.55   Mean   :15.81220                  
+##  California: 20   3rd Qu.:12.00   3rd Qu.:21.83480                  
+##  Colorado  : 20   Max.   :55.00   Max.   :91.67680                  
 ##  (Other)   :900                                                     
 ##     .sample     
 ##  Min.   : 1.00  
@@ -164,7 +167,7 @@ dframe<span class="op">$</span>diff &lt;-<span class="st"> </span><span class="k
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">ggtitle</a></span>(<span class="st">"Which of these panels looks the most different?"</span>)</code></pre></div>
 <p><img src="nullabor-examples_files/figure-html/unnamed-chunk-6-1.png" width="576" style="display:block; margin: auto"> Try to decide for yourself! Which plot looks the most different in this lineup? Once you have choosen, you can compare it to the number below:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pos</code></pre></div>
-<pre><code>## [1] 7</code></pre>
+<pre><code>## [1] 17</code></pre>
 </div>
 </div>
   </div>
@@ -188,7 +191,7 @@ dframe<span class="op">$</span>diff &lt;-<span class="st"> </span><span class="k
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

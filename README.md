@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-nullabor
-========
+nullabor <img src="man/figures/nullabor_hex.png" align="right" width="150" />
+=============================================================================
 
 Tools for graphical inference: prevent fooling yourself with the Rorschach protocol and check the surprising features in your data with the lineup protocol!
 

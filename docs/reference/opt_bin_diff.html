@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,14 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Finds the number of bins in x and y direction which gives the maximum binned distance. — opt_bin_diff" />
+
+<meta property="og:description" content="This function finds the optimal number of bins in both x and y direction which should
+be used to calculate the binned distance. The binned distance is calculated for each
+combination of provided choices of number of bins in x and y direction and finds the
+difference using calc_diff for each combination. The combination for which the
+difference is maximum should be used." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -165,29 +175,29 @@ the maximum mean distance of the null plots</p>
 <span class='fu'>opt_bin_diff</span>(<span class='fu'><a href='lineup.html'>lineup</a></span>(<span class='fu'><a href='null_permute.html'>null_permute</a></span>(<span class='st'>'mpg'</span>), <span class='no'>mtcars</span>, <span class='kw'>pos</span> <span class='kw'>=</span> <span class='fl'>1</span>), <span class='kw'>var</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>'mpg'</span>, <span class='st'>'wt'</span>),
 <span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>4</span>, <span class='fl'>8</span>, <span class='kw'>pos</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>m</span> <span class='kw'>=</span> <span class='fl'>8</span>)}</div><div class='output co'>#&gt; $dat
 #&gt; # A tibble: 20 x 3
-#&gt; # Groups:   xbins [?]
-#&gt;    xbins ybins    Diff
-#&gt;    &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;
-#&gt;  1     2     4 -0.328 
-#&gt;  2     2     5 -0.328 
-#&gt;  3     2     6 -0.673 
-#&gt;  4     2     7 -0.328 
-#&gt;  5     2     8 -0.328 
-#&gt;  6     3     4  0.514 
-#&gt;  7     3     5  0.514 
-#&gt;  8     3     6 -0.395 
-#&gt;  9     3     7  0.514 
-#&gt; 10     3     8  0.514 
-#&gt; 11     4     4  0.0812
-#&gt; 12     4     5  0.0812
-#&gt; 13     4     6 -0.414 
-#&gt; 14     4     7  0.0812
-#&gt; 15     4     8  0.0812
-#&gt; 16     5     4  0.239 
-#&gt; 17     5     5  0.239 
-#&gt; 18     5     6  0.135 
-#&gt; 19     5     7  0.239 
-#&gt; 20     5     8  0.239 
+#&gt; # Groups:   xbins [4]
+#&gt;    xbins ybins   Diff
+#&gt;    &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;
+#&gt;  1     2     4 -0.647
+#&gt;  2     2     5 -0.647
+#&gt;  3     2     6 -0.629
+#&gt;  4     2     7 -0.647
+#&gt;  5     2     8 -0.647
+#&gt;  6     3     4  0.431
+#&gt;  7     3     5  0.431
+#&gt;  8     3     6  0.216
+#&gt;  9     3     7  0.431
+#&gt; 10     3     8  0.431
+#&gt; 11     4     4  0.387
+#&gt; 12     4     5  0.387
+#&gt; 13     4     6  0.223
+#&gt; 14     4     7  0.387
+#&gt; 15     4     8  0.387
+#&gt; 16     5     4  0.879
+#&gt; 17     5     5  0.879
+#&gt; 18     5     6  0.484
+#&gt; 19     5     7  0.879
+#&gt; 20     5     8  0.879
 #&gt; 
 #&gt; $p</div><div class='img'><img src='opt_bin_diff-1.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; </div></pre>
   </div>
@@ -210,7 +220,7 @@ the maximum mean distance of the null plots</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

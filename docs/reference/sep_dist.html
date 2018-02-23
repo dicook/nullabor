@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,15 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="Distance based on separation of clusters — sep_dist" />
+
+<meta property="og:description" content="The separation between clusters is defined by the minimum distances of a point in
+the cluster to a point in another cluster. The number of clusters are provided.
+If not, the hierarchical clustering method is used to obtain the clusters. The
+separation between the clusters for dataset X is calculated. Same is done for
+dataset PX. An euclidean distance is then calculated between these separation for
+X and PX." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -151,12 +162,12 @@ clustering, by default nclust = 3</p></td>
 <span class='fu'>with</span>(<span class='no'>mtcars</span>, <span class='fu'>sep_dist</span>(<span class='fu'>data.frame</span>(<span class='no'>wt</span>, <span class='no'>mpg</span>, <span class='fu'>as.numeric</span>(<span class='fu'>as.factor</span>(<span class='no'>mtcars</span>$<span class='no'>cyl</span>))),
               <span class='fu'>data.frame</span>(<span class='fu'>sample</span>(<span class='no'>wt</span>), <span class='no'>mpg</span>, <span class='fu'>as.numeric</span>(<span class='fu'>as.factor</span>(<span class='no'>mtcars</span>$<span class='no'>cyl</span>))),
               <span class='kw'>clustering</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
-}</div><div class='output co'>#&gt; <span class='message'>Loading required package: fpc</span></div><div class='output co'>#&gt; [1] 0.4126456</div><div class='input'>
+}</div><div class='output co'>#&gt; [1] 0.2397412</div><div class='input'>
 <span class='kw'>if</span> (<span class='fu'>require</span>(<span class='st'>'fpc'</span>)) {
 <span class='fu'>with</span>(<span class='no'>mtcars</span>, <span class='fu'>sep_dist</span>(<span class='fu'>data.frame</span>(<span class='no'>wt</span>, <span class='no'>mpg</span>, <span class='fu'>as.numeric</span>(<span class='fu'>as.factor</span>(<span class='no'>mtcars</span>$<span class='no'>cyl</span>))),
              <span class='fu'>data.frame</span>(<span class='fu'>sample</span>(<span class='no'>wt</span>), <span class='no'>mpg</span>, <span class='fu'>as.numeric</span>(<span class='fu'>as.factor</span>(<span class='no'>mtcars</span>$<span class='no'>cyl</span>))),
              <span class='kw'>nclust</span> <span class='kw'>=</span> <span class='fl'>3</span>))
-}</div><div class='output co'>#&gt; [1] 0.6653951</div></pre>
+}</div><div class='output co'>#&gt; [1] 0.2100548</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -177,7 +188,7 @@ clustering, by default nclust = 3</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

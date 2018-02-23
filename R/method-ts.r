@@ -13,6 +13,7 @@
 #' @seealso null_model
 #' @examples
 #' require(forecast)
+#' require(tidyverse)
 #' data(aud)
 #' l <- lineup(null_ts("rate", auto.arima), aud)
 #' ggplot(l, aes(x=date, y=rate)) + geom_line() +

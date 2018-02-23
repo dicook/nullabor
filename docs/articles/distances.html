@@ -8,8 +8,11 @@
 <title> • nullabor</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><meta property="og:title" content="">
+<meta property="og:description" content="">
+<meta name="twitter:card" content="summary">
+<!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
@@ -111,35 +114,35 @@
 <a href="#distance-for-univariate-data" class="anchor"></a>Distance for univariate data</h2>
 <p><code>uni_dist</code> is a distance metric which calculates the euclidean distance between the first four central moments of two univariate data. A typical usage would be when one needs to calculate the distance between the two histograms drawn from two datasets.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/uni_dist.html">uni_dist</a></span>(<span class="kw">rnorm</span>(<span class="dv">100</span>), <span class="kw">rpois</span>(<span class="dv">100</span>, <span class="dv">2</span>))</code></pre></div>
-<pre><code>## [1] 2.65193</code></pre>
+<pre><code>## [1] 2.320699</code></pre>
 </div>
 <div id="distance-based-on-regression-parameters" class="section level2">
 <h2 class="hasAnchor">
 <a href="#distance-based-on-regression-parameters" class="anchor"></a>Distance based on regression parameters</h2>
 <p><code>reg_dist</code> is a distance metric which calculates the euclidean distance between the regression parameters of a model fitted to one plot and that of another plot. It is advisable to use this distance in situations where a regression line is overlaid on a scatterplot.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(mtcars, <span class="kw"><a href="../reference/reg_dist.html">reg_dist</a></span>(<span class="kw">data.frame</span>(wt, mpg), <span class="kw">data.frame</span>(<span class="kw"><a href="http://dplyr.tidyverse.org/reference/sample.html">sample</a></span>(wt), mpg)))</code></pre></div>
-<pre><code>## [1] 0.4644859</code></pre>
+<pre><code>## [1] 0.4344778</code></pre>
 </div>
 <div id="distance-based-on-boxplots" class="section level2">
 <h2 class="hasAnchor">
 <a href="#distance-based-on-boxplots" class="anchor"></a>Distance based on boxplots</h2>
 <p><code>box_dist</code> is a distance metric which works for side-by-side boxplots with two levels. The first quartile, median and the third quartile are calculated for each box and the absolute distances of these are calculated for the two boxes. <code>box_dist</code> calculates the euclidean distance between these absolute distances for the two plots. The boxplot distance should be used in situations where a side-by-side boxplot is used to compare the distribution of a variable at two different levels.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(mtcars, <span class="kw"><a href="../reference/box_dist.html">box_dist</a></span>(<span class="kw">data.frame</span>(<span class="kw">as.factor</span>(am), mpg),  <span class="kw">data.frame</span>(<span class="kw">as.factor</span>(<span class="kw"><a href="http://dplyr.tidyverse.org/reference/sample.html">sample</a></span>(am)), mpg)))</code></pre></div>
-<pre><code>## [1] 12.76029</code></pre>
+<pre><code>## [1] 13.3441</code></pre>
 </div>
 <div id="distance-based-on-separation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#distance-based-on-separation" class="anchor"></a>Distance based on separation</h2>
 <p><code>sep_dist</code> is a distance metric based on the separation between clusters. The separation between clusters is defined by the minimum distances of a point in the cluster to a point in another cluster. The separation between the clusters for a given dataset is calculated. An euclidean distance is calculated between the separation for the given dataset and another dataset. The number of clusters in the dataset should be provided. If not, the hierarchical clustering method is used to obtain the clusters.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(mtcars, <span class="kw"><a href="../reference/sep_dist.html">sep_dist</a></span>(<span class="kw">data.frame</span>(wt, mpg,  <span class="kw">as.numeric</span>(<span class="kw">as.factor</span>(mtcars<span class="op">$</span>cyl))), <span class="kw">data.frame</span>(<span class="kw"><a href="http://dplyr.tidyverse.org/reference/sample.html">sample</a></span>(wt), mpg,  <span class="kw">as.numeric</span>(<span class="kw">as.factor</span>(mtcars<span class="op">$</span>cyl))), <span class="dt">nclust =</span> <span class="dv">3</span>))</code></pre></div>
-<pre><code>## [1] 1.074993</code></pre>
+<pre><code>## [1] 0.5821664</code></pre>
 </div>
 <div id="binned-distance" class="section level2">
 <h2 class="hasAnchor">
 <a href="#binned-distance" class="anchor"></a>Binned Distance</h2>
 <p><code>bin_dist</code> is a generic distance which works for any situation for any dataset. For a given bivariate dataset, X and Y variables are divided into p and q bins respectively to obtain pq cells. The number of points falling in each cell are counted for a given dataset. <code>bin_dist</code> between two datasets calculates the euclidean distance between the cell counts of these two data. The values of p and q should be provided as arguments.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(mtcars, <span class="kw"><a href="../reference/bin_dist.html">bin_dist</a></span>(<span class="kw">data.frame</span>(wt, mpg), <span class="kw">data.frame</span>(<span class="kw"><a href="http://dplyr.tidyverse.org/reference/sample.html">sample</a></span>(wt), mpg), <span class="dt">lineup.dat =</span> <span class="ot">NULL</span>, <span class="dt">X.bin =</span> <span class="dv">5</span>, <span class="dt">Y.bin =</span> <span class="dv">5</span>))</code></pre></div>
-<pre><code>## [1] 8.3666</code></pre>
+<pre><code>## [1] 10.0995</code></pre>
 </div>
 <div id="calculating-the-mean-distances-for-the-plots-in-the-lineup" class="section level2">
 <h2 class="hasAnchor">
@@ -149,33 +152,33 @@
 <pre><code>## # A tibble: 20 x 2
 ##    plotno mean.dist
 ##     &lt;int&gt;     &lt;dbl&gt;
-##  1      1    0.0590
-##  2      2    0.0356
-##  3      3    0.0815
-##  4      4    0.0351
-##  5      5    0.126 
-##  6      6    0.0585
-##  7      7    0.240 
-##  8      8    0.0690
-##  9      9    0.129 
-## 10     10    0.655 
-## 11     11    0.127 
-## 12     12    0.0694
-## 13     13    0.0483
-## 14     14    0.0351
-## 15     15    0.0378
-## 16     16    0.0365
-## 17     17    0.0352
-## 18     18    0.0351
-## 19     19    0.0350
-## 20     20    0.0361</code></pre>
+##  1      1    0.0475
+##  2      2    0.0437
+##  3      3    0.0796
+##  4      4    0.200 
+##  5      5    0.0444
+##  6      6    0.0748
+##  7      7    0.193 
+##  8      8    0.0438
+##  9      9    0.0465
+## 10     10    0.748 
+## 11     11    0.0429
+## 12     12    0.0598
+## 13     13    0.177 
+## 14     14    0.0874
+## 15     15    0.0427
+## 16     16    0.0424
+## 17     17    0.0800
+## 18     18    0.0772
+## 19     19    0.0786
+## 20     20    0.123</code></pre>
 </div>
 <div id="calculating-difference-measure-for-lineups" class="section level2">
 <h2 class="hasAnchor">
 <a href="#calculating-difference-measure-for-lineups" class="anchor"></a>Calculating difference measure for lineups</h2>
 <p>The mean distances for each plot in the lineup are obtained using <code>calc_mean_dist</code>.<code>calc_diff</code> calculates the difference between the mean distance for the true plot and the maximum mean distance for the null plots.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/calc_diff.html">calc_diff</a></span>(<span class="kw"><a href="../reference/lineup.html">lineup</a></span>(<span class="kw"><a href="../reference/null_permute.html">null_permute</a></span>(<span class="st">'mpg'</span>), mtcars, <span class="dt">pos =</span> <span class="dv">10</span>), <span class="dt">var =</span> <span class="kw">c</span>(<span class="st">'mpg'</span>, <span class="st">'wt'</span>), <span class="dt">met =</span> <span class="st">'reg_dist'</span>, <span class="dt">dist.arg =</span> <span class="ot">NULL</span>, <span class="dt">pos =</span> <span class="dv">10</span>)</code></pre></div>
-<pre><code>## [1] 0.6715223</code></pre>
+<pre><code>## [1] 0.6410556</code></pre>
 </div>
 <div id="optimum-number-of-bins" class="section level2">
 <h2 class="hasAnchor">
@@ -200,18 +203,18 @@ opt.diff<span class="op">$</span>p</code></pre></div>
 <pre><code>## # A tibble: 6 x 2
 ##   plotno mean.dist
 ##    &lt;int&gt;     &lt;dbl&gt;
-## 1      1    0.172 
-## 2      2    0.0403
-## 3      3    0.0614
-## 4      4    0.0761
-## 5      5    0.0355
-## 6      6    0.0634</code></pre>
+## 1      1    0.0461
+## 2      2    0.0460
+## 3      3    0.0297
+## 4      4    0.0267
+## 5      5    0.0235
+## 6      6    0.0761</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dist.vals<span class="op">$</span>diff</code></pre></div>
-<pre><code>## [1] 0.5543271</code></pre>
+<pre><code>## [1] 0.5665642</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(dist.vals<span class="op">$</span>closest)</code></pre></div>
-<pre><code>## [1]  1 13 11 15  4</code></pre>
+<pre><code>## [1] 16  7  6 17  8</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(dist.vals<span class="op">$</span>null_values)</code></pre></div>
-<pre><code>## [1] 0.03572260 0.02776760 0.03556479 0.04380780 0.04851546 0.04838941</code></pre>
+<pre><code>## [1] 0.07082498 0.23550247 0.02984989 0.05904010 0.06292540 0.01825143</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dist.vals<span class="op">$</span>pos</code></pre></div>
 <pre><code>## [1] 10</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dist.vals &lt;-<span class="st"> </span><span class="kw"><a href="../reference/distmet.html">distmet</a></span>(lineup.dat, <span class="dt">var =</span> <span class="kw">c</span>(<span class="st">'mpg'</span>, <span class="st">'wt'</span>),<span class="st">'bin_dist'</span>, <span class="kw"><a href="../reference/null_permute.html">null_permute</a></span>(<span class="st">'mpg'</span>), <span class="dt">pos =</span> <span class="dv">10</span>, <span class="dt">repl =</span> <span class="dv">100</span>, <span class="dt">dist.arg =</span> <span class="kw">list</span>(<span class="dt">lineup.dat =</span> lineup.dat, <span class="dt">X.bin =</span> <span class="dv">5</span>, <span class="dt">Y.bin =</span> <span class="dv">5</span>)) </code></pre></div>
@@ -266,7 +269,7 @@ opt.diff<span class="op">$</span>p</code></pre></div>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

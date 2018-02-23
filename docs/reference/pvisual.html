@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,18 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="P-value calculations. — pvisual" />
+
+<meta property="og:description" content="These set of functions allow the user to calculate a p-value from the lineup after
+it has been evaluated by K independent observers. The different functions
+accommodate different lineup construction and showing to observers.
+Details are in the papers Majumder et al (2012) JASA, and Hofmann et al (2015).
+We distinguish between three different scenarios:
+Scenario I: in each of K evaluations a different data set and a different set of (m-1) null plots is shown.
+Scenario II: in each of K evaluations the same data set but a different set of (m-1) null plots is shown.
+Scenario III: the same lineup, i.e. same data and same set of null plots, is shown to K different observers.
+" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -156,7 +170,7 @@ We distinguish between three different scenarios:</p><ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>pvisual</span>(<span class='fl'>15</span>, <span class='fl'>20</span>, <span class='kw'>m</span><span class='kw'>=</span><span class='fl'>3</span>) <span class='co'># triangle test</span></div><div class='output co'>#&gt;       x simulated       binom
-#&gt; [1,] 15    0.0402 0.000167366</div></pre>
+#&gt; [1,] 15    0.0387 0.000167366</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -177,7 +191,7 @@ We distinguish between three different scenarios:</p><ul>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

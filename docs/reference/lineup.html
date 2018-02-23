@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,16 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="The line-up protocol. — lineup" />
+
+<meta property="og:description" content="In this protocol the plot of the real data is embedded amongst a field of
+plots of data generated to be consistent with some null hypothesis.
+If the observe can pick the real data as different from the others, this
+lends weight to the statistical significance of the structure in the plot.
+The protocol is described in Buja, Cook, Hofmann, Lawrence,
+Lee, Swayne, Wickham (2009) Statistical inference for exploratory data
+analysis and model diagnostics, Phil. Trans. R. Soc. A, 367, 4361-4383." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -152,9 +164,9 @@ established that it is different to with p-value 1/n.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>ggplot</span>(<span class='fu'>lineup</span>(<span class='fu'><a href='null_permute.html'>null_permute</a></span>(<span class='st'>'mpg'</span>), <span class='no'>mtcars</span>), <span class='fu'>aes</span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) +
   <span class='fu'>geom_point</span>() +
-  <span class='fu'>facet_wrap</span>(~ <span class='no'>.sample</span>)</div><div class='output co'>#&gt; <span class='message'>decrypt("ohLI sZpZ 7e vwk7p7we fq")</span></div><div class='img'><img src='lineup-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>ggplot</span>(<span class='fu'>lineup</span>(<span class='fu'><a href='null_permute.html'>null_permute</a></span>(<span class='st'>'cyl'</span>), <span class='no'>mtcars</span>),
+  <span class='fu'>facet_wrap</span>(~ <span class='no'>.sample</span>)</div><div class='output co'>#&gt; <span class='message'>decrypt("jOGF QtTt db PcrdTdcb 27")</span></div><div class='img'><img src='lineup-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'>ggplot</span>(<span class='fu'>lineup</span>(<span class='fu'><a href='null_permute.html'>null_permute</a></span>(<span class='st'>'cyl'</span>), <span class='no'>mtcars</span>),
        <span class='fu'>aes</span>(<span class='no'>mpg</span>, <span class='no'>.sample</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'>factor</span>(<span class='no'>cyl</span>))) +
-       <span class='fu'>geom_point</span>()</div><div class='output co'>#&gt; <span class='message'>decrypt("ohLI sZpZ 7e vwk7p7we fB")</span></div><div class='img'><img src='lineup-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
+       <span class='fu'>geom_point</span>()</div><div class='output co'>#&gt; <span class='message'>decrypt("jOGF QtTt db PcrdTdcb 2p")</span></div><div class='img'><img src='lineup-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -175,7 +187,7 @@ established that it is different to with p-value 1/n.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

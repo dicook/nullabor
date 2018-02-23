@@ -21,10 +21,13 @@ Depends:
 Imports:
     MASS,
     plyr,
-    dplyr,
+    tidyverse,
+    rlang,
     moments,
     fpc,
-    stringr
+    stringr,
+    tsibble,
+    forecast
 Suggests:
     reshape2,
     knitr
