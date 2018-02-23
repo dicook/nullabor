@@ -69,7 +69,7 @@ lineup <- function(method, true = NULL, n = 20, pos = sample(n, 1), samples = NU
 
     if (is.null(samples)) {
         for (i in 1:(n-1))
-          samples <- dplyr::bind_rows(samples, bind_cols(.n=rep(i, nrow(true)), method(true)))
+          samples <- dplyr::bind_rows(samples, dplyr::bind_cols(.n=rep(i, nrow(true)), method(true)))
         #samples <- plyr::rdply(n - 1, method(true))
     }
     if (missing(pos)) {
