@@ -10,8 +10,8 @@ Author: Hadley Wickham <h.wickham@gmail.com>, Niladri Roy Chowdhury
 Authors@R: c(
     person("Hadley", "Wickham", email = "h.wickham@gmail.com", role = c("aut", "cre")),
     person("Niladri Roy", "Chowdhury", email = "niladri.ia@gmail.com", role = c("aut", "ctb")),
-    person("Cook", "Di", email = "dicook@iastate.edu", role = c("aut", "ctb")),
-    person("Hofmann", "Heike", email = "hofmann@iastate.edu", role = c("aut", "ctb"))
+    person("Di", "Cook", email = "dicook@iastate.edu", role = c("aut", "ctb")),
+    person("Heike", "Hofmann", email = "hofmann@iastate.edu", role = c("aut", "ctb"))
   )
 Maintainer: Di Cook <dicook@iastate.edu>
 License: GPL (>= 2)
