@@ -18,12 +18,10 @@ License: GPL (>= 2)
 URL: http://github.com/dicook/nullabor
 Imports:
     MASS,
-    plyr,
     tidyverse,
     rlang,
     moments,
     fpc,
-    stringr,
     tsibble,
     forecast
 Suggests:

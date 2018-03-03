@@ -20,7 +20,8 @@ rorschach <- function(method, true = NULL, n = 20, p = 0) {
         n <- n - 1
     }
 
-    samples <- plyr::rdply(n, method(true))
+    samples <- data.frame(.n = seq_len(n),
+                          V1 = unlist(purrr::rerun(n, method(true))))
     if (show_true) {
         pos <- sample(n + 1, 1)
         message(encrypt("True data in position ", pos+10))
@@ -68,8 +69,8 @@ lineup <- function(method, true = NULL, n = 20, pos = sample(n, 1), samples = NU
     true <- find_plot_data(true)
 
     if (is.null(samples)) {
-        for (i in 1:(n-1))
-          samples <- dplyr::bind_rows(samples, dplyr::bind_cols(.n=rep(i, nrow(true)), method(true)))
+        samples <- data.frame(.n = seq_len(n - 1),
+                              V1 = unlist(purrr::rerun(n - 1, method(true))))
         #samples <- plyr::rdply(n - 1, method(true))
     }
     if (missing(pos)) {
@@ -85,7 +86,7 @@ add_true <- function(samples, true, pos) {
     samples$.n <- NULL
     true$.sample <- pos
 
-    all <- plyr::rbind.fill(samples, true)
+    all <- dplyr::bind_rows(samples, true)
     attr(all, "pos") <- pos
     all[order(all$.sample), ]
 }

@@ -96,10 +96,10 @@ uni_dist <- function(X, PX) {
     if (is.data.frame(X) & is.data.frame(PX)) {
         xx <- X[, 1]
         yy <- PX[, 1]
-    } else if (is.data.frame(X) & !is.data.frame(PX)) {
+    } else if (is.data.frame(X) && !is.data.frame(PX)) {
         xx <- X[, 1]
         yy <- PX
-    } else if (!is.data.frame(X) & is.data.frame(PX)) {
+    } else if (!is.data.frame(X) && is.data.frame(PX)) {
         xx <- X
         yy <- PX[, 1]
     } else {

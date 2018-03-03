@@ -24,10 +24,10 @@
 pvisual <- function(x, K, m=20, N=10000, type="scenario3", xp=1, target=1, upper.tail=TRUE) {
   freq <- get(type)(N=N, K=K, m=m, xp=xp, target=target)
   if (upper.tail) {
-    sim <- sapply(x, function(y) sum(freq[as.numeric(names(freq)) >= y]))
+    sim <- vapply(x, function(y) sum(freq[as.numeric(names(freq)) >= y]), numeric(1))
     return(cbind(x=x, "simulated"=sim, "binom"=1-pbinom(x-1, size=K, prob=1/m)))
   } else {
-    sim <- sapply(x, function(y) sum(freq[as.numeric(names(freq)) < y]))
+    sim <- vapply(x, function(y) sum(freq[as.numeric(names(freq)) < y]), numeric(1))
     return(cbind(x=x, "simulated"=sim, "binom"= pbinom(x-1, size=K, prob=1/m)))
   }
 }
@@ -36,14 +36,14 @@ pickData <- function(m, xp=1, dataprob=NULL, nulls=NULL) {
   probs <- runif(m)
   n.targets = length(dataprob)
   if (!is.null(dataprob)) {
-    probs[1:n.targets] <- dataprob
+    probs[seq_len(n.targets)] <- dataprob
   }
   if (!is.null(nulls)) probs[(n.targets+1):m] <- nulls
   #  sample(m, size=1, prob=1-probs)
   #  rbinom(1, size=1, prob=f(probs))
   ps <- (1-probs)^xp
   if (all (ps==0)) ps <- rep(1, length(probs))
-  rbinom(1, size=1, prob=sum(ps[1:n.targets])/sum(ps))
+  rbinom(1, size=1, prob=sum(ps[seq_len(n.targets)])/sum(ps))
 }
 
 scenario1 <- function(N, K, m = 20, xp=1, target=1) {
@@ -87,11 +87,9 @@ scenario4 <- function(N, K, m=20, xp=1, target=1) {
     n.targets = length(target)
     dataprob <- runif(n.targets)
 
-    individual <- rep(NA, length(K))
-    for (i in 1:length(K)) {
-      nulls <- runif(m-n.targets)
-      individual[i] <- sum(replicate(K[i], pickData(m, dataprob=dataprob, nulls=nulls, xp=xp)) %in% target)
-    }
+    individual <- vapply(seq_along(K),
+                         function(i) sum(replicate(K[i], pickData(m, dataprob=dataprob, nulls=runif(m-n.targets), xp=xp)) %in% target),
+                         numeric(1))
     sum(individual)
   })
   table(res)/N
