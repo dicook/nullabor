@@ -113,7 +113,7 @@ margins &lt;-<span class="st"> </span>electoral<span class="op">$</span>polls
 
 sim1 &lt;-<span class="st"> </span><span class="kw">simPoll</span>(margins)
 <span class="kw">sum</span>(sim1<span class="op">$</span>Electoral.Votes[sim1<span class="op">$</span>Democrat])</code></pre></div>
-<pre><code>## [1] 290</code></pre>
+<pre><code>## [1] 285</code></pre>
 <p>Because the <code>simPoll</code> function returns a data set of exactly the same form as the original data, we can use this function as a method in the <code>lineup</code> call to get a set of simulations together with the polling results. Because we want to keep track of the position of the real data, we set the position ourselves (but keep it secret for now by using a random position).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pos &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">20</span>,<span class="dv">1</span>)
 lpdata &lt;-<span class="st"> </span>nullabor<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/nullabor/topics/lineup">lineup</a></span>(<span class="dt">method =</span> simPoll, <span class="dt">true=</span>margins, <span class="dt">n=</span><span class="dv">20</span>, <span class="dt">pos=</span>pos)
@@ -121,12 +121,12 @@ lpdata &lt;-<span class="st"> </span>nullabor<span class="op">::</span><span cla
 <pre><code>## [1] 1020    5</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(lpdata)</code></pre></div>
 <pre><code>##         State     Electoral.Votes     Margin          Democrat      
-##  Alabama   : 20   Min.   : 3.00   Min.   : 0.03899   Mode :logical  
-##  Alaska    : 20   1st Qu.: 4.00   1st Qu.: 6.43390   FALSE:517      
-##  Arizona   : 20   Median : 8.00   Median :13.51958   TRUE :503      
-##  Arkansas  : 20   Mean   :10.55   Mean   :15.86088                  
-##  California: 20   3rd Qu.:12.00   3rd Qu.:21.45178                  
-##  Colorado  : 20   Max.   :55.00   Max.   :90.63927                  
+##  Alabama   : 20   Min.   : 3.00   Min.   : 0.03675   Mode :logical  
+##  Alaska    : 20   1st Qu.: 4.00   1st Qu.: 6.65462   FALSE:533      
+##  Arizona   : 20   Median : 8.00   Median :13.28693   TRUE :487      
+##  Arkansas  : 20   Mean   :10.55   Mean   :15.86033                  
+##  California: 20   3rd Qu.:12.00   3rd Qu.:21.89971                  
+##  Colorado  : 20   Max.   :55.00   Max.   :94.03698                  
 ##  (Other)   :900                                                     
 ##     .sample     
 ##  Min.   : 1.00  
@@ -167,7 +167,7 @@ dframe<span class="op">$</span>diff &lt;-<span class="st"> </span><span class="k
 <span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">ggtitle</a></span>(<span class="st">"Which of these panels looks the most different?"</span>)</code></pre></div>
 <p><img src="nullabor-examples_files/figure-html/unnamed-chunk-6-1.png" width="576" style="display:block; margin: auto"> Try to decide for yourself! Which plot looks the most different in this lineup? Once you have choosen, you can compare it to the number below:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pos</code></pre></div>
-<pre><code>## [1] 6</code></pre>
+<pre><code>## [1] 17</code></pre>
 </div>
 </div>
   </div>
@@ -187,7 +187,7 @@ dframe<span class="op">$</span>diff &lt;-<span class="st"> </span><span class="k
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="http://hadley.nz">Hadley Wickham</a>, Niladri Roy Chowdhury, Cook Di, Hofmann Heike.</p>
+  <p>Developed by <a href="http://hadley.nz">Hadley Wickham</a>, Niladri Roy Chowdhury, Di Cook, Heike Hofmann.</p>
 </div>
 
 <div class="pkgdown">

@@ -9,9 +9,9 @@ dists <- c(beta = "beta", cauchy = "cauchy", `chi-squared` = "chisq", exponentia
 #' Null hypothesis: variable has specified distribution
 #'
 #' @param var variable name
-#' @param dist distribution name. One of: beta, cauchy, chi-squared,
-#'   exponential, f, gamma, geometric, log-normal, lognormal, logistic,
-#'   negative binomial, normal, poisson, t, weibull
+#' @param dist distribution name. One of: beta, cauchy, chisq,
+#'   exp, f, gamma, geom, lnorm, logis,
+#'   nbinom, binom, norm, pois, t, unif, weibull
 #' @param params list of parameters of distribution. If \code{NULL}, will
 #'   use \code{\link[MASS]{fitdistr}} to estimate them.
 #' @return a function that given \code{data} generates a null data set.

@@ -20,6 +20,11 @@
 #'   facet_wrap(~.sample, scales="free_y") +
 #'   theme(axis.text = element_blank()) +
 #'   xlab("") + ylab("")
+#' l_dif <- l %>%
+#'   group_by(.sample) %>%
+#'   mutate(d=c(NA,diff(rate))) %>%
+#'   ggplot(aes(x=d)) + geom_density() +
+#'   facet_wrap(~.sample)
 null_ts <- function(var, modelfn) {
   function(df) {
     ts <- as.ts(df[[var]])
