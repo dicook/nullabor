@@ -22,7 +22,7 @@ rorschach <- function(method, true = NULL, n = 20, p = 0) {
     samples <- tibble(
       .n = seq_len(n),
       data = purrr::rerun(n, method(true)))
-    samples <- samples %>% tidyr::unnest(data)
+    samples <- samples %>% tidyr::unnest(data) %>% data.frame()
 #        samples <- plyr::rdply(n, method(true))
 
     if (show_true) {
@@ -75,8 +75,7 @@ lineup <- function(method, true = NULL, n = 20, pos = sample(n, 1), samples = NU
       samples <- tibble(
         .n = seq_len(n-1),
         data = purrr::rerun(n-1, method(true)))
-      samples <- samples %>% tidyr::unnest(data)
-
+      samples <- samples %>% tidyr::unnest(data) %>% data.frame()
 #      samples <- plyr::rdply(n - 1, method(true))
     }
     if (missing(pos)) {

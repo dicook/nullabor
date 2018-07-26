@@ -23,7 +23,9 @@ Imports:
     moments,
     fpc,
     tsibble,
-    forecast
+    forecast,
+    ggplot2,
+    dplyr
 Suggests:
     reshape2,
     knitr

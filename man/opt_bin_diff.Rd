@@ -41,5 +41,6 @@ difference is maximum should be used.
 \examples{
 if(require('dplyr')){
 opt_bin_diff(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg', 'wt'),
-2, 5, 4, 8, pos = 1, plot = TRUE, m = 8)}
+2, 5, 4, 8, pos = 1, plot = TRUE, m = 8)
+}
 }
