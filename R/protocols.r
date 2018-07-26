@@ -14,6 +14,7 @@
 #' @param p probability of including true data with null data.
 #' @importFrom purrr rerun
 #' @importFrom tidyr unnest
+#' @importFrom tibble tibble
 rorschach <- function(method, true = NULL, n = 20, p = 0) {
     true <- find_plot_data(true)
     show_true <- rbinom(1, 1, p) == 1
@@ -24,7 +25,7 @@ rorschach <- function(method, true = NULL, n = 20, p = 0) {
     samples <- tibble(
       .n = seq_len(n),
       data = purrr::rerun(n, method(true)))
-    samples <- samples %>% tidyr::unnest(data) %>% data.frame()
+    samples <- data.frame(tidyr::unnest(samples, data))
 #        samples <- plyr::rdply(n, method(true))
 
     if (show_true) {
@@ -62,6 +63,7 @@ rorschach <- function(method, true = NULL, n = 20, p = 0) {
 #'   \code{\link{decrypt}} to understand.
 #' @param samples samples generated under the null hypothesis. Only specify
 #'   this if you don't want lineup to generate the data for you.
+#' @importFrom tibble tibble
 #' @export
 #' @examples
 #' ggplot(lineup(null_permute('mpg'), mtcars), aes(mpg, wt)) +
@@ -77,7 +79,7 @@ lineup <- function(method, true = NULL, n = 20, pos = sample(n, 1), samples = NU
       samples <- tibble(
         .n = seq_len(n-1),
         data = purrr::rerun(n-1, method(true)))
-      samples <- samples %>% tidyr::unnest(data) %>% data.frame()
+      samples <- data.frame(tidyr::unnest(samples, data))
 #      samples <- plyr::rdply(n - 1, method(true))
     }
     if (missing(pos)) {

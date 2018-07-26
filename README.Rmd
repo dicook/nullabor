@@ -1,6 +1,15 @@
 ---
+title: "nullabor: lineup and Rorschach plots for visual inference"
+author: "Di Cook, Hadley Wickham, Niladri Roy Chowdhury, Heike Hofmann"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
 output: github_document
 ---
+
+
+[![packageversion](https://img.shields.io/badge/Package%20version-0.0.1-orange.svg?style=flat-square)](commits/master)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![Travis-CI Build Status](https://travis-ci.org/dicook/nullabor.svg?branch=master)](https://travis-ci.org/dicook/nullabor)
+[![Last-changedate](https://img.shields.io/badge/last%20change-`r gsub('-', '--', Sys.Date())`-yellowgreen.svg)](/commits/master)
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -12,7 +21,9 @@ knitr::opts_chunk$set(
 )
 ```
 
+<!--
 # nullabor <img src="man/figures/nullabor_hex.png" align="right" width="150" />
+-->
 
 Tools for graphical inference: prevent fooling yourself with the Rorschach
 protocol and check the surprising features in your data with the lineup

@@ -1,7 +1,11 @@
-<!--
-%\VignetteEngine{knitr::docco_linear}
-%\VignetteIndexEntry{An Introduction to the nullabor package}
--->
+---
+title: "Example lineups"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEngine{knitr::docco_linear}
+  %\VignetteIndexEntry{Example lineups in nullabor}
+  %\VignetteEncoding{UTF-8}
+---  
 
 Example lineups in nullabor 
 =======================================

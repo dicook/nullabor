@@ -1,7 +1,12 @@
-<!--
-%\VignetteEngine{knitr::docco_linear}
-%\VignetteIndexEntry{An Introduction to the nullabor package}
--->
+---
+title: "An Introduction to the nullabor package"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEngine{knitr::docco_linear}
+  %\VignetteIndexEntry{An Introduction to the nullabor package}
+  %\VignetteEncoding{UTF-8}
+---  
+
 
 An introduction to the **nullabor** package
 =======================================

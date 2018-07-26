@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/united/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -21,12 +21,15 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Finds the number of bins in x and y direction which gives the maximum binned distance. — opt_bin_diff" />
 
 <meta property="og:description" content="This function finds the optimal number of bins in both x and y direction which should
@@ -35,6 +38,9 @@ combination of provided choices of number of bins in x and y direction and finds
 difference using calc_diff for each combination. The combination for which the
 difference is maximum should be used." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -57,8 +63,12 @@ difference is maximum should be used." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">nullabor</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">nullabor</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.3</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -68,7 +78,7 @@ difference is maximum should be used." />
   </a>
 </li>
 <li>
-  <a href="../articles/nullabor.html">Get Started</a>
+  <a href="../articles/nullabor.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -81,10 +91,10 @@ difference is maximum should be used." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/distances.html">UNKNOWN TITLE</a>
+      <a href="../articles/distances.html">Distances between null and data plots</a>
     </li>
     <li>
-      <a href="../articles/nullabor-examples.html">UNKNOWN TITLE</a>
+      <a href="../articles/nullabor-examples.html">Example lineups</a>
     </li>
   </ul>
 </li>
@@ -98,6 +108,7 @@ difference is maximum should be used." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -105,12 +116,15 @@ difference is maximum should be used." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Finds the number of bins in x and y direction which gives the maximum binned distance.</h1>
+    <small class="dont-index">Source: <a href='http://github.com/dicook/nullabor/blob/master/R/opt_diff.r'><code>R/opt_diff.r</code></a></small>
+    <div class="hidden name"><code>opt_bin_diff.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>This function finds the optimal number of bins in both x and y direction which should
 be used to calculate the binned distance. The binned distance is calculated for each
@@ -118,11 +132,12 @@ combination of provided choices of number of bins in x and y direction and finds
 difference using <code>calc_diff</code> for each combination. The combination for which the
 difference is maximum should be used.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>opt_bin_diff</span>(<span class='no'>lineup.dat</span>, <span class='no'>var</span>, <span class='no'>xlow</span>, <span class='no'>xhigh</span>, <span class='no'>ylow</span>, <span class='no'>yhigh</span>, <span class='no'>pos</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>m</span> <span class='kw'>=</span> <span class='fl'>20</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -173,33 +188,34 @@ the maximum mean distance of the null plots</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span>(<span class='fu'>require</span>(<span class='st'>'dplyr'</span>)){
 <span class='fu'>opt_bin_diff</span>(<span class='fu'><a href='lineup.html'>lineup</a></span>(<span class='fu'><a href='null_permute.html'>null_permute</a></span>(<span class='st'>'mpg'</span>), <span class='no'>mtcars</span>, <span class='kw'>pos</span> <span class='kw'>=</span> <span class='fl'>1</span>), <span class='kw'>var</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>'mpg'</span>, <span class='st'>'wt'</span>),
-<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>4</span>, <span class='fl'>8</span>, <span class='kw'>pos</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>m</span> <span class='kw'>=</span> <span class='fl'>8</span>)}</div><div class='output co'>#&gt; $dat
+<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>4</span>, <span class='fl'>8</span>, <span class='kw'>pos</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>m</span> <span class='kw'>=</span> <span class='fl'>8</span>)
+}</div><div class='output co'>#&gt; $dat
 #&gt; # A tibble: 20 x 3
 #&gt; # Groups:   xbins [4]
-#&gt;    xbins ybins   Diff
-#&gt;    &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;
-#&gt;  1     2     4 -0.647
-#&gt;  2     2     5 -0.647
-#&gt;  3     2     6 -0.629
-#&gt;  4     2     7 -0.647
-#&gt;  5     2     8 -0.647
-#&gt;  6     3     4  0.431
-#&gt;  7     3     5  0.431
-#&gt;  8     3     6  0.216
-#&gt;  9     3     7  0.431
-#&gt; 10     3     8  0.431
-#&gt; 11     4     4  0.387
-#&gt; 12     4     5  0.387
-#&gt; 13     4     6  0.223
-#&gt; 14     4     7  0.387
-#&gt; 15     4     8  0.387
-#&gt; 16     5     4  0.879
-#&gt; 17     5     5  0.879
-#&gt; 18     5     6  0.484
-#&gt; 19     5     7  0.879
-#&gt; 20     5     8  0.879
+#&gt;    xbins ybins    Diff
+#&gt;    &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;
+#&gt;  1     2     4 -0.846 
+#&gt;  2     2     5 -0.846 
+#&gt;  3     2     6 -0.874 
+#&gt;  4     2     7 -0.846 
+#&gt;  5     2     8 -0.846 
+#&gt;  6     3     4  0.513 
+#&gt;  7     3     5  0.513 
+#&gt;  8     3     6 -0.167 
+#&gt;  9     3     7  0.513 
+#&gt; 10     3     8  0.513 
+#&gt; 11     4     4  0.300 
+#&gt; 12     4     5  0.300 
+#&gt; 13     4     6 -0.140 
+#&gt; 14     4     7  0.300 
+#&gt; 15     4     8  0.300 
+#&gt; 16     5     4  0.542 
+#&gt; 17     5     5  0.542 
+#&gt; 18     5     6  0.0651
+#&gt; 19     5     7  0.542 
+#&gt; 20     5     8  0.542 
 #&gt; 
-#&gt; $p</div><div class='img'><img src='opt_bin_diff-1.png' alt='' width='700' height='432.632880098887' /></div><div class='output co'>#&gt; </div></pre>
+#&gt; $p</div><div class='img'><img src='opt_bin_diff-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -216,7 +232,7 @@ the maximum mean distance of the null plots</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Niladri Roy Chowdhury, Di Cook, Heike Hofmann.</p>
+  <p>Developed by Di Cook, <a href='http://hadley.nz'>Hadley Wickham</a>, Niladri Roy Chowdhury, Heike Hofmann.</p>
 </div>
 
 <div class="pkgdown">
@@ -226,5 +242,8 @@ the maximum mean distance of the null plots</p>
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+
