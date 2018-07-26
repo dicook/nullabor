@@ -69,9 +69,9 @@ lineup <- function(method, true = NULL, n = 20, pos = sample(n, 1), samples = NU
     true <- find_plot_data(true)
 
     if (is.null(samples)) {
-        samples <- data.frame(.n = seq_len(n - 1),
-                              V1 = unlist(purrr::rerun(n - 1, method(true))))
-        #samples <- plyr::rdply(n - 1, method(true))
+        #samples <- data.frame(.n = seq_len(n - 1),
+        #                      V1 = unlist(purrr::rerun(n - 1, method(true))))
+        samples <- plyr::rdply(n - 1, method(true))
     }
     if (missing(pos)) {
         message("decrypt(\"", encrypt("True data in position ", pos+10), "\")")
