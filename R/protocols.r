@@ -12,6 +12,8 @@
 #'   will attempt to extract it from the current ggplot2 plot.
 #' @param n total number of samples to generate (including true data)
 #' @param p probability of including true data with null data.
+#' @importFrom purrr rerun
+#' @importFrom tidyr unnest
 rorschach <- function(method, true = NULL, n = 20, p = 0) {
     true <- find_plot_data(true)
     show_true <- rbinom(1, 1, p) == 1

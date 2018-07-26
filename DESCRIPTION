@@ -25,7 +25,9 @@ Imports:
     tsibble,
     forecast,
     ggplot2,
-    dplyr
+    dplyr,
+    purrr,
+    tidyr
 Suggests:
     reshape2,
     knitr
