@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/united/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -21,12 +21,15 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="The Rorschach protocol. — rorschach" />
 
 <meta property="og:description" content="This protocol is used to calibrate the eyes for variation due to sampling.
@@ -35,6 +38,9 @@ hypothesis. The protocol is described in Buja, Cook, Hofmann, Lawrence,
 Lee, Swayne, Wickham (2009) Statistical inference for exploratory data
 analysis and model diagnostics, Phil. Trans. R. Soc. A, 367, 4361-4383." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -57,8 +63,12 @@ analysis and model diagnostics, Phil. Trans. R. Soc. A, 367, 4361-4383." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">nullabor</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">nullabor</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.3</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -68,7 +78,7 @@ analysis and model diagnostics, Phil. Trans. R. Soc. A, 367, 4361-4383." />
   </a>
 </li>
 <li>
-  <a href="../articles/nullabor.html">Get Started</a>
+  <a href="../articles/nullabor.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -81,10 +91,10 @@ analysis and model diagnostics, Phil. Trans. R. Soc. A, 367, 4361-4383." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/distances.html">UNKNOWN TITLE</a>
+      <a href="../articles/distances.html">Distances between null and data plots</a>
     </li>
     <li>
-      <a href="../articles/nullabor-examples.html">UNKNOWN TITLE</a>
+      <a href="../articles/nullabor-examples.html">Example lineups</a>
     </li>
   </ul>
 </li>
@@ -98,6 +108,7 @@ analysis and model diagnostics, Phil. Trans. R. Soc. A, 367, 4361-4383." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -105,12 +116,15 @@ analysis and model diagnostics, Phil. Trans. R. Soc. A, 367, 4361-4383." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>The Rorschach protocol.</h1>
+    <small class="dont-index">Source: <a href='http://github.com/dicook/nullabor/blob/master/R/protocols.r'><code>R/protocols.r</code></a></small>
+    <div class="hidden name"><code>rorschach.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>This protocol is used to calibrate the eyes for variation due to sampling.
 All plots are typically null data sets, data that is consistent with a null
@@ -118,10 +132,11 @@ hypothesis. The protocol is described in Buja, Cook, Hofmann, Lawrence,
 Lee, Swayne, Wickham (2009) Statistical inference for exploratory data
 analysis and model diagnostics, Phil. Trans. R. Soc. A, 367, 4361-4383.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>rorschach</span>(<span class='no'>method</span>, <span class='kw'>true</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>p</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -156,7 +171,7 @@ will attempt to extract it from the current ggplot2 plot.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Niladri Roy Chowdhury, Di Cook, Heike Hofmann.</p>
+  <p>Developed by Di Cook, <a href='http://hadley.nz'>Hadley Wickham</a>, Niladri Roy Chowdhury, Heike Hofmann.</p>
 </div>
 
 <div class="pkgdown">
@@ -166,5 +181,8 @@ will attempt to extract it from the current ggplot2 plot.</p></td>
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

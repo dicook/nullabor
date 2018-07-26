@@ -90,7 +90,8 @@ calc_diff <- function(lineup.dat, var, met, pos, dist.arg = NULL, m = 20){
 #' @examples
 #' if(require('dplyr')){
 #' opt_bin_diff(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg', 'wt'),
-#' 2, 5, 4, 8, pos = 1, plot = TRUE, m = 8)}
+#' 2, 5, 4, 8, pos = 1, plot = TRUE, m = 8)
+#' }
 opt_bin_diff <- function(lineup.dat, var, xlow, xhigh, ylow, yhigh, pos, plot = FALSE, m = 20) {
 	Diff <- xbins <- ybins <- NULL
 	bins <- expand.grid(xbins = xlow:xhigh, ybins = ylow:yhigh)

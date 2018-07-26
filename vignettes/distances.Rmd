@@ -1,7 +1,11 @@
-<!--
-%\VignetteEngine{knitr::docco_linear}
-%\VignetteIndexEntry{An Introduction to the nullabor package}
--->
+---
+title: "Distances between null and data plots"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEngine{knitr::docco_linear}
+  %\VignetteIndexEntry{Distances between null and data plots}
+  %\VignetteEncoding{UTF-8}
+---  
 
 Examining distances between null and true data plots
 =======================================

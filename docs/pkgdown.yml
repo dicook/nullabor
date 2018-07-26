@@ -1,0 +1,8 @@
+pandoc: '2.2'
+pkgdown: 1.1.0
+pkgdown_sha: ~
+articles:
+  distances: distances.html
+  nullabor-examples: nullabor-examples.html
+  nullabor: nullabor.html
+

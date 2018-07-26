@@ -8,14 +8,15 @@ Author: Hadley Wickham <h.wickham@gmail.com>, Niladri Roy Chowdhury
     <niladri.ia@gmail.com>, Di Cook <dicook@iastate.edu>, Heike Hofmann
     <hofmann@iastate.edu>
 Authors@R: c(
-    person("Hadley", "Wickham", email = "h.wickham@gmail.com", role = c("aut", "cre")),
+    person("Di", "Cook", email = "dicook@iastate.edu", role = c("aut", "cre")),
+    person("Hadley", "Wickham", email = "h.wickham@gmail.com", role = c("aut", "ctb")),
     person("Niladri Roy", "Chowdhury", email = "niladri.ia@gmail.com", role = c("aut", "ctb")),
-    person("Di", "Cook", email = "dicook@iastate.edu", role = c("aut", "ctb")),
     person("Heike", "Hofmann", email = "hofmann@iastate.edu", role = c("aut", "ctb"))
   )
 Maintainer: Di Cook <dicook@iastate.edu>
 License: GPL (>= 2)
 URL: http://github.com/dicook/nullabor
+BugReports: http://github.com/dicook/nullabor/issues
 Imports:
     MASS,
     tidyverse,
@@ -23,7 +24,12 @@ Imports:
     moments,
     fpc,
     tsibble,
-    forecast
+    forecast,
+    ggplot2,
+    dplyr,
+    purrr,
+    tidyr,
+    tibble
 Suggests:
     reshape2,
     knitr

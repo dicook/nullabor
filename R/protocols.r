@@ -12,6 +12,9 @@
 #'   will attempt to extract it from the current ggplot2 plot.
 #' @param n total number of samples to generate (including true data)
 #' @param p probability of including true data with null data.
+#' @importFrom purrr rerun
+#' @importFrom tidyr unnest
+#' @importFrom tibble tibble
 rorschach <- function(method, true = NULL, n = 20, p = 0) {
     true <- find_plot_data(true)
     show_true <- rbinom(1, 1, p) == 1
@@ -19,9 +22,12 @@ rorschach <- function(method, true = NULL, n = 20, p = 0) {
     if (show_true) {
         n <- n - 1
     }
+    samples <- tibble(
+      .n = seq_len(n),
+      data = purrr::rerun(n, method(true)))
+    samples <- data.frame(tidyr::unnest(samples, data))
+#        samples <- plyr::rdply(n, method(true))
 
-    samples <- data.frame(.n = seq_len(n),
-                          V1 = unlist(purrr::rerun(n, method(true))))
     if (show_true) {
         pos <- sample(n + 1, 1)
         message(encrypt("True data in position ", pos+10))
@@ -57,6 +63,7 @@ rorschach <- function(method, true = NULL, n = 20, p = 0) {
 #'   \code{\link{decrypt}} to understand.
 #' @param samples samples generated under the null hypothesis. Only specify
 #'   this if you don't want lineup to generate the data for you.
+#' @importFrom tibble tibble
 #' @export
 #' @examples
 #' ggplot(lineup(null_permute('mpg'), mtcars), aes(mpg, wt)) +
@@ -69,9 +76,11 @@ lineup <- function(method, true = NULL, n = 20, pos = sample(n, 1), samples = NU
     true <- find_plot_data(true)
 
     if (is.null(samples)) {
-        #samples <- data.frame(.n = seq_len(n - 1),
-        #                      V1 = unlist(purrr::rerun(n - 1, method(true))))
-        samples <- plyr::rdply(n - 1, method(true))
+      samples <- tibble(
+        .n = seq_len(n-1),
+        data = purrr::rerun(n-1, method(true)))
+      samples <- data.frame(tidyr::unnest(samples, data))
+#      samples <- plyr::rdply(n - 1, method(true))
     }
     if (missing(pos)) {
         message("decrypt(\"", encrypt("True data in position ", pos+10), "\")")
