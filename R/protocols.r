@@ -19,9 +19,12 @@ rorschach <- function(method, true = NULL, n = 20, p = 0) {
     if (show_true) {
         n <- n - 1
     }
+    samples <- tibble(
+      .n = seq_len(n),
+      data = purrr::rerun(n, method(true)))
+    samples <- samples %>% tidyr::unnest(data)
+#        samples <- plyr::rdply(n, method(true))
 
-    samples <- data.frame(.n = seq_len(n),
-                          V1 = unlist(purrr::rerun(n, method(true))))
     if (show_true) {
         pos <- sample(n + 1, 1)
         message(encrypt("True data in position ", pos+10))
@@ -69,9 +72,12 @@ lineup <- function(method, true = NULL, n = 20, pos = sample(n, 1), samples = NU
     true <- find_plot_data(true)
 
     if (is.null(samples)) {
-        #samples <- data.frame(.n = seq_len(n - 1),
-        #                      V1 = unlist(purrr::rerun(n - 1, method(true))))
-        samples <- plyr::rdply(n - 1, method(true))
+      samples <- tibble(
+        .n = seq_len(n-1),
+        data = purrr::rerun(n-1, method(true)))
+      samples <- samples %>% tidyr::unnest(data)
+
+#      samples <- plyr::rdply(n - 1, method(true))
     }
     if (missing(pos)) {
         message("decrypt(\"", encrypt("True data in position ", pos+10), "\")")

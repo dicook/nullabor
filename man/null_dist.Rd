@@ -9,9 +9,9 @@ null_dist(var, dist, params = NULL)
 \arguments{
 \item{var}{variable name}
 
-\item{dist}{distribution name. One of: beta, cauchy, chi-squared,
-exponential, f, gamma, geometric, log-normal, lognormal, logistic,
-negative binomial, normal, poisson, t, weibull}
+\item{dist}{distribution name. One of: beta, cauchy, chisq,
+exp, f, gamma, geom, lnorm, logis,
+nbinom, binom, norm, pois, t, unif, weibull}
 
 \item{params}{list of parameters of distribution. If \code{NULL}, will
 use \code{\link[MASS]{fitdistr}} to estimate them.}
