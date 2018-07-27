@@ -1,3 +1,11 @@
+#' Conversion rate of the Australian Doller (AUD) to US Dollar
+#'
+#' The dataset consists of the daily exchange rates of 1 Australian Dollar to 1 US Dollar between Jan 9 2018 and Feb 21 2018.
+#'
+#' @docType data
+#' @name aud
+NULL
+
 #' Los Angeles Lakers play-by-play data.
 #'
 #' Play by play data from all games played by the Los Angeles lakers in the

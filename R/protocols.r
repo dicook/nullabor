@@ -17,6 +17,7 @@
 #' @importFrom tibble tibble
 #' @importFrom stats rbinom
 rorschach <- function(method, true = NULL, n = 20, p = 0) {
+    data <- NULL
     true <- find_plot_data(true)
     show_true <- rbinom(1, 1, p) == 1
 
@@ -75,6 +76,7 @@ rorschach <- function(method, true = NULL, n = 20, p = 0) {
 #'        aes(mpg, .sample, colour = factor(cyl))) +
 #'        geom_point()
 lineup <- function(method, true = NULL, n = 20, pos = sample(n, 1), samples = NULL) {
+    data <- NULL
     true <- find_plot_data(true)
 
     if (is.null(samples)) {

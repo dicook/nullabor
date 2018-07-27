@@ -113,6 +113,12 @@ null_gen <- function(lineup.dat, null, met, method, m, dist.arg){
 #'     pos = 1, repl = 100, m = 8), m = 8)
 #' }
 distplot <- function(dat, m = 20) {
+  null_values <- NULL
+  mean.dist <- NULL
+  y <- yend <- NULL
+  true <- NULL
+  plotno <- NULL
+
     null <- data.frame(null_values=dat$null_values)
     lineupvals <- dat$lineup
     lineupvals$true <- ifelse(lineupvals$plotno == dat$pos, "true", "null")

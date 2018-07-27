@@ -16,6 +16,7 @@
 #' @param N MC parameter: number of replicates on which MC probabilities are based. Higher number of replicates will decrease MC variability.
 #' @param type type of simulation used: scenario 3 assumes that the same lineup is shown in all K evaluations
 #' @param xp exponent used, defaults to 1
+#' @param target integer value identifying the location of the data plot
 #' @param upper.tail compute probabilities P(X >= x). Be aware that the use of this parameter is not consistent with the other distribution functions in base. There, a value of P(X > x) is computed for upper.tail=TRUE.
 #' @return Vector/data frame. For comparison a p value based on a binomial distribution is provided as well.
 #' @importFrom stats pbinom runif

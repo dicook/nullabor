@@ -12,6 +12,7 @@
 #' @export
 #' @seealso null_model
 #' @importFrom stats as.ts simulate
+#' @importFrom tibble as_data_frame
 #' @examples
 #' require(forecast)
 #' require(tidyverse)

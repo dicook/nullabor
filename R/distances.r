@@ -19,9 +19,12 @@
 #' @return distance between X and PX
 #' @importFrom stats dist
 #' @importFrom magrittr %>%
+#' @importFrom dplyr do
 #' @export
 #' @examples with(mtcars, reg_dist(data.frame(wt, mpg), data.frame(sample(wt), mpg)))
 reg_dist <- function(X, PX, nbins = 1, intercept=TRUE, scale=TRUE) {
+  .group <- NULL
+  . <- NULL
   dc <- function(dX) {
     if (scale) dX <- data.frame(scale(dX))
     dX$.group <- 1
