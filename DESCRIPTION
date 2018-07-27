@@ -29,7 +29,8 @@ Imports:
     dplyr,
     purrr,
     tidyr,
-    tibble
+    tibble,
+    magrittr
 Suggests:
     reshape2,
     knitr

@@ -18,6 +18,7 @@
 #' @param scale logical value: should the variables be scaled before computing regression coefficients?
 #' @return distance between X and PX
 #' @importFrom stats dist
+#' @importFrom magrittr %>%
 #' @export
 #' @examples with(mtcars, reg_dist(data.frame(wt, mpg), data.frame(sample(wt), mpg)))
 reg_dist <- function(X, PX, nbins = 1, intercept=TRUE, scale=TRUE) {
@@ -130,7 +131,7 @@ uni_dist <- function(X, PX) {
 #' @return distance between X and PX
 #' @importFrom dplyr summarise group_by
 #' @export
-#' @importFrom stats resid
+#' @importFrom stats resid quantile
 #' @examples
 #' if(require('dplyr')) {
 #'   with(mtcars,

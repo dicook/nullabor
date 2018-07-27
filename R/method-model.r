@@ -12,7 +12,7 @@
 #' @return a function that given \code{data} generates a null data set.
 #'   For use with \code{\link{lineup}} or \code{\link{rorschach}}
 #' @export
-#' @importFrom stats lm
+#' @importFrom stats lm predict
 #' @seealso null_permute, null_dist
 #' @examples
 #' if (requireNamespace('reshape2', quietly = TRUE)) {
