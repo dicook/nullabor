@@ -162,10 +162,11 @@
 <span class='fu'>data</span>(<span class='st'>"tips"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"reshape2"</span>)
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>lm</span>(<span class='no'>tip</span> ~ <span class='no'>total_bill</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>tips</span>)
 <span class='no'>tips.reg</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='no'>tips</span>, <span class='kw'>.resid</span> <span class='kw'>=</span> <span class='fu'>residuals</span>(<span class='no'>x</span>), <span class='kw'>.fitted</span> <span class='kw'>=</span> <span class='fu'>fitted</span>(<span class='no'>x</span>))
-<span class='fu'>ggplot</span>(<span class='fu'><a href='lineup.html'>lineup</a></span>(<span class='fu'>null_lm</span>(<span class='no'>tip</span> ~ <span class='no'>total_bill</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>'rotate'</span>), <span class='no'>tips.reg</span>)) +
-  <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>total_bill</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>.resid</span>)) +
-  <span class='fu'>facet_wrap</span>(~ <span class='no'>.sample</span>)
-}</div><div class='output co'>#&gt; <span class='error'>Error in ggplot(lineup(null_lm(tip ~ total_bill, method = "rotate"), tips.reg)): could not find function "ggplot"</span></div></pre>
+<span class='fu'>library</span>(<span class='no'>ggplot2</span>)
+<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a></span>(<span class='fu'><a href='lineup.html'>lineup</a></span>(<span class='fu'>null_lm</span>(<span class='no'>tip</span> ~ <span class='no'>total_bill</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>'rotate'</span>), <span class='no'>tips.reg</span>)) +
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/geom_point'>geom_point</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>total_bill</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>.resid</span>)) +
+  <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/facet_wrap'>facet_wrap</a></span>(~ <span class='no'>.sample</span>)
+}</div><div class='output co'>#&gt; <span class='message'>decrypt("m3YZ H6f6 kM rjukfkjM ee")</span></div><div class='img'><img src='null_lm-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -117,35 +117,35 @@
 <a href="#distance-for-univariate-data" class="anchor"></a>Distance for univariate data</h2>
 <p><code>uni_dist</code> is a distance metric which calculates the euclidean distance between the first four central moments of two univariate data. A typical usage would be when one needs to calculate the distance between the two histograms drawn from two datasets.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="../reference/uni_dist.html">uni_dist</a></span>(<span class="kw">rnorm</span>(<span class="dv">100</span>), <span class="kw">rpois</span>(<span class="dv">100</span>, <span class="dv">2</span>))</a></code></pre></div>
-<pre><code>## [1] 3.398484</code></pre>
+<pre><code>## [1] 2.404884</code></pre>
 </div>
 <div id="distance-based-on-regression-parameters" class="section level2">
 <h2 class="hasAnchor">
 <a href="#distance-based-on-regression-parameters" class="anchor"></a>Distance based on regression parameters</h2>
 <p><code>reg_dist</code> is a distance metric which calculates the euclidean distance between the regression parameters of a model fitted to one plot and that of another plot. It is advisable to use this distance in situations where a regression line is overlaid on a scatterplot.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">with</span>(mtcars, <span class="kw"><a href="../reference/reg_dist.html">reg_dist</a></span>(<span class="kw">data.frame</span>(wt, mpg), <span class="kw">data.frame</span>(<span class="kw"><a href="http://dplyr.tidyverse.org/reference/sample.html">sample</a></span>(wt), mpg)))</a></code></pre></div>
-<pre><code>## [1] 1.444783</code></pre>
+<pre><code>## [1] 0.5939858</code></pre>
 </div>
 <div id="distance-based-on-boxplots" class="section level2">
 <h2 class="hasAnchor">
 <a href="#distance-based-on-boxplots" class="anchor"></a>Distance based on boxplots</h2>
 <p><code>box_dist</code> is a distance metric which works for side-by-side boxplots with two levels. The first quartile, median and the third quartile are calculated for each box and the absolute distances of these are calculated for the two boxes. <code>box_dist</code> calculates the euclidean distance between these absolute distances for the two plots. The boxplot distance should be used in situations where a side-by-side boxplot is used to compare the distribution of a variable at two different levels.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">with</span>(mtcars, <span class="kw"><a href="../reference/box_dist.html">box_dist</a></span>(<span class="kw">data.frame</span>(<span class="kw">as.factor</span>(am), mpg),  <span class="kw">data.frame</span>(<span class="kw">as.factor</span>(<span class="kw"><a href="http://dplyr.tidyverse.org/reference/sample.html">sample</a></span>(am)), mpg)))</a></code></pre></div>
-<pre><code>## [1] 11.59353</code></pre>
+<pre><code>## [1] 6.120457</code></pre>
 </div>
 <div id="distance-based-on-separation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#distance-based-on-separation" class="anchor"></a>Distance based on separation</h2>
 <p><code>sep_dist</code> is a distance metric based on the separation between clusters. The separation between clusters is defined by the minimum distances of a point in the cluster to a point in another cluster. The separation between the clusters for a given dataset is calculated. An euclidean distance is calculated between the separation for the given dataset and another dataset. The number of clusters in the dataset should be provided. If not, the hierarchical clustering method is used to obtain the clusters.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">with</span>(mtcars, <span class="kw"><a href="../reference/sep_dist.html">sep_dist</a></span>(<span class="kw">data.frame</span>(wt, mpg,  <span class="kw">as.numeric</span>(<span class="kw">as.factor</span>(mtcars<span class="op">$</span>cyl))), <span class="kw">data.frame</span>(<span class="kw"><a href="http://dplyr.tidyverse.org/reference/sample.html">sample</a></span>(wt), mpg,  <span class="kw">as.numeric</span>(<span class="kw">as.factor</span>(mtcars<span class="op">$</span>cyl))), <span class="dt">nclust =</span> <span class="dv">3</span>))</a></code></pre></div>
-<pre><code>## [1] 0.6956492</code></pre>
+<pre><code>## [1] 0.7843156</code></pre>
 </div>
 <div id="binned-distance" class="section level2">
 <h2 class="hasAnchor">
 <a href="#binned-distance" class="anchor"></a>Binned Distance</h2>
 <p><code>bin_dist</code> is a generic distance which works for any situation for any dataset. For a given bivariate dataset, X and Y variables are divided into p and q bins respectively to obtain pq cells. The number of points falling in each cell are counted for a given dataset. <code>bin_dist</code> between two datasets calculates the euclidean distance between the cell counts of these two data. The values of p and q should be provided as arguments.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">with</span>(mtcars, <span class="kw"><a href="../reference/bin_dist.html">bin_dist</a></span>(<span class="kw">data.frame</span>(wt, mpg), <span class="kw">data.frame</span>(<span class="kw"><a href="http://dplyr.tidyverse.org/reference/sample.html">sample</a></span>(wt), mpg), <span class="dt">lineup.dat =</span> <span class="ot">NULL</span>, <span class="dt">X.bin =</span> <span class="dv">5</span>, <span class="dt">Y.bin =</span> <span class="dv">5</span>))</a></code></pre></div>
-<pre><code>## [1] 9.899495</code></pre>
+<pre><code>## [1] 9.591663</code></pre>
 </div>
 <div id="calculating-the-mean-distances-for-the-plots-in-the-lineup" class="section level2">
 <h2 class="hasAnchor">
@@ -155,33 +155,33 @@
 <pre><code>## # A tibble: 20 x 2
 ##    plotno mean.dist
 ##     &lt;int&gt;     &lt;dbl&gt;
-##  1      1    0.0925
-##  2      2    0.0589
-##  3      3    0.149 
-##  4      4    0.163 
-##  5      5    0.120 
-##  6      6    0.0562
-##  7      7    0.0614
-##  8      8    0.0554
-##  9      9    0.0628
-## 10     10    0.824 
-## 11     11    0.267 
-## 12     12    0.141 
-## 13     13    0.190 
-## 14     14    0.0680
-## 15     15    0.111 
-## 16     16    0.144 
-## 17     17    0.0676
-## 18     18    0.0702
-## 19     19    0.0624
-## 20     20    0.0946</code></pre>
+##  1      1    0.0403
+##  2      2    0.0307
+##  3      3    0.0280
+##  4      4    0.118 
+##  5      5    0.0487
+##  6      6    0.105 
+##  7      7    0.0405
+##  8      8    0.0284
+##  9      9    0.0595
+## 10     10    0.787 
+## 11     11    0.0521
+## 12     12    0.0298
+## 13     13    0.0284
+## 14     14    0.0439
+## 15     15    0.0527
+## 16     16    0.112 
+## 17     17    0.0286
+## 18     18    0.0594
+## 19     19    0.0341
+## 20     20    0.0782</code></pre>
 </div>
 <div id="calculating-difference-measure-for-lineups" class="section level2">
 <h2 class="hasAnchor">
 <a href="#calculating-difference-measure-for-lineups" class="anchor"></a>Calculating difference measure for lineups</h2>
 <p>The mean distances for each plot in the lineup are obtained using <code>calc_mean_dist</code>.<code>calc_diff</code> calculates the difference between the mean distance for the true plot and the maximum mean distance for the null plots.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw"><a href="../reference/calc_diff.html">calc_diff</a></span>(<span class="kw"><a href="../reference/lineup.html">lineup</a></span>(<span class="kw"><a href="../reference/null_permute.html">null_permute</a></span>(<span class="st">'mpg'</span>), mtcars, <span class="dt">pos =</span> <span class="dv">10</span>), <span class="dt">var =</span> <span class="kw">c</span>(<span class="st">'mpg'</span>, <span class="st">'wt'</span>), <span class="dt">met =</span> <span class="st">'reg_dist'</span>, <span class="dt">dist.arg =</span> <span class="ot">NULL</span>, <span class="dt">pos =</span> <span class="dv">10</span>)</a></code></pre></div>
-<pre><code>## [1] 0.5553531</code></pre>
+<pre><code>## [1] 0.7830741</code></pre>
 </div>
 <div id="optimum-number-of-bins" class="section level2">
 <h2 class="hasAnchor">
@@ -206,18 +206,18 @@
 <pre><code>## # A tibble: 6 x 2
 ##   plotno mean.dist
 ##    &lt;int&gt;     &lt;dbl&gt;
-## 1      1    0.104 
-## 2      2    0.0720
-## 3      3    0.0430
-## 4      4    0.0465
-## 5      5    0.0337
-## 6      6    0.0349</code></pre>
+## 1      1    0.0769
+## 2      2    0.0504
+## 3      3    0.0361
+## 4      4    0.146 
+## 5      5    0.0462
+## 6      6    0.0361</code></pre>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">dist.vals<span class="op">$</span>diff</a></code></pre></div>
-<pre><code>## [1] 0.5532762</code></pre>
+<pre><code>## [1] 0.6885758</code></pre>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw">head</span>(dist.vals<span class="op">$</span>closest)</a></code></pre></div>
-<pre><code>## [1] 18  9 19  1 11</code></pre>
+<pre><code>## [1] 13  4 15 18 19</code></pre>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="kw">head</span>(dist.vals<span class="op">$</span>null_values)</a></code></pre></div>
-<pre><code>## [1] 0.05098849 0.03633452 0.04490043 0.03472470 0.05309192 0.04674182</code></pre>
+<pre><code>## [1] 0.05004343 0.07401380 0.06875281 0.04074265 0.01938738 0.03895728</code></pre>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">dist.vals<span class="op">$</span>pos</a></code></pre></div>
 <pre><code>## [1] 10</code></pre>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">dist.vals &lt;-<span class="st"> </span><span class="kw"><a href="../reference/distmet.html">distmet</a></span>(lineup.dat, <span class="dt">var =</span> <span class="kw">c</span>(<span class="st">'mpg'</span>, <span class="st">'wt'</span>),<span class="st">'bin_dist'</span>, <span class="kw"><a href="../reference/null_permute.html">null_permute</a></span>(<span class="st">'mpg'</span>), <span class="dt">pos =</span> <span class="dv">10</span>, <span class="dt">repl =</span> <span class="dv">100</span>, <span class="dt">dist.arg =</span> <span class="kw">list</span>(<span class="dt">lineup.dat =</span> lineup.dat, <span class="dt">X.bin =</span> <span class="dv">5</span>, <span class="dt">Y.bin =</span> <span class="dv">5</span>)) </a></code></pre></div>
