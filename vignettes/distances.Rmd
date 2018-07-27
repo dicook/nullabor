@@ -2,10 +2,12 @@
 title: "Distances between null and data plots"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteEngine{knitr::docco_linear}
+  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{Distances between null and data plots}
   %\VignetteEncoding{UTF-8}
 ---  
+
+
 
 Examining distances between null and true data plots
 =======================================

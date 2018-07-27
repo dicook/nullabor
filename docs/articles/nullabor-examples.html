@@ -116,7 +116,7 @@
 <a class="sourceLine" id="cb2-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb2-4" data-line-number="4">sim1 &lt;-<span class="st"> </span><span class="kw">simPoll</span>(margins)</a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"><span class="kw">sum</span>(sim1<span class="op">$</span>Electoral.Votes[sim1<span class="op">$</span>Democrat])</a></code></pre></div>
-<pre><code>## [1] 328</code></pre>
+<pre><code>## [1] 290</code></pre>
 <p>Because the <code>simPoll</code> function returns a data set of exactly the same form as the original data, we can use this function as a method in the <code>lineup</code> call to get a set of simulations together with the polling results. Because we want to keep track of the position of the real data, we set the position ourselves (but keep it secret for now by using a random position).</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">pos &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">20</span>,<span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">lpdata &lt;-<span class="st"> </span>nullabor<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/nullabor/topics/lineup">lineup</a></span>(<span class="dt">method =</span> simPoll, <span class="dt">true=</span>margins, <span class="dt">n=</span><span class="dv">20</span>, <span class="dt">pos=</span>pos)</a>
@@ -124,12 +124,12 @@
 <pre><code>## [1] 1020    5</code></pre>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">summary</span>(lpdata)</a></code></pre></div>
 <pre><code>##         State     Electoral.Votes     Margin          Democrat      
-##  Alabama   : 20   Min.   : 3.00   Min.   : 0.02744   Mode :logical  
-##  Alaska    : 20   1st Qu.: 4.00   1st Qu.: 6.22307   FALSE:531      
-##  Arizona   : 20   Median : 8.00   Median :13.52325   TRUE :489      
-##  Arkansas  : 20   Mean   :10.55   Mean   :15.86513                  
-##  California: 20   3rd Qu.:12.00   3rd Qu.:21.68864                  
-##  Colorado  : 20   Max.   :55.00   Max.   :93.61392                  
+##  Alabama   : 20   Min.   : 3.00   Min.   : 0.01896   Mode :logical  
+##  Alaska    : 20   1st Qu.: 4.00   1st Qu.: 6.71606   FALSE:537      
+##  Arizona   : 20   Median : 8.00   Median :13.35338   TRUE :483      
+##  Arkansas  : 20   Mean   :10.55   Mean   :15.93223                  
+##  California: 20   3rd Qu.:12.00   3rd Qu.:21.89720                  
+##  Colorado  : 20   Max.   :55.00   Max.   :91.39702                  
 ##  (Other)   :900                                                     
 ##     .sample     
 ##  Min.   : 1.00  
@@ -145,8 +145,8 @@
 <a class="sourceLine" id="cb8-3" data-line-number="3">lpdata<span class="op">$</span>Margin[idx] &lt;-<span class="st"> </span>election<span class="op">$</span>Margin</a></code></pre></div>
 <p>… and now we have to build the actual plot. That requires a bit of restructuring of the data:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">lpdata &lt;-<span class="st"> </span>lpdata <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/dplyr/topics/arrange">arrange</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/dplyr/topics/desc">desc</a></span>(Margin))</a>
-<a class="sourceLine" id="cb9-3" data-line-number="3">lpdata &lt;-<span class="st"> </span>lpdata <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/dplyr/topics/group_by">group_by</a></span>(.sample, Democrat) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/dplyr/topics/mutate">mutate</a></span>(</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">lpdata &lt;-<span class="st"> </span>lpdata <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="kw"><a href="http://dplyr.tidyverse.org/reference/desc.html">desc</a></span>(Margin))</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">lpdata &lt;-<span class="st"> </span>lpdata <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(.sample, Democrat) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(</a>
 <a class="sourceLine" id="cb9-4" data-line-number="4">  <span class="dt">tower=</span><span class="kw">cumsum</span>(Electoral.Votes[<span class="kw">order</span>(Margin, <span class="dt">decreasing=</span><span class="ot">TRUE</span>)])</a>
 <a class="sourceLine" id="cb9-5" data-line-number="5">) </a>
 <a class="sourceLine" id="cb9-6" data-line-number="6">lpdata<span class="op">$</span>diff &lt;-<span class="st">  </span><span class="kw">with</span>(lpdata, Margin<span class="op">*</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>)[<span class="kw">as.numeric</span>(Democrat)<span class="op">+</span><span class="dv">1</span>])</a></code></pre></div>
@@ -170,7 +170,7 @@
 <a class="sourceLine" id="cb10-17" data-line-number="17"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">ggtitle</a></span>(<span class="st">"Which of these panels looks the most different?"</span>)</a></code></pre></div>
 <p><img src="nullabor-examples_files/figure-html/unnamed-chunk-6-1.png" width="576" style="display:block; margin: auto"> Try to decide for yourself! Which plot looks the most different in this lineup? Once you have choosen, you can compare it to the number below:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">pos</a></code></pre></div>
-<pre><code>## [1] 13</code></pre>
+<pre><code>## [1] 10</code></pre>
 </div>
   </div>
 

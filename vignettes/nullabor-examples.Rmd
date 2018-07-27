@@ -2,10 +2,11 @@
 title: "Example lineups"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteEngine{knitr::docco_linear}
+  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{Example lineups in nullabor}
-  %\VignetteEncoding{UTF-8}
+  %\VignetteEncoding[utf8]{inputenc}
 ---  
+
 
 Example lineups in nullabor 
 =======================================
