@@ -7,11 +7,16 @@
 #' @param m size of the lineup
 #' @return vector of powers for each pic_id
 #' @export
+#' @importFrom dplyr mutate
 #' @examples
 #' data(turk_results)
 #' visual_power(turk_results)
 
 visual_power <- function(data, m=20) {
+  pic_id <- NULL
+  detected <- NULL
+  nchoices_wgt <- NULL
+
   data <- data %>% mutate(
     nchoices_wgt = (m-lengths(strsplit(as.character(data$response), ",")))/19)
   visual_p <- data %>% group_by(pic_id) %>%

@@ -147,6 +147,9 @@ box_dist <- function(X, PX) {
 	}
 
 	dq <- function(dX) {
+	  .group <- NULL
+	  .val <- NULL
+
 	  # compute absolute difference between min and max of each statistic
 	  Xfactor <- find_factor(dX)
 	  if (length(Xfactor) > 2) stop("Dataset cannot not have more than one categorical and one continuous data.\n\n")
