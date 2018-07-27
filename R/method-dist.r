@@ -19,6 +19,7 @@ dists <- c(beta = "beta", cauchy = "cauchy", `chi-squared` = "chisq", exponentia
 #' @export
 #' @seealso null_permute, null_lm
 #' @importFrom MASS fitdistr
+#' @importFrom stats coef
 #' @examples
 #' dframe <- data.frame(x = rnorm(150))
 #' library(ggplot2)

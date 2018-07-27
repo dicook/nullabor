@@ -12,6 +12,7 @@
 #' @return a function that given \code{data} generates a null data set.
 #'   For use with \code{\link{lineup}} or \code{\link{rorschach}}
 #' @export
+#' @importFrom stats lm
 #' @seealso null_permute, null_dist
 #' @examples
 #' if (requireNamespace('reshape2', quietly = TRUE)) {
@@ -51,6 +52,7 @@ n <- function(model) length(resid(model))
 #'
 #' @param model to extract residuals from
 #' @param data used to fit model
+#' @importFrom stats update
 #' @export
 resid_rotate <- function(model, data) {
     data[names(model$model)[1]] <- rnorm(nrow(data))
@@ -77,6 +79,7 @@ resid_pboot <- function(model, data) {
 #' @param model to extract residuals from
 #' @param data used to fit model
 #' @param sigma, a specific sigma to model
+#' @importFrom stats rnorm
 #' @export
 resid_sigma <- function(model, data, sigma = 1) {
     rnorm(n = n(model), sd = sigma)
@@ -88,6 +91,7 @@ resid_sigma <- function(model, data, sigma = 1) {
 #'
 #' @param model to extract residuals from
 #' @param data used to fit model
+#' @importFrom stats resid
 #' @export
 resid_boot <- function(model, data) {
     sample(resid(model))

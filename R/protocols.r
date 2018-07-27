@@ -15,6 +15,7 @@
 #' @importFrom purrr rerun
 #' @importFrom tidyr unnest
 #' @importFrom tibble tibble
+#' @importFrom stats rbinom
 rorschach <- function(method, true = NULL, n = 20, p = 0) {
     true <- find_plot_data(true)
     show_true <- rbinom(1, 1, p) == 1

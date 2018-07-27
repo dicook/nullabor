@@ -103,6 +103,7 @@ null_gen <- function(lineup.dat, null, met, method, m, dist.arg){
 #' @param dat output from \code{\link{distmet}}
 #' @param m the number of plots in the lineup; m = 20 by default
 #' @export
+#' @importFrom stats density
 #' @examples
 #' if (require('dplyr')) {
 #'   d <- lineup(null_permute('mpg'), mtcars, pos = 1)

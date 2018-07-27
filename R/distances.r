@@ -17,6 +17,7 @@
 #' @param intercept include the distances between intercepts?
 #' @param scale logical value: should the variables be scaled before computing regression coefficients?
 #' @return distance between X and PX
+#' @importFrom stats dist
 #' @export
 #' @examples with(mtcars, reg_dist(data.frame(wt, mpg), data.frame(sample(wt), mpg)))
 reg_dist <- function(X, PX, nbins = 1, intercept=TRUE, scale=TRUE) {
@@ -91,6 +92,7 @@ bin_dist <- function (X, PX, lineup.dat = lineup.dat, X.bin = 5, Y.bin = 5)
 #' @return distance between X and PX
 #' @export
 #' @import moments
+#' @importFrom stats sd
 #' @examples if(require('moments')){uni_dist(rnorm(100), rpois(100, 2))}
 uni_dist <- function(X, PX) {
     if (is.data.frame(X) & is.data.frame(PX)) {
@@ -128,8 +130,14 @@ uni_dist <- function(X, PX) {
 #' @return distance between X and PX
 #' @importFrom dplyr summarise group_by
 #' @export
-#' @examples if(require('dplyr')) {with(mtcars, box_dist(data.frame(as.factor(am), mpg),
-#' data.frame(as.factor(sample(am)), mpg)))}
+#' @importFrom stats resid
+#' @examples
+#' if(require('dplyr')) {
+#'   with(mtcars,
+#'     box_dist(data.frame(as.factor(am), mpg),
+#'     data.frame(as.factor(sample(am)), mpg))
+#'   )
+#' }
 box_dist <- function(X, PX) {
 	find_factor <- function(dframe) {
 	  isfactor <- c(is.factor(dframe[,1]), is.factor(dframe[,2]))
@@ -176,6 +184,7 @@ box_dist <- function(X, PX) {
 #' @return distance between X and PX
 #' @export
 #' @import fpc
+#' @importFrom stats cutree hclust
 #' @examples
 #' if(require('fpc')) {
 #' with(mtcars, sep_dist(data.frame(wt, mpg, as.numeric(as.factor(mtcars$cyl))),

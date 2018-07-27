@@ -12,7 +12,7 @@
 #' @param dist.arg a list or vector of inputs for the distance metric met; NULL by default
 #' @param m number of plots in the lineup, by default m = 20
 #' @return the mean distances of each plot in the lineup
-#' @importFrom dplyr summarise group_by
+#' @importFrom dplyr summarise group_by filter
 #' @export
 #' @examples
 #' if(require('dplyr')){

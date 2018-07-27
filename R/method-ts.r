@@ -11,6 +11,7 @@
 #'   For use with \code{\link{lineup}} or \code{\link{rorschach}}
 #' @export
 #' @seealso null_model
+#' @importFrom stats as.ts simulate
 #' @examples
 #' require(forecast)
 #' require(tidyverse)
