@@ -56,6 +56,7 @@ if (require('dplyr')) {
 }
 
 d <- lineup(null_permute('mpg'), mtcars, pos=4, n=8)
+library(ggplot2)
 ggplot(d, aes(mpg, wt)) + geom_point() + facet_wrap(~ .sample, ncol=4)
 if (require('dplyr')) {
   dd <- distmet(d, var = c('mpg', 'wt'), 'bin_dist', null_permute('mpg'),
@@ -68,6 +69,7 @@ if (require('dplyr')) {
 \dontrun{
 if (require('dplyr')) {
   d <- lineup(null_permute('mpg'), mtcars, pos = 1)
+  library(ggplot2)
   ggplot(d, aes(mpg, wt)) + geom_point() + facet_wrap(~ .sample, ncol=5)
   dd <- distmet(d, var = c('mpg', 'wt'),
     'bin_dist', null_permute('mpg'), pos = 1, repl = 500,

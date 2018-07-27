@@ -66,6 +66,7 @@ rorschach <- function(method, true = NULL, n = 20, p = 0) {
 #' @importFrom tibble tibble
 #' @export
 #' @examples
+#' library(ggplot2)
 #' ggplot(lineup(null_permute('mpg'), mtcars), aes(mpg, wt)) +
 #'   geom_point() +
 #'   facet_wrap(~ .sample)

@@ -36,6 +36,7 @@ pick the real data as being noticeably different, then you have formally
 established that it is different to with p-value 1/n.
 }
 \examples{
+library(ggplot2)
 ggplot(lineup(null_permute('mpg'), mtcars), aes(mpg, wt)) +
   geom_point() +
   facet_wrap(~ .sample)
