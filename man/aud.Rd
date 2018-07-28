@@ -3,7 +3,7 @@
 \docType{data}
 \name{aud}
 \alias{aud}
-\title{Conversion rate of the Australian Doller (AUD) to US Dollar}
+\title{Conversion rate of 1 Australian Doller (AUD) to 1 US Dollar}
 \description{
 The dataset consists of the daily exchange rates of 1 Australian Dollar to 1 US Dollar between Jan 9 2018 and Feb 21 2018.
 }
