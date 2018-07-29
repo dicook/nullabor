@@ -1,3 +1,3 @@
-# Testing of nullabor
+# Change of email of maintainer
 
-The original package is on CRAN. This fixes a request to remove \donttest from the code. 
+My email address is now dicook@monash.edu (instead of dicook@iastate.edu)

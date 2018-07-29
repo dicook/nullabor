@@ -8,7 +8,7 @@ Author: Hadley Wickham <h.wickham@gmail.com>, Niladri Roy Chowdhury
     <niladri.ia@gmail.com>, Di Cook <dicook@iastate.edu>, Heike Hofmann
     <hofmann@iastate.edu>
 Authors@R: c(
-    person("Di", "Cook", email = "dicook@iastate.edu", role = c("aut", "cre")),
+    person("Di", "Cook", email = "dicook@monash.edu", role = c("aut", "cre")),
     person("Hadley", "Wickham", email = "h.wickham@gmail.com", role = c("aut", "ctb")),
     person("Niladri Roy", "Chowdhury", email = "niladri.ia@gmail.com", role = c("aut", "ctb")),
     person("Heike", "Hofmann", email = "hofmann@iastate.edu", role = c("aut", "ctb"))
