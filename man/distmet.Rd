@@ -48,6 +48,7 @@ assessment of whether the actual data plot is very different from the null plots
 # Each of these examples uses a small number of nulls (m=8), and a small number of
 # repeated sampling from the null distribution (repl=100), to make it faster to run.
 # In your own examples you should think about increasing each of these, at least to the defaults.
+\dontrun{
 if (require('dplyr')) {
   d <- lineup(null_permute('mpg'), mtcars, pos = 1)
   dd <- distmet(d, var = c('mpg', 'wt'),
@@ -63,6 +64,7 @@ if (require('dplyr')) {
     pos = 4, repl = 100, dist.arg = list(lineup.dat = d, X.bin = 5,
     Y.bin = 5), m = 8)
   distplot(dd, m=8)
+}
 }
 
 # Example using bin_dist

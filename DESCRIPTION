@@ -5,7 +5,7 @@ Description: Tools for visual inference. Generate null data sets
     for a lineup, and examine the distributions of metrics.
 Title: Tools for Graphical Inference
 Author: Hadley Wickham <h.wickham@gmail.com>, Niladri Roy Chowdhury
-    <niladri.ia@gmail.com>, Di Cook <dicook@iastate.edu>, Heike Hofmann
+    <niladri.ia@gmail.com>, Di Cook <dicook@monash.edu>, Heike Hofmann
     <hofmann@iastate.edu>
 Authors@R: c(
     person("Di", "Cook", email = "dicook@monash.edu", role = c("aut", "cre")),
@@ -13,7 +13,7 @@ Authors@R: c(
     person("Niladri Roy", "Chowdhury", email = "niladri.ia@gmail.com", role = c("aut", "ctb")),
     person("Heike", "Hofmann", email = "hofmann@iastate.edu", role = c("aut", "ctb"))
   )
-Maintainer: Di Cook <dicook@iastate.edu>
+Maintainer: Di Cook <dicook@monash.edu>
 License: GPL (>= 2)
 URL: http://github.com/dicook/nullabor
 BugReports: http://github.com/dicook/nullabor/issues
