@@ -36,6 +36,7 @@
 #' }
 #' }
 #'
+#' \dontrun{
 #' d <- lineup(null_permute('mpg'), mtcars, pos=4, n=8)
 #' library(ggplot2)
 #' ggplot(d, aes(mpg, wt)) + geom_point() + facet_wrap(~ .sample, ncol=4)
@@ -44,6 +45,7 @@
 #'     pos = 4, repl = 100, dist.arg = list(lineup.dat = d, X.bin = 5,
 #'     Y.bin = 5), m = 8)
 #'   distplot(dd, m=8)
+#' }
 #' }
 #' }
 #'
