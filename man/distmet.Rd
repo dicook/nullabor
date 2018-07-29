@@ -55,6 +55,7 @@ if (require('dplyr')) {
     'reg_dist', null_permute('mpg'), pos = 1, repl = 100, m = 8)
   distplot(dd, m=8)
 }
+}
 
 d <- lineup(null_permute('mpg'), mtcars, pos=4, n=8)
 library(ggplot2)

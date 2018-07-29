@@ -34,6 +34,7 @@
 #'     'reg_dist', null_permute('mpg'), pos = 1, repl = 100, m = 8)
 #'   distplot(dd, m=8)
 #' }
+#' }
 #'
 #' d <- lineup(null_permute('mpg'), mtcars, pos=4, n=8)
 #' library(ggplot2)
@@ -107,12 +108,14 @@ null_gen <- function(lineup.dat, null, met, method, m, dist.arg){
 #' @export
 #' @importFrom stats density
 #' @examples
+#' \dontrun{
 #' if (require('dplyr')) {
 #'   d <- lineup(null_permute('mpg'), mtcars, pos = 1)
 #'   library(ggplot2)
 #'   ggplot(d, aes(mpg, wt)) + geom_point() + facet_wrap(~.sample)
 #'   distplot(distmet(d, var = c('mpg', 'wt'), 'reg_dist', null_permute('mpg'),
 #'     pos = 1, repl = 100, m = 8), m = 8)
+#' }
 #' }
 distplot <- function(dat, m = 20) {
   null_values <- NULL

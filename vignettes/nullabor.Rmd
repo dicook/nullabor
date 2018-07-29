@@ -145,7 +145,7 @@ Buja, A., Cook, D., Hofmann, H., Lawrence, M., Lee, E.-K., Swayne, D. F, Wickham
   
 Wickham, H., Cook, D., Hofmann, H. and Buja, A. (2010) Graphical Inference for Infovis, IEEE Transactions on Visualization and Computer Graphics, 16(6):973--979, [http://doi.ieeecomputersociety.org/10.1109/TVCG.2010.161](http://doi.ieeecomputersociety.org/10.1109/TVCG.2010.161). Best paper award.
 
-Hofmann, H., Follett, L., Majumder, M. and Cook, D. (2012) Graphical Tests for Power Comparison of Competing Designs, IEEE Transactions on Visualization and Computer Graphics, 18(12):2441--2448, [http://doi.ieeecomputersociety.org/10.1109/TVCG.2012.230](ttp://doi.ieeecomputersociety.org/10.1109/TVCG.2012.230).
+Hofmann, H., Follett, L., Majumder, M. and Cook, D. (2012) Graphical Tests for Power Comparison of Competing Designs, IEEE Transactions on Visualization and Computer Graphics, 18(12):2441--2448, [http://doi.ieeecomputersociety.org/10.1109/TVCG.2012.230](http://doi.ieeecomputersociety.org/10.1109/TVCG.2012.230).
 
 Majumder, M., Hofmann, H. and Cook, D. (2013) Validation of Visual Statistical Inference, Applied to Linear Models, Journal of the American Statistical Association, 108(503):942--956. Featured Article http://amstat.tandfonline.com/doi/pdf/10.1080/01621459.2013.808157.
 
