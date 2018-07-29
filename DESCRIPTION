@@ -1,12 +1,9 @@
 Package: nullabor
-Version: 0.3.3
+Version: 0.3.4
 Description: Tools for visual inference. Generate null data sets
     and null plots using permutation and simulation. Calculate distance metrics
     for a lineup, and examine the distributions of metrics.
 Title: Tools for Graphical Inference
-Author: Hadley Wickham <h.wickham@gmail.com>, Niladri Roy Chowdhury
-    <niladri.ia@gmail.com>, Di Cook <dicook@monash.edu>, Heike Hofmann
-    <hofmann@iastate.edu>
 Authors@R: c(
     person("Di", "Cook", email = "dicook@monash.edu", role = c("aut", "cre")),
     person("Hadley", "Wickham", email = "h.wickham@gmail.com", role = c("aut", "ctb")),
