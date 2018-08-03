@@ -57,6 +57,7 @@ if (require('dplyr')) {
 }
 }
 
+\dontrun{
 d <- lineup(null_permute('mpg'), mtcars, pos=4, n=8)
 library(ggplot2)
 ggplot(d, aes(mpg, wt)) + geom_point() + facet_wrap(~ .sample, ncol=4)

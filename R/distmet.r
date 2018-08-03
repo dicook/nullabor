@@ -47,7 +47,6 @@
 #'   distplot(dd, m=8)
 #' }
 #' }
-#' }
 #'
 #' # Example using bin_dist
 #' \dontrun{
