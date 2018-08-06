@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nullabor</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.4</span>
       </span>
     </div>
 
@@ -100,36 +100,36 @@
 <h1 class="hasAnchor">
 <a href="#electoral-building" class="anchor"></a>Electoral Building</h1>
 <p>The idea in this example is to take the margins for each state as reported by a pollster and sample for each state from a normal distribution to get a vector of values representing the margins of a potential election day outcome. The polls here are loosely based on the 2012 US Elction polls by .</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">simPoll &lt;-<span class="st"> </span><span class="cf">function</span>(trueData) {</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">  simMargin &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">nrow</span>(trueData), <span class="dt">mean=</span>trueData<span class="op">$</span>Margin, <span class="dt">sd=</span><span class="fl">2.5</span>)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">  simDemocrat &lt;-<span class="st"> </span>((simMargin<span class="op">&gt;</span><span class="dv">0</span>) <span class="op">&amp;</span><span class="st"> </span>trueData<span class="op">$</span>Democrat) <span class="op">|</span><span class="st"> </span>((simMargin<span class="op">&lt;</span><span class="dv">0</span>) <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span>trueData<span class="op">$</span>Democrat)</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">  simMargin &lt;-<span class="st"> </span><span class="kw">abs</span>(simMargin)</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">  res &lt;-<span class="st"> </span>trueData</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">  res<span class="op">$</span>Democrat &lt;-<span class="st"> </span>simDemocrat</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">  res<span class="op">$</span>Margin &lt;-<span class="st"> </span>simMargin</a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">  res</a>
-<a class="sourceLine" id="cb1-10" data-line-number="10">}</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">simPoll &lt;-<span class="st"> </span><span class="cf">function</span>(trueData) {
+  simMargin &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">nrow</span>(trueData), <span class="dt">mean=</span>trueData<span class="op">$</span>Margin, <span class="dt">sd=</span><span class="fl">2.5</span>)
+  simDemocrat &lt;-<span class="st"> </span>((simMargin<span class="op">&gt;</span><span class="dv">0</span>) <span class="op">&amp;</span><span class="st"> </span>trueData<span class="op">$</span>Democrat) <span class="op">|</span><span class="st"> </span>((simMargin<span class="op">&lt;</span><span class="dv">0</span>) <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span>trueData<span class="op">$</span>Democrat)
+
+  simMargin &lt;-<span class="st"> </span><span class="kw">abs</span>(simMargin)
+  res &lt;-<span class="st"> </span>trueData
+  res<span class="op">$</span>Democrat &lt;-<span class="st"> </span>simDemocrat
+  res<span class="op">$</span>Margin &lt;-<span class="st"> </span>simMargin
+  res
+}</code></pre></div>
 <p><code>simPoll</code> is a relatively specialized function that takes polling results for each state and produces a random value from a normal distribution using the polling results as the mean. For now we assume a standard deviation (or ‘accuracy’) for each state poll of 2.5.<br><code>sim1</code> is a first instance of the simulation - based on this simulation, we can compute for example the number of Electoral Votes for the Democratic party based on this simulated election day result.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">data</span>(electoral, <span class="dt">package=</span><span class="st">"nullabor"</span>)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">margins &lt;-<span class="st"> </span>electoral<span class="op">$</span>polls</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">sim1 &lt;-<span class="st"> </span><span class="kw">simPoll</span>(margins)</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="kw">sum</span>(sim1<span class="op">$</span>Electoral.Votes[sim1<span class="op">$</span>Democrat])</a></code></pre></div>
-<pre><code>## [1] 268</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(electoral, <span class="dt">package=</span><span class="st">"nullabor"</span>)
+margins &lt;-<span class="st"> </span>electoral<span class="op">$</span>polls
+
+sim1 &lt;-<span class="st"> </span><span class="kw">simPoll</span>(margins)
+<span class="kw">sum</span>(sim1<span class="op">$</span>Electoral.Votes[sim1<span class="op">$</span>Democrat])</code></pre></div>
+<pre><code>## [1] 281</code></pre>
 <p>Because the <code>simPoll</code> function returns a data set of exactly the same form as the original data, we can use this function as a method in the <code>lineup</code> call to get a set of simulations together with the polling results. Because we want to keep track of the position of the real data, we set the position ourselves (but keep it secret for now by using a random position).</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">pos &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">20</span>,<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">lpdata &lt;-<span class="st"> </span>nullabor<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/nullabor/topics/lineup">lineup</a></span>(<span class="dt">method =</span> simPoll, <span class="dt">true=</span>margins, <span class="dt">n=</span><span class="dv">20</span>, <span class="dt">pos=</span>pos)</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw">dim</span>(lpdata)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pos &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">20</span>,<span class="dv">1</span>)
+lpdata &lt;-<span class="st"> </span>nullabor<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/nullabor/topics/lineup">lineup</a></span>(<span class="dt">method =</span> simPoll, <span class="dt">true=</span>margins, <span class="dt">n=</span><span class="dv">20</span>, <span class="dt">pos=</span>pos)
+<span class="kw">dim</span>(lpdata)</code></pre></div>
 <pre><code>## [1] 1020    5</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">summary</span>(lpdata)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(lpdata)</code></pre></div>
 <pre><code>##         State     Electoral.Votes     Margin          Democrat      
-##  Alabama   : 20   Min.   : 3.00   Min.   : 0.00941   Mode :logical  
-##  Alaska    : 20   1st Qu.: 4.00   1st Qu.: 6.38207   FALSE:523      
-##  Arizona   : 20   Median : 8.00   Median :13.32473   TRUE :497      
-##  Arkansas  : 20   Mean   :10.55   Mean   :15.89096                  
-##  California: 20   3rd Qu.:12.00   3rd Qu.:22.02322                  
-##  Colorado  : 20   Max.   :55.00   Max.   :89.82604                  
+##  Alabama   : 20   Min.   : 3.00   Min.   : 0.01548   Mode :logical  
+##  Alaska    : 20   1st Qu.: 4.00   1st Qu.: 6.85958   FALSE:527      
+##  Arizona   : 20   Median : 8.00   Median :13.41898   TRUE :493      
+##  Arkansas  : 20   Mean   :10.55   Mean   :15.93234                  
+##  California: 20   3rd Qu.:12.00   3rd Qu.:22.10896                  
+##  Colorado  : 20   Max.   :55.00   Max.   :90.39461                  
 ##  (Other)   :900                                                     
 ##     .sample     
 ##  Min.   : 1.00  
@@ -140,37 +140,37 @@
 ##  Max.   :20.00  
 ## </code></pre>
 <p>We need to exchange the polling results for the actual election results.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">election &lt;-<span class="st"> </span>electoral<span class="op">$</span>election</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">idx &lt;-<span class="st"> </span><span class="kw">which</span>(lpdata<span class="op">$</span>.sample<span class="op">==</span>pos)</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3">lpdata<span class="op">$</span>Margin[idx] &lt;-<span class="st"> </span>election<span class="op">$</span>Margin</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">election &lt;-<span class="st"> </span>electoral<span class="op">$</span>election
+idx &lt;-<span class="st"> </span><span class="kw">which</span>(lpdata<span class="op">$</span>.sample<span class="op">==</span>pos)
+lpdata<span class="op">$</span>Margin[idx] &lt;-<span class="st"> </span>election<span class="op">$</span>Margin</code></pre></div>
 <p>… and now we have to build the actual plot. That requires a bit of restructuring of the data:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">lpdata &lt;-<span class="st"> </span>lpdata <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="kw"><a href="http://dplyr.tidyverse.org/reference/desc.html">desc</a></span>(Margin))</a>
-<a class="sourceLine" id="cb9-3" data-line-number="3">lpdata &lt;-<span class="st"> </span>lpdata <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(.sample, Democrat) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(</a>
-<a class="sourceLine" id="cb9-4" data-line-number="4">  <span class="dt">tower=</span><span class="kw">cumsum</span>(Electoral.Votes[<span class="kw">order</span>(Margin, <span class="dt">decreasing=</span><span class="ot">TRUE</span>)])</a>
-<a class="sourceLine" id="cb9-5" data-line-number="5">) </a>
-<a class="sourceLine" id="cb9-6" data-line-number="6">lpdata<span class="op">$</span>diff &lt;-<span class="st">  </span><span class="kw">with</span>(lpdata, Margin<span class="op">*</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>)[<span class="kw">as.numeric</span>(Democrat)<span class="op">+</span><span class="dv">1</span>])</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+lpdata &lt;-<span class="st"> </span>lpdata <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="kw"><a href="http://dplyr.tidyverse.org/reference/desc.html">desc</a></span>(Margin))
+lpdata &lt;-<span class="st"> </span>lpdata <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(.sample, Democrat) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(
+  <span class="dt">tower=</span><span class="kw">cumsum</span>(Electoral.Votes[<span class="kw">order</span>(Margin, <span class="dt">decreasing=</span><span class="ot">TRUE</span>)])
+) 
+lpdata<span class="op">$</span>diff &lt;-<span class="st">  </span><span class="kw">with</span>(lpdata, Margin<span class="op">*</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>)[<span class="kw">as.numeric</span>(Democrat)<span class="op">+</span><span class="dv">1</span>])</code></pre></div>
 <p>And now we can plot the rectangles:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">dframe &lt;-<span class="st"> </span>lpdata</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3">dframe<span class="op">$</span>diff &lt;-<span class="st"> </span><span class="kw">with</span>(dframe, diff<span class="op">+</span><span class="kw">sign</span>(diff)<span class="op">*</span><span class="fl">0.075</span>)</a>
-<a class="sourceLine" id="cb10-4" data-line-number="4">dframe<span class="op">$</span>diff &lt;-<span class="st"> </span><span class="kw">pmin</span>(<span class="dv">50</span>, dframe<span class="op">$</span>diff)</a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">x=</span>diff, <span class="dt">y=</span>tower, <span class="dt">colour =</span> <span class="kw">factor</span>(Democrat)), <span class="dt">data=</span>dframe) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual">scale_colour_manual</a></span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>), <span class="dt">guide=</span><span class="st">"none"</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual">scale_fill_manual</a></span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>), <span class="dt">guide=</span><span class="st">"none"</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/scale_continuous">scale_x_continuous</a></span>(<span class="dt">breaks=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">25</span>,<span class="dv">0</span>,<span class="dv">25</span>), <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">"25"</span>, <span class="st">"0"</span>, <span class="st">"25"</span>), </a>
-<a class="sourceLine" id="cb10-9" data-line-number="9">                     <span class="dt">limits=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">50</span>,<span class="dv">50</span>)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_tile">geom_rect</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">xmin=</span><span class="kw">pmin</span>(<span class="dv">0</span>, diff), <span class="dt">xmax=</span><span class="kw">pmax</span>(<span class="dv">0</span>,diff), <span class="dt">ymin=</span><span class="dv">0</span>, </a>
-<a class="sourceLine" id="cb10-11" data-line-number="11">                <span class="dt">ymax=</span>tower, <span class="dt">fill=</span>Democrat), <span class="dt">size=</span><span class="dv">0</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_abline">geom_vline</a></span>(<span class="dt">xintercept=</span><span class="dv">0</span>, <span class="dt">colour=</span><span class="st">"white"</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/facet_wrap">facet_wrap</a></span>(<span class="op">~</span>.sample) <span class="op">+</span></a>
-<a class="sourceLine" id="cb10-14" data-line-number="14"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/theme">theme</a></span>(<span class="dt">axis.text=</span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/element">element_blank</a></span>(), <span class="dt">axis.ticks=</span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/element">element_blank</a></span>(),</a>
-<a class="sourceLine" id="cb10-15" data-line-number="15">        <span class="dt">axis.title=</span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/element">element_blank</a></span>(), </a>
-<a class="sourceLine" id="cb10-16" data-line-number="16">        <span class="dt">plot.margin=</span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/reexports">unit</a></span>(<span class="kw">c</span>(<span class="fl">0.1</span>,<span class="fl">0.1</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="st">"cm"</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb10-17" data-line-number="17"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">ggtitle</a></span>(<span class="st">"Which of these panels looks the most different?"</span>)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+dframe &lt;-<span class="st"> </span>lpdata
+dframe<span class="op">$</span>diff &lt;-<span class="st"> </span><span class="kw">with</span>(dframe, diff<span class="op">+</span><span class="kw">sign</span>(diff)<span class="op">*</span><span class="fl">0.075</span>)
+dframe<span class="op">$</span>diff &lt;-<span class="st"> </span><span class="kw">pmin</span>(<span class="dv">50</span>, dframe<span class="op">$</span>diff)
+<span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">x=</span>diff, <span class="dt">y=</span>tower, <span class="dt">colour =</span> <span class="kw">factor</span>(Democrat)), <span class="dt">data=</span>dframe) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual">scale_colour_manual</a></span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>), <span class="dt">guide=</span><span class="st">"none"</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/scale_manual">scale_fill_manual</a></span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>), <span class="dt">guide=</span><span class="st">"none"</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/scale_continuous">scale_x_continuous</a></span>(<span class="dt">breaks=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">25</span>,<span class="dv">0</span>,<span class="dv">25</span>), <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">"25"</span>, <span class="st">"0"</span>, <span class="st">"25"</span>), 
+                     <span class="dt">limits=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">50</span>,<span class="dv">50</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_tile">geom_rect</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">xmin=</span><span class="kw">pmin</span>(<span class="dv">0</span>, diff), <span class="dt">xmax=</span><span class="kw">pmax</span>(<span class="dv">0</span>,diff), <span class="dt">ymin=</span><span class="dv">0</span>, 
+                <span class="dt">ymax=</span>tower, <span class="dt">fill=</span>Democrat), <span class="dt">size=</span><span class="dv">0</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_abline">geom_vline</a></span>(<span class="dt">xintercept=</span><span class="dv">0</span>, <span class="dt">colour=</span><span class="st">"white"</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/facet_wrap">facet_wrap</a></span>(<span class="op">~</span>.sample) <span class="op">+</span>
+<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/theme">theme</a></span>(<span class="dt">axis.text=</span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/element">element_blank</a></span>(), <span class="dt">axis.ticks=</span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/element">element_blank</a></span>(),
+        <span class="dt">axis.title=</span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/element">element_blank</a></span>(), 
+        <span class="dt">plot.margin=</span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/reexports">unit</a></span>(<span class="kw">c</span>(<span class="fl">0.1</span>,<span class="fl">0.1</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="st">"cm"</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">ggtitle</a></span>(<span class="st">"Which of these panels looks the most different?"</span>)</code></pre></div>
 <p><img src="nullabor-examples_files/figure-html/unnamed-chunk-6-1.png" width="576" style="display:block; margin: auto"> Try to decide for yourself! Which plot looks the most different in this lineup? Once you have choosen, you can compare it to the number below:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">pos</a></code></pre></div>
-<pre><code>## [1] 15</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pos</code></pre></div>
+<pre><code>## [1] 6</code></pre>
 </div>
   </div>
 
@@ -189,7 +189,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Di Cook, <a href="http://hadley.nz">Hadley Wickham</a>, Niladri Roy Chowdhury, Heike Hofmann.</p>
+  <p>Developed by <a href="http://hadley.nz">Hadley Wickham</a>, Niladri Roy Chowdhury, Di Cook, Heike Hofmann.</p>
 </div>
 
 <div class="pkgdown">

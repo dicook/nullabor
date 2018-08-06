@@ -4,10 +4,14 @@ Description: Tools for visual inference. Generate null data sets
     and null plots using permutation and simulation. Calculate distance metrics
     for a lineup, and examine the distributions of metrics.
 Title: Tools for Graphical Inference
+Author: Hadley Wickham [aut, ctb], 
+    Niladri Roy Chowdhury  [aut, ctb], 
+    Di Cook  [aut, cre], 
+    Heike Hofmann [aut, ctb]
 Authors@R: c(
-    person("Di", "Cook", email = "dicook@monash.edu", role = c("aut", "cre")),
     person("Hadley", "Wickham", email = "h.wickham@gmail.com", role = c("aut", "ctb")),
     person("Niladri Roy", "Chowdhury", email = "niladri.ia@gmail.com", role = c("aut", "ctb")),
+    person("Di", "Cook", email = "dicook@monash.edu", role = c("aut", "cre")),
     person("Heike", "Hofmann", email = "hofmann@iastate.edu", role = c("aut", "ctb"))
   )
 Maintainer: Di Cook <dicook@monash.edu>

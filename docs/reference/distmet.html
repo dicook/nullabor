@@ -64,7 +64,7 @@ assessment of whether the actual data plot is very different from the null plots
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nullabor</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.4</span>
       </span>
     </div>
 
@@ -185,23 +185,28 @@ plot is similar to the null plots.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Each of these examples uses a small number of nulls (m=8), and a small number of</span>
-<span class='co'># repeated sampling from the null distribution (repl=100), to make it faster to run.</span>
-<span class='co'># In your own examples you should think about increasing each of these, at least to the defaults.</span>
+    <pre class="examples"><div class='input'># Each of these examples uses a small number of nulls (m=8), and a small number of
+# repeated sampling from the null distribution (repl=100), to make it faster to run.
+# In your own examples you should think about increasing each of these, at least to the defaults.
+</div><span class='co'># NOT RUN {</span>
 <span class='kw'>if</span> (<span class='fu'>require</span>(<span class='st'>'dplyr'</span>)) {
   <span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lineup.html'>lineup</a></span>(<span class='fu'><a href='null_permute.html'>null_permute</a></span>(<span class='st'>'mpg'</span>), <span class='no'>mtcars</span>, <span class='kw'>pos</span> <span class='kw'>=</span> <span class='fl'>1</span>)
   <span class='no'>dd</span> <span class='kw'>&lt;-</span> <span class='fu'>distmet</span>(<span class='no'>d</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>'mpg'</span>, <span class='st'>'wt'</span>),
     <span class='st'>'reg_dist'</span>, <span class='fu'><a href='null_permute.html'>null_permute</a></span>(<span class='st'>'mpg'</span>), <span class='kw'>pos</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>repl</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>m</span> <span class='kw'>=</span> <span class='fl'>8</span>)
   <span class='fu'><a href='distplot.html'>distplot</a></span>(<span class='no'>dd</span>, <span class='kw'>m</span><span class='kw'>=</span><span class='fl'>8</span>)
-}</div><div class='img'><img src='distmet-1.png' alt='' width='700' height='433' /></div><div class='input'>
+}
+<span class='co'># }</span><div class='input'>
+</div><span class='co'># NOT RUN {</span>
 <span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lineup.html'>lineup</a></span>(<span class='fu'><a href='null_permute.html'>null_permute</a></span>(<span class='st'>'mpg'</span>), <span class='no'>mtcars</span>, <span class='kw'>pos</span><span class='kw'>=</span><span class='fl'>4</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>8</span>)
 <span class='fu'>library</span>(<span class='no'>ggplot2</span>)
-<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a></span>(<span class='no'>d</span>, <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/geom_point'>geom_point</a></span>() + <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/facet_wrap'>facet_wrap</a></span>(~ <span class='no'>.sample</span>, <span class='kw'>ncol</span><span class='kw'>=</span><span class='fl'>4</span>)</div><div class='img'><img src='distmet-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>if</span> (<span class='fu'>require</span>(<span class='st'>'dplyr'</span>)) {
+<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a></span>(<span class='no'>d</span>, <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/geom_point'>geom_point</a></span>() + <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/facet_wrap'>facet_wrap</a></span>(~ <span class='no'>.sample</span>, <span class='kw'>ncol</span><span class='kw'>=</span><span class='fl'>4</span>)
+<span class='kw'>if</span> (<span class='fu'>require</span>(<span class='st'>'dplyr'</span>)) {
   <span class='no'>dd</span> <span class='kw'>&lt;-</span> <span class='fu'>distmet</span>(<span class='no'>d</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>'mpg'</span>, <span class='st'>'wt'</span>), <span class='st'>'bin_dist'</span>, <span class='fu'><a href='null_permute.html'>null_permute</a></span>(<span class='st'>'mpg'</span>),
     <span class='kw'>pos</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>repl</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>dist.arg</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>lineup.dat</span> <span class='kw'>=</span> <span class='no'>d</span>, <span class='kw'>X.bin</span> <span class='kw'>=</span> <span class='fl'>5</span>,
     <span class='kw'>Y.bin</span> <span class='kw'>=</span> <span class='fl'>5</span>), <span class='kw'>m</span> <span class='kw'>=</span> <span class='fl'>8</span>)
   <span class='fu'><a href='distplot.html'>distplot</a></span>(<span class='no'>dd</span>, <span class='kw'>m</span><span class='kw'>=</span><span class='fl'>8</span>)
-}</div><div class='img'><img src='distmet-3.png' alt='' width='700' height='433' /></div><div class='input'>
+}
+<span class='co'># }</span><div class='input'>
 # Example using bin_dist
 </div><span class='co'># NOT RUN {</span>
 <span class='kw'>if</span> (<span class='fu'>require</span>(<span class='st'>'dplyr'</span>)) {
@@ -242,7 +247,7 @@ plot is similar to the null plots.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Di Cook, <a href='http://hadley.nz'>Hadley Wickham</a>, Niladri Roy Chowdhury, Heike Hofmann.</p>
+  <p>Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Niladri Roy Chowdhury, Di Cook, Heike Hofmann.</p>
 </div>
 
 <div class="pkgdown">
