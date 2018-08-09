@@ -69,7 +69,7 @@ resid_rotate <- function(model, data) {
 #' @param data used to fit model
 #' @export
 resid_pboot <- function(model, data) {
-    rnorm(n = n(model), sd = sqrt(sigma(model)))
+  rnorm(n = length(model$residuals), sd = sigma(model))
 }
 
 #' Residuals simulated by a normal model, with specified sigma
