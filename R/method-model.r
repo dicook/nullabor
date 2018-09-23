@@ -25,6 +25,7 @@
 #'   facet_wrap(~ .sample)
 #' }
 null_lm <- function(f, method = "rotate", ...) {
+  n <- NULL
     if (is.character(method)) {
         method <- match.fun(paste("resid", method, sep = "_"))
     }
@@ -33,7 +34,7 @@ null_lm <- function(f, method = "rotate", ...) {
         resp_var <- all.vars(f[[2]])
 
         resid <- method(model, df, ...)
-        fitted <- predict(model, df)
+        fitted <- stats::predict(model, df)
         df[".resid"] <- resid
         df[".fitted"] <- fitted
         df[[resp_var]] <- fitted + resid
@@ -42,9 +43,9 @@ null_lm <- function(f, method = "rotate", ...) {
 }
 
 # Extractor methods
-rss <- function(model) sum(resid(model)^2)
+rss <- function(model) sum(stats::resid(model)^2)
 sigma <- function(model) summary(model)$sigma
-n <- function(model) length(resid(model))
+n <- function(model) length(stats::resid(model))
 
 #' Rotation residuals.
 #'
@@ -55,10 +56,10 @@ n <- function(model) length(resid(model))
 #' @importFrom stats update
 #' @export
 resid_rotate <- function(model, data) {
-    data[names(model$model)[1]] <- rnorm(nrow(data))
+    data[names(model$model)[1]] <- stats::rnorm(nrow(data))
 
-    rmodel <- update(model, data = data)
-    resid(rmodel) * sqrt(rss(model)/rss(rmodel))
+    rmodel <- stats::update(model, data = data)
+    stats::resid(rmodel) * sqrt(rss(model)/rss(rmodel))
 }
 
 #' Parametric bootstrap residuals.
@@ -69,7 +70,7 @@ resid_rotate <- function(model, data) {
 #' @param data used to fit model
 #' @export
 resid_pboot <- function(model, data) {
-  rnorm(n = length(model$residuals), sd = sigma(model))
+  stats::rnorm(n = length(model$residuals), sd = sigma(model))
 }
 
 #' Residuals simulated by a normal model, with specified sigma
@@ -82,7 +83,7 @@ resid_pboot <- function(model, data) {
 #' @importFrom stats rnorm
 #' @export
 resid_sigma <- function(model, data, sigma = 1) {
-    rnorm(n = n(model), sd = sigma)
+  stats::rnorm(n = n(model), sd = sigma)
 }
 
 #' Bootstrap residuals.
@@ -94,5 +95,5 @@ resid_sigma <- function(model, data, sigma = 1) {
 #' @importFrom stats resid
 #' @export
 resid_boot <- function(model, data) {
-    sample(resid(model))
+    sample(stats::resid(model))
 }

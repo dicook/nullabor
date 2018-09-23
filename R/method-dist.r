@@ -48,7 +48,7 @@ null_dist <- function(var, dist, params = NULL) {
         # If parameters not specified, use fitdistr from MASS to find them
         if (is.null(params)) {
           if (dist == "uniform") stop("specify minimum and maximum of the uniform distribution in the function call, use the form: params = list(min = ., max = .)")
-            params <- as.list(coef(fitdistr(df[[var]], dist)))
+            params <- as.list(stats::coef(fitdistr(df[[var]], dist)))
         }
         params$n <- nrow(df)
         df[[var]] <- do.call(generator, params)

@@ -16,7 +16,7 @@ providing the dataset}
 \item{clustering}{LOGICAL; if TRUE, the third column is used as the
 clustering variable, by default FALSE}
 
-\item{nclust}{the number of clusters to be obtained by hierarchial
+\item{nclust}{the number of clusters to be obtained by hierarchical
 clustering, by default nclust = 3}
 
 \item{type}{character string to specify which measure to use for distance, see ?cluster.stats for details}

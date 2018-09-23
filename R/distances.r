@@ -32,7 +32,7 @@ reg_dist <- function(X, PX, nbins = 1, intercept=TRUE, scale=TRUE) {
     dX$.y <- dX[,2]
     dX$.x <- dX[,1]
 
-    group_by(dX, .group) %>% do(data.frame(rbind(coef(lm(.y~.x, data=.)))))
+    group_by(dX, .group) %>% do(data.frame(rbind(stats::coef(stats::lm(.y~.x, data=.)))))
   }
 
   beta.X <- dc(X)
@@ -112,8 +112,8 @@ uni_dist <- function(X, PX) {
         xx <- X
         yy <- PX
     }
-    stat.xx <- c(mean(xx), sd(xx), skewness(xx), kurtosis(xx))
-    stat.yy <- c(mean(yy), sd(yy), skewness(yy), kurtosis(yy))
+    stat.xx <- c(mean(xx), stats::sd(xx), skewness(xx), kurtosis(xx))
+    stat.yy <- c(mean(yy), stats::sd(yy), skewness(yy), kurtosis(yy))
     sqrt(sum((stat.xx - stat.yy)^2))
 }
 
@@ -158,7 +158,7 @@ box_dist <- function(X, PX) {
 	  if (length(Xfactor) > 2) stop("Dataset cannot not have more than one categorical and one continuous data.\n\n")
 	  dX$.group <- dX[, Xfactor]
 	  dX$.val <- dX[, !Xfactor]
-	  X.sum <- summarise(group_by(dX, .group), q1 = quantile(.val, 0.25), q2 = quantile(.val, 0.5), q3 = quantile(.val,0.75))
+	  X.sum <- summarise(group_by(dX, .group), q1 = stats::quantile(.val, 0.25), q2 = stats::quantile(.val, 0.5), q3 = quantile(.val,0.75))
 	  unlist(lapply(X.sum[,-1], function(x) abs(diff(range(x)))))
 	}
 
@@ -206,11 +206,11 @@ box_dist <- function(X, PX) {
 #'}
 sep_dist <- function(X, PX, clustering = FALSE, nclust = 3, type="separation") {
   cl_dist <- function(Y) {
-    dY <- dist(Y[, 1:2])
+    dY <- stats::dist(Y[, 1:2])
     if (clustering) {
       Y$cl <- Y[, 3]
     } else {
-      Y$cl <- cutree(hclust(dY), nclust)
+      Y$cl <- stats::cutree(stats::hclust(dY), nclust)
     }
     cluster.stats(dY, clustering = Y$cl)[[type]]
   }

@@ -26,7 +26,7 @@ default}
 \item{m}{the number of plots in the lineup; m = 20 by default}
 }
 \value{
-lineup has the data used for the caulations
+lineup has the data used for the calculations
 
 null_values contains new null samples from which to compare nulls in lineup
 

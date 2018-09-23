@@ -21,17 +21,17 @@
 calc_mean_dist <- function(lineup.dat, var, met, pos, dist.arg = NULL, m = 20){
 	plotno <- pos.2 <- b <- NULL
 	dat.pos <- expand.grid(plotno = 1:m, pos.2 = 1:m)
-	dat.pos <- filter(dat.pos, plotno != pos.2 & pos.2 != pos)
+	dat.pos <- dplyr::filter(dat.pos, plotno != pos.2 & pos.2 != pos)
     lineup.dat <- lineup.dat[, c(var, ".sample")]
     if (!is.character(met)) {
         stop("function met should be a character")
     }
     func <- match.fun(met)
     d <- summarise(group_by(dat.pos, plotno, pos.2), b = with(lineup.dat, ifelse(is.null(dist.arg),
-    			do.call(func, list(filter(lineup.dat, .sample == plotno),
-    			filter(lineup.dat, .sample == pos.2))),
-    			do.call(func, append(list(filter(lineup.dat, .sample == plotno),
-    			filter(lineup.dat, .sample == pos.2)), unname(dist.arg))))))
+    			do.call(func, list(dplyr::filter(lineup.dat, .sample == plotno),
+    			                   dplyr::filter(lineup.dat, .sample == pos.2))),
+    			do.call(func, append(list(dplyr::filter(lineup.dat, .sample == plotno),
+    			                          dplyr::filter(lineup.dat, .sample == pos.2)), unname(dist.arg))))))
     summarise(group_by(d, plotno), mean.dist = mean(b))
 }
 #' Calculating the difference between true plot and the null plot with the maximum distance.
