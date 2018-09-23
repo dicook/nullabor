@@ -35,7 +35,7 @@ null_ts <- function(var, modelfn) {
       modelfn
     x <- simulate(model_fit, future=FALSE)
     x <- as_data_frame(x)
-    df[[var]] <- x$x
+    df[[var]] <- as.vector(x$x)
     df
   }
 }
