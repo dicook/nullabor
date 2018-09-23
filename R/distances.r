@@ -185,7 +185,7 @@ box_dist <- function(X, PX) {
 #' providing the dataset
 #' @param clustering LOGICAL; if TRUE, the third column is used as the
 #' clustering variable, by default FALSE
-#' @param nclust the number of clusters to be obtained by hierarchial
+#' @param nclust the number of clusters to be obtained by hierarchical
 #' clustering, by default nclust = 3
 #' @param type character string to specify which measure to use for distance, see ?cluster.stats for details
 #' @return distance between X and PX

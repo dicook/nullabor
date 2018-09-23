@@ -15,7 +15,7 @@
 #' default
 #' @param dist.arg a list or vector of inputs for the distance metric met; NULL by default
 #' @param m the number of plots in the lineup; m = 20 by default
-#' @return lineup has the data used for the caulations
+#' @return lineup has the data used for the calculations
 #' @return null_values contains new null samples from which to compare nulls in lineup
 #' @return diff difference in distance between nulls and actual data and that of the null
 #' that is most different from other nulls. A negative value means that the actual data
