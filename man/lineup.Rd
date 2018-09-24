@@ -4,7 +4,8 @@
 \alias{lineup}
 \title{The line-up protocol.}
 \usage{
-lineup(method, true = NULL, n = 20, pos = sample(n, 1), samples = NULL)
+lineup(method, true = NULL, n = 20, pos = sample(n, 1),
+  samples = NULL)
 }
 \arguments{
 \item{method}{method for generating null data sets}
