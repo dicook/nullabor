@@ -20,7 +20,6 @@ URL: http://github.com/dicook/nullabor
 BugReports: http://github.com/dicook/nullabor/issues
 Imports:
     MASS,
-    tidyverse,
     rlang,
     moments,
     fpc,
@@ -39,4 +38,5 @@ LazyData: true
 Type: Package
 LazyLoad: false
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
+Encoding: UTF-8

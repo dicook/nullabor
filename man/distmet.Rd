@@ -4,8 +4,8 @@
 \alias{distmet}
 \title{Empirical distribution of the distance}
 \usage{
-distmet(lineup.dat, var, met, method, pos, repl = 1000, dist.arg = NULL,
-  m = 20)
+distmet(lineup.dat, var, met, method, pos, repl = 1000,
+  dist.arg = NULL, m = 20)
 }
 \arguments{
 \item{lineup.dat}{lineup data}

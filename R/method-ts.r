@@ -15,7 +15,8 @@
 #' @importFrom tibble as_data_frame
 #' @examples
 #' require(forecast)
-#' require(tidyverse)
+#' require(ggplot2)
+#' require(dplyr)
 #' data(aud)
 #' l <- lineup(null_ts("rate", auto.arima), aud)
 #' ggplot(l, aes(x=date, y=rate)) + geom_line() +

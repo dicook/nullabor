@@ -4,8 +4,8 @@
 \alias{opt_bin_diff}
 \title{Finds the number of bins in x and y direction which gives the maximum binned distance.}
 \usage{
-opt_bin_diff(lineup.dat, var, xlow, xhigh, ylow, yhigh, pos, plot = FALSE,
-  m = 20)
+opt_bin_diff(lineup.dat, var, xlow, xhigh, ylow, yhigh, pos,
+  plot = FALSE, m = 20)
 }
 \arguments{
 \item{lineup.dat}{lineup data to get the lineup}
