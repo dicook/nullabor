@@ -22,7 +22,8 @@ Null hypothesis: data follows a time series model using auto.arima from the fore
 }
 \examples{
 require(forecast)
-require(tidyverse)
+require(ggplot2)
+require(dplyr)
 data(aud)
 l <- lineup(null_ts("rate", auto.arima), aud)
 ggplot(l, aes(x=date, y=rate)) + geom_line() +
