@@ -21,7 +21,7 @@ library(nullabor)
 # Electoral Building
 
 
-The idea in this example is to take the margins for each state as reported by a pollster and sample for each state from a normal distribution to get a vector of values representing the margins of a potential election day outcome. The polls here are loosely based on the 2012 US Elction polls by \url{http://freedomslighthouse.net/2012-presidential-election-electoral-vote-map/}. 
+The idea in this example is to take the margins for each state as reported by a pollster and sample for each state from a normal distribution to get a vector of values representing the margins of a potential election day outcome. The polls here are loosely based on the 2012 US Election polls by \url{http://freedomslighthouse.net/2012-presidential-election-electoral-vote-map/}. 
 
 ```{r}
 simPoll <- function(trueData) {
