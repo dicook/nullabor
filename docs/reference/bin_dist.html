@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>The line-up protocol. — lineup • nullabor</title>
+<title>Binned Distance — bin_dist • nullabor</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,15 +30,11 @@
 
 
 
-<meta property="og:title" content="The line-up protocol. — lineup" />
+<meta property="og:title" content="Binned Distance — bin_dist" />
 
-<meta property="og:description" content="In this protocol the plot of the real data is embedded amongst a field of
-plots of data generated to be consistent with some null hypothesis.
-If the observe can pick the real data as different from the others, this
-lends weight to the statistical significance of the structure in the plot.
-The protocol is described in Buja, Cook, Hofmann, Lawrence,
-Lee, Swayne, Wickham (2009) Statistical inference for exploratory data
-analysis and model diagnostics, Phil. Trans. R. Soc. A, 367, 4361-4383." />
+<meta property="og:description" content="Data X is binned into X.bin bins in x-direction and Y.bins in y-direction. The number
+of points in each cell is then counted. Same is done for data PX. An euclidean
+distance is calculated between the number of points in each cell between X and PX." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -126,76 +122,65 @@ analysis and model diagnostics, Phil. Trans. R. Soc. A, 367, 4361-4383." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>The line-up protocol.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/dicook/nullabor/blob/master/R/protocols.r'><code>R/protocols.r</code></a></small>
-    <div class="hidden name"><code>lineup.Rd</code></div>
+    <h1>Binned Distance</h1>
+    <small class="dont-index">Source: <a href='https://github.com/dicook/nullabor/blob/master/R/distances.r'><code>R/distances.r</code></a></small>
+    <div class="hidden name"><code>bin_dist.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>In this protocol the plot of the real data is embedded amongst a field of
-plots of data generated to be consistent with some null hypothesis.
-If the observe can pick the real data as different from the others, this
-lends weight to the statistical significance of the structure in the plot.
-The protocol is described in Buja, Cook, Hofmann, Lawrence,
-Lee, Swayne, Wickham (2009) Statistical inference for exploratory data
-analysis and model diagnostics, Phil. Trans. R. Soc. A, 367, 4361-4383.</p>
+    <p>Data X is binned into X.bin bins in x-direction and Y.bins in y-direction. The number
+of points in each cell is then counted. Same is done for data PX. An euclidean
+distance is calculated between the number of points in each cell between X and PX.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>lineup</span>(<span class='no'>method</span>, <span class='kw'>true</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>pos</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='no'>n</span>, <span class='fl'>1</span>),
-  <span class='kw'>samples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>bin_dist</span>(<span class='no'>X</span>, <span class='no'>PX</span>, <span class='kw'>lineup.dat</span> <span class='kw'>=</span> <span class='no'>lineup.dat</span>, <span class='kw'>X.bin</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>Y.bin</span> <span class='kw'>=</span> <span class='fl'>5</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>method</th>
-      <td><p>method for generating null data sets</p></td>
+      <th>X</th>
+      <td><p>a data.frame with two variables, the first two columns
+are used</p></td>
     </tr>
     <tr>
-      <th>true</th>
-      <td><p>true data set. If <code>NULL</code>, <code><a href='find_plot_data.html'>find_plot_data</a></code>
-will attempt to extract it from the current ggplot2 plot.</p></td>
+      <th>PX</th>
+      <td><p>another data.frame with two variables, the first two columns
+are used</p></td>
     </tr>
     <tr>
-      <th>n</th>
-      <td><p>total number of samples to generate (including true data)</p></td>
+      <th>lineup.dat</th>
+      <td><p>lineup data so that the binning is done based on the lineup data and not
+the individual plots, by default lineup.dat = lineup.dat ; if one wishes to calculate the
+binned distance between two plots, one should use lineup.dat = NULL</p></td>
     </tr>
     <tr>
-      <th>pos</th>
-      <td><p>position of true data.  Leave missing to pick position at
-random.  Encryped position will be printed on the command line,
-<code><a href='decrypt.html'>decrypt</a></code> to understand.</p></td>
+      <th>X.bin</th>
+      <td><p>number of bins on the x-direction, by default X.bin = 5</p></td>
     </tr>
     <tr>
-      <th>samples</th>
-      <td><p>samples generated under the null hypothesis. Only specify
-this if you don't want lineup to generate the data for you.</p></td>
+      <th>Y.bin</th>
+      <td><p>number of bins on the y-direction, by default Y.bin = 5</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Generate n - 1 null datasets and randomly position the true data.  If you
-pick the real data as being noticeably different, then you have formally
-established that it is different to with p-value 1/n.</p>
+    <p>distance between X and PX</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>ggplot2</span>)
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='fu'>lineup</span>(<span class='fu'><a href='null_permute.html'>null_permute</a></span>(<span class='st'>'mpg'</span>), <span class='no'>mtcars</span>), <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) +
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() +
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span>(~ <span class='no'>.sample</span>)</div><div class='output co'>#&gt; <span class='message'>decrypt("jt84 gyZy UA KPeUZUPA pN")</span></div><div class='img'><img src='lineup-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='fu'>lineup</span>(<span class='fu'><a href='null_permute.html'>null_permute</a></span>(<span class='st'>'cyl'</span>), <span class='no'>mtcars</span>),
-       <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>.sample</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>cyl</span>))) +
-       <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()</div><div class='output co'>#&gt; <span class='message'>decrypt("jt84 gyZy UA KPeUZUPA pi")</span></div><div class='img'><img src='lineup-2.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/with'>with</a></span>(<span class='no'>mtcars</span>, <span class='fu'>bin_dist</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='no'>wt</span>, <span class='no'>mpg</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='no'>wt</span>), <span class='no'>mpg</span>),
+<span class='kw'>lineup.dat</span> <span class='kw'>=</span> <span class='kw'>NULL</span>))</div><div class='output co'>#&gt; [1] 9.165151</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#details">Details</a></li>
+      <li><a href="#value">Value</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

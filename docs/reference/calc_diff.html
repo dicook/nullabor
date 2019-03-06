@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>The line-up protocol. — lineup • nullabor</title>
+<title>Calculating the difference between true plot and the null plot with the maximum distance. — calc_diff • nullabor</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,15 +30,12 @@
 
 
 
-<meta property="og:title" content="The line-up protocol. — lineup" />
+<meta property="og:title" content="Calculating the difference between true plot and the null plot with the maximum distance. — calc_diff" />
 
-<meta property="og:description" content="In this protocol the plot of the real data is embedded amongst a field of
-plots of data generated to be consistent with some null hypothesis.
-If the observe can pick the real data as different from the others, this
-lends weight to the statistical significance of the structure in the plot.
-The protocol is described in Buja, Cook, Hofmann, Lawrence,
-Lee, Swayne, Wickham (2009) Statistical inference for exploratory data
-analysis and model diagnostics, Phil. Trans. R. Soc. A, 367, 4361-4383." />
+<meta property="og:description" content="Distance metric is used to calculate the mean distance between the true plot
+and all the null plots in a lineup. The difference between the mean
+distance of the true plot and the maximum mean distance of the null plots is
+calculated." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -126,76 +123,72 @@ analysis and model diagnostics, Phil. Trans. R. Soc. A, 367, 4361-4383." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>The line-up protocol.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/dicook/nullabor/blob/master/R/protocols.r'><code>R/protocols.r</code></a></small>
-    <div class="hidden name"><code>lineup.Rd</code></div>
+    <h1>Calculating the difference between true plot and the null plot with the maximum distance.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/dicook/nullabor/blob/master/R/opt_diff.r'><code>R/opt_diff.r</code></a></small>
+    <div class="hidden name"><code>calc_diff.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>In this protocol the plot of the real data is embedded amongst a field of
-plots of data generated to be consistent with some null hypothesis.
-If the observe can pick the real data as different from the others, this
-lends weight to the statistical significance of the structure in the plot.
-The protocol is described in Buja, Cook, Hofmann, Lawrence,
-Lee, Swayne, Wickham (2009) Statistical inference for exploratory data
-analysis and model diagnostics, Phil. Trans. R. Soc. A, 367, 4361-4383.</p>
+    <p>Distance metric is used to calculate the mean distance between the true plot
+and all the null plots in a lineup. The difference between the mean
+distance of the true plot and the maximum mean distance of the null plots is
+calculated.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>lineup</span>(<span class='no'>method</span>, <span class='kw'>true</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>pos</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='no'>n</span>, <span class='fl'>1</span>),
-  <span class='kw'>samples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>calc_diff</span>(<span class='no'>lineup.dat</span>, <span class='no'>var</span>, <span class='no'>met</span>, <span class='no'>pos</span>, <span class='kw'>dist.arg</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>m</span> <span class='kw'>=</span> <span class='fl'>20</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>method</th>
-      <td><p>method for generating null data sets</p></td>
+      <th>lineup.dat</th>
+      <td><p>lineup data to get the lineup</p></td>
     </tr>
     <tr>
-      <th>true</th>
-      <td><p>true data set. If <code>NULL</code>, <code><a href='find_plot_data.html'>find_plot_data</a></code>
-will attempt to extract it from the current ggplot2 plot.</p></td>
+      <th>var</th>
+      <td><p>a vector of names of the variables to be used to calculate the difference</p></td>
     </tr>
     <tr>
-      <th>n</th>
-      <td><p>total number of samples to generate (including true data)</p></td>
+      <th>met</th>
+      <td><p>distance metric needed to calculate the distance as a character</p></td>
     </tr>
     <tr>
       <th>pos</th>
-      <td><p>position of true data.  Leave missing to pick position at
-random.  Encryped position will be printed on the command line,
-<code><a href='decrypt.html'>decrypt</a></code> to understand.</p></td>
+      <td><p>position of the true plot in the lineup</p></td>
     </tr>
     <tr>
-      <th>samples</th>
-      <td><p>samples generated under the null hypothesis. Only specify
-this if you don't want lineup to generate the data for you.</p></td>
+      <th>dist.arg</th>
+      <td><p>a list or vector of inputs for the distance metric met; NULL by default</p></td>
+    </tr>
+    <tr>
+      <th>m</th>
+      <td><p>number of plots in the lineup, by default m = 20</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Generate n - 1 null datasets and randomly position the true data.  If you
-pick the real data as being noticeably different, then you have formally
-established that it is different to with p-value 1/n.</p>
+    <p>difference between the mean distance of the true plot and
+the maximum mean distance of the null plots</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>ggplot2</span>)
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='fu'>lineup</span>(<span class='fu'><a href='null_permute.html'>null_permute</a></span>(<span class='st'>'mpg'</span>), <span class='no'>mtcars</span>), <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) +
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() +
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span>(~ <span class='no'>.sample</span>)</div><div class='output co'>#&gt; <span class='message'>decrypt("jt84 gyZy UA KPeUZUPA pN")</span></div><div class='img'><img src='lineup-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='fu'>lineup</span>(<span class='fu'><a href='null_permute.html'>null_permute</a></span>(<span class='st'>'cyl'</span>), <span class='no'>mtcars</span>),
-       <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>.sample</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>cyl</span>))) +
-       <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>()</div><div class='output co'>#&gt; <span class='message'>decrypt("jt84 gyZy UA KPeUZUPA pi")</span></div><div class='img'><img src='lineup-2.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>'dplyr'</span>)){
+<span class='no'>lineup.dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lineup.html'>lineup</a></span>(<span class='fu'><a href='null_permute.html'>null_permute</a></span>(<span class='st'>'mpg'</span>), <span class='no'>mtcars</span>, <span class='kw'>pos</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+<span class='fu'>calc_diff</span>(<span class='no'>lineup.dat</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>'mpg'</span>, <span class='st'>'wt'</span>), <span class='kw'>met</span> <span class='kw'>=</span> <span class='st'>'bin_dist'</span>,
+<span class='kw'>dist.arg</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>lineup.dat</span> <span class='kw'>=</span> <span class='no'>lineup.dat</span>, <span class='kw'>X.bin</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>Y.bin</span> <span class='kw'>=</span> <span class='fl'>5</span>), <span class='kw'>pos</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>m</span> <span class='kw'>=</span> <span class='fl'>8</span>)}</div><div class='output co'>#&gt; [1] 0.5797487</div><div class='input'>
+<span class='kw'>if</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>'dplyr'</span>)){
+<span class='fu'>calc_diff</span>(<span class='fu'><a href='lineup.html'>lineup</a></span>(<span class='fu'><a href='null_permute.html'>null_permute</a></span>(<span class='st'>'mpg'</span>), <span class='no'>mtcars</span>, <span class='kw'>pos</span> <span class='kw'>=</span> <span class='fl'>1</span>), <span class='kw'>var</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>'mpg'</span>, <span class='st'>'wt'</span>), <span class='kw'>met</span> <span class='kw'>=</span> <span class='st'>'reg_dist'</span>,
+<span class='kw'>dist.arg</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pos</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>m</span> <span class='kw'>=</span> <span class='fl'>8</span>)}</div><div class='output co'>#&gt; [1] 0.8177229</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#details">Details</a></li>
+      <li><a href="#value">Value</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

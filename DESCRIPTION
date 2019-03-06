@@ -9,10 +9,10 @@ Author: Hadley Wickham [aut, ctb],
     Di Cook  [aut, cre], 
     Heike Hofmann [aut, ctb]
 Authors@R: c(
-    person("Hadley", "Wickham", email = "h.wickham@gmail.com", role = c("aut", "ctb")),
+    person("Hadley", "Wickham", email = "h.wickham@gmail.com", role = c("aut", "ctb"), comment = c(ORCID = "0000-0003-4757-117X")),
     person("Niladri Roy", "Chowdhury", email = "niladri.ia@gmail.com", role = c("aut", "ctb")),
-    person("Di", "Cook", email = "dicook@monash.edu", role = c("aut", "cre")),
-    person("Heike", "Hofmann", email = "hofmann@iastate.edu", role = c("aut", "ctb"))
+    person("Di", "Cook", email = "dicook@monash.edu", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-3813-7155")),
+    person("Heike", "Hofmann", email = "hofmann@iastate.edu", role = c("aut", "ctb"), comment = c(ORCID = "0000-0001-6216-5183"))
   )
 Maintainer: Di Cook <dicook@monash.edu>
 License: GPL (>= 2)
@@ -38,5 +38,5 @@ LazyData: true
 Type: Package
 LazyLoad: false
 VignetteBuilder: knitr
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Encoding: UTF-8
