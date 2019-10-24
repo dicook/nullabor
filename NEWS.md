@@ -1,3 +1,7 @@
+# nullabor 0.3.6
+
+- Added a sample size calculator
+
 # nullabor 0.3.5
 
 - Added time series null generating mechanism
