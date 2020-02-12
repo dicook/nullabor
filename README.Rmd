@@ -43,4 +43,11 @@ devtools::install_github("dicook/nullabor")
 ```
 
 
+<!-- 
+# Reverse dependencies!
 
+Do you want to install from sources the packages which need compilation? (Yes/no/cancel) no
+── CHECK ───────────────────────────────────────────────────────────────────────────────── 2 packages ──
+✓ agridat 1.16                           ── E: 0     | W: 0     | N: 0                                  
+✓ metaviz 0.3.0                          ── E: 0     | W: 0     | N: 0                                  
+-->
