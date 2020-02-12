@@ -10,8 +10,6 @@ null_ts(var, modelfn)
 \item{var}{variable to model as a time series}
 
 \item{modelfn}{method for simulating from ts model.}
-
-\item{...}{other arguments passed onto \code{modelfn}.}
 }
 \value{
 a function that given \code{data} generates a null data set.

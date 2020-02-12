@@ -6,7 +6,6 @@
 #'
 #' @param var variable to model as a time series
 #' @param modelfn method for simulating from ts model.
-#' @param ... other arguments passed onto \code{modelfn}.
 #' @return a function that given \code{data} generates a null data set.
 #'   For use with \code{\link{lineup}} or \code{\link{rorschach}}
 #' @export

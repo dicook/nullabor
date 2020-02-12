@@ -1,3 +1,7 @@
+# nullabor 0.3.7
+
+- Bug fix
+
 # nullabor 0.3.6
 
 - Added a sample size calculator

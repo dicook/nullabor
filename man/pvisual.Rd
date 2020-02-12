@@ -4,8 +4,16 @@
 \alias{pvisual}
 \title{P-value calculations.}
 \usage{
-pvisual(x, K, m = 20, N = 10000, type = "scenario3", xp = 1,
-  target = 1, upper.tail = TRUE)
+pvisual(
+  x,
+  K,
+  m = 20,
+  N = 10000,
+  type = "scenario3",
+  xp = 1,
+  target = 1,
+  upper.tail = TRUE
+)
 }
 \arguments{
 \item{x}{number of observed picks of the data plot}

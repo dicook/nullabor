@@ -17,7 +17,7 @@
 #' @examples
 #' if(require('dplyr')){
 #' calc_mean_dist(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg', 'wt'),
-#' met = 'reg_dist', pos = 1)}
+#' met = 'reg_dist', pos = 1, m = 10)}
 calc_mean_dist <- function(lineup.dat, var, met, pos, dist.arg = NULL, m = 20){
 	plotno <- pos.2 <- b <- NULL
 	dat.pos <- expand.grid(plotno = 1:m, pos.2 = 1:m)

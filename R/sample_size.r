@@ -7,6 +7,8 @@
 #' @param m linup size, default 20
 #' @param pA range of estimated detection rates to consider,
 #'    default is seq(1/20, 1/3, 0.01)
+#' @param conf confidence level to use to simulate from binomial
+#' @importFrom stats qbinom
 #' @examples
 #' pow <- sample_size()
 #' pow

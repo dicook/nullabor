@@ -1,5 +1,5 @@
 Package: nullabor
-Version: 0.3.7
+Version: 0.3.8
 Description: Tools for visual inference. Generate null data sets
     and null plots using permutation and simulation. Calculate distance metrics
     for a lineup, and examine the distributions of metrics.
@@ -30,7 +30,8 @@ Imports:
     purrr,
     tidyr,
     tibble,
-    magrittr
+    magrittr,
+    viridis
 Suggests:
     reshape2,
     knitr
@@ -38,5 +39,5 @@ LazyData: true
 Type: Package
 LazyLoad: false
 VignetteBuilder: knitr
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 Encoding: UTF-8

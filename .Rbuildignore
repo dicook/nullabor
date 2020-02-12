@@ -6,3 +6,5 @@
 ^README-.*\.png$
 ^docs$
 ^_pkgdown\.yml$
+^doc$
+^Meta$
