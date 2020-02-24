@@ -1,6 +1,14 @@
+# nullabor 0.3.9
+
+- CRAN fixes, minor code changes
+
+# nullabor 0.3.8
+
+- CRAN fixes, minor code changes
+
 # nullabor 0.3.7
 
-- Bug fix
+- Bug fixes, minor
 
 # nullabor 0.3.6
 

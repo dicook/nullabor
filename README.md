@@ -1,7 +1,7 @@
 nullabor: lineup and Rorschach plots for visual inference
 ================
 Di Cook, Hadley Wickham, Niladri Roy Chowdhury, Heike Hofmann
-February 12, 2020
+February 25, 2020
 
 [![packageversion](https://img.shields.io/badge/Package%20version-0.0.1-orange.svg?style=flat-square)](commits/master)
 [![Project Status: Active – The project has reached a stable, usable
@@ -9,7 +9,7 @@ state and is being actively
 developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Travis-CI Build
 Status](https://travis-ci.org/dicook/nullabor.svg?branch=master)](https://travis-ci.org/dicook/nullabor)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2020--02--12-yellowgreen.svg)](/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2020--02--25-yellowgreen.svg)](/commits/master)
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -33,12 +33,3 @@ You can install the development version of nullabor from github with:
 # install.packages("devtools")
 devtools::install_github("dicook/nullabor")
 ```
-
-<!-- 
-# Reverse dependencies!
-
-Do you want to install from sources the packages which need compilation? (Yes/no/cancel) no
-── CHECK ───────────────────────────────────────────────────────────────────────────────── 2 packages ──
-✓ agridat 1.16                           ── E: 0     | W: 0     | N: 0                                  
-✓ metaviz 0.3.0                          ── E: 0     | W: 0     | N: 0                                  
--->
