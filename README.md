@@ -1,15 +1,7 @@
 nullabor: lineup and Rorschach plots for visual inference
 ================
 Di Cook, Hadley Wickham, Niladri Roy Chowdhury, Heike Hofmann
-February 25, 2020
-
-[![packageversion](https://img.shields.io/badge/Package%20version-0.0.1-orange.svg?style=flat-square)](commits/master)
-[![Project Status: Active – The project has reached a stable, usable
-state and is being actively
-developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
-[![Travis-CI Build
-Status](https://travis-ci.org/dicook/nullabor.svg?branch=master)](https://travis-ci.org/dicook/nullabor)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2020--02--25-yellowgreen.svg)](/commits/master)
+February 26, 2020
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 

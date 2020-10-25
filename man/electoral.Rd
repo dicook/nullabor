@@ -4,7 +4,8 @@
 \name{electoral}
 \alias{electoral}
 \title{Polls and election results from the 2012 US Election}
-\format{A list with two data frames:
+\format{
+A list with two data frames:
 polls is a data frame of 51 rows and 4 variables
 \describe{
 \item{State}{State name}
@@ -21,7 +22,8 @@ These margins are based on polls.}
 \item{Margin}{Margin between the parties with the highest number of votes and second highest number of votes.
 These margins are based on the actual election outcome}
 \item{Democrat}{logical vector True, if the democratic party is  the majority party in this state. }
-}}
+}
+}
 \description{
 Polls and election results from the 2012 US Election
 }

@@ -18,7 +18,7 @@ visual_power <- function(data, m=20) {
   nchoices_wgt <- NULL
 
   data <- data %>% mutate(
-    nchoices_wgt = (m-lengths(strsplit(as.character(data$response), ",")))/19)
+    nchoices_wgt = (m-lengths(strsplit(as.character(data$response), ",")))/(m-1))
   visual_p <- data %>% group_by(pic_id) %>%
     summarise(power = sum(detected*nchoices_wgt)/length(detected), n=length(detected))
   return(visual_p)
