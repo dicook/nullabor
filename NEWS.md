@@ -1,5 +1,10 @@
 # nullabor 0.3.9
 
+- new theme to remove context from plots
+- updated roxygen dependency
+
+# nullabor 0.3.9
+
 - CRAN fixes, minor code changes
 
 # nullabor 0.3.8
