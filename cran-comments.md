@@ -1,7 +1,24 @@
-# Addressing the requested fix from CRAN
+## Overview 
 
-This update to the package is to address submission problems identified at:
+These are small changes, including removing some dependencies. Also fixed issues at https://cran.rstudio.com//web/checks/check_results_nullabor.html. 
 
-https://win-builder.r-project.org/incoming_pretest/nullabor_0.3.8_20200212_055129/Windows/00check.log
+── R CMD check results ────────────────────── nullabor 0.3.10 ────
+Duration: 1m 24.9s
 
-https://win-builder.r-project.org/incoming_pretest/nullabor_0.3.8_20200212_055129/Debian/00check.log
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+
+## Test environment
+
+* R version 4.4.1 (2024-06-14) -- "Race for Your Life"
+* https://win-builder.r-project.org/
+* Linux: 
+
+## Reverse dependencies
+
+Installing DEV version of nullabor
+── CHECK ─────────────────────────────────────────── 3 packages ──
+✔ agridat 1.23                           ── E: 0     | W: 0     | N: 0    
+✔ metaviz 0.3.1                          ── E: 0     | W: 0     | N: 0    
+✔ regressinator 0.1.3                    ── E: 0     | W: 0     | N: 0    
+OK: 3                                                           
+BROKEN: 0

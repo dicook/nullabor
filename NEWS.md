@@ -2,11 +2,11 @@
 
 - removed dependency on reshape2
 - adjusting other dependencies
+- new theme to remove context from plots
+- updated roxygen dependency
 
 # nullabor 0.3.9
 
-- new theme to remove context from plots
-- updated roxygen dependency
 - CRAN fixes, minor code changes
 
 # nullabor 0.3.8
