@@ -15,15 +15,13 @@
 #' @importFrom stats lm predict
 #' @seealso null_permute, null_dist
 #' @examples
-#' if (requireNamespace('reshape2', quietly = TRUE)) {
-#' data("tips", package = "reshape2")
+#' data(tips)
 #' x <- lm(tip ~ total_bill, data = tips)
 #' tips.reg <- data.frame(tips, .resid = residuals(x), .fitted = fitted(x))
 #' library(ggplot2)
 #' ggplot(lineup(null_lm(tip ~ total_bill, method = 'rotate'), tips.reg)) +
 #'   geom_point(aes(x = total_bill, y = .resid)) +
 #'   facet_wrap(~ .sample)
-#' }
 null_lm <- function(f, method = "rotate", ...) {
   n <- NULL
     if (is.character(method)) {

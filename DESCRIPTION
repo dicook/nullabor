@@ -16,24 +16,21 @@ URL: http://github.com/dicook/nullabor
 BugReports: http://github.com/dicook/nullabor/issues
 Imports:
     MASS,
-    rlang,
     moments,
     fpc,
-    tsibble,
-    forecast,
     ggplot2,
     dplyr,
     purrr,
     tidyr,
     tibble,
-    magrittr,
-    viridis
+    magrittr
 Suggests:
-    reshape2,
+    forecast,
+    viridis,
     knitr
 LazyData: true
 Type: Package
 LazyLoad: false
 VignetteBuilder: knitr
-RoxygenNote: 7.1.2
+RoxygenNote: 7.3.1
 Encoding: UTF-8

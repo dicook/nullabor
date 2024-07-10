@@ -23,15 +23,13 @@ a function that given \code{data} generates a null data set.
 Null hypothesis: variable is linear combination of predictors
 }
 \examples{
-if (requireNamespace('reshape2', quietly = TRUE)) {
-data("tips", package = "reshape2")
+data(tips)
 x <- lm(tip ~ total_bill, data = tips)
 tips.reg <- data.frame(tips, .resid = residuals(x), .fitted = fitted(x))
 library(ggplot2)
 ggplot(lineup(null_lm(tip ~ total_bill, method = 'rotate'), tips.reg)) +
   geom_point(aes(x = total_bill, y = .resid)) +
   facet_wrap(~ .sample)
-}
 }
 \seealso{
 null_permute, null_dist
