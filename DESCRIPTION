@@ -1,5 +1,5 @@
 Package: nullabor
-Version: 0.3.10
+Version: 0.3.12
 Description: Tools for visual inference. Generate null data sets
     and null plots using permutation and simulation. Calculate distance metrics
     for a lineup, and examine the distributions of metrics.
@@ -12,8 +12,8 @@ Authors@R: c(
   )
 Maintainer: Di Cook <dicook@monash.edu>
 License: GPL (>= 2)
-URL: http://github.com/dicook/nullabor
-BugReports: http://github.com/dicook/nullabor/issues
+URL: https://github.com/dicook/nullabor
+BugReports: https://github.com/dicook/nullabor/issues
 Imports:
     MASS,
     moments,

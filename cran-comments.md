@@ -1,17 +1,17 @@
 ## Overview 
 
-These are small changes, including removing some dependencies. Also fixed issues at https://cran.rstudio.com//web/checks/check_results_nullabor.html. 
+These are small changes, including removing some dependencies. Also fixed issues at https://cran.rstudio.com//web/checks/check_results_nullabor.html. And links flagged by CRAN check.
 
-── R CMD check results ────────────────────── nullabor 0.3.10 ────
-Duration: 1m 24.9s
+── R CMD check results ──────────── nullabor 0.3.12 ────
+Duration: 1m 2.3s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
 ## Test environment
 
 * R version 4.4.1 (2024-06-14) -- "Race for Your Life"
-* https://win-builder.r-project.org/
-* Linux: 
+* https://win-builder.r-project.org/ A Note is produced that says URLs might be invalid. They have all been checked to be correct, and the correct URL, even though several exist.
+* Linux, using R-hub v2. Has an error on compiling vignettes because the build machine doesn't have Rmarkdown. The vignettes build everywhere else. 
 
 ## Reverse dependencies
 

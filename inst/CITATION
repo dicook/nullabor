@@ -1,26 +1,10 @@
-citHeader("To cite nullabor in publications use this:")
-
-citEntry(entry = "Article",
-  title        = "Statistical Inference for Exploratory Data
-Analysis and Model Diagnostics",
-  author       = personList(as.person("Andreas Buja"),
-                   as.person("Dianne Cook"),
-                   as.person("Heike Hofmann"),
-		   as.person("Michael Lawrence"),
-		   as.person("Eun-kyung Lee"),
-		   as.person("Deborah F. Swayne"),
-                   as.person("Hadley Wickham")),                  
-  journal      = "Royal Society Philosophical Transactions A",
-  year         = "2009",
-  volume       = "367",
-  number       = "1906",
-  pages        = "4361--4383",
-  url          = "http://rsta.royalsocietypublishing.org/content/367/1906/4361.article-info",
-
-  textVersion  =
-  paste("Buja, A., Cook, D., Hofmann, H., Lawrence, M., Lee, E.-K., Swayne,
-D. F, Wickham, H. (2009)",
-        "Statistical Inference for Exploratory Data Analysis and Model Diagnostics",
-        "Royal Society Philosophical Transactions A, 367(1906):4361-4383.",
-        "URL http://rsta.royalsocietypublishing.org/content/367/1906/4361.article-info")
+bibentry(bibtype = "Article",
+  title = "Statistical Inference for Exploratory Data Analysis and Model Diagnostics",
+  author = "Andreas Buja, Dianne Cook, Heike Hofmann, Michael Lawrence, Eun-kyung Lee, Deborah F. Swayne, Hadley Wickham",
+  journal = "Royal Society Philosophical Transactions A",
+  year = "2009",
+  volume = "367",
+  number = "1906",
+  pages = "4361--4383",
+  doi = "10.1098/rsta.2009.0120"
 )

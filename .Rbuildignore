@@ -9,3 +9,7 @@
 ^doc$
 ^Meta$
 ^CRAN-RELEASE$
+^.github
+^revdep
+^CRAN-SUBMISSION$
+^nullabor.Rcheck

@@ -160,4 +160,4 @@ References
 ----------
 
 Roy Chowdhury, N.  and Cook, D. and Hofmann, H. and  Majumder, M. (2018) Measuring Lineup Difficulty By Matching Distance Metrics With Subject Choices in Crowd-Sourced Data, Journal of Computational and Graphical Statistics, 27(1), 132–145,
-[https://doi.org/10.1080/10618600.2017.1356323](https://doi.org/10.1080/10618600.2017.1356323).
+DOI: 10.1080/10618600.2017.1356323.
