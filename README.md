@@ -1,7 +1,7 @@
 nullabor: lineup and Rorschach plots for visual inference
 ================
 Di Cook, Hadley Wickham, Niladri Roy Chowdhury, Heike Hofmann
-February 26, 2020
+July 22, 2024
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -9,7 +9,7 @@ February 26, 2020
 
 Tools for graphical inference: prevent fooling yourself with the
 Rorschach protocol and check the surprising features in your data with
-the lineup protocol\!
+the lineup protocol!
 
 ## Installation
 
