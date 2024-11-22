@@ -6,8 +6,9 @@
 #'
 #' @param f model specification formula, as defined by \code{\link{lm}}
 #' @param method method for generating null residuals.  Built in methods
-#'   'rotate', 'pboot' and 'boot' are defined by \code{\link{resid_rotate}},
-#'   \code{\link{resid_pboot}} and \code{\link{resid_boot}} respectively
+#'   'rotate', 'perm', 'pboot' and 'boot' are defined by \code{\link{resid_rotate}},
+#'   \code{\link{resid_perm}}, \code{\link{resid_pboot}} and \code{\link{resid_boot}}
+#'   respectively
 #' @param ... other arguments passedd onto \code{method}.
 #' @return a function that given \code{data} generates a null data set.
 #'   For use with \code{\link{lineup}} or \code{\link{rorschach}}
@@ -93,5 +94,16 @@ resid_sigma <- function(model, data, sigma = 1) {
 #' @importFrom stats resid
 #' @export
 resid_boot <- function(model, data) {
+    sample(stats::resid(model), replace = TRUE)
+}
+
+#' Permutation residuals.
+#'
+#' For use with \code{\link{null_lm}}
+#'
+#' @param model to extract residuals from
+#' @importFrom stats resid
+#' @export
+resid_perm <- function(model, data) {
     sample(stats::resid(model))
 }
