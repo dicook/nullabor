@@ -10,8 +10,9 @@ null_lm(f, method = "rotate", ...)
 \item{f}{model specification formula, as defined by \code{\link{lm}}}
 
 \item{method}{method for generating null residuals.  Built in methods
-'rotate', 'pboot' and 'boot' are defined by \code{\link{resid_rotate}},
-\code{\link{resid_pboot}} and \code{\link{resid_boot}} respectively}
+'rotate', 'perm', 'pboot' and 'boot' are defined by \code{\link{resid_rotate}},
+\code{\link{resid_perm}}, \code{\link{resid_pboot}} and \code{\link{resid_boot}}
+respectively}
 
 \item{...}{other arguments passedd onto \code{method}.}
 }

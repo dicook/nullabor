@@ -13,7 +13,7 @@
 #' @return a function that given \code{data} generates a null data set.
 #'   For use with \code{\link{lineup}} or \code{\link{rorschach}}
 #' @export
-#' @importFrom stats lm predict
+#' @importFrom stats lm predict deviance df.residual lm.influence
 #' @seealso null_permute, null_dist
 #' @examples
 #' data(tips)
@@ -33,9 +33,13 @@ null_lm <- function(f, method = "rotate", ...) {
         resp_var <- all.vars(f[[2]])
 
         resid <- method(model, df, ...)
-        fitted <- stats::predict(model, df)
+        fitted <- predict(model, df)
+        s <- sqrt(deviance(model)/df.residual(model))
+        hii <- lm.influence(model, do.coef = FALSE)$hat
         df[".resid"] <- resid
         df[".fitted"] <- fitted
+        df[".leverage"] <- dropInf(hii, hii)
+        df[".stdresid"] <- dropInf(resid/(s * sqrt(1 - hii)), hii)
         df[[resp_var]] <- fitted + resid
         df
     }
@@ -103,7 +107,20 @@ resid_boot <- function(model, data) {
 #'
 #' @param model to extract residuals from
 #' @importFrom stats resid
+#' @param data used to fit model
 #' @export
 resid_perm <- function(model, data) {
     sample(stats::resid(model))
+}
+
+
+# Helper function for leverages, adapted from plot.lm
+dropInf <- function(x, h) {
+  if (any(isInf <- h >= 1)) {
+    warning(gettextf("not plotting observations with leverage greater than one:\n  %s",
+                     paste(which(isInf), collapse = ", ")), call. = FALSE,
+            domain = NA)
+    x[isInf] <- NaN
+  }
+  x
 }
