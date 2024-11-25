@@ -1,0 +1,77 @@
+---
+title: "Residual plots for linear models using the nullabor package"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Residual plots using the nullabor package}
+  %\VignetteEncoding{UTF-8}
+---  
+
+
+Residual plots using the **nullabor** packlage
+=======================================
+
+
+```{r setup, include=FALSE}
+library(knitr)
+opts_chunk$set(out.extra='style="display:block; margin: auto"', fig.align="center")
+```
+
+The  **nullabor** package provides functions to draw residual plots for linear regression models using the lineup package.
+
+```{r message=FALSE}
+library(nullabor)
+```
+
+First, fit a linear model:
+```{r message=FALSE}
+data(tips)
+x <- lm(tip ~ total_bill, data = tips)
+```
+
+The `lineup_residuals` function can now be used to generate four types of residual lineup plots.
+
+The first residual plot shows the residuals versus the fitted values. It is used to test the hypothesis that the response variable is a linear combination of the predictors:
+
+```{r message=FALSE}
+lineup_residuals(x, type = 1)
+```
+
+The second plot is a normal Q-Q plot for the residuals, used to test the hypothesis that the errors are normal:
+
+```{r message=FALSE}
+lineup_residuals(x, type = 2)
+```
+
+The third plot is a scale-location plot used to test the hypothesis that the errors are homoscedastic:
+
+```{r message=FALSE}
+lineup_residuals(x, type = 3)
+```
+
+The fourth plot shows leverage, and is used to identify points with high residuals and high leverage, which are likely to have a strong influence on the model fit:
+
+```{r message=FALSE}
+lineup_residuals(x, type = 4)
+```
+
+The plots are created using `ggplot2` and can be modified in the same way as other ggplots. In addition, `lineup_residuals` has arguments for changing the colors used:
+
+```{r message=FALSE}
+library(ggplot2)
+lineup_residuals(x, type = 3,
+                color_points = "skyblue",
+                color_trends = "darkorange") +
+    theme_minimal()
+```
+
+If the null hypothesis in the type 1 plot is violated, consider using a different model. If the null hypotheses in the type 2 or 3 plots
+are violated, consider using bootstrap p-values; see [Section 8.1.5](https://www.modernstatisticswithr.com/regression.html#bootreg1) of Thulin (2024) for details and recommendations.
+
+
+References
+----------
+
+Buja, A., Cook, D., Hofmann, H., Lawrence, M., Lee, E.-K., Swayne, D. F, Wickham, H. (2009) Statistical Inference for Exploratory Data Analysis and Model Diagnostics, Royal Society Philosophical Transactions A, 367:4361--4383, DOI: 10.1098/rsta.2009.0120.
+
+Thulin, M. (2024) _Modern Statistics with R_. Boca Raton: CRC Press. ISBN 9781032512440. [https://www.modernstatisticswithr.com/](https://www.modernstatisticswithr.com/)

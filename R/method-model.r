@@ -9,7 +9,9 @@
 #'   'rotate', 'perm', 'pboot' and 'boot' are defined by \code{\link{resid_rotate}},
 #'   \code{\link{resid_perm}}, \code{\link{resid_pboot}} and \code{\link{resid_boot}}
 #'   respectively
-#' @param ... other arguments passedd onto \code{method}.
+#' @param additional whether to compute additional meaures: standardized
+#'   residuals and leverage
+#' @param ... other arguments passed onto \code{method}.
 #' @return a function that given \code{data} generates a null data set.
 #'   For use with \code{\link{lineup}} or \code{\link{rorschach}}
 #' @export
@@ -23,7 +25,7 @@
 #' ggplot(lineup(null_lm(tip ~ total_bill, method = 'rotate'), tips.reg)) +
 #'   geom_point(aes(x = total_bill, y = .resid)) +
 #'   facet_wrap(~ .sample)
-null_lm <- function(f, method = "rotate", ...) {
+null_lm <- function(f, method = "rotate", additional = FALSE, ...) {
   n <- NULL
     if (is.character(method)) {
         method <- match.fun(paste("resid", method, sep = "_"))
@@ -34,12 +36,14 @@ null_lm <- function(f, method = "rotate", ...) {
 
         resid <- method(model, df, ...)
         fitted <- predict(model, df)
-        s <- sqrt(deviance(model)/df.residual(model))
-        hii <- lm.influence(model, do.coef = FALSE)$hat
         df[".resid"] <- resid
         df[".fitted"] <- fitted
-        df[".leverage"] <- dropInf(hii, hii)
-        df[".stdresid"] <- dropInf(resid/(s * sqrt(1 - hii)), hii)
+        if(additional){
+          s <- sqrt(deviance(model)/df.residual(model))
+          hii <- lm.influence(model, do.coef = FALSE)$hat
+          df[".leverage"] <- dropInf(hii, hii)
+          df[".stdresid"] <- dropInf(resid/(s * sqrt(1 - hii)), hii)
+        }
         df[[resp_var]] <- fitted + resid
         df
     }

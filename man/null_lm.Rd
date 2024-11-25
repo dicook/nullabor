@@ -4,7 +4,7 @@
 \alias{null_lm}
 \title{Generate null data with null residuals from a model.}
 \usage{
-null_lm(f, method = "rotate", ...)
+null_lm(f, method = "rotate", additional = FALSE, ...)
 }
 \arguments{
 \item{f}{model specification formula, as defined by \code{\link{lm}}}
@@ -14,7 +14,10 @@ null_lm(f, method = "rotate", ...)
 \code{\link{resid_perm}}, \code{\link{resid_pboot}} and \code{\link{resid_boot}}
 respectively}
 
-\item{...}{other arguments passedd onto \code{method}.}
+\item{additional}{whether to compute additional meaures: standardized
+residuals and leverage}
+
+\item{...}{other arguments passed onto \code{method}.}
 }
 \value{
 a function that given \code{data} generates a null data set.
