@@ -119,78 +119,154 @@ lineup_residuals <- function(model, type = 1, method = "rotate", color_points = 
 }
 
 
-#' Check distributional assumptions using the lineup protocol.
+#' Check distributional assumptions using histograms and the lineup protocol.
 #'
 #' @description This function is used to quickly create lineup plots to check
-#' distributional assumptions. The null hypothesis is that the data follows
-#' the distribution specified by the \code{dist} argument.
+#' distributional assumptions using histograms with kernel density estimates.
+#' The null hypothesis is that the data follows the distribution specified by the
+#' \code{dist} argument.
 #' In the lineup protocol the plot of the real data is embedded amongst a field of
 #' plots of data generated to be consistent with some null hypothesis.
 #' If the observe can pick the real data as different from the others, this
 #' lends weight to the statistical significance of the structure in the plot.
 #' The protocol is described in Buja et al. (2009).
 #'
-#' @details Two types of plots are available:
-#'
-#' 1. Histograms with kernel density estimates.
-#'
-#' 2. Q-Q plots.
-#'
-#' Generate n - 1 null datasets and randomly position the true data.  If you
+#' @details #' Generate n - 1 null datasets and randomly position the true data.  If you
 #' pick the real data as being noticeably different, then you have formally
 #' established that it is different to with p-value 1/n.
 #'
 #' @param data a data frame.
 #' @param variable the name of the variable that should be plotted.
-#' @param type type of plot: 1 = histogram, 2 = Q-Q plot.
-#' @param dist the null distribution name. One of: beta, cauchy, chisq,
-#'   exp, f, gamma, geom, lnorm, logis,
-#'   nbinom, binom, norm, pois, t, unif, weibull
+#' @param dist the null distribution name. One of: "beta", "cauchy",
+#'  "chi-squared", "exponential", "f", "gamma", "geometric", "log-normal",
+#'   "lognormal", "logistic", "negative binomial", "binomial", "normal",
+#'   "poisson", "t", "uniform", "weibull"
 #' @param params list of parameters of distribution. If \code{NULL}, will
-#'   use \code{\link[MASS]{fitdistr}} to estimate them.
-#' @param color_points the color used for points in the Q-Q plot. Can be a name
+#'   use \code{\link[MASS]{fitdistr}} to estimate them if possible. For
+#'   uniform, beta, and binomial distributions, the parameters must be specified.
+#'   See \code{?dunif}, \code{?dbeta}, and \code{?dbinom} for parameter names.
+#' @param color_bars the color used for the borders of the bars. Can be a name
 #'   or a color HEX code.
-#' @param color_lines the color used for density and reference lines in the plot.
-#' @param alpha_points the alpha (opacity) used for points in the Q-Q plot (between
+#' @param fill_bars the color used to fill the bars.
+#' @param color_lines the color used for the density curves.
+#' @return a \code{ggplot}
+#' @references Buja, Cook, Hofmann, Lawrence, Lee, Swayne, Wickham. (2009).
+#' Statistical inference for exploratory data analysis and model diagnostics,
+#' \emph{Phil. Trans. R. Soc. A}, 367, 4361-4383.
+#' @export
+#' @importFrom ggplot2 ggplot geom_histogram geom_density facet_wrap labs after_stat .data
+#' @seealso null_dist
+#' @examples
+#' data(tips)
+#' lineup_histograms(tips, "total_bill", dist = "normal") # Normal distribution
+#' lineup_histograms(tips, "total_bill", dist = "gamma") # Gamma distribution
+#'
+#' # Some distributions require that the parameters be specified:
+#' lineup_histograms(tips, "size", dist = "binomial", params = list(size = 6, p = 0.3))
+#'
+#' # Style the plot using color settings and ggplot2 functions:
+#' lineup_histograms(tips, "total_bill",
+#'                   dist = "gamma",
+#'                   color_bars = "steelblue",
+#'                   color_lines = "magenta") +
+#'     ggplot2::theme_minimal()
+lineup_histograms <- function(data, variable, dist = NULL, params = NULL, color_bars = "black", fill_bars = "grey", color_lines = "brown3")
+{
+  if(is.null(dist)) { stop("\"dist\" must be specified. See ?lineup_distribution for details.")}
+
+  if(dist %in% c("unif", "uniform")) {
+    if(is.null(params)) { stop("\"params\" must be specified for the uniform distribution. See ?lineup_distribution for details.") }
+    n <- nrow(data)
+    p <-  ggplot(data = lineup(method = null_dist(variable, dist, params), true = data)) +
+        geom_histogram(aes(x = .data[[variable]], y = after_stat(density)), breaks = seq(as.numeric(params[1]), as.numeric(params[2]), length.out = round(n/10)), fill = fill_bars, color = color_bars) +
+        facet_wrap(.~.sample) +
+        geom_density(aes(x = .data[[variable]]), colour = color_lines, size=1) +
+        labs(y = "Density", title = "Lineup: Histograms with kernel density estimates")
+  } else if(dist == "beta") {
+    if(is.null(params)) { stop("\"params\" must be specified for the beta distribution. See ?lineup_distribution for details.") }
+      n <- nrow(data)
+      p <-  ggplot(data = lineup(method = null_dist(variable, dist, params), true = data)) +
+              geom_histogram(aes(x = .data[[variable]], y = after_stat(density)), breaks = seq(0, 1, length.out = round(n/10)), fill = fill_bars, color = color_bars) +
+              facet_wrap(.~.sample) +
+              geom_density(aes(x = .data[[variable]]), colour = color_lines, size=1) +
+              labs(y = "Density", title = "Lineup: Histograms with kernel density estimates")
+  } else {
+    if(dist %in% c("binom", "binomial") & is.null(params)) { stop("\"params\" must be specified for the binomial distribution. See ?lineup_distribution for details.") }
+      p <-  ggplot(data = lineup(method = null_dist(variable, dist, params), true = data)) +
+        geom_histogram(aes(x = .data[[variable]], y = after_stat(density)), binwidth = 0.25, fill = fill_bars, color = color_bars) +
+        facet_wrap(.~.sample) +
+        geom_density(aes(x = .data[[variable]]), colour = color_lines, size=1) +
+        labs(y = "Density", title = "Lineup: Histograms with kernel density estimates")
+  }
+  p
+}
+
+
+#' Check distributional assumptions using Q-Q plots and the lineup protocol.
+#'
+#' @description This function is used to quickly create lineup plots to check
+#' distributional assumptions using Q-Q plots. The null hypothesis is that the
+#' data follows the distribution specified by the \code{dist} argument.
+#' In the lineup protocol the plot of the real data is embedded amongst a field of
+#' plots of data generated to be consistent with some null hypothesis.
+#' If the observe can pick the real data as different from the others, this
+#' lends weight to the statistical significance of the structure in the plot.
+#' The protocol is described in Buja et al. (2009).
+#'
+#' @details Generate n - 1 null datasets and randomly position the true data.  If you
+#' pick the real data as being noticeably different, then you have formally
+#' established that it is different to with p-value 1/n.
+#'
+#' @param data a data frame.
+#' @param variable the name of the variable that should be plotted.
+#' @param dist the null distribution name. One of: "beta", "cauchy",
+#'  "chi-squared", "exponential", "f", "gamma", "geometric", "log-normal",
+#'   "lognormal", "logistic", "negative binomial", "normal",
+#'   "poisson", "t", "uniform", "weibull"
+#' @param params list of parameters of distribution. If \code{NULL}, will
+#'   use \code{\link[MASS]{fitdistr}} to estimate them if possible. For
+#'   uniform and beta distributions, the parameters must be specified.
+#'   See \code{?dunif} and \code{?dbeta} for parameter names.
+#' @param color_points the color used for points. Can be a name
+#'   or a color HEX code.
+#' @param color_lines the color used for reference lines.
+#' @param alpha_points the alpha (opacity) used for points (between
 #'   0 and 1, where 1 is opaque).
 #' @return a \code{ggplot}
 #' @references Buja, Cook, Hofmann, Lawrence, Lee, Swayne, Wickham. (2009).
 #' Statistical inference for exploratory data analysis and model diagnostics,
 #' \emph{Phil. Trans. R. Soc. A}, 367, 4361-4383.
 #' @export
-#' @importFrom ggplot2 ggplot geom_qq geom_qq_line geom_histogram geom_density facet_wrap labs after_stat .data
+#' @importFrom ggplot2 ggplot geom_qq geom_qq_line facet_wrap labs .data
 #' @seealso null_dist
 #' @examples
 #' data(tips)
-#' lineup_distribution(tips, "total_bill", type = 1, dist = "norm") # Histograms
-#' lineup_distribution(tips, "total_bill", type = 1, dist = "gamma") # Histograms
-#' lineup_distribution(tips, "total_bill", type = 2, dist = "norm") # Normal Q-Q plot
-#' lineup_distribution(tips, "total_bill", type = 2, dist = "gamma") # Gamma Q-Q plot
+#' lineup_qq(tips, "total_bill", dist = "normal") # Normal distribution
+#' lineup_qq(tips, "total_bill", dist = "gamma") # Gamma distribution
+#'
+#' # Some distributions require that the parameters be specified:
+#' tips$proportion_tips <- tips$tip/(tips$total_bill+tips$tip)
+#' lineup_qq(tips, "size", dist = "beta", params = list(shape1 = 0.1, shape2 = 0.2))
 #'
 #' # Style the plot using color settings and ggplot2 functions:
-#' lineup_distribution(tips, "total_bill",
-#'                     type = 1, dist = "gamma",
-#'                     color_lines = "steelblue") +
+#' lineup_qq(tips, "total_bill",
+#'           dist = "gamma",
+#'           color_points = "chocolate",
+#'           color_lines = "cyan",
+#'           alpha_points = 0.25) +
 #'     ggplot2::theme_minimal()
-lineup_distribution <- function(data, variable, type = 1, dist = NULL, params = NULL, color_points = "black", color_lines = "brown3", alpha_points = 0.5)
+lineup_qq <- function(data, variable, dist = NULL, params = NULL, color_points = "black", color_lines = "brown3", alpha_points = 0.5)
 {
-  if(is.null(dist)) { stop("\"dist\" must be specified. See ?lineup_distribution for details.")}
-  if(type == 1) {
-    p <-  ggplot(data = lineup(method = null_dist(variable, dist, params), true = data)) +
-            geom_histogram(aes(x = .data[[variable]], y = after_stat(density)), binwidth = 0.25, color = "black") +
-            facet_wrap(.~.sample) +
-            geom_density(aes(x = .data[[variable]]), colour = color_lines, size=1) +
-            labs(y = "Density", title = "Histograms with kernel density estimates")
-  }
-  if(type == 2) {
+    if(is.null(dist)) { stop("\"dist\" must be specified. See ?lineup_distribution for details.")}
     dist <- match.arg(dist, names(dists))
     quantile_function <- match.fun(paste("q", dists[dist], sep = ""))
     if(is.null(params)) { params <- as.list(stats::coef(fitdistr(data[[variable]], dist))) }
-    p <-ggplot(data = lineup(method = null_dist(variable, dist, params), true = data)) +
-      geom_qq_line(aes(sample = .data[[variable]]), colour = color_lines, distribution = quantile_function, dparams = params) +
-      geom_qq(aes(sample = .data[[variable]]), alpha = alpha_points, color = color_points, distribution = quantile_function, dparams = params) +
-      facet_wrap(~ .data$.sample) +
-      labs(x = "Theoretical quantiles", y = "Standardized residuals", title = "Q-Q plots")
-  }
-  p
+
+    p <- ggplot(data = lineup(method = null_dist(variable, dist, params), true = data)) +
+          geom_qq_line(aes(sample = .data[[variable]]), colour = color_lines, linewidth = 1, distribution = quantile_function, dparams = params) +
+          geom_qq(aes(sample = .data[[variable]]), alpha = alpha_points, color = color_points, distribution = quantile_function, dparams = params) +
+          facet_wrap(~ .data$.sample) +
+          labs(x = "Theoretical quantiles", y = "Standardized residuals", title = "Lineup: Q-Q plots")
+
+    p
 }
