@@ -1,3 +1,11 @@
+# nullabor 0.3.13
+
+- Updated null_lm to optionally compute leverages and standardized residuals.
+- Added a new function, lineup_residuals, for creating four different types of lineup plots for residuals with a single line of code.
+- Added two new functions, lineup_histograms and lineup_qq for creating lineup histogram and Q-Q plots to assess distributional assumptions.
+- Added two new vignettes.
+- Adds Måns Thulin as a co-author, due to the substantial additions.
+
 # nullabor 0.3.12
 
 - CITATION revised to satisfy CRAN check
