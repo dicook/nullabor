@@ -8,7 +8,7 @@ vignette: >
 ---  
 
 
-Residual plots using the **nullabor** packlage
+Residual plots using the **nullabor** package
 =======================================
 
 
