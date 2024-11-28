@@ -1,6 +1,6 @@
 ---
 title: "nullabor: lineup and Rorschach plots for visual inference"
-author: "Di Cook, Hadley Wickham, Niladri Roy Chowdhury, Heike Hofmann"
+author: "Di Cook, Hadley Wickham, Niladri Roy Chowdhury, Heike Hofmann, Mans Thulin"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 output: github_document
 ---

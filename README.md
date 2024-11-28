@@ -1,7 +1,8 @@
 nullabor: lineup and Rorschach plots for visual inference
 ================
-Di Cook, Hadley Wickham, Niladri Roy Chowdhury, Heike Hofmann
-July 22, 2024
+Di Cook, Hadley Wickham, Niladri Roy Chowdhury, Heike Hofmann, Mans
+Thulin
+November 29, 2024
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 

@@ -9,7 +9,7 @@ Authors@R: c(
     person("Niladri Roy", "Chowdhury", email = "niladri.ia@gmail.com", role = c("aut", "ctb")),
     person("Di", "Cook", email = "dicook@monash.edu", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-3813-7155")),
     person("Heike", "Hofmann", email = "hofmann@iastate.edu", role = c("aut", "ctb"), comment = c(ORCID = "0000-0001-6216-5183")),
-    person("Måns", "Thulin", email = "mans@statistikkonsult.com", role = c("aut", "ctb"))
+    person("Måns", "Thulin", email = "mans@statistikkonsult.com", role = c("aut", "ctb"), comment = c(ORCID = "0000-0002-2756-3933"))
   )
 Maintainer: Di Cook <dicook@monash.edu>
 License: GPL (>= 2)
