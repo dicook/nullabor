@@ -10,7 +10,13 @@
     <loc>/articles/index.html</loc>
   </url>
   <url>
+    <loc>/articles/nullabor-distributions.html</loc>
+  </url>
+  <url>
     <loc>/articles/nullabor-examples.html</loc>
+  </url>
+  <url>
+    <loc>/articles/nullabor-regression.html</loc>
   </url>
   <url>
     <loc>/articles/nullabor.html</loc>
@@ -67,6 +73,15 @@
     <loc>/reference/lineup.html</loc>
   </url>
   <url>
+    <loc>/reference/lineup_histograms.html</loc>
+  </url>
+  <url>
+    <loc>/reference/lineup_qq.html</loc>
+  </url>
+  <url>
+    <loc>/reference/lineup_residuals.html</loc>
+  </url>
+  <url>
     <loc>/reference/null_dist.html</loc>
   </url>
   <url>
@@ -95,6 +110,9 @@
   </url>
   <url>
     <loc>/reference/resid_pboot.html</loc>
+  </url>
+  <url>
+    <loc>/reference/resid_perm.html</loc>
   </url>
   <url>
     <loc>/reference/resid_rotate.html</loc>

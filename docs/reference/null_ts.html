@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nullabor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.13</span>
       </span>
     </div>
 
@@ -38,7 +38,13 @@
       <a href="../articles/distances.html">Distances between null and data plots</a>
     </li>
     <li>
+      <a href="../articles/nullabor-distributions.html">Assessing distributional assumptions using the nullabor package</a>
+    </li>
+    <li>
       <a href="../articles/nullabor-examples.html">Example lineups</a>
+    </li>
+    <li>
+      <a href="../articles/nullabor-regression.html">Residual plots for linear models using the nullabor package</a>
     </li>
   </ul></li>
 <li>
@@ -103,11 +109,25 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Registered S3 method overwritten by 'quantmod':</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   method            from</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   as.zoo.data.frame zoo </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Registered S3 methods overwritten by 'forecast':</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   method                 from     </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   autoplot.Arima         ggfortify</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   autoplot.acf           ggfortify</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   autoplot.ar            ggfortify</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   autoplot.bats          ggfortify</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   autoplot.decomposed.ts ggfortify</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   autoplot.ets           ggfortify</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   autoplot.forecast      ggfortify</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   autoplot.stl           ggfortify</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   autoplot.ts            ggfortify</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   fitted.ar              ggfortify</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   fortify.ts             ggfortify</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   residuals.ar           ggfortify</span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">aud</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="lineup.html">lineup</a></span><span class="op">(</span><span class="fu">null_ts</span><span class="op">(</span><span class="st">"rate"</span>, <span class="va">auto.arima</span><span class="op">)</span>, <span class="va">aud</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> decrypt("k4ZV xo3o Nm QPuN3NPm CA")</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> decrypt("uIpx oTHT ya NJ3yHyJa Bw")</span>
 <span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">l</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">date</span>, y<span class="op">=</span><span class="va">rate</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">.sample</span>, scales<span class="op">=</span><span class="st">"free_y"</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
@@ -128,7 +148,7 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Hadley Wickham, Niladri Roy Chowdhury, Di Cook, Heike Hofmann.</p>
+  <p></p><p>Developed by Hadley Wickham, Niladri Roy Chowdhury, Di Cook, Heike Hofmann, Måns Thulin.</p>
 </div>
 
 <div class="pkgdown">

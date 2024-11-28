@@ -1,9 +1,11 @@
-pandoc: 3.1.11
+pandoc: '3.4'
 pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
   distances: distances.html
+  nullabor-distributions: nullabor-distributions.html
   nullabor-examples: nullabor-examples.html
+  nullabor-regression: nullabor-regression.html
   nullabor: nullabor.html
-last_built: 2024-07-21T22:18Z
+last_built: 2024-11-28T20:30Z
 
