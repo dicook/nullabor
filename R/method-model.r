@@ -9,11 +9,13 @@
 #'   'rotate', 'perm', 'pboot' and 'boot' are defined by \code{\link{resid_rotate}},
 #'   \code{\link{resid_perm}}, \code{\link{resid_pboot}} and \code{\link{resid_boot}}
 #'   respectively
-#' @param ... other arguments passedd onto \code{method}.
+#' @param additional whether to compute additional measures: standardized
+#'   residuals and leverage
+#' @param ... other arguments passed onto \code{method}.
 #' @return a function that given \code{data} generates a null data set.
 #'   For use with \code{\link{lineup}} or \code{\link{rorschach}}
 #' @export
-#' @importFrom stats lm predict
+#' @importFrom stats lm predict deviance df.residual lm.influence
 #' @seealso null_permute, null_dist
 #' @examples
 #' data(tips)
@@ -23,7 +25,7 @@
 #' ggplot(lineup(null_lm(tip ~ total_bill, method = 'rotate'), tips.reg)) +
 #'   geom_point(aes(x = total_bill, y = .resid)) +
 #'   facet_wrap(~ .sample)
-null_lm <- function(f, method = "rotate", ...) {
+null_lm <- function(f, method = "rotate", additional = FALSE, ...) {
   n <- NULL
     if (is.character(method)) {
         method <- match.fun(paste("resid", method, sep = "_"))
@@ -33,9 +35,15 @@ null_lm <- function(f, method = "rotate", ...) {
         resp_var <- all.vars(f[[2]])
 
         resid <- method(model, df, ...)
-        fitted <- stats::predict(model, df)
+        fitted <- predict(model, df)
         df[".resid"] <- resid
         df[".fitted"] <- fitted
+        if(additional){
+          s <- sqrt(deviance(model)/df.residual(model))
+          hii <- lm.influence(model, do.coef = FALSE)$hat
+          df[".leverage"] <- dropInf(hii, hii)
+          df[".stdresid"] <- dropInf(resid/(s * sqrt(1 - hii)), hii)
+        }
         df[[resp_var]] <- fitted + resid
         df
     }
@@ -103,7 +111,20 @@ resid_boot <- function(model, data) {
 #'
 #' @param model to extract residuals from
 #' @importFrom stats resid
+#' @param data used to fit model
 #' @export
 resid_perm <- function(model, data) {
     sample(stats::resid(model))
+}
+
+
+# Helper function for leverages, adapted from plot.lm
+dropInf <- function(x, h) {
+  if (any(isInf <- h >= 1)) {
+    warning(gettextf("not plotting observations with leverage greater than one:\n  %s",
+                     paste(which(isInf), collapse = ", ")), call. = FALSE,
+            domain = NA)
+    x[isInf] <- NaN
+  }
+  x
 }

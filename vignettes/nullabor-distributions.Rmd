@@ -1,0 +1,135 @@
+---
+title: "Assessing distributional assumptions using the nullabor package"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Assessing distributional assumptions using the nullabor package}
+  %\VignetteEncoding{UTF-8}
+---  
+
+
+Assessing distributional assumptions using the **nullabor** package
+=======================================
+
+
+```{r setup, include=FALSE}
+library(knitr)
+opts_chunk$set(out.extra='style="display:block; margin: auto"', fig.align="center")
+```
+
+The  **nullabor** package provides functions to visually assess distributional assumptions.
+
+```{r message=FALSE}
+library(nullabor)
+```
+
+Start by specifying the distribution family under the null hypothesis. The options available are:
+
+* Beta distribution: `beta`
+* Cauchy distribution: `cauchy`
+* $\chi^2$ distribution: `chi-squared`
+* Gamma distribution: `gamma`
+* Geometric distribution: `geometric`
+* Lognormal distribution: `lognormal`
+* Logistic distribution: `logistic`
+* Negative binomial distribution: `negative binomial`
+* Binomial distribution: `binomial`
+* Normal distribution: `normal`
+* Poisson distribution: `poisson`
+* Student's t distribution: `t`
+* Uniform distribution: `uniform`
+* Weibull distribution: `weibull`
+
+You can also specify the parameters of the distribution. This is required for uniform, beta, and binomial distributions.
+
+## Using histograms
+The first option is to use histograms with kernel density estimates.
+
+To test the hypothesis that the variable `total_bill` in the `tips` dataset follows a normal distribution, we draw a histogram lineup plot using `lineup_histograms` as follows:
+
+```{r message=FALSE}
+data(tips)
+lineup_histograms(tips, "total_bill", dist = "normal")
+```
+
+Run the `decrypt` code printed in the Console to see which plot belongs to the `tips` data.
+
+To instead test the hypothesis that the data follow a gamma distribution, we use `dist = "gamma"`:
+
+```{r message=FALSE}
+lineup_histograms(tips, "total_bill", dist = "gamma")
+```
+
+### Specifying distribution parameters
+In some cases, we need (or want) to specify the entire distribution, and not just the family. We then provide the distribution parameters, using the standard format for the distribution (i.e. the same used by `r*`, `d*`, `p*`, and `q*` functions, where `*` is the distribution name).
+
+As an example, let's say that we want to test whether a dataset comes from a uniform $U(0,1)$ distribution. First, we generate two example variables. `x1` is $U(0,1)$, but `x2` is not.
+
+```{r message=FALSE}
+example_data <- data.frame(x1 = runif(100, 0, 1),
+                           x2 = rbeta(100, 1/2, 1/2))
+```
+
+For the uniform distribution, the parameters are `min` and `max` (see `?dunif`). To test whether the `x1` data come from a $U(0,1)$ distribution, we specify the distribution parameters as follows:
+
+```{r message=FALSE}
+lineup_histograms(example_data, "x1", dist = "uniform", params = list(min = 0, max = 1))
+```
+
+And for `x2`:
+
+```{r message=FALSE}
+lineup_histograms(example_data, "x2", dist = "uniform", params = list(min = 0, max = 1))
+```
+
+
+## Using Q-Q plots
+An alternative to histograms is to use quantile-quantile plots, in which the theoretical quantiles of the distribution are compared to the empirical quantiles from the (standardized) data. Under the null hypothesis, the points should lie along the reference line. However, some deviations in the tails are usually expected. A lineup plot is useful to see how much points can deviate from the reference line under the null hypothesis.
+
+To create a Q-Q lineup plot using the normal distribution as the null distribution, use `lineup_qq` as follows:
+
+```{r message=FALSE}
+lineup_qq(tips, "total_bill", dist = "normal")
+```
+
+Again, some distributions require parameters to be specified. This is done analogously to how we did it for histograms:
+
+```{r message=FALSE}
+lineup_qq(example_data, "x1", dist = "uniform", params = list(min = 0, max = 1))
+```
+
+## Changing plot appearance
+For both histograms and Q-Q plots, you can style the plot using arguments for color and opacity, as well as using `ggplot2` functions like `theme`. 
+
+Histograms:
+
+```{r message=FALSE}
+library(ggplot2)
+lineup_histograms(example_data, "x1",
+                  dist = "uniform",
+                  params = list(min = 0, max = 1),
+                  color_bars = "white",
+                  fill_bars = "#416B4B",
+                  color_lines = "#7D5AAD"
+                  ) + theme_minimal()
+```
+
+Q-Q plots:
+
+```{r message=FALSE}
+lineup_qq(tips, "total_bill",
+          dist = "gamma",
+          color_points = "cyan",
+          color_lines = "#ED11B7",
+          alpha_points = 0.25) +
+  theme_minimal() + 
+  theme(panel.background = element_rect(fill = "navy"),
+        axis.title = element_text(family = "mono", size = 14))
+```
+
+
+
+References
+----------
+
+Buja, A., Cook, D., Hofmann, H., Lawrence, M., Lee, E.-K., Swayne, D. F, Wickham, H. (2009) Statistical Inference for Exploratory Data Analysis and Model Diagnostics, Royal Society Philosophical Transactions A, 367:4361--4383, DOI: 10.1098/rsta.2009.0120.
