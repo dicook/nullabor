@@ -9,7 +9,7 @@
 #'   'rotate', 'perm', 'pboot' and 'boot' are defined by \code{\link{resid_rotate}},
 #'   \code{\link{resid_perm}}, \code{\link{resid_pboot}} and \code{\link{resid_boot}}
 #'   respectively
-#' @param additional whether to compute additional meaures: standardized
+#' @param additional whether to compute additional measures: standardized
 #'   residuals and leverage
 #' @param ... other arguments passed onto \code{method}.
 #' @return a function that given \code{data} generates a null data set.

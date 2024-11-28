@@ -63,7 +63,7 @@ lineup_histograms(tips, "total_bill", dist = "gamma")
 ### Specifying distribution parameters
 In some cases, we need (or want) to specify the entire distribution, and not just the family. We then provide the distribution parameters, using the standard format for the distribution (i.e. the same used by `r*`, `d*`, `p*`, and `q*` functions, where `*` is the distribution name).
 
-Let's say that we want to test whether a dataset comes from a uniform $U(0,1)$ distribution. First, we generate two example variables. `x1` is $U(0,1)$, but `x2` is not.
+As an example, let's say that we want to test whether a dataset comes from a uniform $U(0,1)$ distribution. First, we generate two example variables. `x1` is $U(0,1)$, but `x2` is not.
 
 ```{r message=FALSE}
 example_data <- data.frame(x1 = runif(100, 0, 1),
@@ -84,9 +84,9 @@ lineup_histograms(example_data, "x2", dist = "uniform", params = list(min = 0, m
 
 
 ## Using Q-Q plots
-An alternative to histograms is to use quantile-quantile plots, in which the theoretical quantiles of the distribution are compared to the empirical quantiles from the data. Under the null hypothesis, the points should lie along the reference line. However, some deviations in the tails are usually expected. A lineup plot is useful to see how much points can deviate from the reference line under the null hypothesis.
+An alternative to histograms is to use quantile-quantile plots, in which the theoretical quantiles of the distribution are compared to the empirical quantiles from the (standardized) data. Under the null hypothesis, the points should lie along the reference line. However, some deviations in the tails are usually expected. A lineup plot is useful to see how much points can deviate from the reference line under the null hypothesis.
 
-To create a Q-Q lineup plot, use `lineup_qq`:
+To create a Q-Q lineup plot using the normal distribution as the null distribution, use `lineup_qq` as follows:
 
 ```{r message=FALSE}
 lineup_qq(tips, "total_bill", dist = "normal")

@@ -31,7 +31,7 @@ x <- lm(tip ~ total_bill, data = tips)
 
 The `lineup_residuals` function can now be used to generate four types of residual lineup plots.
 
-The first residual plot shows the residuals versus the fitted values. It is used to test the hypothesis that the response variable is a linear combination of the predictors:
+The first residual plot shows the residuals versus the fitted values. It is used to test the hypothesis that the response variable is a linear combination of the predictors. If you can spot the true data in the plot, you can formally reject the null hypothesis with p-value 0.05 (Buja et al., 2009; Li et al., 2024). After running the code below, run the `decrypt` message (e.g. `decrypt("XSKz 5xQx Vd Z3jVQV3d ww")`) printed in the R Console to see which dataset is the true data.
 
 ```{r message=FALSE}
 lineup_residuals(x, type = 1)
@@ -73,5 +73,7 @@ References
 ----------
 
 Buja, A., Cook, D., Hofmann, H., Lawrence, M., Lee, E.-K., Swayne, D. F, Wickham, H. (2009) Statistical Inference for Exploratory Data Analysis and Model Diagnostics, Royal Society Philosophical Transactions A, 367:4361--4383, DOI: 10.1098/rsta.2009.0120.
+
+Li, W., Cook, D., Tanaka, E., & VanderPlas, S. (2024). A plot is worth a thousand tests: Assessing residual diagnostics with the lineup protocol. Journal of Computational and Graphical Statistics, 1-19.
 
 Thulin, M. (2024) _Modern Statistics with R_. Boca Raton: CRC Press. ISBN 9781032512440. [https://www.modernstatisticswithr.com/](https://www.modernstatisticswithr.com/)

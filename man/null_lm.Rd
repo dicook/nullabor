@@ -14,7 +14,7 @@ null_lm(f, method = "rotate", additional = FALSE, ...)
 \code{\link{resid_perm}}, \code{\link{resid_pboot}} and \code{\link{resid_boot}}
 respectively}
 
-\item{additional}{whether to compute additional meaures: standardized
+\item{additional}{whether to compute additional measures: standardized
 residuals and leverage}
 
 \item{...}{other arguments passed onto \code{method}.}

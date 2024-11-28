@@ -46,14 +46,17 @@ distributional assumptions using Q-Q plots. The null hypothesis is that the
 data follows the distribution specified by the \code{dist} argument.
 In the lineup protocol the plot of the real data is embedded amongst a field of
 plots of data generated to be consistent with some null hypothesis.
-If the observe can pick the real data as different from the others, this
+If the observer can pick the real data as different from the others, this
 lends weight to the statistical significance of the structure in the plot.
 The protocol is described in Buja et al. (2009).
 }
 \details{
-Generate n - 1 null datasets and randomly position the true data.  If you
-pick the real data as being noticeably different, then you have formally
-established that it is different to with p-value 1/n.
+19 null datasets are plotted together the the true data (randomly
+positioned)  If you pick the real data as being noticeably different, then
+you have formally established that it is different to with p-value 0.05.
+
+Run the \code{decrypt} message printed in the R Console to see which
+plot represents the true data.
 }
 \examples{
 data(tips)
