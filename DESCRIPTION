@@ -30,9 +30,12 @@ Suggests:
     forecast,
     viridis,
     knitr
+Depends: 
+    R (>= 4.1.0)
 LazyData: true
 Type: Package
 LazyLoad: false
 VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Encoding: UTF-8
