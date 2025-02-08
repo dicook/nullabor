@@ -20,6 +20,7 @@ Status: OK
 
 * R version 4.4.2 (2024-10-31) -- "Pile of Leaves"
 
+Checks made using rhub::rhub_check() for environments: linux, macos, windows
 
 ## Reverse dependencies
 
