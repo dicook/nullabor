@@ -20,7 +20,9 @@ Status: OK
 
 * R version 4.4.2 (2024-10-31) -- "Pile of Leaves"
 
-Checks made using rhub::rhub_check() for environments: linux, macos, windows
+Checks made using R-CMD-check.yaml GitHub Actions on the repo for environments: 
+linux, macos, windows. It fails on the vignettes due to rmarkdown 
+not being available on GitHub, beyond my control, but all other checks pass. 
 
 ## Reverse dependencies
 
