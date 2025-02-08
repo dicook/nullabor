@@ -1,3 +1,7 @@
+# nullabor 0.3.14
+
+* Fix to qqplot for standardised residuals
+
 # nullabor 0.3.13
 
 - Updated null_lm to optionally compute leverages and standardized residuals.

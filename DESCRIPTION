@@ -1,5 +1,5 @@
 Package: nullabor
-Version: 0.3.13
+Version: 0.3.14
 Description: Tools for visual inference. Generate null data sets
     and null plots using permutation and simulation. Calculate distance metrics
     for a lineup, and examine the distributions of metrics.

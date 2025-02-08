@@ -1,24 +1,38 @@
 ## Overview 
 
-These are small changes, including removing some dependencies. Also fixed issues at https://cran.rstudio.com//web/checks/check_results_nullabor.html. And links flagged by CRAN check.
+These are small changes that fix several bugs.
 
-── R CMD check results ──────────── nullabor 0.3.12 ────
-Duration: 1m 2.3s
+- Using devtools::check()
+
+── R CMD check results ───────────────────────────────── nullabor 0.3.14 ────
+Duration: 2m 29s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
+- Using R CMD CHECK ../nullabor_0.3.14.tar.gz
+
+* DONE
+
+Status: OK
+
+
 ## Test environment
 
-* R version 4.4.1 (2024-06-14) -- "Race for Your Life"
-* https://win-builder.r-project.org/ A Note is produced that says URLs might be invalid. They have all been checked to be correct, and the correct URL, even though several exist.
-* Linux, using R-hub v2. Has an error on compiling vignettes because the build machine doesn't have Rmarkdown. The vignettes build everywhere else. 
+* R version 4.4.2 (2024-10-31) -- "Pile of Leaves"
+
 
 ## Reverse dependencies
 
+All are ok
+
+> revdep_check()
+── INIT ──────────────────────────────────────────────── Computing revdeps ──
+── INSTALL ──────────────────────────────────────────────────── 2 versions ──
 Installing DEV version of nullabor
-── CHECK ─────────────────────────────────────────── 3 packages ──
-✔ agridat 1.23                           ── E: 0     | W: 0     | N: 0    
-✔ metaviz 0.3.1                          ── E: 0     | W: 0     | N: 0    
-✔ regressinator 0.1.3                    ── E: 0     | W: 0     | N: 0    
-OK: 3                                                           
+── CHECK ────────────────────────────────────────────────────── 3 packages ──
+✔ agridat 1.24                           ── E: 0     | W: 0     | N: 0       
+✔ metaviz 0.3.1                          ── E: 0     | W: 0     | N: 0       
+✔ regressinator 0.2.0                    ── E: 0     | W: 0     | N: 0       
+OK: 3                                                                      
 BROKEN: 0
+Total time: 9 min
