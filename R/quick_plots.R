@@ -98,7 +98,7 @@ lineup_residuals <- function(model, type = 1, method = "rotate", color_points = 
   if(type == 2) {
     if(method != "pboot") { warning(paste0("Method \"", method, "\" does not generate normal residuals. Using method = \"pboot\" instead."))}
     p <- ggplot(lineup(null_lm(formula(model), method = "pboot", additional = TRUE), model.reg)) +
-          geom_qq_line(aes(sample = .data$.resid), colour = color_lines) +
+          geom_qq_line(aes(sample = .data$.stdresid), colour = color_lines) +
           geom_qq(aes(sample = .data$.stdresid), alpha = alpha_points, color = color_points) +
           facet_wrap(~ .data$.sample) +
           labs(x = "Theoretical quantiles", y = "Standardized residuals", title = "Normal Q-Q plot")
