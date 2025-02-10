@@ -21,8 +21,8 @@ lineup_qq(
 
 \item{dist}{the null distribution name. One of: "beta", "cauchy",
 "chi-squared", "exponential", "f", "gamma", "geometric", "log-normal",
- "lognormal", "logistic", "negative binomial", "normal",
- "poisson", "t", "uniform", "weibull"}
+"lognormal", "logistic", "negative binomial", "normal",
+"poisson", "t", "uniform", "weibull"}
 
 \item{params}{list of parameters of distribution. If \code{NULL}, will
 use \code{\link[MASS]{fitdistr}} to estimate them if possible. For

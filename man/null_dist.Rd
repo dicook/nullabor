@@ -18,7 +18,7 @@ use \code{\link[MASS]{fitdistr}} to estimate them.}
 }
 \value{
 a function that given \code{data} generates a null data set.
-  For use with \code{\link{lineup}} or \code{\link{rorschach}}
+For use with \code{\link{lineup}} or \code{\link{rorschach}}
 }
 \description{
 Null hypothesis: variable has specified distribution

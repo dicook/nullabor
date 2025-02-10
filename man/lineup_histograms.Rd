@@ -21,8 +21,8 @@ lineup_histograms(
 
 \item{dist}{the null distribution name. One of: "beta", "cauchy",
 "chi-squared", "exponential", "f", "gamma", "geometric", "log-normal",
- "lognormal", "logistic", "negative binomial", "binomial", "normal",
- "poisson", "t", "uniform", "weibull"}
+"lognormal", "logistic", "negative binomial", "binomial", "normal",
+"poisson", "t", "uniform", "weibull"}
 
 \item{params}{list of parameters of distribution. If \code{NULL}, will
 use \code{\link[MASS]{fitdistr}} to estimate them if possible. For
@@ -61,7 +61,6 @@ plot represents the true data.
 \examples{
 data(tips)
 lineup_histograms(tips, "total_bill", dist = "normal") # Normal distribution
-lineup_histograms(tips, "total_bill", dist = "gamma") # Gamma distribution
 
 # Some distributions require that the parameters be specified:
 lineup_histograms(tips, "size", dist = "binomial", params = list(size = 6, p = 0.3))

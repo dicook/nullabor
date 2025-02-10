@@ -14,7 +14,7 @@ polls is a data frame of 51 rows and 4 variables
 These margins are based on polls.}
 \item{Democrat}{logical vector True, if the democratic party is  the majority party in this state. }
 }
-`election` is a data frame of 51 rows and 5 variables
+\code{election} is a data frame of 51 rows and 5 variables
 \describe{
 \item{State}{State name}
 \item{Candidate}{character string of the winner: Romney or Obama}

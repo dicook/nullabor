@@ -1,3 +1,7 @@
+# nullabor 0.3.15
+
+* Reduced examples for lineup_residuals() and lineup_histogram() so passes CRAN automatic check
+
 # nullabor 0.3.14
 
 * Fix to qqplot for standardised residuals

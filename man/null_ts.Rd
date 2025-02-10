@@ -13,7 +13,7 @@ null_ts(var, modelfn)
 }
 \value{
 a function that given \code{data} generates a null data set.
-  For use with \code{\link{lineup}} or \code{\link{rorschach}}
+For use with \code{\link{lineup}} or \code{\link{rorschach}}
 }
 \description{
 Null hypothesis: data follows a time series model using auto.arima from the forecast package

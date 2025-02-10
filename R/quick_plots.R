@@ -66,7 +66,6 @@
 #' x <- lm(tip ~ total_bill, data = tips)
 #' lineup_residuals(x, type = 1) # Residuals vs Fitted
 #' lineup_residuals(x, type = 2, method = "pboot") # Normal Q-Q plot
-#' lineup_residuals(x, type = 3) # Scale-Location
 #' lineup_residuals(x, type = 4) # Residuals vs Leverage
 #'
 #' # Style the plot using color settings and ggplot2 functions:
@@ -164,7 +163,6 @@ lineup_residuals <- function(model, type = 1, method = "rotate", color_points = 
 #' @examples
 #' data(tips)
 #' lineup_histograms(tips, "total_bill", dist = "normal") # Normal distribution
-#' lineup_histograms(tips, "total_bill", dist = "gamma") # Gamma distribution
 #'
 #' # Some distributions require that the parameters be specified:
 #' lineup_histograms(tips, "size", dist = "binomial", params = list(size = 6, p = 0.3))

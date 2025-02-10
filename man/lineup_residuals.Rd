@@ -53,18 +53,16 @@ The protocol is described in Buja et al. (2009).
 }
 \details{
 Four types of plots are available:
-
-1. Residual vs fitted. Null hypothesis: variable is linear combination
-   of predictors.
-
-2. Normal Q-Q plot. Null hypothesis: errors are normal. Always uses
-   \code{method = "pboot"} to generate residuals under the null hypothesis.
-
-3. Scale-location. Null hypothesis: errors are homoscedastic.
-
-4. Residuals vs leverage. Used to identify points with high residuals
-   and high leverage, which are likely to have a strong influence on
-   the model fit.
+\enumerate{
+\item Residual vs fitted. Null hypothesis: variable is linear combination
+of predictors.
+\item Normal Q-Q plot. Null hypothesis: errors are normal. Always uses
+\code{method = "pboot"} to generate residuals under the null hypothesis.
+\item Scale-location. Null hypothesis: errors are homoscedastic.
+\item Residuals vs leverage. Used to identify points with high residuals
+and high leverage, which are likely to have a strong influence on
+the model fit.
+}
 
 19 null datasets are plotted together the the true data (randomly
 positioned). If you pick the real data as being noticeably different, then
@@ -83,7 +81,6 @@ data(tips)
 x <- lm(tip ~ total_bill, data = tips)
 lineup_residuals(x, type = 1) # Residuals vs Fitted
 lineup_residuals(x, type = 2, method = "pboot") # Normal Q-Q plot
-lineup_residuals(x, type = 3) # Scale-Location
 lineup_residuals(x, type = 4) # Residuals vs Leverage
 
 # Style the plot using color settings and ggplot2 functions:
@@ -98,7 +95,7 @@ Statistical inference for exploratory data analysis and model diagnostics,
 \emph{Phil. Trans. R. Soc. A}, 367, 4361-4383.
 
 Thulin, M. (2024) \emph{Modern Statistics with R}. Boca Raton: CRC Press.
-   ISBN 9781032512440. \url{https://www.modernstatisticswithr.com/}
+ISBN 9781032512440. \url{https://www.modernstatisticswithr.com/}
 }
 \seealso{
 null_lm

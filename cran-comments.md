@@ -1,15 +1,19 @@
 ## Overview 
 
-These are small changes that fix several bugs.
+These are small changes that fix several bugs. 
+
+Also fixed https://win-builder.r-project.org/incoming_pretest/nullabor_0.3.14_20250210_040443/Debian/00check.log where 
+the package failed automatic checks on linux because lineup_histograms() and lineup_residuals() took 5.669s and 5.574s to 
+complete on linux, by removing one example in each.
 
 - Using devtools::check()
 
-── R CMD check results ───────────────────────────────── nullabor 0.3.14 ────
+── R CMD check results ───────────────────────────────── nullabor 0.3.15 ────
 Duration: 2m 29s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
-- Using R CMD CHECK ../nullabor_0.3.14.tar.gz
+- Using R CMD CHECK ../nullabor_0.3.15.tar.gz
 
 * DONE
 
