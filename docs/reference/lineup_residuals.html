@@ -24,7 +24,7 @@ The protocol is described in Buja et al. (2009)."><!-- mathjax --><script src="h
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nullabor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.15</span>
       </span>
     </div>
 
@@ -51,7 +51,7 @@ The protocol is described in Buja et al. (2009)."><!-- mathjax --><script src="h
       <a href="../articles/nullabor-examples.html">Example lineups</a>
     </li>
     <li>
-      <a href="../articles/nullabor-regression.html">Residual plots for linear models using the nullabor package</a>
+      <a href="../articles/nullabor-regression.html">Residual plots for linear models</a>
     </li>
   </ul></li>
 <li>
@@ -151,16 +151,15 @@ or a color HEX code.</p></dd>
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p>Four types of plots are available:</p>
-<p>1. Residual vs fitted. Null hypothesis: variable is linear combination
-   of predictors.</p>
-<p>2. Normal Q-Q plot. Null hypothesis: errors are normal. Always uses
-   <code>method = "pboot"</code> to generate residuals under the null hypothesis.</p>
-<p>3. Scale-location. Null hypothesis: errors are homoscedastic.</p>
-<p>4. Residuals vs leverage. Used to identify points with high residuals
-   and high leverage, which are likely to have a strong influence on
-   the model fit.</p>
-<p>19 null datasets are plotted together the the true data (randomly
+    <p>Four types of plots are available:</p><ol><li><p>Residual vs fitted. Null hypothesis: variable is linear combination
+of predictors.</p></li>
+<li><p>Normal Q-Q plot. Null hypothesis: errors are normal. Always uses
+<code>method = "pboot"</code> to generate residuals under the null hypothesis.</p></li>
+<li><p>Scale-location. Null hypothesis: errors are homoscedastic.</p></li>
+<li><p>Residuals vs leverage. Used to identify points with high residuals
+and high leverage, which are likely to have a strong influence on
+the model fit.</p></li>
+</ol><p>19 null datasets are plotted together the the true data (randomly
 positioned). If you pick the real data as being noticeably different, then
 you have formally established that it is different to with p-value 0.05.
 Run the <code>decrypt</code> message printed in the R Console to see which
@@ -177,7 +176,7 @@ of Thulin (2024) for details and recommendations.</p>
 Statistical inference for exploratory data analysis and model diagnostics,
 <em>Phil. Trans. R. Soc. A</em>, 367, 4361-4383.</p>
 <p>Thulin, M. (2024) <em>Modern Statistics with R</em>. Boca Raton: CRC Press.
-   ISBN 9781032512440. <a href="https://www.modernstatisticswithr.com/" class="external-link">https://www.modernstatisticswithr.com/</a></p>
+ISBN 9781032512440. <a href="https://www.modernstatisticswithr.com/" class="external-link">https://www.modernstatisticswithr.com/</a></p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -189,25 +188,22 @@ Statistical inference for exploratory data analysis and model diagnostics,
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">tips</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">tip</span> <span class="op">~</span> <span class="va">total_bill</span>, data <span class="op">=</span> <span class="va">tips</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">lineup_residuals</span><span class="op">(</span><span class="va">x</span>, type <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="co"># Residuals vs Fitted</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> decrypt("wu0h F9H9 Bx cD2BHBDx VT")</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> decrypt("gwqp 2J5J c0 t8Zc5c80 Ad")</span>
 <span class="r-plt img"><img src="lineup_residuals-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu">lineup_residuals</span><span class="op">(</span><span class="va">x</span>, type <span class="op">=</span> <span class="fl">2</span>, method <span class="op">=</span> <span class="st">"pboot"</span><span class="op">)</span> <span class="co"># Normal Q-Q plot</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> decrypt("wu0h F9H9 Bx cD2BHBDx NV")</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> decrypt("gwqp 2J5J c0 t8Zc5c80 Aa")</span>
 <span class="r-plt img"><img src="lineup_residuals-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu">lineup_residuals</span><span class="op">(</span><span class="va">x</span>, type <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="co"># Scale-Location</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> decrypt("wu0h F9H9 Bx cD2BHBDx NR")</span>
-<span class="r-plt img"><img src="lineup_residuals-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu">lineup_residuals</span><span class="op">(</span><span class="va">x</span>, type <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="co"># Residuals vs Leverage</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> decrypt("wu0h F9H9 Bx cD2BHBDx NZ")</span>
-<span class="r-plt img"><img src="lineup_residuals-4.png" alt="" width="700" height="433"></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> decrypt("gwqp 2J5J c0 t8Zc5c80 AA")</span>
+<span class="r-plt img"><img src="lineup_residuals-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Style the plot using color settings and ggplot2 functions:</span></span></span>
 <span class="r-in"><span><span class="fu">lineup_residuals</span><span class="op">(</span><span class="va">x</span>, type <span class="op">=</span> <span class="fl">3</span>,</span></span>
 <span class="r-in"><span>                color_points <span class="op">=</span> <span class="st">"skyblue"</span>,</span></span>
 <span class="r-in"><span>                color_trends <span class="op">=</span> <span class="st">"darkorange"</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> decrypt("wu0h F9H9 Bx cD2BHBDx Ce")</span>
-<span class="r-plt img"><img src="lineup_residuals-5.png" alt="" width="700" height="433"></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> decrypt("gwqp 2J5J c0 t8Zc5c80 da")</span>
+<span class="r-plt img"><img src="lineup_residuals-4.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>

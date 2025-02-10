@@ -3,7 +3,7 @@ title: "Example lineups"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{Example lineups in nullabor}
+  %\VignetteIndexEntry{Example lineups}
   %\VignetteEncoding[utf8]{inputenc}
 ---  
 

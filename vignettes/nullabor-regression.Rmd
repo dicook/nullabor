@@ -1,9 +1,9 @@
 ---
-title: "Residual plots for linear models using the nullabor package"
+title: "Residual plots for linear models"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{Residual plots using the nullabor package}
+  %\VignetteIndexEntry{Residual plots for linear models}
   %\VignetteEncoding{UTF-8}
 ---  
 
