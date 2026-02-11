@@ -12,7 +12,7 @@
 #'   will attempt to extract it from the current ggplot2 plot.
 #' @param n total number of samples to generate (including true data)
 #' @param p probability of including true data with null data.
-#' @importFrom purrr rerun
+#' @importFrom purrr map
 #' @importFrom tidyr unnest
 #' @importFrom tibble tibble
 #' @importFrom stats rbinom
@@ -26,7 +26,7 @@ rorschach <- function(method, true = NULL, n = 20, p = 0) {
     }
     samples <- tibble(
       .n = seq_len(n),
-      data = purrr::rerun(n, method(true)))
+      data = purrr::map(seq_len(n), .f = function(i) method(true)))
     samples <- data.frame(tidyr::unnest(samples, data))
 #        samples <- plyr::rdply(n, method(true))
 
@@ -82,7 +82,8 @@ lineup <- function(method, true = NULL, n = 20, pos = sample(n, 1), samples = NU
     if (is.null(samples)) {
       samples <- tibble(
         .n = seq_len(n-1),
-        data = purrr::rerun(n-1, method(true)))
+        data = purrr::map(seq_len(n-1),.f = function(i) method(true)))
+
       samples <- data.frame(tidyr::unnest(samples, data))
 #      samples <- plyr::rdply(n - 1, method(true))
     }
