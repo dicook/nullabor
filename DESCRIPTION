@@ -1,5 +1,5 @@
 Package: nullabor
-Version: 0.3.15
+Version: 0.3.16
 Description: Tools for visual inference. Generate null data sets
     and null plots using permutation and simulation. Calculate distance metrics
     for a lineup, and examine the distributions of metrics.
@@ -37,5 +37,5 @@ Type: Package
 LazyLoad: false
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
 Encoding: UTF-8
+Config/roxygen2/version: 8.0.0

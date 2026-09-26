@@ -1,3 +1,8 @@
+# nullabor 0.3.16
+
+* Fix for deprecated function: purrr::rerun
+* Fix to the distance functions
+
 # nullabor 0.3.15
 
 * Reduced examples for lineup_residuals() and lineup_histogram() so passes CRAN automatic check

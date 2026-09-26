@@ -4,7 +4,7 @@
 \alias{bin_dist}
 \title{Binned Distance}
 \usage{
-bin_dist(X, PX, lineup.dat = lineup.dat, X.bin = 5, Y.bin = 5)
+bin_dist(X, PX, lineup.dat = NULL, X.bin = 5, Y.bin = 5)
 }
 \arguments{
 \item{X}{a data.frame with two variables, the first two columns

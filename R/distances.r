@@ -62,26 +62,26 @@ reg_dist <- function(X, PX, nbins = 1, intercept=TRUE, scale=TRUE) {
 #' @export
 #' @examples with(mtcars, bin_dist(data.frame(wt, mpg), data.frame(sample(wt), mpg),
 #' lineup.dat = NULL))
-bin_dist <- function (X, PX, lineup.dat = lineup.dat, X.bin = 5, Y.bin = 5)
+bin_dist <- function (X, PX, lineup.dat = NULL, X.bin = 5, Y.bin = 5)
 {
   # determine cutoff points - if lineup.dat is provided, use overall cutoff points:
   bin2d <- function(dX) {
-    if (is.null(range1)) range1 <- range(as.numeric(dX[, 1]))
-    if (is.null(range2)) range2 <- range(as.numeric(dX[, 2]))
+    if (is.null(range1)) range1 <- range(as.numeric(dX[[1]]))
+    if (is.null(range2)) range2 <- range(as.numeric(dX[[2]]))
 
     breaks1 <- seq(range1[1], range1[2], length.out=X.bin+1)
     breaks2 <- seq(range2[1], range2[2], length.out=Y.bin+1)
-    as.numeric(table(cut(as.numeric(dX[,1]), breaks=breaks1, include.lowest=TRUE),
-                     cut(dX[,2], breaks=breaks2, include.lowest=TRUE)))
+    as.numeric(table(cut(as.numeric(dX[[1]]), breaks=breaks1, include.lowest=TRUE),
+                     cut(as.numeric(dX[[2]]), breaks=breaks2, include.lowest=TRUE)))
   }
 
   range1 <- range2 <- NULL
   if (!is.null(lineup.dat)) {
-    range1 <- range(as.numeric(lineup.dat[, 1]))
-    range2 <- range(as.numeric(lineup.dat[, 2]))
+    range1 <- range(as.numeric(lineup.dat[[1]]))
+    range2 <- range(as.numeric(lineup.dat[[2]]))
   }
 
-  if (!is.numeric(X[,1])) X.bin <- length(unique(X[,1]))
+  if (!is.numeric(X[[1]])) X.bin <- length(unique(X[[1]]))
 
   sqrt(sum( (bin2d(X) - bin2d(PX))^2 ))
 }

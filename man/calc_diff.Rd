@@ -24,18 +24,21 @@ difference between the mean distance of the true plot and
 the maximum mean distance of the null plots
 }
 \description{
-Distance metric is used to calculate the mean distance between the true plot
-and all the null plots in a lineup. The difference between the mean
-distance of the true plot and the maximum mean distance of the null plots is
-calculated.
+Calculate the mean distance between the true plot and all the null plots in a lineup,
+using the provided distance, and then compute the difference between the mean
+distance of the true plot and the maximum mean distance of the null plots.
 }
 \examples{
-if(require('dplyr')){
-lineup.dat <- lineup(null_permute('mpg'), mtcars, pos = 1)
-calc_diff(lineup.dat, var = c('mpg', 'wt'), met = 'bin_dist',
-dist.arg = list(lineup.dat = lineup.dat, X.bin = 5, Y.bin = 5), pos = 1, m = 8)}
+if (require('dplyr')) {
+  lineup.dat <- lineup(null_permute('mpg'), mtcars, pos = 1, n = 8)
+  calc_diff(lineup.dat, var = c('mpg', 'wt'), met = 'bin_dist',
+    dist.arg = list(lineup.dat = lineup.dat, X.bin = 5, Y.bin = 5),
+    pos = 1, m = 8)
+}
 
-if(require('dplyr')){
-calc_diff(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg', 'wt'), met = 'reg_dist',
-dist.arg = NULL, pos = 1, m = 8)}
+if (require('dplyr')) {
+  calc_diff(lineup(null_permute('mpg'), mtcars, pos = 1, n = 8),
+            var = c('mpg', 'wt'), met = 'reg_dist',
+            dist.arg = NULL, pos = 1, m = 8)
+}
 }

@@ -23,13 +23,14 @@ calc_mean_dist(lineup.dat, var, met, pos, dist.arg = NULL, m = 20)
 the mean distances of each plot in the lineup
 }
 \description{
-Distance metric is used to calculate the mean distance between the true plot
-and all the null plots in a lineup. The mean distances of each null plot to all
-the other null plots are calculated. The mean distances are returned for all the plots
-in the lineup.
+Calculates the mean distance, using the provided metric, between the true plot
+and all the null plots in a lineup, and all the null plots in the lineup from
+each other.
 }
 \examples{
 if(require('dplyr')){
-calc_mean_dist(lineup(null_permute('mpg'), mtcars, pos = 1), var = c('mpg', 'wt'),
-met = 'reg_dist', pos = 1, m = 10)}
+calc_mean_dist(lineup(null_permute('mpg'), mtcars, pos = 1, n = 10),
+  var = c('mpg', 'wt'),
+  met = 'reg_dist', pos = 1, m = 10)
+}
 }
