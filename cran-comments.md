@@ -8,25 +8,16 @@ complete on linux, by removing one example in each.
 
 - Using devtools::check()
 
-── R CMD check results ───────────────────────────────── nullabor 0.3.15 ────
-Duration: 2m 29s
+── R CMD check results ───────────────────────────────── nullabor 0.3.16 ────
+Duration: 1m 8.7s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
-- Using R CMD CHECK ../nullabor_0.3.15.tar.gz
-
-* DONE
-
-Status: OK
-
-
 ## Test environment
 
-* R version 4.4.2 (2024-10-31) -- "Pile of Leaves"
+* R version 4.6.1 (2026-06-24) -- "Happy Hop"
 
-Checks made using R-CMD-check.yaml GitHub Actions on the repo for environments: 
-linux, macos, windows. It fails on the vignettes due to rmarkdown 
-not being available on GitHub, beyond my control, but all other checks pass. 
+Using `rhub::rhub_check()` 
 
 ## Reverse dependencies
 
