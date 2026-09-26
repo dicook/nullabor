@@ -29,7 +29,8 @@ Imports:
 Suggests:
     forecast,
     viridis,
-    knitr
+    knitr,
+    rmarkdown
 Depends: 
     R (>= 4.1.0)
 LazyData: true
