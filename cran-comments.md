@@ -1,10 +1,8 @@
 ## Overview 
 
-These are small changes that fix several bugs. 
+These are small changes that address changes in purrr.
 
-Also fixed https://win-builder.r-project.org/incoming_pretest/nullabor_0.3.14_20250210_040443/Debian/00check.log where 
-the package failed automatic checks on linux because lineup_histograms() and lineup_residuals() took 5.669s and 5.574s to 
-complete on linux, by removing one example in each.
+## Checks
 
 - Using devtools::check()
 
@@ -17,7 +15,7 @@ Duration: 1m 8.7s
 
 * R version 4.6.1 (2026-06-24) -- "Happy Hop"
 
-Using `rhub::rhub_check()` 
+Using `rhub::rhub_check()` at https://github.com/dicook/nullabor/actions/runs/36212952059, suggests all is good.
 
 ## Reverse dependencies
 
